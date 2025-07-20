@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 // import { Login } from './components/login/login';
 import { PrimeNG } from 'primeng/config';
 import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [Header],
+  imports: [Header, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
