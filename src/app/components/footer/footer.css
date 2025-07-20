@@ -1,0 +1,31 @@
+footer {
+  display: grid;
+  width: 100%;
+  height: max-content;
+  grid-template-columns: 60% 20% 20%;
+  grid-template-rows: 60% 1fr;
+  grid-template-areas:
+    "footer-principal footer-secondary footer-tertiary"
+    "footer-socials footer-secondary footer-tertiary";
+}
+
+footer > div {
+  background-color: rgba(136, 136, 136, 0.397);
+  color: white;
+}
+
+.principal {
+  grid-area: footer-principal;
+}
+
+.secondary {
+  grid-area: footer-secondary;
+}
+
+.tertiary {
+  grid-area: footer-tertiary;
+}
+
+.socials {
+  grid-area: footer-socials;
+}
