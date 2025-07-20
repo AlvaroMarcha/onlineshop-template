@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Login } from './components/login/login';
+// import { RouterOutlet } from '@angular/router';
+// import { Login } from './components/login/login';
 import { PrimeNG } from 'primeng/config';
+import { Header } from './components/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Login],
+  imports: [Header],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
