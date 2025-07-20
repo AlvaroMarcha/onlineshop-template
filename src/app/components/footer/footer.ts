@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { Image } from 'primeng/image';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [Image],
   templateUrl: './footer.html',
-  styleUrl: './footer.css'
+  styleUrl: './footer.css',
 })
-export class Footer {
-
-}
+export class Footer {}
