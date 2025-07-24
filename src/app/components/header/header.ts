@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
 import { ImageModule } from 'primeng/image';
+import { Router } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-header',
   imports: [Menubar, ImageModule],
   templateUrl: './header.html',
@@ -12,11 +14,14 @@ import { ImageModule } from 'primeng/image';
 export class Header implements OnInit {
   items: MenuItem[] | undefined;
 
+  constructor(public router: Router) {}
+
   ngOnInit() {
     this.items = [
       {
         label: 'Inicio',
         icon: 'pi pi-home',
+        routerLink: '/',
       },
       {
         label: 'Tienda',
