@@ -10,7 +10,11 @@
       />
     </ng-template>
     <ng-template pTemplate="end">
-      <button class="stl-button pi pi-user" style="font-size: 1.4rem"></button>
+      <button
+        class="stl-button pi pi-user"
+        style="font-size: 1.4rem"
+        (click)="router.navigate(['/login'])"
+      ></button>
     </ng-template>
   </p-menubar>
 </div>
