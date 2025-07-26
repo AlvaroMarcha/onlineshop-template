@@ -29,3 +29,29 @@ footer > div {
 .socials {
   grid-area: footer-socials;
 }
+
+/* Media Queries */
+/* Pantallas pequeñas */
+@media (max-width: 720px) {
+  footer {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "footer-principal"
+      "footer-secondary"
+      "footer-tertiary"
+      "footer-socials";
+  }
+
+  footer > div {
+    width: 100%;
+    text-align: center;
+  }
+
+  .socials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
