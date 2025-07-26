@@ -1,0 +1,24 @@
+<p-card class="login-card">
+  <ng-template #title>Iniciar Sesión</ng-template>
+  <input [(ngModel)]="userValue" type="text" pInputText placeholder="Usuario" />
+  <p-password
+    style="width: 100%"
+    [(ngModel)]="passwordValue"
+    placeholder="Contraseña"
+    [feedback]="false"
+  />
+  <br />
+  <p-button
+    [style]="{width: '100%'}"
+    label="Entrar"
+    icon="pi pi-check"
+    iconPos="left"
+    size="small"
+  />
+  <p-button
+    [style]="{width: '100%', marginTop: '10px'}"
+    label="¿Contraseña olvidada?"
+    link
+    ripple="false"
+  />
+</p-card>
