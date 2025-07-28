@@ -10,11 +10,12 @@
       />
     </ng-template>
     <ng-template pTemplate="end">
-      <button
-        class="stl-button pi pi-user"
-        style="font-size: 1.4rem"
-        (click)="router.navigate(['/login'])"
-      ></button>
+      <p-button
+        icon="pi pi-user"
+        [rounded]="true"
+        (click)="menu.toggle($event)"
+      />
+      <p-tieredmenu #menu [model]="itemsTiered" [popup]="true" />
     </ng-template>
   </p-menubar>
 </div>
