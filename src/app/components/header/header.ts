@@ -59,8 +59,13 @@ export class Header implements OnInit {
     this.itemsTiered = [
       {
         label: 'Iniciar sesión',
-        icon: 'pi pi-login',
+        icon: 'pi pi-user',
         routerLink: 'login',
+      },
+      {
+        label: 'Registrarse',
+        icon: 'pi pi-user-plus',
+        routerLink: 'register',
       },
     ];
   }

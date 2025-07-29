@@ -1,0 +1,67 @@
+<p-card class="register-card">
+  <ng-template #title>Registrarse</ng-template>
+  <div class="flex flex-row gap-4">
+    <input
+      [style]="{width: '50%', float: 'left'}"
+      [(ngModel)]="nameValue"
+      type="text"
+      pInputText
+      placeholder="Nombre"
+    />
+    <input
+      [(ngModel)]="surnamesValue"
+      type="text"
+      pInputText
+      placeholder="Apellidos"
+    />
+  </div>
+  <input [(ngModel)]="userValue" type="text" pInputText placeholder="Usuario" />
+  <input [(ngModel)]="emailValue" type="text" pInputText placeholder="Email" />
+  <p-inputmask
+    class="w-full sm:w-40 float-left"
+    mask="+34 999-999-999"
+    [(ngModel)]="phoneValue"
+    placeholder="Teléfono"
+  />
+  <div class="mt-10">
+    <p-password
+      style="width: 100%; margin-bottom: 0px !important"
+      [(ngModel)]="passwordValue1"
+      placeholder="Contraseña"
+      [feedback]="true"
+    />
+    <p-password
+      style="width: 100%"
+      [(ngModel)]="passwordValue2"
+      placeholder="Repita su contraseña"
+      [feedback]="true"
+    />
+  </div>
+  <div class="card flex justify-start m-2">
+    <div class="flex flex-col gap-4">
+      <div *ngFor="let term of legal; let i = index" class="flex items-center">
+        <p-checkbox
+          [inputId]="i.toString()"
+          [value]="term"
+          [(ngModel)]="term.value"
+        />
+        <label [for]="term.name" class="ml-2"> {{ term.label }} </label>
+      </div>
+    </div>
+  </div>
+  <br />
+  <p-button
+    [style]="{width: '100%'}"
+    label="Registrarse"
+    icon="pi pi-user-plus"
+    iconPos="left"
+    size="small"
+  />
+  <p-button
+    [style]="{width: '100%', marginTop: '10px'}"
+    label="¿Ya tienes cuenta? Inicia sesión"
+    (click)="router.navigate(['/login'])"
+    link=""
+    ripple="false"
+  />
+</p-card>
