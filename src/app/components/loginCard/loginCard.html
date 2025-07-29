@@ -21,4 +21,11 @@
     link
     ripple="false"
   />
+  <p-button
+    [style]="{width: '100%', marginTop: '10px'}"
+    label="¿No tienes cuenta aún? Crea una ahora"
+    link
+    ripple="false"
+    (click)="router.navigate(['register'])"
+  />
 </p-card>
