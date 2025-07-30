@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" id="header">
   <p-menubar [model]="items">
     <ng-template pTemplate="start">
       <p-image
@@ -63,4 +63,7 @@
   <div class="card flex justify-center">
     <p-toast [breakpoints]="{ '920px': { width: '90%' } }" />
   </div>
+</div>
+<div class="fixed bottom-0 right-0 m-4">
+  <app-up-button></app-up-button>
 </div>

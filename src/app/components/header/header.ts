@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { Cart } from '../cart/cart';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { UpButton } from '../up-button/up-button';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ import { MessageService } from 'primeng/api';
     DialogModule,
     Cart,
     ToastModule,
+    UpButton,
   ],
   providers: [MessageService],
   templateUrl: './header.html',
