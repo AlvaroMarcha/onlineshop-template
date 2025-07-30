@@ -11,6 +11,13 @@
     </ng-template>
     <ng-template pTemplate="end">
       <p-button
+        [style]="{ 'margin-right': '50px' }"
+        icon="pi pi-cart-minus"
+        [rounded]="true"
+        (click)="showDialog()"
+        link
+      />
+      <p-button
         icon="pi pi-user"
         [rounded]="true"
         (click)="menu.toggle($event)"
@@ -18,4 +25,42 @@
       <p-tieredmenu #menu [model]="itemsTiered" [popup]="true" />
     </ng-template>
   </p-menubar>
+
+  <!-- Cart Dialog -->
+  <p-dialog
+    styleClass="w-full md:max-w-[35rem]"
+    header="Carrito de la compra"
+    [modal]="true"
+    [(visible)]="visible"
+    position="bottomright"
+    [baseZIndex]="10000"
+    [draggable]="false"
+    [resizable]="false"
+    [dismissableMask]="true"
+  >
+    <div class="px-4 pb-4">
+      <app-cart></app-cart>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex flex-col md:flex-row w-full">
+        <p-button
+          styleClass="flex w-full md:w-[350px]"
+          label="Pagar"
+        ></p-button>
+        <p-button
+          styleClass="flex w-full md:ml-2 mt-2 md:mt-0"
+          label="Pagar"
+          label="Vaciar carrito"
+          severity="danger"
+          (click)="visible = false"
+          (click)="showToastEmtpyCart()"
+        />
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <div class="card flex justify-center">
+    <p-toast [breakpoints]="{ '920px': { width: '90%' } }" />
+  </div>
 </div>

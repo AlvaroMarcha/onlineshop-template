@@ -5,19 +5,33 @@ import { ImageModule } from 'primeng/image';
 import { Router } from '@angular/router';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { Cart } from '../cart/cart';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [Menubar, ImageModule, TieredMenuModule, ButtonModule],
+  imports: [
+    Menubar,
+    ImageModule,
+    TieredMenuModule,
+    ButtonModule,
+    DialogModule,
+    Cart,
+    ToastModule,
+  ],
+  providers: [MessageService],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header implements OnInit {
   items: MenuItem[] | undefined;
   itemsTiered: MenuItem[] | undefined;
+  visible = false;
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, public messageService: MessageService) {}
 
   ngOnInit() {
     // Define the main menu items
@@ -68,5 +82,18 @@ export class Header implements OnInit {
         routerLink: 'register',
       },
     ];
+  }
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  showToastEmtpyCart() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Carrito vaciado',
+      detail: 'No tienes nada en el carrito',
+      life: 3000,
+    });
   }
 }
