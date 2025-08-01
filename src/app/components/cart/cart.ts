@@ -1,22 +1,12 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { DataViewModule } from 'primeng/dataview';
 import { Product } from '../../type/types';
 import { CommonModule } from '@angular/common';
-import { InputNumber } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { PrimengModule } from '../../shared/primeng/primeng-module';
 
 @Component({
   selector: 'app-cart',
-  imports: [
-    ButtonModule,
-    TagModule,
-    CommonModule,
-    DataViewModule,
-    InputNumber,
-    FormsModule,
-  ],
+  imports: [CommonModule, FormsModule, PrimengModule],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })

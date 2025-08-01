@@ -1,30 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { Menubar } from 'primeng/menubar';
-import { ImageModule } from 'primeng/image';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
 import { Cart } from '../cart/cart';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { UpButton } from '../up-button/up-button';
-
+import { PrimengModule } from '../../shared/primeng/primeng-module';
+import { ContactCard } from '../contact-card/contact-card';
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [
-    Menubar,
-    ImageModule,
-    TieredMenuModule,
-    ButtonModule,
-    DialogModule,
-    Cart,
-    ToastModule,
-    UpButton,
-  ],
   providers: [MessageService],
+  imports: [PrimengModule, Cart, UpButton],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -64,6 +49,7 @@ export class Header implements OnInit {
       {
         label: 'Contact',
         icon: 'pi pi-envelope',
+        routerLink: '/contact',
       },
       {
         label: 'Nosotros',

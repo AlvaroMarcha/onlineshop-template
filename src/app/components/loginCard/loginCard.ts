@@ -1,20 +1,11 @@
 import { Component } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
+import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginCard',
-  imports: [
-    CardModule,
-    ButtonModule,
-    InputTextModule,
-    PasswordModule,
-    FormsModule,
-  ],
+  imports: [FormsModule, PrimengModule],
   templateUrl: './loginCard.html',
   styleUrl: './loginCard.css',
 })

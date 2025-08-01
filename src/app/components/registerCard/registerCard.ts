@@ -1,27 +1,13 @@
 import { Component } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputMaskModule } from 'primeng/inputmask';
-import { CheckboxModule } from 'primeng/checkbox';
+import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { Terms } from '../../type/types';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-card',
-  imports: [
-    CardModule,
-    ButtonModule,
-    InputTextModule,
-    PasswordModule,
-    FormsModule,
-    InputMaskModule,
-    CheckboxModule,
-    CommonModule,
-  ],
+  imports: [FormsModule, CommonModule, PrimengModule],
   templateUrl: './registerCard.html',
   styleUrl: './registerCard.css',
 })
