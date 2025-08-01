@@ -1,39 +1,49 @@
 <p-card class="register-card">
-  <ng-template #title>Registrarse</ng-template>
+  <ng-template #title>{{ 'REGISTER.TITLE' | translate }}</ng-template>
   <div class="flex flex-row gap-4">
     <input
       [style]="{width: '50%', float: 'left'}"
       [(ngModel)]="nameValue"
       type="text"
       pInputText
-      placeholder="Nombre"
+      [placeholder]="'REGISTER.NAME' | translate"
     />
     <input
       [(ngModel)]="surnamesValue"
       type="text"
       pInputText
-      placeholder="Apellidos"
+      [placeholder]="'REGISTER.SURNAMES' | translate"
     />
   </div>
-  <input [(ngModel)]="userValue" type="text" pInputText placeholder="Usuario" />
-  <input [(ngModel)]="emailValue" type="text" pInputText placeholder="Email" />
+  <input
+    [(ngModel)]="userValue"
+    type="text"
+    pInputText
+    [placeholder]="'REGISTER.USERNAME' | translate"
+  />
+  <input
+    [(ngModel)]="emailValue"
+    type="text"
+    pInputText
+    [placeholder]="'REGISTER.EMAIL' | translate"
+  />
   <p-inputmask
     class="w-full sm:w-40 float-left"
     mask="+34 999-999-999"
     [(ngModel)]="phoneValue"
-    placeholder="Teléfono"
+    [placeholder]="'REGISTER.PHONE' | translate"
   />
   <div class="mt-10">
     <p-password
       style="width: 100%; margin-bottom: 0px !important"
       [(ngModel)]="passwordValue1"
-      placeholder="Contraseña"
+      [placeholder]="'REGISTER.PASSWORD' | translate"
       [feedback]="true"
     />
     <p-password
       style="width: 100%"
       [(ngModel)]="passwordValue2"
-      placeholder="Repita su contraseña"
+      [placeholder]="'REGISTER.REPEAT_PASSWORD' | translate"
       [feedback]="true"
     />
   </div>
@@ -45,21 +55,21 @@
           [value]="term"
           [(ngModel)]="term.value"
         />
-        <label [for]="term.name" class="ml-2"> {{ term.label }} </label>
+        <label [for]="term.name" class="ml-2"> {{ term.label | translate }} </label>
       </div>
     </div>
   </div>
   <br />
   <p-button
     [style]="{width: '100%'}"
-    label="Registrarse"
+    [label]="'REGISTER.SUBMIT' | translate"
     icon="pi pi-user-plus"
     iconPos="left"
     size="small"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"
-    label="¿Ya tienes cuenta? Inicia sesión"
+    [label]="'REGISTER.ALREADY_ACCOUNT' | translate"
     (click)="router.navigate(['/login'])"
     link=""
     ripple="false"
