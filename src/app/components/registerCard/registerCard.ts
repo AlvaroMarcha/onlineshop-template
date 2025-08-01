@@ -4,10 +4,11 @@ import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { Terms } from '../../type/types';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register-card',
-  imports: [FormsModule, CommonModule, PrimengModule],
+  imports: [FormsModule, CommonModule, PrimengModule, TranslateModule],
   templateUrl: './registerCard.html',
   styleUrl: './registerCard.css',
 })
@@ -26,12 +27,12 @@ export class RegisterCard {
     {
       name: 'Terms',
       value: false,
-      label: 'Acepto los terminos y condiciones',
+      label: 'REGISTER.ACCEPT_TERMS',
     },
     {
       name: 'Privacy',
       value: false,
-      label: 'Acepto la politica de privacidad',
+      label: 'REGISTER.ACCEPT_PRIVACY',
     },
   ];
 }

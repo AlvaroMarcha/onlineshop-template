@@ -20,9 +20,11 @@ import { PrimengModule } from './shared/primeng/primeng-module';
 export class App {
   protected title = 'todo';
 
-  constructor(private primeng: PrimeNG) {}
+  constructor(private primeng: PrimeNG, private translate: TranslateService) {}
 
   ngOnInit() {
     this.primeng.ripple.set(true);
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
   }
 }

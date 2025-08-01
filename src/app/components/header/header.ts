@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { Cart } from '../cart/cart';
 import { UpButton } from '../up-button/up-button';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
-import { ContactCard } from '../contact-card/contact-card';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   standalone: true,
   selector: 'app-header',
   providers: [MessageService],
-  imports: [PrimengModule, Cart, UpButton],
+  imports: [PrimengModule, Cart, UpButton, TranslateModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -18,41 +18,47 @@ export class Header implements OnInit {
   itemsTiered: MenuItem[] | undefined;
   visible = false;
 
-  constructor(public router: Router, public messageService: MessageService) {}
+  constructor(
+    public router: Router,
+    public messageService: MessageService,
+    private translate: TranslateService
+  ) {}
+
+  currentLang = 'es';
 
   ngOnInit() {
     // Define the main menu items
     this.items = [
       {
-        label: 'Inicio',
+        label: this.translate.instant('HEADER.MENU.HOME'),
         icon: 'pi pi-home',
         routerLink: '/',
       },
       {
-        label: 'Tienda',
+        label: this.translate.instant('HEADER.MENU.SHOP'),
         icon: 'pi pi-cart-minus',
         items: [
           {
-            label: 'Cat 1',
+            label: this.translate.instant('HEADER.MENU.CAT1'),
             icon: 'pi pi-list',
           },
           {
-            label: 'Cat 2',
+            label: this.translate.instant('HEADER.MENU.CAT2'),
             icon: 'pi pi-list',
           },
           {
-            label: 'Cat 3',
+            label: this.translate.instant('HEADER.MENU.CAT3'),
             icon: 'pi pi-list',
           },
         ],
       },
       {
-        label: 'Contact',
+        label: this.translate.instant('HEADER.MENU.CONTACT'),
         icon: 'pi pi-envelope',
         routerLink: '/contact',
       },
       {
-        label: 'Nosotros',
+        label: this.translate.instant('HEADER.MENU.ABOUT'),
         icon: 'pi pi-info-circle',
       },
     ];
@@ -60,12 +66,12 @@ export class Header implements OnInit {
     // Tiered menu items
     this.itemsTiered = [
       {
-        label: 'Iniciar sesión',
+        label: this.translate.instant('HEADER.LOGIN'),
         icon: 'pi pi-user',
         routerLink: 'login',
       },
       {
-        label: 'Registrarse',
+        label: this.translate.instant('HEADER.REGISTER'),
         icon: 'pi pi-user-plus',
         routerLink: 'register',
       },
@@ -76,11 +82,17 @@ export class Header implements OnInit {
     this.visible = true;
   }
 
+  toggleLanguage() {
+    this.currentLang = this.currentLang === 'es' ? 'en' : 'es';
+    this.translate.use(this.currentLang);
+    this.ngOnInit();
+  }
+
   showToastEmtpyCart() {
     this.messageService.add({
       severity: 'success',
-      summary: 'Carrito vaciado',
-      detail: 'No tienes nada en el carrito',
+      summary: this.translate.instant('HEADER.EMPTY_CART_SUMMARY'),
+      detail: this.translate.instant('HEADER.EMPTY_CART_DETAIL'),
       life: 3000,
     });
   }

@@ -1,0 +1,42 @@
+{
+  "HEADER": {
+    "CART_DIALOG_TITLE": "Carrito de la compra",
+    "PAY": "Pagar",
+    "CLEAR_CART": "Vaciar carrito",
+    "MENU": {
+      "HOME": "Inicio",
+      "SHOP": "Tienda",
+      "CAT1": "Cat 1",
+      "CAT2": "Cat 2",
+      "CAT3": "Cat 3",
+      "CONTACT": "Contacto",
+      "ABOUT": "Nosotros"
+    },
+    "LOGIN": "Iniciar sesión",
+    "REGISTER": "Registrarse",
+    "EMPTY_CART_SUMMARY": "Carrito vaciado",
+    "EMPTY_CART_DETAIL": "No tienes nada en el carrito"
+  },
+  "LOGIN": {
+    "TITLE": "Iniciar Sesión",
+    "USERNAME": "Usuario",
+    "PASSWORD": "Contraseña",
+    "SUBMIT": "Entrar",
+    "FORGOT_PASSWORD": "¿Contraseña olvidada?",
+    "NO_ACCOUNT": "¿No tienes cuenta aún? Crea una ahora"
+  },
+  "REGISTER": {
+    "TITLE": "Registrarse",
+    "NAME": "Nombre",
+    "SURNAMES": "Apellidos",
+    "USERNAME": "Usuario",
+    "EMAIL": "Email",
+    "PHONE": "Teléfono",
+    "PASSWORD": "Contraseña",
+    "REPEAT_PASSWORD": "Repita su contraseña",
+    "ACCEPT_TERMS": "Acepto los terminos y condiciones",
+    "ACCEPT_PRIVACY": "Acepto la politica de privacidad",
+    "SUBMIT": "Registrarse",
+    "ALREADY_ACCOUNT": "¿Ya tienes cuenta? Inicia sesión"
+  }
+}

@@ -18,6 +18,11 @@
         link
       />
       <p-button
+        icon="pi pi-globe"
+        [rounded]="true"
+        (click)="toggleLanguage()"
+      />
+      <p-button
         icon="pi pi-user"
         [rounded]="true"
         (click)="menu.toggle($event)"
@@ -29,7 +34,7 @@
   <!-- Cart Dialog -->
   <p-dialog
     styleClass="w-full md:max-w-[35rem]"
-    header="Carrito de la compra"
+    [header]="'HEADER.CART_DIALOG_TITLE' | translate"
     [modal]="true"
     [(visible)]="visible"
     position="bottomright"
@@ -46,15 +51,13 @@
       <div class="flex flex-col md:flex-row w-full">
         <p-button
           styleClass="flex w-full md:w-[350px]"
-          label="Pagar"
+          [label]="'HEADER.PAY' | translate"
         ></p-button>
         <p-button
           styleClass="flex w-full md:ml-2 mt-2 md:mt-0"
-          label="Pagar"
-          label="Vaciar carrito"
+          [label]="'HEADER.CLEAR_CART' | translate"
           severity="danger"
-          (click)="visible = false"
-          (click)="showToastEmtpyCart()"
+          (click)="visible = false; showToastEmtpyCart()"
         />
       </div>
     </ng-template>
