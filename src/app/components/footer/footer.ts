@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Image } from 'primeng/image';
+import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [Image, RouterLink],
+  imports: [RouterLink, PrimengModule],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })
