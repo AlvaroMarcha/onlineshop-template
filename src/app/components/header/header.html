@@ -10,8 +10,19 @@
       />
     </ng-template>
     <ng-template pTemplate="end">
+      <p-toggleButton
+        [(ngModel)]="isDarkMode"
+        onLabel="Oscuro"
+        offLabel="Claro"
+        [onIcon]="'pi pi-moon'"
+        offIcon="pi pi-sun"
+        size="small"
+        styleClass="min-w-10 mr-2"
+        (ngModelChange)="toggleDarkMode()"
+      >
+      </p-toggleButton>
       <p-button
-        [style]="{ 'margin-right': '50px' }"
+        class="mr-2"
         icon="pi pi-cart-minus"
         [rounded]="true"
         (click)="showDialog()"
