@@ -1,0 +1,76 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;             
+  max-width: 1200px;         
+  margin: 0 auto;
+}
+
+
+.about-hero {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  flex: 1 1 100%;
+}
+
+
+.about-values {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.value-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 15px;
+  flex: 1 1 calc(50% - 15px); 
+  text-align: center;
+}
+
+.about-team-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0 10px;
+  color: #333;
+}
+.about-values-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0 10px;
+  color: #333;
+}
+
+.about-team {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 15px;
+  flex: 1 1 calc(33% - 15px); 
+  text-align: center;
+}
+
+.team-card i {
+  color: #555;
+}
+
+.about-button {
+  align-self: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .value-card, .team-card {
+    flex: 1 1 100%; 
+  }
+}

@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
+import { Button } from "primeng/button";
+import { Card } from "primeng/card";
+import { Divider } from "primeng/divider";
 
 @Component({
   selector: 'app-init-page',
-  imports: [PrimengModule, TranslateModule],
+  imports: [TranslateModule, Button, Card, Divider],
   templateUrl: './init-page.html',
   styleUrl: './init-page.css',
   standalone: true,

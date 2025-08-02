@@ -1,0 +1,41 @@
+<div class="about-container">
+ 
+  <p-card class="about-hero">
+    <ng-template #title>{{ 'about.title' | translate }}</ng-template>
+    <p>{{ 'about.description' | translate }}</p>
+  </p-card>
+
+<h2 class="about-values-title">{{ 'about.values' | translate }}</h2>
+
+  <div class="about-values">
+    <p-card class="value-card">
+      <i class="pi pi-heart"></i>
+      <p>{{ 'about.commitment' | translate }}</p>
+    </p-card>
+    <p-card class="value-card">
+      <i class="pi pi-globe"></i>
+      <p>{{ 'about.innovation' | translate }}</p>
+    </p-card>
+  </div>
+
+<h2 class="about-team-title">{{ 'about.our_team' | translate }}</h2>
+
+  <div class="about-team">
+    <p-card class="team-card" *ngFor="let member of team">
+      <ng-template #title>
+        <i class="pi pi-user" style="font-size: 1.5rem; margin-right: 8px;"></i>
+        {{ member.name }}
+      </ng-template>
+      <p>{{ member.role }}</p>
+      <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+    </p-card>
+  </div>
+
+  <!--Button Cotnact-->
+  <p-button
+  label="{{ 'about.contact_us' | translate }}"
+  icon="pi pi-envelope"
+  class="about-button"
+  routerLink="/contact">
+</p-button>
+</div>

@@ -29,8 +29,11 @@
     <ul style="margin: 20px 40px 20px 20px; cursor: pointer">
       <li class="underline">{{ 'header.home' | translate }}</li>
       <li class="underline">{{ 'header.shop' | translate }}</li>
-      <li class="underline">{{ 'header.contact' | translate }}</li>
-      <li class="underline">{{ 'header.about' | translate }}</li>
+      <li class="underline">
+        <a routerLink="/contact">{{ 'header.contact' | translate }}</a></li>
+      <li class="underline">
+        <a routerLink="/about">{{ 'header.about' | translate }}</a>
+      </li>
       <li class="underline">{{ 'header.login' | translate }}</li>
       <li class="underline">{{ 'header.register' | translate }}</li>
     </ul>
