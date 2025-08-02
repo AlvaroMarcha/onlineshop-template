@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Cart } from '../cart/cart';
 import { UpButton } from '../up-button/up-button';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../services/language-service';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -21,57 +22,57 @@ export class Header implements OnInit {
   constructor(
     public router: Router,
     public messageService: MessageService,
-    private translate: TranslateService
+    private lang: LanguageService
   ) {}
 
   currentLang = 'es';
 
-  ngOnInit() {
-    // Define the main menu items
+  async ngOnInit() {
+    await this.generateMenus();
+    this.lang.onLanguageChange(() => {
+      this.generateMenus();
+    });
+  }
+
+  async generateMenus() {
+    const t = await this.lang.tMany([
+      'header.home',
+      'header.shop',
+      'header.cat1',
+      'header.cat2',
+      'header.cat3',
+      'header.contact',
+      'header.about',
+      'header.login',
+      'header.register',
+      'header.cart',
+      'header.empty_cart_summary',
+      'header.empty_cart_detail',
+    ]);
+
     this.items = [
+      { label: t['header.home'], icon: 'pi pi-home', routerLink: '/' },
       {
-        label: this.translate.instant('HEADER.MENU.HOME'),
-        icon: 'pi pi-home',
-        routerLink: '/',
-      },
-      {
-        label: this.translate.instant('HEADER.MENU.SHOP'),
+        label: t['header.shop'],
         icon: 'pi pi-cart-minus',
         items: [
-          {
-            label: this.translate.instant('HEADER.MENU.CAT1'),
-            icon: 'pi pi-list',
-          },
-          {
-            label: this.translate.instant('HEADER.MENU.CAT2'),
-            icon: 'pi pi-list',
-          },
-          {
-            label: this.translate.instant('HEADER.MENU.CAT3'),
-            icon: 'pi pi-list',
-          },
+          { label: t['header.cat1'], icon: 'pi pi-list' },
+          { label: t['header.cat2'], icon: 'pi pi-list' },
+          { label: t['header.cat3'], icon: 'pi pi-list' },
         ],
       },
       {
-        label: this.translate.instant('HEADER.MENU.CONTACT'),
+        label: t['header.contact'],
         icon: 'pi pi-envelope',
         routerLink: '/contact',
       },
-      {
-        label: this.translate.instant('HEADER.MENU.ABOUT'),
-        icon: 'pi pi-info-circle',
-      },
+      { label: t['header.about'], icon: 'pi pi-info-circle' },
     ];
 
-    // Tiered menu items
     this.itemsTiered = [
+      { label: t['header.login'], icon: 'pi pi-user', routerLink: 'login' },
       {
-        label: this.translate.instant('HEADER.LOGIN'),
-        icon: 'pi pi-user',
-        routerLink: 'login',
-      },
-      {
-        label: this.translate.instant('HEADER.REGISTER'),
+        label: t['header.register'],
         icon: 'pi pi-user-plus',
         routerLink: 'register',
       },
@@ -83,16 +84,19 @@ export class Header implements OnInit {
   }
 
   toggleLanguage() {
-    this.currentLang = this.currentLang === 'es' ? 'en' : 'es';
-    this.translate.use(this.currentLang);
-    this.ngOnInit();
+    const nextLang = this.lang.getCurrentLanguage() === 'es' ? 'en' : 'es';
+    this.lang.changeLanguage(nextLang);
   }
+  async showToastEmtpyCart() {
+    const t = await this.lang.tMany([
+      'header.empty_cart_summary',
+      'header.empty_cart_detail',
+    ]);
 
-  showToastEmtpyCart() {
     this.messageService.add({
       severity: 'success',
-      summary: this.translate.instant('HEADER.EMPTY_CART_SUMMARY'),
-      detail: this.translate.instant('HEADER.EMPTY_CART_DETAIL'),
+      summary: t['header.empty_cart_summary'],
+      detail: t['header.empty_cart_detail'],
       life: 3000,
     });
   }
