@@ -4,16 +4,11 @@ import { PrimeNG } from 'primeng/config';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { PrimengModule } from './shared/primeng/primeng-module';
-// import { TranslateConfigModule } from './shared/translate/translate-module';
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
-  imports: [
-    Header,
-    Footer,
-    RouterOutlet,
-    PrimengModule /*TranslateConfigModule*/,
-  ],
+  standalone: true,
+  imports: [Header, Footer, RouterOutlet, PrimengModule, TranslateModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -24,7 +19,7 @@ export class App {
 
   ngOnInit() {
     this.primeng.ripple.set(true);
-    this.translate.setDefaultLang('es');
-    this.translate.use('es');
+    this.translate.addLangs(['en', 'es']);
+    this.translate.setFallbackLang('es');
   }
 }
