@@ -14,6 +14,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TextareaModule } from 'primeng/textarea';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AvatarModule } from 'primeng/avatar';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [],
@@ -34,6 +38,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     PasswordModule,
     InputMaskModule,
     CheckboxModule,
+    TextareaModule,
+    AnimateOnScrollModule,
+    AvatarModule,
+    DividerModule,
   ],
   exports: [
     Menubar,
@@ -50,6 +58,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     PasswordModule,
     InputMaskModule,
     CheckboxModule,
+    TextareaModule,
+    AnimateOnScrollModule,
+    AvatarModule,
+    DividerModule,
   ],
 })
 export class PrimengModule {}
