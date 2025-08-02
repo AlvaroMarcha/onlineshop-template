@@ -5,14 +5,16 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-loginCard',
+  selector: 'app-contact-card',
   imports: [FormsModule, PrimengModule, TranslateModule],
-  templateUrl: './loginCard.html',
-  styleUrl: './loginCard.css',
+  templateUrl: './contact-card.html',
+  styleUrl: './contact-card.css',
 })
-export class LoginCard {
-  userValue!: string;
-  passwordValue!: string;
+export class ContactCard {
+  nameValue: string = '';
+  emailValue: string = '';
+  messageValue: string = '';
+  topicValue: string = '';
 
-  constructor(public router: Router) {}
+  constructor(private router: Router) {}
 }

@@ -1,29 +1,34 @@
 <p-card class="login-card">
-  <ng-template #title>Iniciar Sesión</ng-template>
-  <input [(ngModel)]="userValue" type="text" pInputText placeholder="Usuario" />
+  <ng-template #title>{{ 'login.title' | translate }}</ng-template>
+  <input
+    [(ngModel)]="userValue"
+    type="text"
+    pInputText
+    [placeholder]="'login.form.both' | translate"
+  />
   <p-password
     style="width: 100%"
     [(ngModel)]="passwordValue"
-    placeholder="Contraseña"
+    [placeholder]="'login.form.password' | translate"
     [feedback]="false"
   />
   <br />
   <p-button
     [style]="{width: '100%'}"
-    label="Entrar"
+    [label]="'login.form.login_button' | translate"
     icon="pi pi-check"
     iconPos="left"
     size="small"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"
-    label="¿Contraseña olvidada?"
+    [label]="'login.form.forgot_password' | translate"
     link
     ripple="false"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"
-    label="¿No tienes cuenta aún? Crea una ahora"
+    [label]="'login.form.no_account' | translate"
     link
     ripple="false"
     (click)="router.navigate(['register'])"

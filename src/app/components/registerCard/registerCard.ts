@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { Terms } from '../../type/types';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../services/language-service';
 
 @Component({
   selector: 'app-register-card',
-  imports: [FormsModule, CommonModule, PrimengModule],
+  imports: [FormsModule, CommonModule, PrimengModule, TranslateModule],
   templateUrl: './registerCard.html',
   styleUrl: './registerCard.css',
 })
-export class RegisterCard {
-  constructor(public router: Router) {}
+export class RegisterCard implements OnInit {
+  private t!: Record<string, string>;
+  constructor(public router: Router, private lang: LanguageService) {}
+
+  async ngOnInit() {
+    this.t = await this.lang.tMany([
+      'register.title',
+      'register.form.terms',
+      'register.form.privacy_policy',
+    ]);
+  }
 
   userValue!: string;
   passwordValue1!: string;
@@ -26,12 +37,12 @@ export class RegisterCard {
     {
       name: 'Terms',
       value: false,
-      label: 'Acepto los terminos y condiciones',
+      label: 'register.form.terms',
     },
     {
       name: 'Privacy',
       value: false,
-      label: 'Acepto la politica de privacidad',
+      label: 'register.form.privacy_policy',
     },
   ];
 }

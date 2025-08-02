@@ -1,39 +1,49 @@
 <p-card class="register-card">
-  <ng-template #title>Registrarse</ng-template>
+  <ng-template #title>{{ 'register.title' | translate }}</ng-template>
   <div class="flex flex-row gap-4">
     <input
       [style]="{width: '50%', float: 'left'}"
       [(ngModel)]="nameValue"
       type="text"
       pInputText
-      placeholder="Nombre"
+      [placeholder]="'register.form.name' | translate"
     />
     <input
       [(ngModel)]="surnamesValue"
       type="text"
       pInputText
-      placeholder="Apellidos"
+      [placeholder]="'register.form.surnames' | translate"
     />
   </div>
-  <input [(ngModel)]="userValue" type="text" pInputText placeholder="Usuario" />
-  <input [(ngModel)]="emailValue" type="text" pInputText placeholder="Email" />
+  <input
+    [(ngModel)]="userValue"
+    type="text"
+    pInputText
+    [placeholder]="'register.form.username' | translate"
+  />
+  <input
+    [(ngModel)]="emailValue"
+    type="text"
+    pInputText
+    [placeholder]="'register.form.email' | translate"
+  />
   <p-inputmask
     class="w-full sm:w-40 float-left"
     mask="+34 999-999-999"
     [(ngModel)]="phoneValue"
-    placeholder="Teléfono"
+    [placeholder]="'register.form.phone' | translate"
   />
   <div class="mt-10">
     <p-password
       style="width: 100%; margin-bottom: 0px !important"
       [(ngModel)]="passwordValue1"
-      placeholder="Contraseña"
+      [placeholder]="'register.form.password' | translate"
       [feedback]="true"
     />
     <p-password
       style="width: 100%"
       [(ngModel)]="passwordValue2"
-      placeholder="Repita su contraseña"
+      [placeholder]="'register.form.confirm_password' | translate"
       [feedback]="true"
     />
   </div>
@@ -45,21 +55,23 @@
           [value]="term"
           [(ngModel)]="term.value"
         />
-        <label [for]="term.name" class="ml-2"> {{ term.label }} </label>
+        <label [for]="term.name" class="ml-2">
+          {{ term.label | translate }}
+        </label>
       </div>
     </div>
   </div>
   <br />
   <p-button
     [style]="{width: '100%'}"
-    label="Registrarse"
+    [label]="'register.form.register_button' | translate"
     icon="pi pi-user-plus"
     iconPos="left"
     size="small"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"
-    label="¿Ya tienes cuenta? Inicia sesión"
+    [label]="'register.form.login_link' | translate"
     (click)="router.navigate(['/login'])"
     link=""
     ripple="false"

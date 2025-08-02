@@ -1,0 +1,198 @@
+{
+  "header": {
+    "home": "Inicio",
+    "shop": "Tienda",
+    "contact": "Contacto",
+    "about": "Nosotros",
+    "cat1": "Categoría 1",
+    "cat2": "Categoría 2",
+    "cat3": "Categoría 3",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "cart": "Carrito",
+    "empty_cart_summary": "Carrito vacío",
+    "empty_cart_detail": "No hay productos en el carrito",
+    "language": "Idioma"
+  },
+  "footer": {
+    "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas.",
+    "about": "Sobre nosotros",
+    "contact": "Contacto",
+    "privacy_policy": "Política de privacidad",
+    "terms_conditions": "Términos y condiciones",
+    "legal_notice": "Aviso legal",
+    "conditions": "Condiciones de uso",
+    "socials": "Redes sociales",
+    "sitemap": "Mapa del sitio",
+    "services": "Servicios",
+    "support": "Soporte",
+    "legals": "Legales"
+  },
+  "home": {
+    "banner": {
+      "title": "Crea las pantallas que tus visitantes merecen ver",
+      "subtitle": "Con nuestra plataforma, puedes crear pantallas personalizadas para tus aplicaciones web y móviles de manera rápida y sencilla.",
+      "button1": "Comienza ahora",
+      "button2": "Ver ejemplos"
+    },
+    "mini_banner": {
+      "title": "Ofertas especiales",
+      "description": "Aprovecha nuestras ofertas limitadas y obtén más valor por tu dinero.",
+      "button": "Ver ofertas"
+    },
+    "mini_cards": {
+      "card1": {
+        "title": "Fácil de usar",
+        "description": "Nuestra plataforma es intuitiva y fácil de usar, lo que te permite crear pantallas personalizadas sin necesidad de conocimientos técnicos."
+      },
+      "card2": {
+        "title": "Personalizable",
+        "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas."
+      },
+      "card3": {
+        "title": "Soporte 24/7",
+        "description": "Nuestro equipo de soporte está disponible las 24 horas del día para ayudarte con cualquier pregunta o problema que puedas tener."
+      },
+      "card4": {
+        "title": "Seguridad",
+        "description": "Tus datos están seguros con nosotros. Implementamos las mejores prácticas de seguridad para proteger tu información."
+      }
+    },
+    "features": {
+      "title": "Un producto, muchas soluciones",
+      "subtitle": "Descubre cómo nuestra plataforma puede ayudarte a crear pantallas personalizadas para diferentes necesidades.",
+      "feature1": {
+        "title": "Interfaz intuitiva",
+        "description": "Crea pantallas atractivas sin complicaciones."
+      },
+      "feature2": {
+        "title": "Integraciones",
+        "description": "Conecta con tus herramientas favoritas fácilmente."
+      },
+      "feature3": {
+        "title": "Seguridad",
+        "description": "Protege tus datos con nuestras medidas de seguridad avanzadas."
+      },
+      "feature4": {
+        "title": "Escalabilidad",
+        "description": "Nuestra plataforma crece contigo, adaptándose a tus necesidades."
+      },
+      "feature5": {
+        "title": "Soporte técnico",
+        "description": "Asistencia dedicada para resolver tus dudas y problemas."
+      },
+      "feature6": {
+        "title": "Actualizaciones constantes",
+        "description": "Mejoras continuas para ofrecerte la mejor experiencia."
+      }
+    },
+    "title_img": {
+      "title": "Pantallas personalizadas para todos",
+      "description": "Desde aplicaciones móviles hasta sitios web, tenemos la solución perfecta para ti."
+    },
+    "prices": {
+      "prices_title": "Planes y precios",
+      "prices_description": "Elige el plan que mejor se adapte a tus necesidades y comienza a crear pantallas personalizadas hoy mismo.",
+      "basic": {
+        "title": "Básico",
+        "subtitle": "Plan Básico",
+        "price": "10€/mes",
+        "features": {
+          "feature1": "Acceso a todas las plantillas",
+          "feature2": "Soporte por correo electrónico",
+          "feature3": "Actualizaciones mensuales"
+        }
+      },
+      "premium": {
+        "title": "Premium",
+        "subtitle": "Plan Premium",
+        "price": "20€/mes",
+        "features": {
+          "feature1": "Todo en el plan básico",
+          "feature2": "Soporte prioritario",
+          "feature3": "Integraciones avanzadas",
+          "feature4": "Acceso a funciones beta"
+        }
+      },
+      "enterprise": {
+        "title": "Enterprise",
+        "subtitle": "Plan Enterprise",
+        "price": "Personalizado",
+        "features": {
+          "feature1": "Todo en el plan premium",
+          "feature2": "Soporte 24/7 dedicado",
+          "feature3": "Soluciones personalizadas",
+          "feature4": "Capacitación y consultoría",
+          "feature5": "Acceso a API y documentación avanzada",
+          "feature6": "Descuentos por volumen"
+        }
+      }
+    },
+    "footer_cards": {
+      "card1": {
+        "title": "¿Listo para empezar?",
+        "description": "Crea tu cuenta y comienza a diseñar tus pantallas personalizadas hoy mismo."
+      },
+      "card2": {
+        "title": "¿Tienes preguntas?",
+        "description": "Nuestro equipo de soporte está aquí para ayudarte. Contáctanos en cualquier momento."
+      },
+      "card3": {
+        "title": "Síguenos en redes sociales",
+        "description": "Mantente al día con nuestras últimas noticias y actualizaciones."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "description": "Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros.",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "submit_button": "Enviar mensaje"
+    },
+    "address": "Dirección: Calle Falsa 123, Ciudad, País",
+    "phone": "Teléfono: +123 456 7890",
+    "email_contact": "Correo electrónico"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "form": {
+      "both": "Usuario o correo electrónico",
+      "usename": "Usuario",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "remember_me": "Recordarme",
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "login_button": "Iniciar sesión",
+      "no_account": "¿No tienes una cuenta? Regístrate"
+    }
+  },
+  "register": {
+    "title": "Registrarse",
+    "form": {
+      "name": "Nombre",
+      "surnames": "Apellidos",
+      "username": "Usuario",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "password": "Contraseña",
+      "confirm_password": "Confirmar contraseña",
+      "register_button": "Registrarse",
+      "login_link": "¿Ya tienes una cuenta? Inicia sesión",
+      "terms": "Acepto los términos y condiciones",
+      "privacy_policy": "Política de privacidad"
+    }
+  },
+  "cart": {
+    "title": "Carrito de compras",
+    "empty": "Vaciar carrito",
+    "checkout_button": "Proceder al pago",
+    "continue_shopping": "Seguir comprando",
+    "item_count": "{{count}} artículo(s) en el carrito",
+    "total_price": "Precio total: {{price}}"
+  }
+}
