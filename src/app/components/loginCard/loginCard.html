@@ -1,34 +1,34 @@
 <p-card class="login-card">
-  <ng-template #title>{{ 'LOGIN.TITLE' | translate }}</ng-template>
+  <ng-template #title>{{ 'login.title' | translate }}</ng-template>
   <input
     [(ngModel)]="userValue"
     type="text"
     pInputText
-    [placeholder]="'LOGIN.USERNAME' | translate"
+    [placeholder]="'login.form.both' | translate"
   />
   <p-password
     style="width: 100%"
     [(ngModel)]="passwordValue"
-    [placeholder]="'LOGIN.PASSWORD' | translate"
+    [placeholder]="'login.form.password' | translate"
     [feedback]="false"
   />
   <br />
   <p-button
     [style]="{width: '100%'}"
-    [label]="'LOGIN.SUBMIT' | translate"
+    [label]="'login.form.login_button' | translate"
     icon="pi pi-check"
     iconPos="left"
     size="small"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"
-    [label]="'LOGIN.FORGOT_PASSWORD' | translate"
+    [label]="'login.form.forgot_password' | translate"
     link
     ripple="false"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"
-    [label]="'LOGIN.NO_ACCOUNT' | translate"
+    [label]="'login.form.no_account' | translate"
     link
     ripple="false"
     (click)="router.navigate(['register'])"

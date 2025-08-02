@@ -7,16 +7,13 @@
       </h3>
     </div>
     <p style="margin: 20px 40px 40px 20px; font-size: 16px">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis, amet,
-      quos id voluptatibus nihil autem dolorum sit molestias laboriosam,
-      inventore sint quis laborum mollitia tempora dolorem quisquam. Aperiam
-      eius officiis qui minima officia aliquam at eum quaerat commodi natus,
-      reprehenderit tenetur minus accusamus nesciunt porro eveniet fugit nam,
-      est tempora!
+      {{ 'footer.description' | translate }}
     </p>
   </div>
   <div class="socials">
-    <h3 style="margin: 20px 40px 20px 20px">Socials</h3>
+    <h3 style="margin: 20px 40px 20px 20px">
+      {{'footer.socials' | translate}}
+    </h3>
     <div class="icons-container" style="margin: 20px 40px 20px 20px">
       <ul style="display: flex; gap: 10px">
         <li class="pi pi-instagram" style="font-size: 20px"></li>
@@ -26,29 +23,34 @@
     </div>
   </div>
   <div class="secondary">
-    <h3 style="margin: 20px 40px 20px 20px">Sitemap</h3>
+    <h3 style="margin: 20px 40px 20px 20px">
+      {{ 'footer.sitemap' | translate }}
+    </h3>
     <ul style="margin: 20px 40px 20px 20px; cursor: pointer">
-      <li class="underline">Home</li>
-      <li class="underline">About</li>
-      <li class="underline">Contact</li>
-      <li class="underline">Blog</li>
-      <li class="underline">Services</li>
+      <li class="underline">{{ 'header.home' | translate }}</li>
+      <li class="underline">{{ 'header.shop' | translate }}</li>
+      <li class="underline">{{ 'header.contact' | translate }}</li>
+      <li class="underline">{{ 'header.about' | translate }}</li>
+      <li class="underline">{{ 'header.login' | translate }}</li>
+      <li class="underline">{{ 'header.register' | translate }}</li>
     </ul>
   </div>
   <div class="tertiary">
-    <h3 style="margin: 20px 40px 20px 20px">Legals</h3>
+    <h3 style="margin: 20px 40px 20px 20px">
+      {{ 'footer.legals' | translate }}
+    </h3>
     <ul style="margin: 20px 40px 20px 20px; cursor: pointer">
       <li class="underline">
-        <a routerLink="/notice">Aviso legal </a>
+        <a routerLink="/notice">{{ 'footer.legal_notice' | translate }}</a>
       </li>
       <li class="underline">
-        <a routerLink="/cond">Condiciones de uso </a>
+        <a routerLink="/cond">{{ 'footer.conditions' | translate }}</a>
       </li>
       <li class="underline">
-        <a routerLink="/terms"> Términos y condiciones </a>
+        <a routerLink="/terms"> {{ 'footer.terms_conditions' | translate }} </a>
       </li>
       <li class="underline">
-        <a routerLink="/priv"> Política de privacidad </a>
+        <a routerLink="/priv"> {{ 'footer.privacy_policy' | translate }}</a>
       </li>
     </ul>
   </div>

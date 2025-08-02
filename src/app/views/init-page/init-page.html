@@ -1,19 +1,19 @@
-<!-- <div id="principal-banner" class="h-auto">
-  <img src="banners/principal-banner.jpg" alt="" class="w-full h-auto" />
-</div> -->
-
 <div
   class="bg-slate-900 text-gray-100 p-4 flex justify-between lg:justify-center items-center flex-wrap"
 >
-  <div class="font-bold mr-20">🔥 Hot Deals!</div>
+  <div class="font-bold mr-20">
+    🔥 {{ 'home.mini_banner.title' | translate }}
+  </div>
   <div class="items-center hidden lg:flex">
-    <span class="leading-normal"
-      >Libero voluptatum atque exercitationem praesentium provident odit.</span
-    >
+    <span class="leading-normal">
+      {{ 'home.mini_banner.description' | translate }}
+    </span>
   </div>
   <a class="flex items-center ml-2 mr-20">
     <a class="text-white" href="#"
-      ><span class="underline font-bold">Learn More</span></a
+      ><span class="underline font-bold">
+        {{ 'home.mini_banner.button' | translate }}</span
+      ></a
     >
   </a>
   <a
@@ -30,19 +30,26 @@
     class="col-span-12 md:col-span-6 p-12 text-center md:text-left flex items-center"
   >
     <section>
-      <span class="block text-6xl font-bold mb-1">Create the screens </span>
-      <div class="text-6xl text-primary font-bold mb-4">
-        your visitors deserve to see
-      </div>
+      <span class="block text-6xl font-bold mb-1">
+        {{ 'home.banner.title' | translate }}
+      </span>
       <p
         class="mt-0 mb-6 text-surface-700 dark:text-surface-100 leading-normal"
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        {{ 'home.banner.subtitle' | translate }}
       </p>
 
-      <p-button label="Learn More" type="button" class="mr-4" raised></p-button>
-      <p-button label="Live Demo" type="button" outlined></p-button>
+      <p-button
+        [label]="'home.banner.button1' | translate"
+        type="button"
+        class="mr-4"
+        raised
+      ></p-button>
+      <p-button
+        [label]="'home.banner.button2' | translate"
+        type="button"
+        outlined
+      ></p-button>
     </section>
   </div>
   <div class="col-span-12 md:col-span-6 overflow-hidden">
@@ -57,54 +64,38 @@
 <p-divider />
 <div
   id="elements-4"
-  class="flex flex-col sm:flex-row m-4 sm:m-20 text-justify gap-4 sm:gap-15"
+  class="flex flex-col sm:flex-row m-4 sm:m-20 text-center gap-4 sm:gap-15"
 >
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.mini_cards.card1.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.mini_cards.card1.description' | translate }}</p>
     </p-card>
   </div>
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.mini_cards.card2.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.mini_cards.card2.description' | translate }}</p>
     </p-card>
   </div>
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.mini_cards.card3.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.mini_cards.card3.description' | translate }}</p>
     </p-card>
   </div>
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.mini_cards.card4.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.mini_cards.card4.description' | translate }}</p>
     </p-card>
   </div>
 </div>
@@ -115,11 +106,12 @@
   class="bg-surface-0 dark:bg-surface-950 px-6 py-20 md:px-12 lg:px-20 text-center"
 >
   <div class="mb-4 font-bold text-3xl">
-    <span class="text-surface-900 dark:text-surface-0">One Product, </span>
-    <span class="text-primary">Many Solutions</span>
+    <span class="text-surface-900 dark:text-surface-0"
+      >{{ 'home.features.title' | translate }}
+    </span>
   </div>
   <div class="text-surface-700 dark:text-surface-100 mb-12">
-    Ac turpis egestas maecenas pharetra convallis posuere morbi leo urna.
+    {{ 'home.features.subtitle' | translate }}
   </div>
   <div class="grid grid-cols-12 gap-4">
     <div class="col-span-12 md:col-span-4 mb-6 px-8">
@@ -132,12 +124,11 @@
       <div
         class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
       >
-        Built for Developers
+        {{ 'home.features.feature1.title' | translate }}
       </div>
       <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur.</span
-      >
+        >{{ 'home.features.feature1.description' | translate }}
+      </span>
     </div>
     <div class="col-span-12 md:col-span-4 mb-6 px-8">
       <span
@@ -149,12 +140,11 @@
       <div
         class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
       >
-        End-to-End Encryption
+        {{ 'home.features.feature2.title' | translate }}
       </div>
       <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >Risus nec feugiat in fermentum posuere urna nec. Posuere sollicitudin
-        aliquam ultrices sagittis.</span
-      >
+        >{{ 'home.features.feature2.description' | translate }}
+      </span>
     </div>
     <div class="col-span-12 md:col-span-4 mb-6 px-8">
       <span
@@ -166,12 +156,11 @@
       <div
         class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
       >
-        Easy to Use
+        {{ 'home.features.feature3.title' | translate }}
       </div>
       <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >Ornare suspendisse sed nisi lacus sed viverra tellus. Neque volutpat ac
-        tincidunt vitae semper.</span
-      >
+        >{{ 'home.features.feature3.description' | translate }}
+      </span>
     </div>
     <div class="col-span-12 md:col-span-4 mb-6 px-8">
       <span
@@ -183,12 +172,11 @@
       <div
         class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
       >
-        Fast & Global Support
+        {{ 'home.features.feature4.title' | translate }}
       </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum
-        tellus.</span
-      >
+      <span class="text-surface-700 dark:text-surface-100 leading-normal">
+        {{ 'home.features.feature4.description' | translate }}
+      </span>
     </div>
     <div class="col-span-12 md:col-span-4 mb-6 px-8">
       <span
@@ -200,11 +188,10 @@
       <div
         class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
       >
-        Open Source
+        {{ 'home.features.feature5.title' | translate }}
       </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >Nec tincidunt praesent semper feugiat. Sed adipiscing diam donec
-        adipiscing tristique risus nec feugiat.
+      <span class="text-surface-700 dark:text-surface-100 leading-normal">
+        {{ 'home.features.feature5.description' | translate }}
       </span>
     </div>
     <div class="col-span-12 md:col-span-4 md:mb-6 mb-0 px-4">
@@ -217,12 +204,11 @@
       <div
         class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
       >
-        Trusted Securitty
+        {{ 'home.features.feature6.title' | translate }}
       </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >Mattis rhoncus urna neque viverra justo nec ultrices. Id cursus metus
-        aliquam eleifend.</span
-      >
+      <span class="text-surface-700 dark:text-surface-100 leading-normal">
+        {{ 'home.features.feature6.description' | translate }}
+      </span>
     </div>
   </div>
 </div>
@@ -230,7 +216,9 @@
 <div class="flex justify-center align-items-center m-auto w-full sm:w-1/2">
   <div id="elements-texts" class="mb-10">
     <div class="block">
-      <h3 class="text-start p-10 text-2xl sm:text-4xl">Titulo</h3>
+      <h3 class="text-start p-10 text-2xl sm:text-4xl">
+        {{ 'home.title_img.title' | translate }}
+      </h3>
       <div class="flex flex-col sm:flex-row">
         <img
           class="ml-10 rounded-full mb-4 sm:mb-0"
@@ -239,9 +227,7 @@
           width="240"
         />
         <p class="p-10 w-full sm:w-100">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias,
-          illo explicabo maxime consequatur incidunt delectus at. Tempora cumque
-          exercitationem ratione!
+          {{ 'home.title_img.description' | translate }}
         </p>
       </div>
     </div>
@@ -253,13 +239,12 @@
   <div
     class="text-surface-900 dark:text-surface-0 font-bold text-6xl mb-6 text-center"
   >
-    Pricing Plans
+    {{ 'home.prices.prices_title' | translate }}
   </div>
   <div
     class="text-surface-700 dark:text-surface-100 text-xl mb-12 text-center leading-normal"
   >
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam
-    eligendi quos.
+    {{ 'home.prices.prices_description' | translate }}
   </div>
 
   <div class="grid grid-cols-12 gap-4">
@@ -272,10 +257,10 @@
           <div
             class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
           >
-            Basic
+            {{ 'home.prices.basic.title' | translate }}
           </div>
           <div class="text-surface-600 dark:text-surface-200">
-            Plan description
+            {{ 'home.prices.basic.subtitle' | translate }}
           </div>
           <hr
             class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
@@ -283,12 +268,8 @@
           <div class="flex items-center">
             <span
               class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >$9</span
-            >
-            <span
-              class="ml-2 font-medium text-surface-600 dark:text-surface-200"
-              >per month</span
-            >
+              >{{ 'home.prices.basic.price' | translate }}
+            </span>
           </div>
           <hr
             class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
@@ -297,20 +278,20 @@
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Arcu vitae elementum</span
+                >{{ 'home.prices.basic.features.feature1' | translate }}
+              </span>
+            </li>
+            <li class="flex items-center mb-4">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-surface-900 dark:text-surface-0"
+                >{{ 'home.prices.basic.features.feature2' | translate }}</span
               >
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Dui faucibus in ornare</span
-              >
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >Morbi tincidunt augue</span
-              >
+                >{{ 'home.prices.basic.features.feature3' | translate }}
+              </span>
             </li>
           </ul>
           <hr
@@ -330,10 +311,10 @@
           <div
             class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
           >
-            Premium
+            {{ 'home.prices.premium.title' | translate }}
           </div>
           <div class="text-surface-600 dark:text-surface-200">
-            Plan description
+            {{ 'home.prices.premium.subtitle' | translate }}
           </div>
           <hr
             class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
@@ -341,12 +322,8 @@
           <div class="flex items-center">
             <span
               class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >$29</span
-            >
-            <span
-              class="ml-2 font-medium text-surface-600 dark:text-surface-200"
-              >per month</span
-            >
+              >{{ 'home.prices.premium.price' | translate }}
+            </span>
           </div>
           <hr
             class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
@@ -355,26 +332,26 @@
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Arcu vitae elementum</span
-              >
+                >{{ 'home.prices.premium.features.feature1' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Dui faucibus in ornare</span
-              >
+                >{{ 'home.prices.premium.features.feature2' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Morbi tincidunt augue</span
-              >
+                >{{ 'home.prices.premium.features.feature3' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Duis ultricies lacus sed</span
-              >
+                >{{ 'home.prices.premium.features.feature4' | translate }}
+              </span>
             </li>
           </ul>
           <hr
@@ -394,10 +371,10 @@
           <div
             class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
           >
-            Enterprise
+            {{ 'home.prices.enterprise.title' | translate }}
           </div>
           <div class="text-surface-600 dark:text-surface-200">
-            Plan description
+            {{ 'home.prices.enterprise.subtitle' | translate }}
           </div>
           <hr
             class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
@@ -405,11 +382,7 @@
           <div class="flex items-center">
             <span
               class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >$49</span
-            >
-            <span
-              class="ml-2 font-medium text-surface-600 dark:text-surface-200"
-              >per month</span
+              >{{ 'home.prices.enterprise.price' | translate }}</span
             >
           </div>
           <hr
@@ -419,38 +392,38 @@
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Arcu vitae elementum</span
-              >
+                >{{ 'home.prices.enterprise.features.feature1' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Dui faucibus in ornare</span
-              >
+                >{{ 'home.prices.enterprise.features.feature2' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Morbi tincidunt augue</span
-              >
+                >{{ 'home.prices.enterprise.features.feature3' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Duis ultricies lacus sed</span
-              >
+                >{{ 'home.prices.enterprise.features.feature4' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Imperdiet proin</span
-              >
+                >{{ 'home.prices.enterprise.features.feature5' | translate }}
+              </span>
             </li>
             <li class="flex items-center mb-4">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-surface-900 dark:text-surface-0"
-                >Nisi scelerisque</span
-              >
+                >{{ 'home.prices.enterprise.features.feature6' | translate }}
+              </span>
             </li>
           </ul>
           <hr
@@ -465,42 +438,30 @@
 <p-divider />
 <div
   id="elements-3"
-  class="flex flex-col sm:flex-row m-4 sm:m-20 text-justify gap-4 sm:gap-15"
+  class="flex flex-col sm:flex-row m-4 sm:m-20 text-center gap-4 sm:gap-15"
 >
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.footer_cards.card1.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.footer_cards.card1.description' | translate }}</p>
     </p-card>
   </div>
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.footer_cards.card2.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.footer_cards.card2.description' | translate }}</p>
     </p-card>
   </div>
   <div class="w-full sm:w-auto">
     <p-card>
       <ng-template #title>
-        <h4>Titulo</h4>
+        <h4>{{ 'home.footer_cards.card3.title' | translate }}</h4>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet quasi in
-        ex necessitatibus? Cupiditate accusamus quidem velit repellendus ipsum.
-        Sed.
-      </p>
+      <p>{{ 'home.footer_cards.card3.description' | translate }}</p>
     </p-card>
   </div>
 </div>
