@@ -21,6 +21,6 @@ export class App {
     this.primeng.ripple.set(true);
     this.translate.addLangs(['en', 'es']);
     // this.translate.setFallbackLang('es');
-    this.translate.setDefaultLang('en');
+    this.translate.setDefaultLang('es');
   }
 }

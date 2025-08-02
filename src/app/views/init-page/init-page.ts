@@ -5,7 +5,7 @@ import { LanguageService } from '../../services/language-service';
 
 @Component({
   selector: 'app-init-page',
-  imports: [PrimengModule, TranslateModule],
+  imports: [TranslateModule, PrimengModule],
   templateUrl: './init-page.html',
   styleUrl: './init-page.css',
   standalone: true,

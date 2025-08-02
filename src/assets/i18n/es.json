@@ -194,5 +194,17 @@
     "continue_shopping": "Seguir comprando",
     "item_count": "{{count}} artículo(s) en el carrito",
     "total_price": "Precio total: {{price}}"
+  },
+  "about": {
+    "title": "Sobre nosotros",
+    "description": "Somos una empresa dedicada a crear soluciones innovadoras para turismo y ocio.",
+    "our_team": "Nuestro equipo",
+    "commitment": "Compromiso",
+    "innovation": "Innovación",
+    "values": "Nuestros valores",
+    "contact_us": "Contáctanos"
   }
-}
+   
+  }
+
+

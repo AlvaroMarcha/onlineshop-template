@@ -7,6 +7,7 @@ import { Priv } from './views/priv/priv';
 import { Notice } from './views/notice/notice';
 import { Cond } from './views/cond/cond';
 import { Contact } from './views/contact/contact';
+import { About } from './views/about/about';
 
 export const routes: Routes = [
   { path: '', component: InitPage },
@@ -17,4 +18,5 @@ export const routes: Routes = [
   { path: 'notice', component: Notice },
   { path: 'cond', component: Cond },
   { path: 'contact', component: Contact },
+  { path: 'about', component: About },
 ];

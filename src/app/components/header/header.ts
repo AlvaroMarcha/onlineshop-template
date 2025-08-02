@@ -66,7 +66,7 @@ export class Header implements OnInit {
         icon: 'pi pi-envelope',
         routerLink: '/contact',
       },
-      { label: t['header.about'], icon: 'pi pi-info-circle' },
+      { label: t['header.about'], icon: 'pi pi-info-circle', routerLink: '/about' },
     ];
 
     this.itemsTiered = [
