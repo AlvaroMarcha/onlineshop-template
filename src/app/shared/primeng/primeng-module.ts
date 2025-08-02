@@ -18,6 +18,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { AvatarModule } from 'primeng/avatar';
 import { DividerModule } from 'primeng/divider';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [],
@@ -42,6 +43,7 @@ import { DividerModule } from 'primeng/divider';
     AnimateOnScrollModule,
     AvatarModule,
     DividerModule,
+    ToggleButtonModule,
   ],
   exports: [
     Menubar,
@@ -62,6 +64,7 @@ import { DividerModule } from 'primeng/divider';
     AnimateOnScrollModule,
     AvatarModule,
     DividerModule,
+    ToggleButtonModule,
   ],
 })
 export class PrimengModule {}

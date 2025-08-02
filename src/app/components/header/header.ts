@@ -6,11 +6,12 @@ import { UpButton } from '../up-button/up-button';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
+import { FormsModule } from '@angular/forms';
 @Component({
   standalone: true,
   selector: 'app-header',
   providers: [MessageService],
-  imports: [PrimengModule, Cart, UpButton, TranslateModule],
+  imports: [PrimengModule, Cart, UpButton, TranslateModule, FormsModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -18,6 +19,7 @@ export class Header implements OnInit {
   items: MenuItem[] | undefined;
   itemsTiered: MenuItem[] | undefined;
   visible = false;
+  isDarkMode = false;
 
   constructor(
     public router: Router,
@@ -99,5 +101,13 @@ export class Header implements OnInit {
       detail: t['header.empty_cart_detail'],
       life: 3000,
     });
+  }
+
+  toggleDarkMode() {
+    const element = document.querySelector('html');
+    if (element !== null) {
+      element.classList.toggle('my-app-dark');
+      this.isDarkMode = true;
+    }
   }
 }
