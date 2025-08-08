@@ -4,12 +4,17 @@ export interface Terms {
   label: string;
 }
 
-export interface Product {
+export interface ProductItem {
   id: string;
   name: string;
   description: string;
   image: string;
   price: number;
-  inventoryStatus: 'Stock' | 'Bajo Stock' | 'Fuera de Stock';
+  inventoryStatus: 'Stock' | 'Bajo Stock' | 'Fuera de Stock' | string;
   category: string;
+}
+
+export interface SizesItems {
+  name: string;
+  code: string;
 }
