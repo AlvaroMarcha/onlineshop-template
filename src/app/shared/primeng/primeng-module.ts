@@ -19,6 +19,19 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { AvatarModule } from 'primeng/avatar';
 import { DividerModule } from 'primeng/divider';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { DataView } from 'primeng/dataview';
+import { Tag } from 'primeng/tag';
+import { Rating } from 'primeng/rating';
+import { SelectButton } from 'primeng/selectbutton';
+import { AccordionModule } from 'primeng/accordion'; // !! Dont use - Not working properly
+import { GalleriaModule } from 'primeng/galleria';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+import { ListboxModule } from 'primeng/listbox';
+import { DrawerModule } from 'primeng/drawer';
+import { Toolbar } from 'primeng/toolbar';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 
 @NgModule({
   declarations: [],
@@ -44,6 +57,19 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     AvatarModule,
     DividerModule,
     ToggleButtonModule,
+    DataView,
+    Tag,
+    Rating,
+    SelectButton,
+    AccordionModule,
+    GalleriaModule,
+    FieldsetModule,
+    PanelModule,
+    ListboxModule,
+    DrawerModule,
+    IconField,
+    Toolbar,
+    InputIcon,
   ],
   exports: [
     Menubar,
@@ -65,6 +91,19 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     AvatarModule,
     DividerModule,
     ToggleButtonModule,
+    DataView,
+    Tag,
+    Rating,
+    SelectButton,
+    AccordionModule,
+    GalleriaModule,
+    FieldsetModule,
+    PanelModule,
+    ListboxModule,
+    DrawerModule,
+    IconField,
+    Toolbar,
+    InputIcon,
   ],
 })
 export class PrimengModule {}
