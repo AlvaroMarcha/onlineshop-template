@@ -1,0 +1,36 @@
+<div>
+  <p-button
+    icon="pi pi-search"
+    severity="help"
+    size="large"
+    rounded="true"
+    raised="true"
+    text="true"
+    (click)="visible = !visible"
+  ></p-button>
+</div>
+<div class="card">
+  <p-drawer
+    header="Búsqueda rápida"
+    [(visible)]="visible"
+    position="bottom"
+    [style]="{ height: '250px' }"
+  >
+    <ng-template #header> - </ng-template>
+    <div class="card flex justify-center">
+      <p-toolbar class="w-[500px]">
+        <div class="w-full px-4">
+          <p-iconfield iconPosition="left" class="w-full">
+            <p-inputicon class="pi pi-search" />
+            <input
+              class="w-full"
+              type="text"
+              pInputText
+              placeholder="Buscar..."
+            />
+          </p-iconfield>
+        </div>
+      </p-toolbar>
+    </div>
+  </p-drawer>
+</div>
