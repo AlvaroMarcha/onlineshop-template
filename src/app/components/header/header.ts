@@ -7,11 +7,19 @@ import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
 import { FormsModule } from '@angular/forms';
+import { Search } from '../search/search';
 @Component({
   standalone: true,
   selector: 'app-header',
   providers: [MessageService],
-  imports: [PrimengModule, Cart, UpButton, TranslateModule, FormsModule],
+  imports: [
+    PrimengModule,
+    Cart,
+    UpButton,
+    TranslateModule,
+    FormsModule,
+    Search,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -57,6 +65,7 @@ export class Header implements OnInit {
       {
         label: t['header.shop'],
         icon: 'pi pi-cart-minus',
+        routerLink: '/shop',
         items: [
           { label: t['header.cat1'], icon: 'pi pi-list' },
           { label: t['header.cat2'], icon: 'pi pi-list' },
@@ -68,7 +77,11 @@ export class Header implements OnInit {
         icon: 'pi pi-envelope',
         routerLink: '/contact',
       },
-      { label: t['header.about'], icon: 'pi pi-info-circle', routerLink: '/about' },
+      {
+        label: t['header.about'],
+        icon: 'pi pi-info-circle',
+        routerLink: '/about',
+      },
     ];
 
     this.itemsTiered = [
