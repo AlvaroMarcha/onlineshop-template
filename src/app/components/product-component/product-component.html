@@ -1,0 +1,109 @@
+@if(singleProduct?.id === id){
+<div
+  class="h-full mb-4 p-8 flex items-center justify-center items-start"
+  id="product"
+>
+  <p-card
+    class="product w-[100%] md:w-[98%]"
+    header="{{singleProduct?.name}}"
+    [style]="{overflow: 'hidden' }"
+  >
+    <ng-template #header>
+      <div class="card w-[95%] mx-auto mb-10">
+        <p-galleria
+          [value]="images"
+          [showIndicators]="true"
+          [showThumbnails]="false"
+          [showIndicatorsOnItem]="true"
+          indicatorsPosition="right"
+          [containerStyle]="{ 'max-width': '100%','margin-top': '2em' }"
+        >
+          <ng-template #caption let-item>
+            <div class="text-xl mb-2 font-bold">Precio</div>
+            <p class="text-white">{{ singleProduct?.price }} €</p>
+          </ng-template>
+          <ng-template pTemplate="item" let-item>
+            <img
+              [src]="item.itemImageSrc"
+              style="width: 100%; display: block"
+            />
+          </ng-template>
+          <ng-template pTemplate="indicator" let-index>
+            <span style="color: #ffffff; cursor: pointer"> {{index + 1}} </span>
+          </ng-template>
+        </p-galleria>
+      </div>
+    </ng-template>
+    <ng-template #subtitle>
+      <span
+        [ngClass]="singleProduct?.inventoryStatus === 'Bajo stock' ? 'text-orange-600' : singleProduct?.inventoryStatus === 'Fuera de stock' ? 'text-red-600' : 'text-blue-300'"
+      >
+        {{singleProduct?.inventoryStatus}}
+      </span>
+      <span class="text-green-400">
+        <span class="text-white"> | </span> {{singleProduct?.category}}</span
+      >
+    </ng-template>
+    <p-fieldset legend="Descripción">
+      <p class="m-0">{{singleProduct?.description}}</p>
+    </p-fieldset>
+    <ng-template #footer>
+      <div class="card flex justify-center">
+        <p-fieldset legend="Características adicionales">
+          <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </p-fieldset>
+      </div>
+      <div class="card flex justify-center align-start">
+        <p-fieldset legend="Detalles">
+          <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+        </p-fieldset>
+      </div>
+      <div class="flex justify-center mt-10 gap-4">
+        <p-button
+          label="Volver a tienda"
+          severity="danger"
+          variant="outlined"
+        ></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+  <div class="card flex justify-center options">
+    <p-panel header="Personalización">
+      <p class="m-0 mb-10">Debes seleccionar una talla para poder continuar</p>
+      <div class="card flex justify-center">
+        <p-listbox
+          [(ngModel)]="selectedSize"
+          [options]="sizes"
+          [multiple]="false"
+          [checkmark]="true"
+          optionLabel="name"
+          class="w-full md:w-56"
+        />
+      </div>
+    </p-panel>
+  </div>
+  <div class="card flex justify-center pay">
+    <p-panel header="Pago">
+      <p-button
+        icon="pi pi-plus"
+        label="Añadir al carrito"
+        styleClass="w-[300px]"
+      ></p-button>
+    </p-panel>
+  </div>
+</div>
+
+}

@@ -8,6 +8,8 @@ import { Notice } from './views/notice/notice';
 import { Cond } from './views/cond/cond';
 import { Contact } from './views/contact/contact';
 import { About } from './views/about/about';
+import { Shop } from './views/shop/shop';
+import { ProductView } from './views/product/product';
 
 export const routes: Routes = [
   { path: '', component: InitPage },
@@ -19,4 +21,6 @@ export const routes: Routes = [
   { path: 'cond', component: Cond },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
+  { path: 'shop', component: Shop },
+  { path: 'product/:id', component: ProductView },
 ];

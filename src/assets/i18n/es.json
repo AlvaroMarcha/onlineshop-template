@@ -203,8 +203,41 @@
     "innovation": "Innovación",
     "values": "Nuestros valores",
     "contact_us": "Contáctanos"
+  },
+  "shop": {
+    "title": "Tienda",
+    "description": "Explora nuestra amplia gama de productos y encuentra lo que necesitas.",
+    "add_cart": "Añadir al carrito",
+    "buy_now": "Comprar ahora",
+    "out_of_stock": "Fuera de stock",
+    "low_stock": "Bajo stock",
+    "in_stock": "En stock",
+    "filter": {
+      "title": "Filtrar por",
+      "categories": "Categorías",
+      "cats": {
+        "cat1": "Categoría 1",
+        "cat2": "Categoría 2",
+        "cat3": "Categoría 3",
+        "cat4": "Categoría 4",
+        "cat5": "Categoría 5",
+        "cat6": "Categoría 6",
+        "cat7": "Categoría 7",
+        "cat8": "Categoría 8",
+        "cat9": "Categoría 9"
+      },
+      "price_range": "Rango de precios",
+      "availability": "Disponibilidad",
+      "apply_filters": "Aplicar filtros"
+    },
+    "sort_by": {
+      "title": "Ordenar por",
+      "options": {
+        "price_low_high": "Precio: de menor a mayor",
+        "price_high_low": "Precio: de mayor a menor",
+        "newest_first": "Más recientes primero",
+        "oldest_first": "Más antiguos primero"
+      }
+    }
   }
-   
-  }
-
-
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from '../../type/types';
+import { ProductItem } from '../../type/types';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
@@ -11,7 +11,7 @@ import { PrimengModule } from '../../shared/primeng/primeng-module';
   styleUrl: './cart.css',
 })
 export class Cart {
-  products: Product[] = [
+  products: ProductItem[] = [
     {
       id: '1',
       name: 'Camiseta Básica',

@@ -1,0 +1,40 @@
+#product {
+  display: grid;
+  grid-template-columns: 80% 1fr;
+  grid: template rows 50vh max-content;
+  grid-template-areas:
+    "product options"
+    "product pay";
+}
+
+.product {
+  grid-area: product;
+}
+
+.options {
+  grid-area: options;
+}
+
+.pay {
+  grid-area: pay;
+  margin-top: -380px;
+}
+
+/* Media Queries*/
+@media (max-width: 600px) {
+  #product {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid: template rows 1fr 1fr 1fr;
+    grid-template-areas:
+      "product"
+      "options"
+      "pay";
+    gap: 20px;
+  }
+
+  .pay {
+    grid-area: pay;
+    margin-top: 0px;
+  }
+}
