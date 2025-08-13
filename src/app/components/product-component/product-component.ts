@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductItem, SizesItems } from '../../type/types';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { FormsModule } from '@angular/forms';
+import { ProductReviews } from '../product-reviews/product-reviews';
 
 @Component({
   selector: 'app-product-component',
-  imports: [PrimengModule, FormsModule],
+  imports: [PrimengModule, FormsModule, ProductReviews],
   templateUrl: './product-component.html',
   styleUrl: './product-component.css',
 })

@@ -18,3 +18,11 @@ export interface SizesItems {
   name: string;
   code: string;
 }
+
+export interface ProductReviewsItem {
+  user: string;
+  avatar: string;
+  date: Date | string;
+  review: string;
+  rating: number;
+}
