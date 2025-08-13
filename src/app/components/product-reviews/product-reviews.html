@@ -1,0 +1,91 @@
+<div class="card flex justify-center items-start w-full">
+  <p-fieldset legend="Reseñas" [ngStyle]="{width: '100%'}">
+    @for (review of reviews; track review.user) {
+    <div
+      class="card flex flex-col md:flex-row items-start md:items-center gap-4 pb-6 pt-4 w-full"
+    >
+      <!-- Avatar -->
+      <p-avatar
+        [image]="review.avatar"
+        class="mb-2 md:mb-0 md:mr-4"
+        style="box-shadow: 5px 8px 20px 1px rgba(0, 255, 157, 0.719)"
+        size="xlarge"
+        shape="circle"
+      ></p-avatar>
+
+      <!-- Contenido de la reseña -->
+      <div class="flex-1">
+        <h4 class="font-bold text-lg">{{ review.user }}</h4>
+        <p class="text-sm">
+          <span class="text-slate-500">{{ review.date }}</span> |
+          <span class="text-orange-500 font-bold text-xl"
+            >{{ review.rating }}/5</span
+          >
+        </p>
+        <p class="p-2 text-sm text-pretty">{{ review.review }}</p>
+      </div>
+
+      <!-- Botones (en columna en móvil, en fila en desktop) -->
+      <div class="flex md:flex-col gap-2 self-start md:self-center">
+        <p-button
+          icon="pi pi-file-edit"
+          size="small"
+          severity="warn"
+          variant="outlined"
+        ></p-button>
+        <p-button
+          icon="pi pi-trash"
+          size="small"
+          severity="danger"
+          variant="outlined"
+        ></p-button>
+      </div>
+    </div>
+    }
+    <div class="card flex justify-center mt-10">
+      <p-button
+        label="Añadir reseña"
+        severity="info"
+        (click)="showDialog(true)"
+      ></p-button>
+    </div>
+  </p-fieldset>
+</div>
+<div class="card flex justify-center w-full">
+  <p-dialog
+    header="Nueva reseña"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '90%', maxWidth: '960px' }"
+  >
+    <div class="card">
+      <div class="card flex justify-start mb-3">
+        <p>Puntuación del producto:</p>
+        <p-rating [(ngModel)]="rating" class="pl-4" />
+      </div>
+      <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+    </div>
+    <div
+      class="flex flex-col md:flex-row gap-2 mt-4 md:justify-end justify-center w-full"
+    >
+      <p-button
+        styleClass="flex w-full"
+        label="Añadir reseña"
+        iconPos="right"
+        icon="pi pi-check"
+        size="small"
+        severity="warn"
+      ></p-button>
+      <p-button
+        styleClass="flex w-full md:ml-2 mt-2 md:mt-0"
+        label="Cancelar"
+        iconPos="right"
+        icon="pi pi-times"
+        size="small"
+        severity="danger"
+        variant="outlined"
+        (click)="showDialog(false)"
+      />
+    </div>
+  </p-dialog>
+</div>

@@ -6,11 +6,22 @@ import { UpButton } from '../up-button/up-button';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
+import { FormsModule } from '@angular/forms';
+import { Search } from '../search/search';
+import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
 @Component({
   standalone: true,
   selector: 'app-header',
   providers: [MessageService],
-  imports: [PrimengModule, Cart, UpButton, TranslateModule],
+  imports: [
+    PrimengModule,
+    Cart,
+    UpButton,
+    TranslateModule,
+    FormsModule,
+    Search,
+    DrawerCookies,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -18,6 +29,7 @@ export class Header implements OnInit {
   items: MenuItem[] | undefined;
   itemsTiered: MenuItem[] | undefined;
   visible = false;
+  isDarkMode = false;
 
   constructor(
     public router: Router,
@@ -55,6 +67,7 @@ export class Header implements OnInit {
       {
         label: t['header.shop'],
         icon: 'pi pi-cart-minus',
+        routerLink: '/shop',
         items: [
           { label: t['header.cat1'], icon: 'pi pi-list' },
           { label: t['header.cat2'], icon: 'pi pi-list' },
@@ -66,7 +79,11 @@ export class Header implements OnInit {
         icon: 'pi pi-envelope',
         routerLink: '/contact',
       },
-      { label: t['header.about'], icon: 'pi pi-info-circle' },
+      {
+        label: t['header.about'],
+        icon: 'pi pi-info-circle',
+        routerLink: '/about',
+      },
     ];
 
     this.itemsTiered = [
@@ -99,5 +116,13 @@ export class Header implements OnInit {
       detail: t['header.empty_cart_detail'],
       life: 3000,
     });
+  }
+
+  toggleDarkMode() {
+    const element = document.querySelector('html');
+    if (element !== null) {
+      element.classList.toggle('my-app-dark');
+      this.isDarkMode = true;
+    }
   }
 }

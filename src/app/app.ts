@@ -20,6 +20,7 @@ export class App {
   ngOnInit() {
     this.primeng.ripple.set(true);
     this.translate.addLangs(['en', 'es']);
-    this.translate.setFallbackLang('es');
+    // this.translate.setFallbackLang('es');
+    this.translate.setDefaultLang('es');
   }
 }

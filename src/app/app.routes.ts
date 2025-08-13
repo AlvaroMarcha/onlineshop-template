@@ -7,6 +7,11 @@ import { Priv } from './views/priv/priv';
 import { Notice } from './views/notice/notice';
 import { Cond } from './views/cond/cond';
 import { Contact } from './views/contact/contact';
+import { About } from './views/about/about';
+import { Shop } from './views/shop/shop';
+import { ProductView } from './views/product/product';
+import { NotFound } from './views/not-found/not-found';
+import { Cookies } from './views/cookies/cookies';
 
 export const routes: Routes = [
   { path: '', component: InitPage },
@@ -17,4 +22,9 @@ export const routes: Routes = [
   { path: 'notice', component: Notice },
   { path: 'cond', component: Cond },
   { path: 'contact', component: Contact },
+  { path: 'about', component: About },
+  { path: 'shop', component: Shop },
+  { path: 'product/:id', component: ProductView },
+  { path: 'cookies', component: Cookies },
+  { path: '**', component: NotFound },
 ];

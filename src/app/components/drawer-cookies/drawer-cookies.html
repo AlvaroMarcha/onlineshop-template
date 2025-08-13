@@ -1,0 +1,75 @@
+<!-- <div class="card flex justify-center">
+  <p-button
+    (click)="showDialog()"
+    label="Mostrar aviso de cookies"
+    icon="pi pi-cog"
+  />
+</div> -->
+
+<p-dialog
+  header="Preferencias de cookies"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+  [closable]="false"
+  [dismissableMask]="true"
+>
+  <div class="mb-4">
+    <p class="text-lg font-semibold mb-2">🍪 Usamos cookies</p>
+    <p class="text-sm text-color-secondary">
+      Este sitio web utiliza cookies propias y de terceros para garantizar el
+      correcto funcionamiento de la página, personalizar tu experiencia,
+      analizar el tráfico y ofrecer contenidos adaptados a tus intereses.
+    </p>
+  </div>
+  <div class="mb-4">
+    <p-button (click)="router.navigate(['/cookies'])" link="true"
+      >Ir a nuestra política de cookies</p-button
+    >
+  </div>
+
+  <p-divider />
+
+  <!-- Sección de configuración -->
+  <div class="flex flex-column gap-3 mt-3">
+    <div>
+      <strong>✅ Cookies necesarias (siempre activas)</strong>
+      <p class="text-sm text-color-secondary">
+        Estas cookies son esenciales y no se pueden desactivar.
+      </p>
+    </div>
+
+    <p-checkbox
+      binary="true"
+      [(ngModel)]="preferences.pref"
+      label="Cookies de preferencias"
+    ></p-checkbox>
+    <small class="text-color-secondary"
+      >Recuerdan tus preferencias como idioma o región.</small
+    >
+
+    <p-checkbox
+      binary="true"
+      [(ngModel)]="preferences.stats"
+      label="Cookies de estadísticas"
+    ></p-checkbox>
+    <small class="text-color-secondary"
+      >Ayudan a mejorar el sitio mediante datos anónimos.</small
+    >
+
+    <p-checkbox
+      binary="true"
+      [(ngModel)]="preferences.marketing"
+      label="Cookies de marketing"
+    ></p-checkbox>
+    <small class="text-color-secondary"
+      >Usadas para mostrar anuncios personalizados.</small
+    >
+  </div>
+
+  <div class="flex justify-end gap-2 mt-4">
+    <p-button label="Rechazar todas" (click)="rejectAll()"></p-button>
+    <p-button label="Aceptar todas" (click)="acceptAll()"></p-button>
+    <p-button label="Guardar prefencias" (click)="savePreferences()"></p-button>
+  </div>
+</p-dialog>

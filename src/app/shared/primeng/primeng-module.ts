@@ -18,6 +18,22 @@ import { TextareaModule } from 'primeng/textarea';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { AvatarModule } from 'primeng/avatar';
 import { DividerModule } from 'primeng/divider';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { DataView } from 'primeng/dataview';
+import { Tag } from 'primeng/tag';
+import { Rating } from 'primeng/rating';
+import { SelectButton } from 'primeng/selectbutton';
+import { AccordionModule } from 'primeng/accordion'; // !! Dont use - Not working properly
+import { GalleriaModule } from 'primeng/galleria';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+import { ListboxModule } from 'primeng/listbox';
+import { DrawerModule } from 'primeng/drawer';
+import { Toolbar } from 'primeng/toolbar';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { EditorModule } from 'primeng/editor';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [],
@@ -42,6 +58,22 @@ import { DividerModule } from 'primeng/divider';
     AnimateOnScrollModule,
     AvatarModule,
     DividerModule,
+    ToggleButtonModule,
+    DataView,
+    Tag,
+    Rating,
+    SelectButton,
+    AccordionModule,
+    GalleriaModule,
+    FieldsetModule,
+    PanelModule,
+    ListboxModule,
+    DrawerModule,
+    IconField,
+    Toolbar,
+    InputIcon,
+    EditorModule,
+    RatingModule,
   ],
   exports: [
     Menubar,
@@ -62,6 +94,22 @@ import { DividerModule } from 'primeng/divider';
     AnimateOnScrollModule,
     AvatarModule,
     DividerModule,
+    ToggleButtonModule,
+    DataView,
+    Tag,
+    Rating,
+    SelectButton,
+    AccordionModule,
+    GalleriaModule,
+    FieldsetModule,
+    PanelModule,
+    ListboxModule,
+    DrawerModule,
+    IconField,
+    Toolbar,
+    InputIcon,
+    EditorModule,
+    RatingModule,
   ],
 })
 export class PrimengModule {}
