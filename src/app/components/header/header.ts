@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
 import { FormsModule } from '@angular/forms';
 import { Search } from '../search/search';
+import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -19,6 +20,7 @@ import { Search } from '../search/search';
     TranslateModule,
     FormsModule,
     Search,
+    DrawerCookies,
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
