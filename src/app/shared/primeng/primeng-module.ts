@@ -34,6 +34,9 @@ import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { EditorModule } from 'primeng/editor';
 import { RatingModule } from 'primeng/rating';
+import { CarouselModule } from 'primeng/carousel';
+import { MessageModule } from 'primeng/message';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [],
@@ -74,6 +77,9 @@ import { RatingModule } from 'primeng/rating';
     InputIcon,
     EditorModule,
     RatingModule,
+    CarouselModule,
+    MessageModule,
+    PaginatorModule,
   ],
   exports: [
     Menubar,
@@ -110,6 +116,9 @@ import { RatingModule } from 'primeng/rating';
     InputIcon,
     EditorModule,
     RatingModule,
+    CarouselModule,
+    MessageModule,
+    PaginatorModule,
   ],
 })
 export class PrimengModule {}

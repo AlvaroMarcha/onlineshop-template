@@ -1,0 +1,24 @@
+<div class="card">
+  <p-carousel
+    [value]="images"
+    [numVisible]="2"
+    [numScroll]="1"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+    autoplayInterval="5000"
+  >
+    <ng-template pTemplate="item" let-image>
+      <div class="dark:border-surface-700 rounded m-2 p-4">
+        <div class="mb-4">
+          <div class="flex justify-center relative mx-auto">
+            <img
+              [src]="image.url"
+              [alt]="image.alt"
+              class="h-[400px] w-full object-contain rounded-lg shadow-md shadow-grey-100"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>

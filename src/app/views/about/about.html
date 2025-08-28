@@ -1,11 +1,12 @@
 <div class="about-container">
- 
+  <app-carousel></app-carousel>
+
   <p-card class="about-hero">
     <ng-template #title>{{ 'about.title' | translate }}</ng-template>
     <p>{{ 'about.description' | translate }}</p>
   </p-card>
 
-<h2 class="about-values-title">{{ 'about.values' | translate }}</h2>
+  <h2 class="about-values-title">{{ 'about.values' | translate }}</h2>
 
   <div class="about-values">
     <p-card class="value-card">
@@ -18,12 +19,12 @@
     </p-card>
   </div>
 
-<h2 class="about-team-title">{{ 'about.our_team' | translate }}</h2>
+  <h2 class="about-team-title">{{ 'about.our_team' | translate }}</h2>
 
   <div class="about-team">
     <p-card class="team-card" *ngFor="let member of team">
       <ng-template #title>
-        <i class="pi pi-user" style="font-size: 1.5rem; margin-right: 8px;"></i>
+        <i class="pi pi-user" style="font-size: 1.5rem; margin-right: 8px"></i>
         {{ member.name }}
       </ng-template>
       <p>{{ member.role }}</p>
@@ -33,9 +34,10 @@
 
   <!--Button Cotnact-->
   <p-button
-  label="{{ 'about.contact_us' | translate }}"
-  icon="pi pi-envelope"
-  class="about-button"
-  routerLink="/contact">
-</p-button>
+    label="{{ 'about.contact_us' | translate }}"
+    icon="pi pi-envelope"
+    class="about-button"
+    routerLink="/contact"
+  >
+  </p-button>
 </div>
