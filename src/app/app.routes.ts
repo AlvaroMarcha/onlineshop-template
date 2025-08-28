@@ -12,6 +12,7 @@ import { Shop } from './views/shop/shop';
 import { ProductView } from './views/product/product';
 import { NotFound } from './views/not-found/not-found';
 import { Cookies } from './views/cookies/cookies';
+import { GalleryView } from './views/gallery/galleryView';
 
 export const routes: Routes = [
   { path: '', component: InitPage },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'about', component: About },
   { path: 'shop', component: Shop },
   { path: 'product/:id', component: ProductView },
+  { path: 'gallery', component: GalleryView },
   { path: 'cookies', component: Cookies },
   { path: '**', component: NotFound },
 ];
