@@ -75,6 +75,11 @@ export class Header implements OnInit {
         ],
       },
       {
+        label: 'Galería', // Falta traducciones
+        icon: 'pi pi-images',
+        routerLink: '/gallery',
+      },
+      {
         label: t['header.contact'],
         icon: 'pi pi-envelope',
         routerLink: '/contact',

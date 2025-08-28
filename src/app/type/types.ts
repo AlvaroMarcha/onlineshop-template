@@ -26,3 +26,10 @@ export interface ProductReviewsItem {
   review: string;
   rating: number;
 }
+
+export interface ImgItem {
+  itemImageSrc: string;
+  alt: string;
+  thumbnailImageSrc: string;
+  title: string;
+}
