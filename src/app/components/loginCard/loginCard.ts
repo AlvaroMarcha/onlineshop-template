@@ -18,7 +18,6 @@ export class LoginCard {
   constructor(public router: Router, public auth: AuthService) {}
 
   login() {
-    console.log('ENTRO', this.userValue, this.passwordValue);
     if (this.userValue === 'admin' && this.passwordValue === 'admin')
       this.auth.setAdmin(true);
     this.router.navigate(['/admin/dashboard']);
