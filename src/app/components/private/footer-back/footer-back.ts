@@ -5,6 +5,5 @@ import { PrimengModule } from '../../../shared/primeng/primeng-module';
   selector: 'app-footer-back',
   imports: [PrimengModule],
   templateUrl: './footer-back.html',
-  styleUrl: './footer-back.css',
 })
 export class FooterBack {}
