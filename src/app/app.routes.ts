@@ -13,8 +13,10 @@ import { ProductView } from './views/product/product';
 import { NotFound } from './views/not-found/not-found';
 import { Cookies } from './views/cookies/cookies';
 import { GalleryView } from './views/gallery/galleryView';
+import { Dashboard } from './views/private/dashboard/dashboard';
 
 export const routes: Routes = [
+  //Public
   { path: '', component: InitPage },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
@@ -28,5 +30,7 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductView },
   { path: 'gallery', component: GalleryView },
   { path: 'cookies', component: Cookies },
+  // Private (BackOffice)
+  { path: 'admin/dashboard', component: Dashboard },
   { path: '**', component: NotFound },
 ];
