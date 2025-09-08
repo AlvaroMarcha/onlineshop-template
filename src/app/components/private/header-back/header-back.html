@@ -1,0 +1,44 @@
+<div
+  class="flex items-center justify-between px-4 py-2 bg-primary text-green-400 border-b border-gray-200 shadow-md"
+>
+  <p-button
+    icon="pi pi-bars"
+    class="p-button-text text-white"
+    (click)="drawerVisible = true"
+  ></p-button>
+
+  <span class="font-bold text-lg">Backoffice Dashboard</span>
+
+  <div class="flex items-center gap-2">
+    <p-avatar
+      image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+      shape="circle"
+    ></p-avatar>
+    <span class="hidden md:inline">Admin</span>
+  </div>
+</div>
+
+<!-- Drawer -->
+<p-drawer [(visible)]="drawerVisible" position="left">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-col h-full w-64">
+      <div class="flex items-center px-4 py-3 border-b">
+        <i class="pi pi-cog mr-2"></i>
+        <span class="font-bold">Menú</span>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-2">
+        <p-panelMenu [model]="menuItems" [multiple]="true"></p-panelMenu>
+      </div>
+
+      <div class="p-4 border-t mt-auto">
+        <p-button
+          icon="pi pi-sign-out"
+          label="Cerrar sesión"
+          [style]="{ backgroundColor: '#f44336' }"
+          (click)="logout()"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-drawer>
