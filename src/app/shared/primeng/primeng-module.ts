@@ -37,6 +37,7 @@ import { RatingModule } from 'primeng/rating';
 import { CarouselModule } from 'primeng/carousel';
 import { MessageModule } from 'primeng/message';
 import { PaginatorModule } from 'primeng/paginator';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 @NgModule({
   declarations: [],
@@ -80,6 +81,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CarouselModule,
     MessageModule,
     PaginatorModule,
+    PanelMenuModule,
   ],
   exports: [
     Menubar,
@@ -119,6 +121,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CarouselModule,
     MessageModule,
     PaginatorModule,
+    PanelMenuModule,
   ],
 })
 export class PrimengModule {}
