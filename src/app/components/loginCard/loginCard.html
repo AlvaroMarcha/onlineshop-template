@@ -1,14 +1,14 @@
 <p-card class="login-card">
   <ng-template #title>{{ 'login.title' | translate }}</ng-template>
   <input
-    [(ngModel)]="userValue"
+    [(ngModel)]="username"
     type="text"
     pInputText
     [placeholder]="'login.form.both' | translate"
   />
   <p-password
     style="width: 100%"
-    [(ngModel)]="passwordValue"
+    [(ngModel)]="password"
     [placeholder]="'login.form.password' | translate"
     [feedback]="false"
   />
@@ -18,7 +18,7 @@
     [label]="'login.form.login_button' | translate"
     icon="pi pi-check"
     iconPos="left"
-    (click)="login()"
+    (click)="onLogin()"
     size="small"
   />
   <p-button
