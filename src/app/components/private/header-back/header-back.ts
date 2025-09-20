@@ -52,7 +52,6 @@ export class HeaderBack {
   }
 
   logout = () => {
-    this.auth.logout();
     this.router.navigate(['/']);
   };
 }

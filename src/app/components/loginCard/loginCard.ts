@@ -1,25 +1,42 @@
 import { Component } from '@angular/core';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { FormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { loginRequest, logout } from '../../store/auth/auth.actions';
+import { selectToken, selectUser } from '../../store/auth/auth.selectors';
+import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-loginCard',
+  standalone: true,
   imports: [FormsModule, PrimengModule, TranslateModule],
   templateUrl: './loginCard.html',
   styleUrl: './loginCard.css',
 })
 export class LoginCard {
-  userValue!: string;
-  passwordValue!: string;
+  username = '';
+  password = '';
 
-  constructor(public router: Router, public auth: AuthService) {}
+  token$!: any;
+  user$!: any;
 
-  login() {
-    if (this.userValue === 'admin' && this.passwordValue === 'admin')
-      this.auth.setAdmin(true);
-    this.router.navigate(['/admin/dashboard']);
+  constructor(private store: Store, public router: Router) {}
+
+  ngOnInit() {
+    this.token$ = this.store.select(selectToken);
+    this.user$ = this.store.select(selectUser);
+
+    console.log(this.user$, this.token$);
+  }
+
+  onLogin() {
+    this.store.dispatch(
+      loginRequest({ username: this.username, password: this.password })
+    );
+  }
+
+  onLogout() {
+    this.store.dispatch(logout());
   }
 }

@@ -33,3 +33,19 @@ export interface ImgItem {
   thumbnailImageSrc: string;
   title: string;
 }
+
+// auth state
+export interface User {
+  id: number;
+  name: string;
+  username: string;
+  password: string;
+  email: string;
+  phone: string;
+  status: boolean;
+  email_verified_at: Date | null;
+  locked: boolean;
+  last_login: Date | null;
+  created_at: Date;
+  role_id: number;
+}

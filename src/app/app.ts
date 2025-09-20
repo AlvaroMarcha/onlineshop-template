@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { ApplicationConfig, Component } from '@angular/core';
+import { provideRouter, Router, RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
@@ -8,6 +8,7 @@ import { FooterBack } from './components/private/footer-back/footer-back';
 import { PrimengModule } from './shared/primeng/primeng-module';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from './services/auth-service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -38,9 +39,5 @@ export class App {
     this.translate.addLangs(['en', 'es']);
     // this.translate.setFallbackLang('es');
     this.translate.setDefaultLang('es');
-  }
-
-  isAdmin(): boolean {
-    return this.auth.isAdmin();
   }
 }
