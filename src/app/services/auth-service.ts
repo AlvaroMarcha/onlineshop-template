@@ -1,28 +1,22 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from '../type/types';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private isAdminSubject = new BehaviorSubject<boolean>(this.loadAdminState());
-  isAdmin$ = this.isAdminSubject.asObservable(); // observable para suscriptores
+  private apiUrl = 'http://localhost:8080/auth';
 
-  private loadAdminState(): boolean {
-    return localStorage.getItem('isAdmin') === 'true';
-  }
+  constructor(private http: HttpClient) {}
 
-  setAdmin(value: boolean) {
-    this.isAdminSubject.next(value); // actualiza el valor y notifica
-    localStorage.setItem('isAdmin', String(value));
-  }
-
-  isAdmin(): boolean {
-    return this.isAdminSubject.value;
-  }
-
-  logout() {
-    this.isAdminSubject.next(false);
-    localStorage.removeItem('isAdmin');
+  login(
+    username: string,
+    password: string
+  ): Observable<{ user: User; token: string }> {
+    return this.http.post<{ user: User; token: string }>(
+      `${this.apiUrl}/login`,
+      null,
+      { params: { user: username, pass: password } }
+    );
   }
 }
