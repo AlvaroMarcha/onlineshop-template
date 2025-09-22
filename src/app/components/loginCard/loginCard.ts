@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { loginRequest, logout } from '../../store/auth/auth.actions';
+import { loginRequestInit, logout } from '../../store/auth/auth.actions';
 import { selectToken, selectUser } from '../../store/auth/auth.selectors';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-loginCard',
@@ -18,25 +19,20 @@ export class LoginCard {
   username = '';
   password = '';
 
-  token$!: any;
-  user$!: any;
+  token$;
+  user$;
 
-  constructor(private store: Store, public router: Router) {}
+  constructor(private store: Store, public router: Router) {
+    this.token$ = toSignal(this.store.select(selectToken));
+    this.user$ = toSignal(this.store.select(selectUser));
 
-  ngOnInit() {
-    this.token$ = this.store.select(selectToken);
-    this.user$ = this.store.select(selectUser);
-
-    console.log(this.user$, this.token$);
+    console.log(this.token$());
   }
 
-  onLogin() {
-    this.store.dispatch(
-      loginRequest({ username: this.username, password: this.password })
-    );
-  }
-
-  onLogout() {
-    this.store.dispatch(logout());
-  }
+  onLogin = (
+    username: string = this.username,
+    password: string = this.password
+  ) => {
+    this.store.dispatch(loginRequestInit({ username, password }));
+  };
 }
