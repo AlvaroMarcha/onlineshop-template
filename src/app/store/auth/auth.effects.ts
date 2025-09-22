@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { loginRequestInit, loginSuccessFinal } from './auth.actions';
+import { exhaustMap, map, tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth-service';
-import { loginRequest, loginSuccess, loginFailure } from './auth.actions';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { LoginTokenResponse } from '../../type/types';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  actions$ = inject(Actions);
+  authService = inject(AuthService);
 
-  login$ = createEffect(() =>
+  loginRequest$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loginRequest),
-      mergeMap(({ username, password }) =>
-        this.authService.login(username, password).pipe(
-          map((response: { user: any; token: string }) =>
-            loginSuccess({ user: response.user, token: response.token })
-          ),
-          catchError((error) => of(loginFailure({ error })))
+      ofType(loginRequestInit),
+      exhaustMap((action) =>
+        this.authService.login(action.username, action.password).pipe(
+          // tap((res) => console.log('Respuesta del backend:', res)),
+          map((loginTokenResponse: LoginTokenResponse) =>
+            loginSuccessFinal({ loginTokenResponse })
+          )
         )
       )
     )
