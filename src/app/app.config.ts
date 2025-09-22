@@ -2,30 +2,28 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   provideBrowserGlobalErrorListeners,
+  importProvidersFrom,
+  isDevMode,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
-import { importProvidersFrom, isDevMode } from '@angular/core';
 
 import { routes } from './app.routes';
+
+// NgRx
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-// NgRx
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
-//Reducer
+// Reducers
 import { authReducer } from './store/auth/auth.reducer';
+import { AuthEffects } from './store/auth/auth.effects';
 
 export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -33,15 +31,19 @@ export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // NgRx
     provideStore({ auth: authReducer }),
-    provideEffects([]),
+    provideEffects([AuthEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+
+    // Angular core
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(),
+
+    // PrimeNG
     providePrimeNG({
       ripple: true,
       theme: {
@@ -51,6 +53,8 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+
+    // Translate
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'es',
@@ -61,8 +65,5 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
-    provideStore(),
-    provideEffects(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
