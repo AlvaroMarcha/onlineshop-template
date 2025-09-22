@@ -49,3 +49,8 @@ export interface User {
   created_at: Date;
   role_id: number;
 }
+
+export interface LoginTokenResponse {
+  user: User;
+  token: string;
+}
