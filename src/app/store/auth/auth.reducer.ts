@@ -1,38 +1,30 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialAuthState } from './auth.state';
-import {
-  loginRequest,
-  loginSuccess,
-  loginFailure,
-  logout,
-} from './auth.actions';
+import { initialState } from './auth.state';
+import { loginRequestFinal, loginSuccessFinal, logout } from './auth.actions';
+import { state } from '@angular/animations';
 
 export const authReducer = createReducer(
-  initialAuthState,
-
-  // cuando empieza el login → podrías poner loading en true
-  on(loginRequest, (state) => ({
+  initialState,
+  //Login request from Effect
+  on(loginRequestFinal, (state, { username, password }) => ({
     ...state,
-    loading: true,
-    error: null,
+    username,
+    password,
   })),
 
-  // login correcto → guardamos user y token
-  on(loginSuccess, (state, { user, token }) => ({
-    ...state,
-    user,
-    token,
-    loading: false,
-    error: null,
-  })),
+  //Login successs from Effect
+  on(loginSuccessFinal, (state, { loginTokenResponse }) => {
+    localStorage.setItem('token', loginTokenResponse.token);
+    return {
+      ...state,
+      token: loginTokenResponse.token,
+      user: loginTokenResponse.user,
+    };
+  }),
 
-  // login falla → guardamos error
-  on(loginFailure, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  })),
-
-  // logout → limpiamos estado
-  on(logout, () => initialAuthState)
+  //Logout
+  on(logout, (state) => {
+    localStorage.removeItem('token');
+    return { ...state, token: null, user: null };
+  })
 );

@@ -1,11 +1,15 @@
 import { User } from '../../type/types';
 
 export interface AuthState {
-  user: User | null;
   token: string | null;
+  user: User | null;
+  loading: boolean;
+  error: string | null;
 }
 
-export const initialAuthState: AuthState = {
-  user: null,
+export const initialState: AuthState = {
   token: null,
+  user: null,
+  loading: false,
+  error: null,
 };

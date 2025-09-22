@@ -1,23 +1,29 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../../type/types';
+import { LoginTokenResponse, User } from '../../type/types';
 
-// Acción para disparar el login (con credenciales)
-export const loginRequest = createAction(
-  '[Auth] Login Request',
+// Login request init action
+export const loginRequestInit = createAction(
+  '[Auth] Login Request init action',
   props<{ username: string; password: string }>()
 );
 
-// Acción cuando el backend responde OK
+// Login request final action
+export const loginRequestFinal = createAction(
+  '[Auth] Login Request final action',
+  props<{ username: string; password: string }>()
+);
+
+//Login success init action
 export const loginSuccess = createAction(
-  '[Auth] Login Success',
-  props<{ user: User; token: string }>()
+  '[Auth] Login Success init action',
+  props<{ loginTokenResponse: LoginTokenResponse }>()
 );
 
-// Acción cuando hay error
-export const loginFailure = createAction(
-  '[Auth] Login Failure',
-  props<{ error: string }>()
+//Login success final action
+export const loginSuccessFinal = createAction(
+  '[Auth] Login Success final action',
+  props<{ loginTokenResponse: LoginTokenResponse }>()
 );
 
-// Logout
-export const logout = createAction('[Auth] Logout');
+//Login logout action
+export const logout = createAction('[Auth] Logout action');
