@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
     // NgRx
     provideStore({ auth: authReducer }),
     provideEffects([AuthEffects]),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideStoreDevtools({ maxAge: 25, logOnly: isDevMode() }),
 
     // Angular core
     provideHttpClient(),
