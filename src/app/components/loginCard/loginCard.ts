@@ -25,8 +25,6 @@ export class LoginCard {
   constructor(private store: Store, public router: Router) {
     this.token$ = toSignal(this.store.select(selectToken));
     this.user$ = toSignal(this.store.select(selectUser));
-
-    console.log(this.token$());
   }
 
   onLogin = (

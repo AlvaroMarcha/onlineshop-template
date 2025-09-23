@@ -47,7 +47,10 @@ export interface User {
   locked: boolean;
   last_login: Date | null;
   created_at: Date;
-  role_id: number;
+  role: {
+    id: number;
+    role_name: string;
+  };
 }
 
 export interface LoginTokenResponse {

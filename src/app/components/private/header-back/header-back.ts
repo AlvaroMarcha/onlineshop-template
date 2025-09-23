@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { PrimengModule } from '../../../shared/primeng/primeng-module';
 import { MenuItem } from 'primeng/api';
-import { AuthService } from '../../../services/auth-service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { logout } from '../../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-header-back',
@@ -13,7 +14,7 @@ export class HeaderBack {
   drawerVisible = false;
   menuItems: MenuItem[] = [];
 
-  constructor(public auth: AuthService, public router: Router) {}
+  constructor(public store: Store, public router: Router) {}
 
   ngOnInit() {
     this.menuItems = [
@@ -52,6 +53,7 @@ export class HeaderBack {
   }
 
   logout = () => {
+    this.store.dispatch(logout());
     this.router.navigate(['/']);
   };
 }

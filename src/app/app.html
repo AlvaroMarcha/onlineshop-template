@@ -1,4 +1,4 @@
-@if (router.url.includes('/admin')) {
+@if ( isAdmin() && router.url.includes('/admin')) {
 <!-- Layout de Admin -->
 <app-header-back></app-header-back>
 <router-outlet></router-outlet>
