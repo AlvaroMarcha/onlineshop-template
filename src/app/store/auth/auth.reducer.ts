@@ -15,6 +15,7 @@ export const authReducer = createReducer(
   //Login successs from Effect
   on(loginSuccessFinal, (state, { loginTokenResponse }) => {
     localStorage.setItem('token', loginTokenResponse.token);
+    localStorage.setItem('user', JSON.stringify(loginTokenResponse.user));
     return {
       ...state,
       token: loginTokenResponse.token,
@@ -25,6 +26,7 @@ export const authReducer = createReducer(
   //Logout
   on(logout, (state) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     return { ...state, token: null, user: null };
   })
 );
