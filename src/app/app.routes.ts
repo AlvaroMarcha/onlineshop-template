@@ -14,6 +14,7 @@ import { NotFound } from './views/not-found/not-found';
 import { Cookies } from './views/cookies/cookies';
 import { GalleryView } from './views/gallery/galleryView';
 import { Dashboard } from './views/private/dashboard/dashboard';
+import { ClientProfile } from './views/client-profile/client-profile';
 
 export const routes: Routes = [
   //Public
@@ -32,5 +33,6 @@ export const routes: Routes = [
   { path: 'cookies', component: Cookies },
   // Private (BackOffice)
   { path: 'admin/dashboard', component: Dashboard },
+  { path: 'profile', component: ClientProfile },
   { path: '**', component: NotFound },
 ];

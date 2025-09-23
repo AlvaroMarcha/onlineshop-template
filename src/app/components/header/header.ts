@@ -9,6 +9,9 @@ import { LanguageService } from '../../services/language-service';
 import { FormsModule } from '@angular/forms';
 import { Search } from '../search/search';
 import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectUser } from '../../store/auth/auth.selectors';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -26,7 +29,10 @@ import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
   styleUrl: './header.css',
 })
 export class Header implements OnInit {
+  user$;
+
   items: MenuItem[] | undefined;
+  clientItems: MenuItem[] | undefined;
   itemsTiered: MenuItem[] | undefined;
   visible = false;
   isDarkMode = false;
@@ -34,8 +40,13 @@ export class Header implements OnInit {
   constructor(
     public router: Router,
     public messageService: MessageService,
-    private lang: LanguageService
-  ) {}
+    private lang: LanguageService,
+    private store: Store
+  ) {
+    this.user$ = toSignal(this.store.select(selectUser), {
+      initialValue: null,
+    });
+  }
 
   currentLang = 'es';
 
@@ -99,6 +110,20 @@ export class Header implements OnInit {
         routerLink: 'register',
       },
     ];
+
+    this.clientItems = [
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+      },
+      {
+        separator: true,
+      },
+      {
+        label: 'Cerrar sesión',
+        icon: 'pi pi-sign-out',
+      },
+    ];
   }
 
   showDialog() {
@@ -129,5 +154,9 @@ export class Header implements OnInit {
       element.classList.toggle('my-app-dark');
       this.isDarkMode = true;
     }
+  }
+
+  getStatusUser(): boolean {
+    return this.user$ === null;
   }
 }

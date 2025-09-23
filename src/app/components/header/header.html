@@ -35,12 +35,25 @@
         [rounded]="true"
         (click)="toggleLanguage()"
       />
+
+      @if(getStatusUser()) {
+      <!-- logged user -->
+      <p-button
+        severity="help"
+        icon="pi pi-user"
+        [rounded]="true"
+        (click)="menuClients.toggle($event)"
+      />
+      <p-tieredmenu #menuClients [model]="clientItems" [popup]="true" />
+      }@else{
+      <!-- no logged user -->
       <p-button
         icon="pi pi-user"
         [rounded]="true"
         (click)="menu.toggle($event)"
       />
       <p-tieredmenu #menu [model]="itemsTiered" [popup]="true" />
+      }
     </ng-template>
   </p-menubar>
 
