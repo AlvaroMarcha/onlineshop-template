@@ -36,7 +36,7 @@
         (click)="toggleLanguage()"
       />
 
-      @if(getStatusUser()) {
+      @if(this.isLogged()) {
       <!-- logged user -->
       <p-button
         severity="help"
