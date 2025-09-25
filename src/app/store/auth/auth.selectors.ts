@@ -15,14 +15,5 @@ export const selectUser = createSelector(
   (state) => state.user
 );
 
-//Create select to get loading state
-// export const selectLoading = createSelector(
-//   selectAuthState,
-//   (state) => state.loading
-// );
-
-//Create select to get error state
-// export const selectError = createSelector(
-//   selectAuthState,
-//   (state) => state.error
-// );
+//IsLogged user ???
+export const selectIsLogged = createSelector(selectToken, (token) => !!token);

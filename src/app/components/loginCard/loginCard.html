@@ -18,7 +18,8 @@
     [label]="'login.form.login_button' | translate"
     icon="pi pi-check"
     iconPos="left"
-    (click)="onLogin()"
+    [loading]="loading"
+    (onClick)="onLogin()"
     size="small"
   />
   <p-button

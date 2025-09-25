@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Cart } from '../cart/cart';
@@ -11,7 +11,8 @@ import { Search } from '../search/search';
 import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { selectUser } from '../../store/auth/auth.selectors';
+import { selectIsLogged, selectUser } from '../../store/auth/auth.selectors';
+import { logout } from '../../store/auth/auth.actions';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -36,6 +37,7 @@ export class Header implements OnInit {
   itemsTiered: MenuItem[] | undefined;
   visible = false;
   isDarkMode = false;
+  isLogged: any;
 
   constructor(
     public router: Router,
@@ -46,6 +48,8 @@ export class Header implements OnInit {
     this.user$ = toSignal(this.store.select(selectUser), {
       initialValue: null,
     });
+
+    this.isLogged = toSignal(this.store.select(selectIsLogged));
   }
 
   currentLang = 'es';
@@ -115,6 +119,9 @@ export class Header implements OnInit {
       {
         label: 'Perfil',
         icon: 'pi pi-user-edit',
+        command: () => {
+          this.router.navigate(['/profile']);
+        },
       },
       {
         separator: true,
@@ -122,6 +129,10 @@ export class Header implements OnInit {
       {
         label: 'Cerrar sesión',
         icon: 'pi pi-sign-out',
+        command: () => {
+          this.store.dispatch(logout());
+          this.router.navigate(['/']);
+        },
       },
     ];
   }
@@ -154,9 +165,5 @@ export class Header implements OnInit {
       element.classList.toggle('my-app-dark');
       this.isDarkMode = true;
     }
-  }
-
-  getStatusUser(): boolean {
-    return this.user$ === null;
   }
 }
