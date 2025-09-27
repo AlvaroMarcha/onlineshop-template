@@ -33,7 +33,7 @@ export class App {
 
   //Computed
   isAdmin = computed(() => {
-    return this.user$()?.role.role_name === 'ADMIN';
+    return this.user$()?.role_id === 1;
   });
 
   constructor(
