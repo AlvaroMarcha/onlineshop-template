@@ -57,3 +57,22 @@ export interface LoginTokenResponse {
   user: User;
   token: string;
 }
+
+//Backoffice
+export interface Product {
+  id: number;
+  name: string;
+  stock: number;
+  price: number;
+  bar_code: string;
+  reference: string;
+  visible: boolean;
+  category_id: number;
+  subcategory_id: number;
+}
+
+export interface Order {
+  id: number;
+  date: string;
+  status: string;
+}

@@ -38,6 +38,12 @@ import { CarouselModule } from 'primeng/carousel';
 import { MessageModule } from 'primeng/message';
 import { PaginatorModule } from 'primeng/paginator';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { FileUploadModule } from 'primeng/fileupload';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { TabsModule } from 'primeng/tabs';
+import { BadgeModule } from 'primeng/badge';
+import { TableModule } from 'primeng/table';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [],
@@ -82,6 +88,12 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     MessageModule,
     PaginatorModule,
     PanelMenuModule,
+    FileUploadModule,
+    IftaLabelModule,
+    TabsModule,
+    BadgeModule,
+    TableModule,
+    ChartModule,
   ],
   exports: [
     Menubar,
@@ -122,6 +134,12 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     MessageModule,
     PaginatorModule,
     PanelMenuModule,
+    FileUploadModule,
+    IftaLabelModule,
+    TabsModule,
+    BadgeModule,
+    TableModule,
+    ChartModule,
   ],
 })
 export class PrimengModule {}
