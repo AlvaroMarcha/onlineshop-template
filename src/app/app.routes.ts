@@ -15,6 +15,7 @@ import { Cookies } from './views/cookies/cookies';
 import { GalleryView } from './views/gallery/galleryView';
 import { Dashboard } from './views/private/dashboard/dashboard';
 import { ClientProfile } from './views/client-profile/client-profile';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   //Public
@@ -33,6 +34,6 @@ export const routes: Routes = [
   { path: 'cookies', component: Cookies },
   // Private (BackOffice)
   { path: 'admin/dashboard', component: Dashboard },
-  { path: 'profile', component: ClientProfile },
+  { path: 'profile', component: ClientProfile, canActivate: [authGuard] },
   { path: '**', component: NotFound },
 ];
