@@ -11,6 +11,7 @@ import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { User } from '../../type/types';
 
 @Component({
   selector: 'app-loginCard',
@@ -22,6 +23,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class LoginCard {
   username = '';
   password = '';
+
+  validation = signal('');
+  severityValidation = 'warn';
+
   isLogged: any;
   loading: boolean = false;
   token$;
@@ -36,7 +41,7 @@ export class LoginCard {
     effect(() => {
       const user = this.user$();
       if (user) {
-        if (user.role.role_name === 'ADMIN') {
+        if (user.role_id === 1) {
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.router.navigate(['/profile']);
@@ -50,16 +55,23 @@ export class LoginCard {
     password: string = this.password
   ) => {
     this.loading = true;
-    const isAdmin = this.user$()?.role.role_name === 'ADMIN';
-
     setTimeout(() => {
-      this.store.dispatch(loginRequestInit({ username, password }));
+      this.getValidationLogin(username, password);
       this.loading = false;
       this.isLogged = true;
-      //Navigate
-      if (!isAdmin && this.isLogged) {
-        this.router.navigate(['/profile']);
-      }
-    }, 2000);
+    }, 700);
   };
+
+  getValidationLogin(username: string, password: string): void {
+    if (this.username === '' && this.password === '') {
+      this.severityValidation = 'error';
+      this.validation.set('Los campos no pueden estar vacíos');
+    } else {
+      if (this.username === username && this.password === password) {
+        this.store.dispatch(loginRequestInit({ username, password }));
+      }
+      this.severityValidation = 'warn';
+      this.validation.set('Credenciales incorrectas');
+    }
+  }
 }
