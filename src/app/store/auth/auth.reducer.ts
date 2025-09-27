@@ -1,6 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './auth.state';
-import { loginRequestFinal, loginSuccessFinal, logout } from './auth.actions';
+import {
+  loginRequestFinal,
+  loginSuccessFinal,
+  logout,
+  registerRequest,
+  registerSuccess,
+} from './auth.actions';
 import { state } from '@angular/animations';
 
 export const authReducer = createReducer(
@@ -28,5 +34,24 @@ export const authReducer = createReducer(
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     return { ...state, token: null, user: null };
+  }),
+
+  // Register request
+  on(registerRequest, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+
+  // Register success
+  on(registerSuccess, (state, { user, token }) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    return {
+      ...state,
+      token,
+      user,
+      loading: false,
+    };
   })
 );

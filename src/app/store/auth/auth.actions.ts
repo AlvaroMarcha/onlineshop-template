@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LoginTokenResponse, User } from '../../type/types';
+import { createClientUser, LoginTokenResponse, User } from '../../type/types';
 
 // Login request init action
 export const loginRequestInit = createAction(
@@ -27,3 +27,14 @@ export const loginSuccessFinal = createAction(
 
 //Login logout action
 export const logout = createAction('[Auth] Logout action');
+
+//Register request
+export const registerRequest = createAction(
+  '[Auth] Register Request',
+  props<{ payload: createClientUser }>()
+);
+
+export const registerSuccess = createAction(
+  '[Auth] Register Success',
+  props<{ user: User; token: string }>()
+);

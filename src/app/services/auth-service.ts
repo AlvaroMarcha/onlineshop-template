@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LoginTokenResponse, User } from '../type/types';
+import { Observable, switchMap } from 'rxjs';
+import { createClientUser, LoginTokenResponse, User } from '../type/types';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -21,5 +21,17 @@ export class AuthService {
         pass: password,
       }
     );
+  }
+
+  register(
+    payload: createClientUser
+  ): Observable<{ user: User; token: string }> {
+    return this.http
+      .post(`${this.apiAuth}/register`, payload)
+      .pipe(
+        switchMap(() =>
+          this.login(payload.user.username, payload.user.password)
+        )
+      );
   }
 }
