@@ -99,12 +99,10 @@
             <div class="card flex justify-center">
               <p-panel header="Status">
                 <p class="m-0">
-                  {{ this.user$()?.status ? '🟢 Conectado' : '🔘 Desconectado'
-                  }}
+                  {{ user$()?.status ? '🟢 Conectado' : '🔘 Desconectado' }}
                 </p>
                 <p class="m-0">
-                  Miembro desde: {{ this.user$()?.created_at | date:
-                  'mediumDate'}}
+                  Miembro desde: {{ user$()?.created_at | date: 'mediumDate'}}
                 </p>
               </p-panel>
             </div>
