@@ -18,7 +18,14 @@
   <div class="flexbox w-full mb-5">
     <p-message [severity]="severityValidation">
       <i class="pi pi-info-circle"></i>
-      <span class="ml-2">{{this.validation()}}</span>
+      <span class="ml-2">{{ this.validation() }}</span>
+    </p-message>
+  </div>
+  } @else if(errorMessage$()){
+  <div class="flexbox w-full mb-5">
+    <p-message severity="error">
+      <i class="pi pi-info-circle"></i>
+      <span class="ml-2">{{ errorMessage$() }}</span>
     </p-message>
   </div>
   }

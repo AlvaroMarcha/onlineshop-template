@@ -15,5 +15,10 @@ export const selectUser = createSelector(
   (state) => state.user
 );
 
+export const selectAuthError = createSelector(
+  selectAuthState,
+  (state) => state.error
+);
+
 //IsLogged user ???
 export const selectIsLogged = createSelector(selectToken, (token) => !!token);

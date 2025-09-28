@@ -25,6 +25,12 @@ export const loginSuccessFinal = createAction(
   props<{ loginTokenResponse: LoginTokenResponse }>()
 );
 
+//Login failure action
+export const loginFailure = createAction(
+  '[Auth] Login Failure action',
+  props<{ error: any }>()
+);
+
 //Login logout action
 export const logout = createAction('[Auth] Logout action');
 
