@@ -113,6 +113,16 @@ export class Header implements OnInit {
         icon: 'pi pi-user-plus',
         routerLink: 'register',
       },
+      {
+        separator: true,
+      },
+      {
+        label: 'Idioma',
+        icon: 'pi pi-globe',
+        command: () => {
+          this.toggleLanguage();
+        },
+      },
     ];
 
     this.clientItems = [
