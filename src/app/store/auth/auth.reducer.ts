@@ -8,7 +8,6 @@ import {
   registerRequest,
   registerSuccess,
 } from './auth.actions';
-import { state } from '@angular/animations';
 
 export const authReducer = createReducer(
   initialState,

@@ -64,8 +64,8 @@ export interface Product {
   bar_code: string;
   reference: string;
   visible: boolean;
-  category_id: number;
-  subcategory_id: number;
+  category: string;
+  subcategory: string;
 }
 
 export interface Order {

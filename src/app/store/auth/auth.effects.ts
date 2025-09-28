@@ -10,7 +10,7 @@ import {
 import { catchError, exhaustMap, map, mergeMap, tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth-service';
 import { LoginTokenResponse } from '../../type/types';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {

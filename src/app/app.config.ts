@@ -24,6 +24,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 // Reducers
 import { authReducer } from './store/auth/auth.reducer';
 import { AuthEffects } from './store/auth/auth.effects';
+import { ProductEffects } from './store/products/products.effects';
+import { productReducer } from './store/products/products.reducer';
 
 export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -32,8 +34,8 @@ export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 export const appConfig: ApplicationConfig = {
   providers: [
     // NgRx
-    provideStore({ auth: authReducer }),
-    provideEffects([AuthEffects]),
+    provideStore({ auth: authReducer, products: productReducer }),
+    provideEffects([AuthEffects, ProductEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: isDevMode() }),
 
     // Angular core
