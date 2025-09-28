@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './auth.state';
 import {
+  loginFailure,
   loginRequestFinal,
   loginSuccessFinal,
   logout,
@@ -28,6 +29,12 @@ export const authReducer = createReducer(
       user: loginTokenResponse.user,
     };
   }),
+
+  //Login failure
+  on(loginFailure, (state, { error }) => ({
+    ...state,
+    error: 'Credenciales incorrectas',
+  })),
 
   //Logout
   on(logout, (state) => {
