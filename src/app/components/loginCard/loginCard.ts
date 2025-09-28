@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginRequestInit, logout } from '../../store/auth/auth.actions';
 import {
+  selectAuthError,
   selectIsLogged,
   selectToken,
   selectUser,
@@ -25,16 +26,18 @@ export class LoginCard {
   password = '';
 
   validation = signal('');
-  severityValidation = 'warn';
+  severityValidation = 'error';
 
   isLogged: any;
   loading: boolean = false;
   token$;
   user$;
+  errorMessage$;
 
   constructor(private store: Store, public router: Router) {
     this.token$ = toSignal(this.store.select(selectToken));
     this.user$ = toSignal(this.store.select(selectUser));
+    this.errorMessage$ = toSignal(this.store.select(selectAuthError));
 
     this.isLogged = signal(this.store.select(selectIsLogged));
 
@@ -50,28 +53,27 @@ export class LoginCard {
     });
   }
 
-  onLogin = (
-    username: string = this.username,
-    password: string = this.password
-  ) => {
+  onLogin = () => {
     this.loading = true;
     setTimeout(() => {
-      this.getValidationLogin(username, password);
+      this.getValidationLogin();
       this.loading = false;
       this.isLogged = true;
     }, 700);
   };
 
-  getValidationLogin(username: string, password: string): void {
+  getValidationLogin = () => {
     if (this.username === '' && this.password === '') {
-      this.severityValidation = 'error';
       this.validation.set('Los campos no pueden estar vacíos');
     } else {
-      if (this.username === username && this.password === password) {
-        this.store.dispatch(loginRequestInit({ username, password }));
+      if (!this.username || !this.password) {
+        this.validation.set('Los campos no pueden estar vacíos');
+      } else {
+        this.validation.set('');
+        this.store.dispatch(
+          loginRequestInit({ username: this.username, password: this.password })
+        );
       }
-      this.severityValidation = 'warn';
-      this.validation.set('Credenciales incorrectas');
     }
-  }
+  };
 }
