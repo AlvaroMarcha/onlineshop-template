@@ -17,23 +17,6 @@ export class AuthEffects {
   actions$ = inject(Actions);
   authService = inject(AuthService);
 
-  // loginEffect$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(loginRequestInit),
-  //     exhaustMap((action) =>
-  //       this.authService.login(action.username, action.password).pipe(
-  //         map((loginTokenResponse: LoginTokenResponse) =>
-  //           loginSuccessFinal({ loginTokenResponse })
-  //         ),
-  //         catchError((error) => {
-  //           console.error('ERROR en el loginEffect:', error);
-  //           return EMPTY;
-  //         })
-  //       )
-  //     )
-  //   )
-  // );
-
   loginEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginRequestInit),
