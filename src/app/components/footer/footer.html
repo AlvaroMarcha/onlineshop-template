@@ -1,60 +1,132 @@
-<footer>
-  <div class="principal">
-    <div class="flex align-items-center justify-content-center">
-      <p-image style="margin: 10px" src="logos/principal.jpg" width="50" />
-      <h3 style="margin: 20px 0px 0px 20px; font-size: 20px">
-        Nombre del sitio
-      </h3>
+<footer class="bg-gray-900 text-white px-6 py-10">
+  <div class="grid gap-10 text-center md:grid-cols-4 md:text-left">
+    <!-- Principal -->
+    <div class="flex flex-col items-center md:items-start">
+      <img src="logos/principal.jpg" class="w-16 rounded-full mb-4" />
+      <h3 class="text-2xl font-bold text-green-500">Nombre del sitio</h3>
+      <p class="mt-4 text-gray-300 max-w-xs">
+        {{ 'footer.description' | translate }}
+      </p>
     </div>
-    <p style="margin: 20px 40px 40px 20px; font-size: 16px">
-      {{ 'footer.description' | translate }}
-    </p>
-  </div>
-  <div class="socials">
-    <h3 style="margin: 20px 40px 20px 20px">
-      {{'footer.socials' | translate}}
-    </h3>
-    <div class="icons-container" style="margin: 20px 40px 20px 20px">
-      <ul style="display: flex; gap: 10px">
-        <li class="pi pi-instagram" style="font-size: 20px"></li>
-        <li class="pi pi-whatsapp" style="font-size: 20px"></li>
-        <li class="pi pi-twitter" style="font-size: 20px"></li>
+
+    <!-- Socials -->
+    <div>
+      <h3 class="mb-4 text-lg font-semibold text-green-400">
+        {{ 'footer.socials' | translate }}
+      </h3>
+      <ul class="flex justify-center md:justify-start gap-6 text-2xl">
+        <li class="pi pi-instagram hover:text-green-500 transition-colors"></li>
+        <li class="pi pi-whatsapp hover:text-green-500 transition-colors"></li>
+        <li class="pi pi-twitter hover:text-green-500 transition-colors"></li>
+      </ul>
+    </div>
+
+    <!-- Sitemap -->
+    <div>
+      <h3 class="mb-4 text-lg font-semibold text-green-400">
+        {{ 'footer.sitemap' | translate }}
+      </h3>
+      <ul class="space-y-2">
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/"
+          >
+            {{ 'header.home' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/shop"
+          >
+            {{ 'header.shop' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/contact"
+          >
+            {{ 'header.contact' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/about"
+          >
+            {{ 'header.about' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/login"
+          >
+            {{ 'header.login' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/register"
+          >
+            {{ 'header.register' | translate }}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Legals -->
+    <div>
+      <h3 class="mb-4 text-lg font-semibold text-green-400">
+        {{ 'footer.legals' | translate }}
+      </h3>
+      <ul class="space-y-2">
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/notice"
+          >
+            {{ 'footer.legal_notice' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/cond"
+          >
+            {{ 'footer.conditions' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/terms"
+          >
+            {{ 'footer.terms_conditions' | translate }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="hover:text-green-500 transition-colors underline underline-offset-2"
+            routerLink="/priv"
+          >
+            {{ 'footer.privacy_policy' | translate }}
+          </a>
+        </li>
       </ul>
     </div>
   </div>
-  <div class="secondary">
-    <h3 style="margin: 20px 40px 20px 20px">
-      {{ 'footer.sitemap' | translate }}
-    </h3>
-    <ul style="margin: 20px 40px 20px 20px; cursor: pointer">
-      <li class="underline">{{ 'header.home' | translate }}</li>
-      <li class="underline">{{ 'header.shop' | translate }}</li>
-      <li class="underline">
-        <a routerLink="/contact">{{ 'header.contact' | translate }}</a></li>
-      <li class="underline">
-        <a routerLink="/about">{{ 'header.about' | translate }}</a>
-      </li>
-      <li class="underline">{{ 'header.login' | translate }}</li>
-      <li class="underline">{{ 'header.register' | translate }}</li>
-    </ul>
-  </div>
-  <div class="tertiary">
-    <h3 style="margin: 20px 40px 20px 20px">
-      {{ 'footer.legals' | translate }}
-    </h3>
-    <ul style="margin: 20px 40px 20px 20px; cursor: pointer">
-      <li class="underline">
-        <a routerLink="/notice">{{ 'footer.legal_notice' | translate }}</a>
-      </li>
-      <li class="underline">
-        <a routerLink="/cond">{{ 'footer.conditions' | translate }}</a>
-      </li>
-      <li class="underline">
-        <a routerLink="/terms"> {{ 'footer.terms_conditions' | translate }} </a>
-      </li>
-      <li class="underline">
-        <a routerLink="/priv"> {{ 'footer.privacy_policy' | translate }}</a>
-      </li>
-    </ul>
+
+  <!-- Bottom bar -->
+  <div
+    class="border-t border-gray-700 mt-10 pt-4 text-sm text-gray-400 text-center"
+  >
+    © 2025 Nombre del sitio ·
+    <a href="/cookies" class="hover:text-green-500 transition-colors">
+      Cookies
+    </a>
   </div>
 </footer>
