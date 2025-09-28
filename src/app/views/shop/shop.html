@@ -1,147 +1,92 @@
-<div class="card">
-  <p-dataview #dv [value]="products" [layout]="layout">
-    <ng-template #header>
-      <div class="flex justify-end">
-        <p-selectbutton
-          [(ngModel)]="layout"
-          [options]="options"
-          [allowEmpty]="false"
-        >
-          <ng-template #item let-item>
-            <i
-              class="pi"
-              [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"
-            ></i>
-          </ng-template>
-        </p-selectbutton>
-      </div>
-    </ng-template>
-    <ng-template #list let-items>
-      <div
-        *ngFor="let item of items; let first = first"
-        class="w-[80%] mx-auto"
-      >
+<div class="p-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- Sidebar categorías -->
+    <aside
+      class="card lg:col-span-1 rounded-3xl p-6 shadow-lg md:sticky top-8 h-max"
+      [ngStyle]="{
+        backgroundColor: isDarkMode ? '#1e1e1e' : 'white',
+      }"
+    >
+      <h2 class="text-lg font-bold mb-4">Categorias</h2>
+      <p-divider></p-divider>
+      <ul class="space-y-3">
+        <li class="cursor-pointer hover:text-emerald-400 transition">All</li>
+        <li class="cursor-pointer hover:text-emerald-400 transition">
+          Accessories
+        </li>
+        <li class="cursor-pointer hover:text-emerald-400 transition">
+          Fitness
+        </li>
+        <li class="cursor-pointer hover:text-emerald-400 transition">
+          Clothing
+        </li>
+        <li class="cursor-pointer hover:text-emerald-400 transition">
+          Electronics
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Productos -->
+    <main class="lg:col-span-3 text-white">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        @for(product of products$(); track product.id){
         <div
-          class="flex flex-col sm:flex-row sm:items-center p-6 gap-4"
-          [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
+          [ngStyle]="{backgroundColor: isDarkMode ? '#1e1e1e' : '#c0f1d8'}"
+          class="rounded-xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 flex flex-col overflow-hidden"
         >
-          <div class="md:w-40 relative">
+          <!-- Imagen -->
+          <div class="relative">
             <img
-              class="block xl:block mx-auto rounded w-full"
-              [src]="item.image"
-              [alt]="item.name"
+              [src]="tempUrlImg"
+              alt="{{ product.name }}"
+              class="w-full h-56 object-cover"
             />
-            <p-tag
-              [value]="item.inventoryStatus"
-              class="absolute dark:!bg-surface-900"
-              [style.left.px]="4"
-              [style.top.px]="4"
-            />
-          </div>
-          <div
-            class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6"
-          >
-            <div
-              class="flex flex-row md:flex-col justify-between items-start gap-2"
+            <!-- Stock Badge -->
+            <span
+              class="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-md"
+              [ngClass]="{
+                'bg-green-500/20 text-green-300': product.stock > 5,
+                'bg-yellow-500/20 text-yellow-300': product.stock > 0 && product.stock <= 5,
+                'bg-red-500/20 text-red-300': product.stock === 0
+              }"
             >
-              <div>
-                <span
-                  class="font-medium text-surface-500 dark:text-surface-400 text-sm"
-                  >{{ item.category }}</span
-                >
-                <div class="text-lg font-medium mt-2">{{ item.name }}</div>
-              </div>
-              <div class="bg-surface-100 p-1" style="border-radius: 30px"></div>
+              {{ product.stock > 5 ? 'INSTOCK' : product.stock > 0 ? 'LOWSTOCK'
+              : 'OUTOFSTOCK' }}
+            </span>
+          </div>
+
+          <!-- Contenido -->
+          <div class="p-5 flex flex-col flex-1">
+            <p class="text-sm text-indigo-400 font-medium mb-1">
+              {{ product.category }}
+            </p>
+            <h3 class="text-xl font-bold mb-2 truncate">{{ product.name }}</h3>
+            <p class="text-md text-blue-400 mb-4">{{ product.price }} €</p>
+
+            <!-- Rating -->
+            <div class="flex items-center gap-1 mb-4">
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <i class="pi pi-star-fill text-amber-300"> </i>
+              </ng-container>
             </div>
-            <div class="flex flex-col md:items-end gap-8">
-              <span class="text-xl font-semibold"
-                >{{ item.price | currency: 'USD' }}</span
+
+            <!-- Botones -->
+            <div class="flex justify-between gap-3 mt-auto">
+              <button
+                class="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-white font-semibold py-2 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
               >
-              <div class="flex flex-row-reverse md:flex-row gap-2">
-                <button
-                  pButton
-                  icon="pi pi-eye"
-                  [outlined]="true"
-                  (click)="router.navigate(['/product', item.id])"
-                ></button>
-                <button pButton icon="pi pi-heart" [outlined]="true"></button>
-                <button
-                  pButton
-                  icon="pi pi-shopping-cart"
-                  label="Añadir al carrito"
-                  [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
-                  class="flex-auto md:flex-initial whitespace-nowrap"
-                ></button>
-              </div>
+                <i class="pi pi-shopping-cart"></i> Buy Now
+              </button>
+              <!-- <button
+                class="bg-gray-800 hover:bg-gray-700 text-pink-400 hover:text-pink-300 p-3 rounded-xl transition-all duration-300"
+              >
+                <i class="pi pi-heart text-lg"></i>
+              </button> -->
             </div>
           </div>
         </div>
+        }
       </div>
-    </ng-template>
-    <ng-template #grid let-items>
-      <div class="grid grid-cols-12 gap-4 w-[80%] mx-auto">
-        <div
-          *ngFor="let product of items"
-          class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2"
-        >
-          <div
-            class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col"
-          >
-            <div class="bg-surface-50 flex justify-center rounded p-4">
-              <div class="relative mx-auto">
-                <img
-                  class="rounded w-full"
-                  [src]="product.image"
-                  [alt]="product.name"
-                  style="max-width: 300px"
-                />
-                <p-tag
-                  [value]="product.inventoryStatus"
-                  class="absolute dark:!bg-surface-900"
-                  [style.left.px]="4"
-                  [style.top.px]="4"
-                />
-              </div>
-            </div>
-            <div class="pt-6">
-              <div class="flex flex-row justify-between products-start gap-2">
-                <div>
-                  <span
-                    class="font-medium text-surface-500 dark:text-surface-400 text-sm"
-                    >{{ product.category }}</span
-                  >
-                  <div class="text-lg font-medium mt-1">{{ product.name }}</div>
-                </div>
-                <div
-                  class="bg-surface-100 p-1"
-                  style="border-radius: 30px; height: 100%"
-                ></div>
-              </div>
-              <div class="flex flex-col gap-6 mt-6">
-                <span class="text-2xl font-semibold"
-                  >{{ product.price | currency: 'EUR' }}</span
-                >
-                <div class="flex gap-2">
-                  <button
-                    pButton
-                    icon="pi pi-shopping-cart"
-                    label="Añadir al carrito"
-                    [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"
-                    class="flex-auto whitespace-nowrap"
-                  ></button>
-                  <button
-                    pButton
-                    icon="pi pi-eye"
-                    [outlined]="true"
-                    (click)="router.navigate(['/product', product.id])"
-                  ></button>
-                  <button pButton icon="pi pi-heart" outlined></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </p-dataview>
+    </main>
+  </div>
 </div>

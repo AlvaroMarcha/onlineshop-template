@@ -3,8 +3,11 @@ import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductItem } from '../../type/types';
 import { LanguageService } from '../../services/language-service';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectProducts } from '../../store/products/products.selector';
+import { allProductsRequestInit } from '../../store/products/products.actions';
 
 @Component({
   selector: 'app-shop',
@@ -14,16 +17,24 @@ import { LanguageService } from '../../services/language-service';
   styleUrl: './shop.css',
 })
 export class Shop implements OnInit {
-  products: ProductItem[];
+  products$;
+  tempUrlImg = 'logos/principal.jpg';
+
   t!: Record<string, string>;
   layout: 'list' | 'grid' = 'grid';
   options = ['list', 'grid'];
 
-  constructor(private lang: LanguageService, public router: Router) {
-    this.products = [];
+  constructor(
+    private lang: LanguageService,
+    public router: Router,
+    private store: Store
+  ) {
+    this.products$ = toSignal(this.store.select(selectProducts));
   }
 
   async ngOnInit() {
+    this.store.dispatch(allProductsRequestInit());
+
     this.t = await this.lang.tMany([
       'shop.title',
       'shop.description',
@@ -33,55 +44,9 @@ export class Shop implements OnInit {
       'shop.low_stock',
       'shop.in_stock',
     ]);
+  }
 
-    this.products = [
-      {
-        id: 'p001',
-        name: 'Auriculares Bluetooth',
-        description:
-          'Auriculares inalámbricos con cancelación de ruido activa.',
-        image: 'logos/principal.jpg',
-        price: 59.99,
-        inventoryStatus: this.t['shop.in_stock'],
-        category: 'Electrónica',
-      },
-      {
-        id: 'p002',
-        name: 'Camiseta deportiva',
-        description:
-          'Camiseta transpirable para entrenamiento de alta intensidad.',
-        image: 'logos/principal.jpg',
-        price: 24.95,
-        inventoryStatus: this.t['shop.low_stock'],
-        category: 'Ropa',
-      },
-      {
-        id: 'p003',
-        name: 'Botella térmica',
-        description: 'Botella de acero inoxidable que mantiene la temperatura.',
-        image: 'logos/principal.jpg',
-        price: 14.5,
-        inventoryStatus: this.t['shop.in_stock'],
-        category: 'Hogar',
-      },
-      {
-        id: 'p004',
-        name: 'Reloj inteligente',
-        description: 'Reloj con monitor de ritmo cardíaco y GPS integrado.',
-        image: 'logos/principal.jpg',
-        price: 120.0,
-        inventoryStatus: this.t['shop.in_stock'],
-        category: 'Tecnología',
-      },
-      {
-        id: 'p005',
-        name: 'Teclado mecánico',
-        description: 'Teclado retroiluminado con switches personalizados.',
-        image: 'logos/principal.jpg',
-        price: 89.9,
-        inventoryStatus: this.t['shop.low_stock'],
-        category: 'Oficina',
-      },
-    ];
+  get isDarkMode() {
+    return document.documentElement.classList.contains('my-app-dark');
   }
 }
