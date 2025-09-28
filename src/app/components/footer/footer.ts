@@ -7,6 +7,5 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-footer',
   imports: [RouterLink, PrimengModule, TranslateModule],
   templateUrl: './footer.html',
-  styleUrl: './footer.css',
 })
 export class Footer {}
