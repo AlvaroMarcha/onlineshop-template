@@ -13,7 +13,7 @@ import { selectUser } from '../../store/auth/auth.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ButtonSeverity } from 'primeng/button';
-import { Order } from '../../type/types';
+import { Order, User } from '../../type/types';
 import { formatDate } from '../../shared/dates';
 import { Chart, ChartConfiguration } from 'chart.js';
 
@@ -25,7 +25,7 @@ import { Chart, ChartConfiguration } from 'chart.js';
   providers: [MessageService],
 })
 export class ClientProfile implements OnInit, AfterViewInit {
-  user$: any;
+  user$;
   orders!: Order[];
 
   // Queries

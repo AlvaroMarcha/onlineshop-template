@@ -47,10 +47,7 @@ export interface User {
   locked: boolean;
   last_login: Date | null;
   created_at: Date;
-  role: {
-    id: number;
-    role_name: string;
-  };
+  role_id: number;
 }
 
 export interface LoginTokenResponse {
@@ -75,4 +72,64 @@ export interface Order {
   id: number;
   date: string;
   status: string;
+}
+
+//Register
+export interface PayloadFormRegister {
+  nameValue: string;
+  surnamesValue: string;
+  userValue: string;
+  emailValue: string;
+  phoneValue: number;
+  passwordValue1: string;
+  passwordValue2: string;
+}
+
+export interface createClientUser {
+  client: {
+    id: number | null;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: number;
+  };
+  user: {
+    id: null;
+    name: string;
+    username: string;
+    password: string;
+    email: string;
+    phone: number; // idem
+    status: true;
+    locked: false;
+    created_at: string; // mejor ISO que toLocaleString() de un number
+  };
+  role: {
+    id: number;
+  };
+}
+
+export interface modifyClientUser {
+  id: number;
+  first_name: string;
+  last_name: string;
+  company: string;
+  job_title: string;
+  email: string;
+  phone: number;
+  address: string;
+  user: {
+    id: number;
+    name: string;
+    username: string;
+    password: string;
+    email: string;
+    phone: string;
+    status: boolean;
+    email_verified_at: string;
+    locked: false;
+    last_login_at: string;
+    created_at: string;
+    role_id: number;
+  };
 }

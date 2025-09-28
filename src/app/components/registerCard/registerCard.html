@@ -3,26 +3,26 @@
   <div class="flex flex-row gap-4">
     <input
       [style]="{width: '50%', float: 'left'}"
-      [(ngModel)]="nameValue"
+      [(ngModel)]="payloadForm.nameValue"
       type="text"
       pInputText
       [placeholder]="'register.form.name' | translate"
     />
     <input
-      [(ngModel)]="surnamesValue"
+      [(ngModel)]="payloadForm.surnamesValue"
       type="text"
       pInputText
       [placeholder]="'register.form.surnames' | translate"
     />
   </div>
   <input
-    [(ngModel)]="userValue"
+    [(ngModel)]="payloadForm.userValue"
     type="text"
     pInputText
     [placeholder]="'register.form.username' | translate"
   />
   <input
-    [(ngModel)]="emailValue"
+    [(ngModel)]="payloadForm.emailValue"
     type="text"
     pInputText
     [placeholder]="'register.form.email' | translate"
@@ -30,19 +30,19 @@
   <p-inputmask
     class="w-full sm:w-40 float-left"
     mask="+34 999-999-999"
-    [(ngModel)]="phoneValue"
+    [(ngModel)]="payloadForm.phoneValue"
     [placeholder]="'register.form.phone' | translate"
   />
   <div class="mt-10">
     <p-password
       style="width: 100%; margin-bottom: 0px !important"
-      [(ngModel)]="passwordValue1"
+      [(ngModel)]="payloadForm.passwordValue1"
       [placeholder]="'register.form.password' | translate"
       [feedback]="true"
     />
     <p-password
       style="width: 100%"
-      [(ngModel)]="passwordValue2"
+      [(ngModel)]="payloadForm.passwordValue2"
       [placeholder]="'register.form.confirm_password' | translate"
       [feedback]="true"
     />
@@ -54,6 +54,7 @@
           [inputId]="i.toString()"
           [value]="term"
           [(ngModel)]="term.value"
+          [binary]="true"
         />
         <label [for]="term.name" class="ml-2">
           {{ term.label | translate }}
@@ -62,12 +63,22 @@
     </div>
   </div>
   <br />
+  @if(this.validation() !== ""){
+  <div class="flexbox w-full mb-5">
+    <p-message [severity]="severityValidation">
+      <i class="pi pi-info-circle"></i>
+      <span class="ml-2">{{this.validation()}}</span>
+    </p-message>
+  </div>
+  }
   <p-button
     [style]="{width: '100%'}"
     [label]="'register.form.register_button' | translate"
     icon="pi pi-user-plus"
     iconPos="left"
     size="small"
+    [loading]="loading"
+    (onClick)="onRegister()"
   />
   <p-button
     [style]="{width: '100%', marginTop: '10px'}"

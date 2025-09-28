@@ -12,7 +12,16 @@
     [placeholder]="'login.form.password' | translate"
     [feedback]="false"
   />
+
   <br />
+  @if(this.validation() !== ""){
+  <div class="flexbox w-full mb-5">
+    <p-message [severity]="severityValidation">
+      <i class="pi pi-info-circle"></i>
+      <span class="ml-2">{{this.validation()}}</span>
+    </p-message>
+  </div>
+  }
   <p-button
     [style]="{width: '100%'}"
     [label]="'login.form.login_button' | translate"
