@@ -14,10 +14,7 @@
     @for(product of products$(); track product.id) {
     <div class="catCard" [style]="{width: isMobile ? '300px' : '240px'}">
       <a href="#">
-        <p-image
-          [src]="tempUrlImg.concat(product.id.toLocaleString()).concat('/400')"
-        ></p-image>
-        />
+        <p-image [src]="product.urlImg" />
       </a>
 
       <div class="lowerCatCard">

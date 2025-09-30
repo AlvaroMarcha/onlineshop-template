@@ -20,8 +20,6 @@ import { MenuItem } from 'primeng/api';
 })
 export class Shop implements OnInit {
   products$;
-  // tempUrlImg = 'logos/principal.jpg';
-  tempUrlImg = 'https://picsum.photos/seed/producto';
   items: MenuItem[] | undefined;
   isMobile = window.matchMedia('(max-width: 600px)').matches;
 
@@ -36,7 +34,7 @@ export class Shop implements OnInit {
   ) {
     this.products$ = toSignal(this.store.select(selectProducts));
     effect(() => {
-      console.log('Products updated:', this.products$());
+      console.log('Products updated:', this.products$()?.[0]?.urlImg);
     });
   }
 
