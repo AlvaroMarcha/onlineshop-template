@@ -1,92 +1,53 @@
-<div class="p-8">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
-    <!-- Sidebar categorías -->
-    <aside
-      class="card lg:col-span-1 rounded-3xl p-6 shadow-lg md:sticky top-8 h-max"
-      [ngStyle]="{
-        backgroundColor: isDarkMode ? '#1e1e1e' : 'white',
-      }"
-    >
-      <h2 class="text-lg font-bold mb-4">Categorias</h2>
-      <p-divider></p-divider>
-      <ul class="space-y-3">
-        <li class="cursor-pointer hover:text-emerald-400 transition">All</li>
-        <li class="cursor-pointer hover:text-emerald-400 transition">
-          Accessories
-        </li>
-        <li class="cursor-pointer hover:text-emerald-400 transition">
-          Fitness
-        </li>
-        <li class="cursor-pointer hover:text-emerald-400 transition">
-          Clothing
-        </li>
-        <li class="cursor-pointer hover:text-emerald-400 transition">
-          Electronics
-        </li>
-      </ul>
-    </aside>
+<div class="flex flex-col sm:flex-row w-full mt-5 mb-20 gap-8">
+  <!-- Sidebar -->
+  <aside class="w-full sm:basis-1/6 sm:ml-10">
+    <div class="card flex justify-center">
+      <p-menu
+        [model]="items"
+        [ngStyle]="{width: isMobile ? '300px' : '250px'}"
+      />
+    </div>
+  </aside>
 
-    <!-- Productos -->
-    <main class="lg:col-span-3 text-white">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        @for(product of products$(); track product.id){
-        <div
-          [ngStyle]="{backgroundColor: isDarkMode ? '#1e1e1e' : '#c0f1d8'}"
-          class="rounded-xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 flex flex-col overflow-hidden"
+  <!-- Productos -->
+  <div class="flex flex-wrap justify-center sm:justify-start gap-10 flex-1">
+    @for(product of products$(); track product.id) {
+    <div class="catCard" [style]="{width: isMobile ? '300px' : '240px'}">
+      <a href="#">
+        <p-image
+          [src]="tempUrlImg.concat(product.id.toLocaleString()).concat('/400')"
+        ></p-image>
+        />
+      </a>
+
+      <div class="lowerCatCard">
+        <h4 [style]="{color: isDarkMode ? 'lightgreen' : '#32CD32'}">
+          {{ product.category }}
+        </h4>
+        <h3 class="text-lg h-[60px] mb-1 text-white">{{ product.name }}</h3>
+        <p [style]="{ height: '140px', color: 'white'}">
+          {{ product.description }}
+        </p>
+        <p
+          [style]="{fontWeight: 'bold', fontSize: '20px', color: isDarkMode ? '#FFD700' : '#FFD700'}"
         >
-          <!-- Imagen -->
-          <div class="relative">
-            <img
-              [src]="tempUrlImg"
-              alt="{{ product.name }}"
-              class="w-full h-56 object-cover"
-            />
-            <!-- Stock Badge -->
-            <span
-              class="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-md"
-              [ngClass]="{
-                'bg-green-500/20 text-green-300': product.stock > 5,
-                'bg-yellow-500/20 text-yellow-300': product.stock > 0 && product.stock <= 5,
-                'bg-red-500/20 text-red-300': product.stock === 0
-              }"
-            >
-              {{ product.stock > 5 ? 'INSTOCK' : product.stock > 0 ? 'LOWSTOCK'
-              : 'OUTOFSTOCK' }}
-            </span>
-          </div>
-
-          <!-- Contenido -->
-          <div class="p-5 flex flex-col flex-1">
-            <p class="text-sm text-indigo-400 font-medium mb-1">
-              {{ product.category }}
-            </p>
-            <h3 class="text-xl font-bold mb-2 truncate">{{ product.name }}</h3>
-            <p class="text-md text-blue-400 mb-4">{{ product.price }} €</p>
-
-            <!-- Rating -->
-            <div class="flex items-center gap-1 mb-4">
-              <ng-container *ngFor="let star of [1,2,3,4,5]">
-                <i class="pi pi-star-fill text-amber-300"> </i>
-              </ng-container>
-            </div>
-
-            <!-- Botones -->
-            <div class="flex justify-between gap-3 mt-auto">
-              <button
-                class="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-white font-semibold py-2 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
-              >
-                <i class="pi pi-shopping-cart"></i> Buy Now
-              </button>
-              <!-- <button
-                class="bg-gray-800 hover:bg-gray-700 text-pink-400 hover:text-pink-300 p-3 rounded-xl transition-all duration-300"
-              >
-                <i class="pi pi-heart text-lg"></i>
-              </button> -->
-            </div>
-          </div>
+          {{product.price}} <span class="text-yellow-200">€</span>
+        </p>
+        <div class="flex flex-row justify-start gap-2 mt-4">
+          <p-button
+            severity="success"
+            label="Añadir"
+            icon="pi pi-cart-plus"
+          ></p-button>
+          <p-button
+            severity="info"
+            label="Ver"
+            variant="outlined"
+            icon="pi pi-eye"
+          ></p-button>
         </div>
-        }
       </div>
-    </main>
+    </div>
+    }
   </div>
 </div>

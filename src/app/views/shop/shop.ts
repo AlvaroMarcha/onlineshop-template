@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -8,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectProducts } from '../../store/products/products.selector';
 import { allProductsRequestInit } from '../../store/products/products.actions';
+import { useDarkMode } from '../../shared/utils';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-shop',
@@ -18,7 +20,10 @@ import { allProductsRequestInit } from '../../store/products/products.actions';
 })
 export class Shop implements OnInit {
   products$;
-  tempUrlImg = 'logos/principal.jpg';
+  // tempUrlImg = 'logos/principal.jpg';
+  tempUrlImg = 'https://picsum.photos/seed/producto';
+  items: MenuItem[] | undefined;
+  isMobile = window.matchMedia('(max-width: 600px)').matches;
 
   t!: Record<string, string>;
   layout: 'list' | 'grid' = 'grid';
@@ -30,6 +35,9 @@ export class Shop implements OnInit {
     private store: Store
   ) {
     this.products$ = toSignal(this.store.select(selectProducts));
+    effect(() => {
+      console.log('Products updated:', this.products$());
+    });
   }
 
   async ngOnInit() {
@@ -44,9 +52,41 @@ export class Shop implements OnInit {
       'shop.low_stock',
       'shop.in_stock',
     ]);
+
+    this.items = [
+      {
+        label: 'Categorías',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'New',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'New',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-circle-on',
+          },
+        ],
+      },
+    ];
   }
 
   get isDarkMode() {
-    return document.documentElement.classList.contains('my-app-dark');
+    return useDarkMode();
   }
 }
