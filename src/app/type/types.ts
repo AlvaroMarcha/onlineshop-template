@@ -59,6 +59,8 @@ export interface LoginTokenResponse {
 export interface Product {
   id: number;
   name: string;
+  description: string;
+  urlImg: string;
   stock: number;
   price: number;
   bar_code: string;

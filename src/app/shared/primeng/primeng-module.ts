@@ -44,6 +44,7 @@ import { TabsModule } from 'primeng/tabs';
 import { BadgeModule } from 'primeng/badge';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   declarations: [],
@@ -94,6 +95,7 @@ import { ChartModule } from 'primeng/chart';
     BadgeModule,
     TableModule,
     ChartModule,
+    MenuModule,
   ],
   exports: [
     Menubar,
@@ -140,6 +142,7 @@ import { ChartModule } from 'primeng/chart';
     BadgeModule,
     TableModule,
     ChartModule,
+    MenuModule,
   ],
 })
 export class PrimengModule {}
