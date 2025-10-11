@@ -4,6 +4,7 @@ export interface Terms {
   label: string;
 }
 
+// shop
 export interface ProductItem {
   id: string;
   name: string;
@@ -12,6 +13,15 @@ export interface ProductItem {
   price: number;
   inventoryStatus: 'Stock' | 'Bajo Stock' | 'Fuera de Stock' | string;
   category: string;
+}
+
+export interface ProductCartItem {
+  id: number;
+  name: string;
+  quantity: number;
+  category: string;
+  price: number;
+  imageUrl: string;
 }
 
 export interface SizesItems {
