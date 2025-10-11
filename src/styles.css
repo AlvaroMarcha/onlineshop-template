@@ -20,6 +20,28 @@
   }
 }
 
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge antiguos */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Edge */
+}
+
+.p-dialog-content {
+  overflow-y: scroll !important;
+  scrollbar-width: none !important;
+}
+
+.p-dialog-content::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
 /* Buttons basic styles */
 .stl-button {
   display: block;
