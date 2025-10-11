@@ -1,7 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { loginRequestInit, logout } from '../../store/auth/auth.actions';
+import { loginRequestInit } from '../../store/auth/auth.actions';
 import {
   selectAuthError,
   selectIsLogged,
@@ -12,7 +12,6 @@ import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { User } from '../../type/types';
 
 @Component({
   selector: 'app-loginCard',
