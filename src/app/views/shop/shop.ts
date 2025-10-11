@@ -10,6 +10,8 @@ import { selectProducts } from '../../store/products/products.selector';
 import { allProductsRequestInit } from '../../store/products/products.actions';
 import { useDarkMode } from '../../shared/utils';
 import { MenuItem } from 'primeng/api';
+import { ProductCartItem } from '../../type/types';
+import { addToCart } from '../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-shop',
@@ -33,9 +35,6 @@ export class Shop implements OnInit {
     private store: Store
   ) {
     this.products$ = toSignal(this.store.select(selectProducts));
-    effect(() => {
-      console.log('Products updated:', this.products$()?.[0]?.urlImg);
-    });
   }
 
   async ngOnInit() {
@@ -86,5 +85,28 @@ export class Shop implements OnInit {
 
   get isDarkMode() {
     return useDarkMode();
+  }
+
+  /**
+   * Adds a product to the global shopping cart.
+   *
+   * Finds the product in the current product list (`products$`),
+   * converts it into the `ProductCartItem` format, and dispatches
+   * it to the NgRx store using the `addToCart` action.
+   *
+   * @param id - The ID of the product to be added to the cart.
+   * @returns void
+   */
+  addCart(id: number) {
+    const productToAdd = this.products$()?.find((p) => p.id === id);
+    const productConvert: ProductCartItem = {
+      id: productToAdd?.id!,
+      name: productToAdd?.name!,
+      category: productToAdd?.category!,
+      price: productToAdd?.price!,
+      imageUrl: productToAdd?.urlImg!,
+      quantity: 1,
+    };
+    this.store.dispatch(addToCart({ item: productConvert }));
   }
 }
