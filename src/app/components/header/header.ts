@@ -13,6 +13,11 @@ import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectIsLogged, selectUser } from '../../store/auth/auth.selectors';
 import { logout } from '../../store/auth/auth.actions';
+import { clearCart } from '../../store/cart/cart.actions';
+import {
+  selectCartCount,
+  selectCartTotal,
+} from '../../store/cart/cart.selector';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -33,6 +38,8 @@ export class Header implements OnInit {
   user$;
 
   items: MenuItem[] | undefined;
+  itemsCartCount;
+  totalAmount;
   clientItems: MenuItem[] | undefined;
   itemsTiered: MenuItem[] | undefined;
   visible = false;
@@ -50,6 +57,10 @@ export class Header implements OnInit {
     });
 
     this.isLogged = toSignal(this.store.select(selectIsLogged));
+    this.totalAmount = toSignal(this.store.select(selectCartTotal));
+    this.itemsCartCount = toSignal(this.store.select(selectCartCount), {
+      initialValue: 0,
+    });
   }
 
   currentLang = 'es';
@@ -175,5 +186,9 @@ export class Header implements OnInit {
       element.classList.toggle('my-app-dark');
       this.isDarkMode = true;
     }
+  }
+
+  clearCart() {
+    this.store.dispatch(clearCart());
   }
 }
