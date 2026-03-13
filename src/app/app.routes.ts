@@ -16,6 +16,8 @@ import { GalleryView } from './views/gallery/galleryView';
 import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
+  // Design system demo (dev only)
+  { path: 'demo', loadComponent: async () => (await import('./views/demo/demo')).Demo },
   //Public
   { path: '', component: InitPage },
   { path: 'login', component: Login },

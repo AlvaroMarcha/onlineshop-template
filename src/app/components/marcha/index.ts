@@ -17,3 +17,7 @@ export type { MAvatarSize, MAvatarShape } from './m-avatar/m-avatar';
 
 export { MBadge } from './m-badge/m-badge';
 export type { MBadgeSeverity, MBadgeSize } from './m-badge/m-badge';
+
+export { MDivider } from './m-divider/m-divider';
+
+export { MOverlayBadge } from './m-overlay-badge/m-overlay-badge';

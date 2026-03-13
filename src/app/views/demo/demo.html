@@ -1,0 +1,108 @@
+<div class="demo-page">
+  <header class="demo-header">
+    <h1 class="demo-title">
+      <m-icon icon="lucide:layers" size="32" />
+      Marcha Design System
+    </h1>
+    <p class="demo-subtitle">Componentes glassmorphism — Libreria completa</p>
+  </header>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-button · Severidades (filled)</h2>
+    <div class="demo-row">
+      <m-button label="Primary" severity="primary" icon="lucide:zap" />
+      <m-button label="Secondary" severity="secondary" />
+      <m-button label="Success" severity="success" icon="lucide:check" />
+      <m-button label="Warn" severity="warn" icon="lucide:alert-triangle" />
+      <m-button label="Danger" severity="danger" icon="lucide:trash-2" />
+      <m-button label="Info" severity="info" icon="lucide:info" />
+      <m-button label="Help" severity="help" icon="lucide:help-circle" />
+    </div>
+    <h2 class="demo-section-title">Variantes + Tamanos</h2>
+    <div class="demo-row">
+      <m-button label="Filled" severity="primary" variant="filled" />
+      <m-button label="Outlined" severity="primary" variant="outlined" />
+      <m-button label="Text" severity="primary" variant="text" />
+      <m-button label="Small" size="small" severity="success" />
+      <m-button label="Large" size="large" severity="danger" variant="outlined" />
+      <m-button icon="lucide:home" severity="primary" [rounded]="true" />
+      <m-button icon="lucide:settings" severity="secondary" variant="outlined" />
+      <m-button label="Cargando" severity="primary" [loading]="loading" (onClick)="toggleLoading()" />
+      <m-button label="Disabled" severity="primary" [disabled]="true" />
+    </div>
+  </section>
+
+  <m-divider label="Contenedores" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-card · Variantes</h2>
+    <div class="demo-cards">
+      <m-card header="Glass card" subHeader="Variante por defecto">
+        <p style="color: var(--m-text-muted)">Efecto glassmorphism con backdrop-filter blur activo.</p>
+        <div mCardFooter style="padding: 1rem 1.25rem; border-top: 1px solid var(--m-glass-border)">
+          <m-button label="Accion" severity="primary" size="small" />
+        </div>
+      </m-card>
+      <m-card header="Solid card" subHeader="Sin blur" variant="solid">
+        <p style="color: var(--m-text-muted)">Variante solida con fondo opaco.</p>
+      </m-card>
+      <m-card header="Flat card" subHeader="Solo borde" variant="flat">
+        <p style="color: var(--m-text-muted)">Solo borde glass, sin sombra.</p>
+      </m-card>
+    </div>
+  </section>
+
+  <m-divider />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-avatar · Imagen · Iniciales · Icono</h2>
+    <div class="demo-row">
+      <m-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="xlarge" />
+      <m-avatar label="Juan Garcia" size="xlarge" severity="primary" />
+      <m-avatar label="Ana Lopez" size="large" severity="info" />
+      <m-avatar icon="lucide:user" size="large" severity="secondary" />
+      <m-avatar icon="lucide:shield" size="large" severity="success" />
+      <m-avatar label="CI" size="large" severity="primary" shape="circle" />
+      <m-avatar label="SQ" size="large" severity="warn" shape="square" />
+    </div>
+  </section>
+
+  <m-divider label="Indicadores" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-badge · Severidades · Dots</h2>
+    <div class="demo-row" style="align-items: center">
+      <m-badge value="Primary" severity="primary" />
+      <m-badge value="12" severity="danger" />
+      <m-badge value="Success" severity="success" />
+      <m-badge value="Warn" severity="warn" />
+      <m-badge value="Info" severity="info" />
+      <m-badge [dot]="true" severity="danger" />
+      <m-badge [dot]="true" severity="success" />
+      <m-badge [dot]="true" severity="warn" />
+    </div>
+
+    <h2 class="demo-section-title">m-overlay-badge · Sobre botones y avatares</h2>
+    <div class="demo-row" style="align-items: center">
+      <m-overlay-badge value="3" severity="danger">
+        <m-button icon="lucide:shopping-cart" severity="secondary" variant="outlined" [rounded]="true" />
+      </m-overlay-badge>
+      <m-overlay-badge value="12" severity="primary">
+        <m-button icon="lucide:bell" severity="secondary" variant="outlined" [rounded]="true" />
+      </m-overlay-badge>
+      <m-overlay-badge value="1" severity="warn">
+        <m-avatar icon="lucide:user" size="large" severity="secondary" />
+      </m-overlay-badge>
+    </div>
+  </section>
+
+  <m-divider type="dashed" label="m-divider" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-divider · Tipos</h2>
+    <m-divider />
+    <m-divider label="o continua con" />
+    <m-divider type="dashed" />
+    <m-divider type="dotted" label="dotted" />
+  </section>
+</div>
