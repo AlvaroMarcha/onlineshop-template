@@ -42,4 +42,5 @@ testem.log
 Thumbs.db
 
 #.env
-/src/environments/*
+# Solo ignorar el archivo de entorno con secretos reales de producción
+/src/environments/environment.prod.secret.ts
