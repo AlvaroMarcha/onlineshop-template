@@ -71,6 +71,21 @@ npm run build               # debe completar sin errores
 
 Tests obligatorios en cada fase, o en una PR final dedicada a tests.
 
+### ⚠️ Regla crítica: PRs secuenciales siempre apuntan a `develop`
+
+Cuando se divide un trabajo en PRs secuenciales (ej: componente → demo), **TODAS las PRs deben apuntar a `develop`**, nunca a otra rama feature.
+
+**Por qué:** Al mergear una rama feature, el branch cleanup la borra automáticamente. Si una PR B apunta a la rama del PR A como base, GitHub cerrará PR B automáticamente cuando PR A se mergee (no la mergeará, la cerrará).
+
+**Flujo correcto para PRs secuenciales:**
+1. Crear PR A → base: `develop` → mergear cuando esté aprobado
+2. Hacer rebase de la rama de PR B sobre `develop` actualizado: `git rebase origin/develop`
+3. Crear PR B → base: `develop` → mergear cuando esté aprobado
+
+**Flujo incorrecto (❌):**
+1. Crear PR A → base: `develop`
+2. Crear PR B → base: `feature/rama-del-pr-a` ← **NUNCA hacer esto**
+
 ---
 
 ## Pipeline CI/CD
@@ -98,8 +113,11 @@ Tests obligatorios en cada fase, o en una PR final dedicada a tests.
 - ✅ PRs < 900 líneas (ideal), < 1000 máximo estricto
 - ✅ PRs autocontenidos que pasan tests de forma independiente
 - ✅ Dividir PRs grandes automáticamente en PRs más pequeños y secuenciales
+- ✅ PRs secuenciales: **siempre apuntar a `develop`**, nunca a otra rama feature
+- ✅ Si la rama de un PR anterior ya fue mergeada, hacer `git rebase origin/develop` antes de crear el siguiente PR
 - ✅ Reportar estado de las PRs creadas
 - ❌ **NUNCA crear PRs interdependientes** que requieran mergearse entre sí para pasar tests
+- ❌ **NUNCA apuntar el `--base` de un PR a otra rama feature** — el branch cleanup la borrará al mergear y cerrará el PR dependiente
 - ❌ **NUNCA hacer push con tests rotos**
 - ❌ **NUNCA mergear PRs sin aprobación manual explícita del usuario**
 - ❌ **NUNCA usar `gh pr merge` sin que el usuario lo solicite**
