@@ -7,6 +7,7 @@ import { HeaderBack } from './components/private/header-back/header-back';
 import { FooterBack } from './components/private/footer-back/footer-back';
 import { PrimengModule } from './shared/primeng/primeng-module';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MToast } from './components/marcha';
 import { Store } from '@ngrx/store';
 import { selectToken, selectUser } from './store/auth/auth.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -22,6 +23,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     RouterOutlet,
     PrimengModule,
     TranslateModule,
+    MToast,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

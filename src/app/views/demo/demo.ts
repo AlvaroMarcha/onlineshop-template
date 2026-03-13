@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import {
   MButton, MCard, MIcon, MDivider,
@@ -6,6 +6,9 @@ import {
   MInput, MPassword, MTextarea,
   MCheckbox, MNumberInput, MFloatLabel,
   MSelect, MRadioGroup, MRangeSlider,
+  MMessage, MDialog, MDrawer,
+  MNotificationService,
+  MDrawerPosition,
 } from '../../components/marcha';
 
 @Component({
@@ -18,12 +21,18 @@ import {
     MInput, MPassword, MTextarea,
     MCheckbox, MNumberInput, MFloatLabel,
     MSelect, MRadioGroup, MRangeSlider,
+    MMessage, MDialog, MDrawer,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
 })
 export class Demo {
+  private readonly notify = inject(MNotificationService);
+
   loading = false;
+  showDialog = signal(false);
+  showDrawer = signal(false);
+  drawerPos  = signal<MDrawerPosition>('right');
 
   form = new FormGroup({
     nombre: new FormControl('', Validators.required),
@@ -61,5 +70,14 @@ export class Demo {
   toggleLoading() {
     this.loading = true;
     setTimeout(() => (this.loading = false), 2000);
+  }
+
+  toast(severity: 'success' | 'error' | 'info' | 'warn', summary: string, detail?: string) {
+    this.notify[severity](summary, detail);
+  }
+
+  openDrawer(pos: MDrawerPosition) {
+    this.drawerPos.set(pos);
+    this.showDrawer.set(true);
   }
 }

@@ -1,0 +1,19 @@
+@if (visible()) {
+  <div class="m-drawer-backdrop" (click)="onBackdropClick($event)">
+    <aside class="m-drawer-panel" [class]="'m-drawer-panel--' + position()">
+      @if (header() || closeable()) {
+        <div class="m-drawer-header">
+          <span class="m-drawer-title">{{ header() }}</span>
+          @if (closeable()) {
+            <button class="m-drawer-close" (click)="close()" aria-label="Cerrar">
+              <m-icon icon="lucide:x" size="18" />
+            </button>
+          }
+        </div>
+      }
+      <div class="m-drawer-content">
+        <ng-content />
+      </div>
+    </aside>
+  </div>
+}
