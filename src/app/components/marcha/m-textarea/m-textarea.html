@@ -1,0 +1,22 @@
+<div
+  class="m-field"
+  [class.is-focused]="isFocused()"
+  [class.is-invalid]="invalid"
+  [class.is-disabled]="isDisabled()"
+>
+  @if (label) {
+    <label class="m-field-label">{{ label }}</label>
+  }
+  <textarea
+    class="m-field-el"
+    [rows]="rows"
+    [placeholder]="placeholder"
+    [disabled]="isDisabled()"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+  >{{ value() }}</textarea>
+  @if (hint) {
+    <span class="m-field-hint" [class.m-field-hint--invalid]="invalid">{{ hint }}</span>
+  }
+</div>

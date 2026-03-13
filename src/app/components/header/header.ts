@@ -114,6 +114,11 @@ export class Header implements OnInit {
         icon: 'pi pi-info-circle',
         routerLink: '/about',
       },
+      {
+        label: 'Design System',
+        icon: 'pi pi-palette',
+        routerLink: '/demo',
+      },
     ];
 
     this.itemsTiered = [

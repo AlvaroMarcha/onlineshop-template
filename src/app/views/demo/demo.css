@@ -53,3 +53,34 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem;
 }
+
+.demo-roadmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.875rem;
+}
+
+.demo-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Utility: native input styled as m-field-el for m-float-label demo */
+.m-fl-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  background: var(--m-glass-bg);
+  border: 1.5px solid var(--m-glass-border);
+  border-radius: var(--m-radius-sm);
+  color: var(--m-text);
+  font-size: 0.9375rem;
+  font-family: var(--m-font);
+  backdrop-filter: blur(16px);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.m-fl-input:focus {
+  border-color: var(--m-primary);
+  box-shadow: 0 0 0 3px var(--m-primary-glow);
+}
