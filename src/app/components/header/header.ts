@@ -21,7 +21,6 @@ import {
 @Component({
   standalone: true,
   selector: 'app-header',
-  providers: [MessageService],
   imports: [
     PrimengModule,
     Cart,
