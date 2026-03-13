@@ -10,8 +10,9 @@ import {
   MTabs, MTabPanel,
   MAccordion,
   MChip, MTooltip,
+  MCalendar,
   MNotificationService,
-  MDrawerPosition, MTabItem, MAccordionItem,
+  MDrawerPosition, MTabItem, MAccordionItem, MDateRange,
 } from '../../components/marcha';
 
 @Component({
@@ -28,6 +29,7 @@ import {
     MTabs, MTabPanel,
     MAccordion,
     MChip, MTooltip,
+    MCalendar,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -41,6 +43,12 @@ export class Demo {
   drawerPos  = signal<MDrawerPosition>('right');
   activeTab  = signal(0);
   activeTabPill = signal(0);
+
+  // Calendar
+  readonly calSingle      = new FormControl<Date | null>(null);
+  readonly calRange       = new FormControl<MDateRange | null>(null);
+  readonly calInline      = new FormControl<Date | null>(new Date());
+  readonly calInlineRange = new FormControl<MDateRange | null>(null);
 
   readonly tabsDemo: MTabItem[] = [
     { label: 'General',         icon: 'lucide:user' },

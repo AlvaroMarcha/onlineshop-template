@@ -70,3 +70,7 @@ export type { MChipSeverity, MChipSize } from './m-chip/m-chip';
 
 export { MTooltip } from './m-tooltip/m-tooltip';
 export type { MTooltipPosition } from './m-tooltip/m-tooltip';
+
+// Inputs avanzados
+export { MCalendar } from './m-calendar/m-calendar';
+export type { MCalendarMode, MDateRange } from './m-calendar/m-calendar';
