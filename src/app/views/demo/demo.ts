@@ -8,8 +8,9 @@ import {
   MSelect, MRadioGroup, MRangeSlider,
   MMessage, MDialog, MDrawer,
   MTabs, MTabPanel,
+  MAccordion,
   MNotificationService,
-  MDrawerPosition, MTabItem,
+  MDrawerPosition, MTabItem, MAccordionItem,
 } from '../../components/marcha';
 
 @Component({
@@ -24,6 +25,7 @@ import {
     MSelect, MRadioGroup, MRangeSlider,
     MMessage, MDialog, MDrawer,
     MTabs, MTabPanel,
+    MAccordion,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -49,6 +51,19 @@ export class Demo {
     { label: 'Semana' },
     { label: 'Mes' },
     { label: 'Año' },
+  ];
+
+  readonly accordionItems: MAccordionItem[] = [
+    { header: '¿Cuál es el plazo de entrega?',  icon: 'lucide:truck',    content: 'Los pedidos nacionales se entregan en 2-4 días hábiles. Los pedidos internacionales pueden tardar entre 7 y 14 días dependiendo del destino.' },
+    { header: '¿Cómo puedo devolver un producto?', icon: 'lucide:refresh-cw', content: 'Tienes 30 días desde la recepción para solicitar una devolución. El producto debe estar sin usar y en su embalaje original. Inicia el proceso desde tu perfil.' },
+    { header: '¿Qué métodos de pago aceptáis?',  icon: 'lucide:credit-card', content: 'Aceptamos tarjetas Visa, Mastercard, American Express, PayPal y transferencia bancaria. Todos los pagos están protegidos con cifrado SSL.' },
+    { header: 'Opción deshabilitada',            icon: 'lucide:lock',       content: 'Este panel está deshabilitado.', disabled: true },
+  ];
+
+  readonly accordionMultiple: MAccordionItem[] = [
+    { header: 'Panel A — apertura múltiple',  content: 'Este acordeón permite tener varios paneles abiertos simultáneamente. Útil para listas de configuración o FAQs densas.' },
+    { header: 'Panel B — expandible',        content: 'Puedes abrir este panel sin cerrar el anterior.' },
+    { header: 'Panel C — independiente',     content: 'Cada panel se gestiona de forma independiente cuando multiple está activado.' },
   ];
 
   form = new FormGroup({

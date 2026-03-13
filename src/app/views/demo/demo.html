@@ -55,6 +55,7 @@
           <m-badge value="m-fieldset" severity="secondary" />
           <m-badge value="m-panel" severity="secondary" />
           <m-badge value="m-tabs" severity="success" />
+          <m-badge value="m-accordion" severity="success" />
           <m-badge value="m-toolbar" severity="secondary" />
         </div>
       </m-card>
@@ -348,5 +349,17 @@
         <p style="color: var(--m-text-muted)">Vista anual &mdash; resumen del año en curso.</p>
       }
     </m-tabs>
+  </section>
+
+  <m-divider label="Acordeones" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-accordion &middot; Exclusivo (single-open)</h2>
+    <m-accordion [items]="accordionItems" />
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-accordion &middot; Multiple paneles abiertos</h2>
+    <m-accordion [items]="accordionMultiple" [multiple]="true" />
   </section>
 </div>

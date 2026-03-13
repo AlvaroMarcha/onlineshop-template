@@ -61,3 +61,6 @@ export type { MDrawerPosition } from './m-drawer/m-drawer';
 // Layout y navegacion
 export { MTabs, MTabPanel } from './m-tabs/m-tabs';
 export type { MTabItem, MTabsVariant } from './m-tabs/m-tabs';
+
+export { MAccordion } from './m-accordion/m-accordion';
+export type { MAccordionItem } from './m-accordion/m-accordion';

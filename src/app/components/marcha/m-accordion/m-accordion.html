@@ -1,0 +1,27 @@
+<div class="m-accordion">
+  @for (item of items(); track $index) {
+    <div
+      class="m-accordion__item"
+      [class.m-accordion__item--open]="isOpen($index)"
+      [class.m-accordion__item--disabled]="item.disabled"
+    >
+      <button
+        type="button"
+        class="m-accordion__header"
+        (click)="toggle($index)"
+        [attr.aria-expanded]="isOpen($index)"
+        [disabled]="item.disabled ?? null"
+      >
+        @if (item.icon) {
+          <m-icon [icon]="item.icon" size="18" class="m-accordion__icon" />
+        }
+        <span class="m-accordion__label">{{ item.header }}</span>
+        <m-icon icon="lucide:chevron-down" size="18" class="m-accordion__chevron" />
+      </button>
+
+      <div class="m-accordion__body">
+        <div class="m-accordion__content">{{ item.content }}</div>
+      </div>
+    </div>
+  }
+</div>
