@@ -1,0 +1,58 @@
+<div class="m-range-field" [class.is-disabled]="isDisabled()">
+  @if (label) {
+    <div class="m-range-header">
+      <span class="m-range-label">{{ label }}</span>
+      @if (showValues) {
+        <span class="m-range-values">{{ low() }} — {{ high() }}</span>
+      }
+    </div>
+  }
+
+  <div class="m-range-wrapper">
+    <!-- Track base -->
+    <div class="m-range-track">
+      <div class="m-range-fill" [style]="fillStyle()"></div>
+    </div>
+
+    <!-- Low handle -->
+    <input
+      type="range"
+      class="m-range-input"
+      [min]="min"
+      [max]="max"
+      [step]="step"
+      [value]="low()"
+      [disabled]="isDisabled()"
+      (input)="onLowInput($event)"
+    />
+
+    <!-- High handle -->
+    <input
+      type="range"
+      class="m-range-input"
+      [min]="min"
+      [max]="max"
+      [step]="step"
+      [value]="high()"
+      [disabled]="isDisabled()"
+      (input)="onHighInput($event)"
+    />
+  </div>
+
+  @if (!label && showValues) {
+    <div class="m-range-limits">
+      <span>{{ min }}</span>
+      <span class="m-range-values">{{ low() }} — {{ high() }}</span>
+      <span>{{ max }}</span>
+    </div>
+  } @else {
+    <div class="m-range-limits">
+      <span>{{ min }}</span>
+      <span>{{ max }}</span>
+    </div>
+  }
+
+  @if (hint) {
+    <span class="m-field-hint">{{ hint }}</span>
+  }
+</div>
