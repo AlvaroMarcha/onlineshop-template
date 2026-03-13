@@ -11,8 +11,9 @@ import {
   MAccordion,
   MChip, MTooltip,
   MCalendar,
+  MTable,
   MNotificationService,
-  MDrawerPosition, MTabItem, MAccordionItem, MDateRange,
+  MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
 } from '../../components/marcha';
 
 @Component({
@@ -30,6 +31,7 @@ import {
     MAccordion,
     MChip, MTooltip,
     MCalendar,
+    MTable,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -38,6 +40,40 @@ export class Demo {
   private readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Table
+  tableSelection: MTableRow[] = [];
+  readonly tableActions: MTableAction[] = [
+    { label: 'Ver',      icon: 'lucide:eye',    severity: 'secondary' },
+    { label: 'Editar',   icon: 'lucide:pencil', severity: 'primary' },
+    { label: 'Eliminar', icon: 'lucide:trash-2', severity: 'danger',
+      disabled: (row) => row['role'] === 'Admin' },
+  ];
+  readonly tableColumns: MTableColumn[] = [
+    { field: 'avatar',  header: '',        type: 'avatar', width: '52px' },
+    { field: 'name',    header: 'Nombre',  sortable: true },
+    { field: 'email',   header: 'Email',   sortable: true },
+    { field: 'role',    header: 'Rol',     sortable: true, type: 'badge',
+      badgeSeverity: (v) => (({ Admin: 'danger', Dev: 'primary', Design: 'help', PM: 'warn', QA: 'info' } as Record<string, any>)[v as string] ?? 'secondary') },
+    { field: 'status',  header: 'Estado',  type: 'badge',
+      badgeSeverity: (v) => v === 'Activo' ? 'success' : v === 'Vacaciones' ? 'warn' : 'secondary' },
+    { field: 'tasks',   header: 'Tareas',  sortable: true, type: 'number', align: 'right', width: '90px' },
+    { field: 'joined',  header: 'Alta',    sortable: true, type: 'date',   width: '130px' },
+  ];
+  readonly tableData: MTableRow[] = [
+    { id:  1, avatar: 'Ana García',       name: 'Ana García',       email: 'ana@marcha.dev',     role: 'Admin',  status: 'Activo',     tasks: 48, joined: new Date('2023-01-15') },
+    { id:  2, avatar: 'Carlos Martínez',  name: 'Carlos Martínez',  email: 'carlos@marcha.dev',  role: 'Dev',    status: 'Activo',     tasks: 32, joined: new Date('2023-03-08') },
+    { id:  3, avatar: 'Laura Pérez',      name: 'Laura Pérez',      email: 'laura@marcha.dev',   role: 'Design', status: 'Vacaciones', tasks: 19, joined: new Date('2023-06-01') },
+    { id:  4, avatar: 'Miguel Ruiz',      name: 'Miguel Ruiz',      email: 'miguel@marcha.dev',  role: 'PM',     status: 'Activo',     tasks: 61, joined: new Date('2022-11-20') },
+    { id:  5, avatar: 'Sofía Rodríguez',  name: 'Sofía Rodríguez',  email: 'sofia@marcha.dev',   role: 'Dev',    status: 'Activo',     tasks: 27, joined: new Date('2024-01-10') },
+    { id:  6, avatar: 'Javier López',     name: 'Javier López',     email: 'javier@marcha.dev',  role: 'QA',     status: 'Baja',       tasks: 14, joined: new Date('2023-09-15') },
+    { id:  7, avatar: 'Paula Sánchez',    name: 'Paula Sánchez',    email: 'paula@marcha.dev',   role: 'Dev',    status: 'Activo',     tasks: 38, joined: new Date('2024-02-20') },
+    { id:  8, avatar: 'Diego González',   name: 'Diego González',   email: 'diego@marcha.dev',   role: 'Design', status: 'Activo',     tasks: 22, joined: new Date('2023-07-12') },
+    { id:  9, avatar: 'Isabel Moreno',    name: 'Isabel Moreno',    email: 'isabel@marcha.dev',  role: 'Admin',  status: 'Vacaciones', tasks: 55, joined: new Date('2022-08-05') },
+    { id: 10, avatar: 'Álvaro Jiménez',   name: 'Álvaro Jiménez',   email: 'alvaro@marcha.dev',  role: 'Dev',    status: 'Activo',     tasks: 41, joined: new Date('2023-04-18') },
+    { id: 11, avatar: 'Nuria Fernández',  name: 'Nuria Fernández',  email: 'nuria@marcha.dev',   role: 'PM',     status: 'Activo',     tasks: 29, joined: new Date('2023-12-03') },
+    { id: 12, avatar: 'Roberto Castro',   name: 'Roberto Castro',   email: 'roberto@marcha.dev', role: 'QA',     status: 'Activo',     tasks: 17, joined: new Date('2024-03-01') },
+  ];
   showDialog = signal(false);
   showDrawer = signal(false);
   drawerPos  = signal<MDrawerPosition>('right');
