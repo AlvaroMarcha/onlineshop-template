@@ -54,7 +54,7 @@ export interface GalleriaImage {
 export interface ResponsiveOption {
   breakpoint: string;
   numVisible: number;
-  numScroll?: number;
+  numScroll: number;
 }
 
 // auth state

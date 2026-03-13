@@ -26,10 +26,12 @@ export class Product implements OnInit {
     {
       breakpoint: '1300px',
       numVisible: 4,
+      numScroll: 1,
     },
     {
       breakpoint: '575px',
       numVisible: 1,
+      numScroll: 1,
     },
   ];
 
