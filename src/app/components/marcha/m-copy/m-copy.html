@@ -1,0 +1,20 @@
+<button
+  class="m-copy-btn"
+  [class.variant-ghost]="variant() === 'ghost'"
+  [class.variant-icon]="variant() === 'icon'"
+  [class.is-copied]="copied()"
+  [class.is-error]="error()"
+  type="button"
+  (click)="copy()">
+
+  <m-icon
+    [icon]="error() ? 'lucide:x' : copied() ? successIcon() : icon()"
+    size="15" />
+
+  @if (variant() !== 'icon') {
+    <span class="m-copy-label">
+      {{ error() ? 'Error' : copied() ? successLabel() : label() }}
+    </span>
+  }
+
+</button>

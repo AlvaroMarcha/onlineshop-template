@@ -34,7 +34,8 @@
           <m-badge value="m-radio-group" severity="success" />
           <m-badge value="m-range-slider" severity="success" />
           <m-badge value="m-color-picker" severity="success" />
-          <m-badge value="m-toggle-switch" severity="secondary" />
+          <m-badge value="m-toggle-switch" severity="success" />
+          <m-badge value="m-copy" severity="success" />
         </div>
       </m-card>
       <m-card header="Overlays y notificaciones" variant="flat" padding="sm">
@@ -67,6 +68,7 @@
         <div class="demo-row">
           <m-badge value="m-chip" severity="success" />
           <m-badge value="m-table" severity="success" />
+          <m-badge value="m-sortable" severity="success" />
           <m-badge value="m-data-view" severity="secondary" />
           <m-badge value="m-rating" severity="secondary" />
           <m-badge value="m-listbox" severity="secondary" />
@@ -512,6 +514,73 @@
         mTooltip="Esto aparece a la derecha" tooltipPosition="right" />
       <m-button label="Con retraso 600ms" severity="primary" icon="lucide:clock"
         mTooltip="Aparezco con retraso" [tooltipDelay]="600" />
+    </div>
+  </section>
+
+  <m-divider label="Toggle Switch" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toggle-switch &middot; Interruptor accesible con ControlValueAccessor</h2>
+    <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap; gap: 1.5rem">
+      <m-card variant="glass" padding="md" style="min-width: 220px">
+        <m-toggle-switch
+          label="Notificaciones"
+          hint="Recibe avisos por email"
+          [formControl]="toggleNotify" />
+        <p class="demo-hint">Valor: <code>{{ toggleNotify.value }}</code></p>
+      </m-card>
+      <m-card variant="glass" padding="md" style="min-width: 220px">
+        <m-toggle-switch [formControl]="toggleDark" />
+        <p class="demo-hint">Sin label (minimalista)</p>
+      </m-card>
+      <m-card variant="glass" padding="md" style="min-width: 220px">
+        <m-toggle-switch label="Sin permisos" hint="Solo lectura" [formControl]="toggleDisabled" />
+        <p class="demo-hint">Estado deshabilitado</p>
+      </m-card>
+    </div>
+    <h2 class="demo-section-title" style="margin-top:2rem">Tamaños disponibles</h2>
+    <div class="demo-row" style="align-items: center; flex-wrap: wrap">
+      <m-toggle-switch label="Small" size="sm" />
+      <m-toggle-switch label="Medium (default)" size="md" />
+      <m-toggle-switch label="Large" size="lg" />
+    </div>
+  </section>
+
+  <m-divider label="Copy" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-copy &middot; Copiar al portapapeles con feedback visual</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-copy text="npm install @marcha/ui" label="Copiar comando" />
+      <m-copy text="npm install @marcha/ui" variant="ghost" label="Ghost" />
+      <m-copy text="npm install @marcha/ui" variant="icon" />
+    </div>
+    <div class="demo-row" style="margin-top: 1rem; align-items: center">
+      <code style="flex:1; padding:.5rem 1rem; background:var(--m-glass-bg); border:1px solid var(--m-border-color); border-radius:.5rem; font-size:.875rem">
+        {{ copyCode }}
+      </code>
+      <m-copy [text]="copyCode" variant="icon" />
+    </div>
+  </section>
+
+  <m-divider label="Sortable" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-sortable &middot; Lista reordenable con drag &amp; drop nativo</h2>
+    <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap">
+      <m-card variant="glass" padding="md" style="min-width: 260px; flex: 1">
+        <m-sortable
+          [items]="sortableItems"
+          (orderChange)="onSortChange($event)" />
+      </m-card>
+      <m-card variant="flat" padding="md" style="min-width: 200px">
+        <p style="font-size:.875rem; color:var(--m-text-muted); margin-bottom:.75rem">
+          Orden actual:
+        </p>
+        @for (item of sortableItems; track item.id; let i = $index) {
+          <p style="font-size:.875rem">{{ i + 1 }}. {{ item.label }}</p>
+        }
+      </m-card>
     </div>
   </section>
 </div>

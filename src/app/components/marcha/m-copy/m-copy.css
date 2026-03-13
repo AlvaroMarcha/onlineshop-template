@@ -1,0 +1,79 @@
+:host { display: inline-flex; }
+
+.m-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--m-glass-bg);
+  border: 1.5px solid var(--m-glass-border);
+  border-radius: var(--m-radius-sm);
+  color: var(--m-text-muted);
+  font-size: 0.8125rem;
+  font-family: var(--m-font);
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: var(--m-blur);
+  -webkit-backdrop-filter: var(--m-blur);
+  transition:
+    color 0.18s,
+    border-color 0.18s,
+    background 0.18s,
+    box-shadow 0.18s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.m-copy-btn:hover:not(.is-copied):not(.is-error) {
+  color: var(--m-text);
+  border-color: var(--m-primary);
+  box-shadow: 0 0 0 3px var(--m-primary-glow);
+}
+
+/* Copied state — green feedback */
+.m-copy-btn.is-copied {
+  color: var(--m-success, #22c55e);
+  border-color: var(--m-success, #22c55e);
+  background: color-mix(in srgb, var(--m-success, #22c55e) 10%, transparent);
+  cursor: default;
+}
+
+/* Error state */
+.m-copy-btn.is-error {
+  color: var(--m-danger, #ef4444);
+  border-color: var(--m-danger, #ef4444);
+  background: color-mix(in srgb, var(--m-danger, #ef4444) 10%, transparent);
+  cursor: default;
+}
+
+/* ── Ghost variant ─────────────────────────────────────────────────────────── */
+.m-copy-btn.variant-ghost {
+  background: transparent;
+  border-color: transparent;
+  padding: 0.25rem 0.5rem;
+}
+.m-copy-btn.variant-ghost:hover:not(.is-copied):not(.is-error) {
+  background: var(--m-glass-bg);
+  border-color: var(--m-glass-border);
+  box-shadow: none;
+}
+
+/* ── Icon-only variant ─────────────────────────────────────────────────────── */
+.m-copy-btn.variant-icon {
+  padding: 0.375rem;
+  border-radius: var(--m-radius-xs);
+}
+
+.m-copy-label {
+  line-height: 1;
+}
+
+/* pop animation on success */
+.m-copy-btn.is-copied {
+  animation: copyPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes copyPop {
+  from { transform: scale(0.92); }
+  to   { transform: scale(1); }
+}
