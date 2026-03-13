@@ -33,6 +33,8 @@
           <m-badge value="m-select" severity="success" />
           <m-badge value="m-radio-group" severity="success" />
           <m-badge value="m-range-slider" severity="success" />
+          <m-badge value="m-color-picker" severity="success" />
+          <m-badge value="m-toggle-switch" severity="secondary" />
         </div>
       </m-card>
       <m-card header="Overlays y notificaciones" variant="flat" padding="sm">
@@ -423,6 +425,42 @@
     <div class="demo-row" style="flex-wrap: wrap; align-items: flex-start; gap: 2rem">
       <m-calendar [inline]="true" [formControl]="calInline" />
       <m-calendar mode="range" [inline]="true" [formControl]="calInlineRange" />
+    </div>
+  </section>
+
+  <m-divider label="Color Picker" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-color-picker &middot; Selector de color personalizado</h2>
+    <div class="demo-grid demo-grid--3">
+
+      <m-card header="Popup (selector)" variant="glass" padding="md">
+        <div class="demo-field-group">
+          <m-color-picker label="Color de acento" [formControl]="colorAccent" />
+          <p class="demo-value-preview">
+            Valor: <code>{{ colorAccent.value }}</code>
+            <span class="demo-color-dot" [style.background]="colorAccent.value"></span>
+          </p>
+        </div>
+      </m-card>
+
+      <m-card header="Inline (embebido)" variant="glass" padding="md">
+        <m-color-picker [inline]="true" [formControl]="colorInline" />
+      </m-card>
+
+      <m-card header="Sin swatches / Deshabilitado" variant="glass" padding="md">
+        <div class="demo-field-group" style="gap: 1rem;">
+          <m-color-picker
+            label="Sin swatches"
+            [swatches]="[]"
+            [formControl]="colorNoSwatches"
+            hint="Solo gradiente y hex" />
+          <m-color-picker
+            label="Deshabilitado"
+            [formControl]="colorDisabled" />
+        </div>
+      </m-card>
+
     </div>
   </section>
 

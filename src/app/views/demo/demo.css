@@ -54,6 +54,45 @@
   gap: 1.25rem;
 }
 
+.demo-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.demo-grid--3 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.demo-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.demo-value-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--m-text-muted);
+  margin: 0;
+}
+
+.demo-value-preview code {
+  font-family: 'Courier New', monospace;
+  color: var(--m-primary);
+  font-size: 0.8125rem;
+}
+
+.demo-color-dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--m-glass-border);
+  flex-shrink: 0;
+}
+
 .demo-roadmap {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));

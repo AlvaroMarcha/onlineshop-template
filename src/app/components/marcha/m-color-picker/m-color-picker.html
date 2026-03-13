@@ -1,0 +1,86 @@
+<div class="m-cp-field">
+
+  @if (label()) {
+    <span class="m-cp-label">{{ label() }}</span>
+  }
+
+  @if (!inline()) {
+    <!-- Trigger button -->
+    <button
+      class="m-cp-trigger"
+      [class.is-open]="isOpen()"
+      [class.is-disabled]="isDisabled()"
+      [disabled]="isDisabled()"
+      type="button"
+      (click)="toggle()">
+      <span class="m-cp-trigger-swatch" [style.background]="hexColor()"></span>
+      <span class="m-cp-trigger-hex">{{ hexColor() }}</span>
+      <m-icon icon="lucide:chevron-down" size="14" class="m-cp-caret" />
+    </button>
+  }
+
+  @if (isOpen() || inline()) {
+    <div class="m-cp-panel" [class.is-inline]="inline()">
+
+      <!-- ── SV gradient area ── -->
+      <div
+        class="m-cp-sv"
+        [style.--cp-hue]="hueBg()"
+        (pointerdown)="onSVPointerDown($event)"
+        (pointermove)="onSVPointerMove($event)"
+        (pointerup)="onSVPointerUp()">
+        <div
+          class="m-cp-sv-thumb"
+          [style.left]="thumbLeft()"
+          [style.top]="thumbTop()">
+        </div>
+      </div>
+
+      <!-- ── Hue rainbow slider ── -->
+      <div
+        class="m-cp-hue-track"
+        (pointerdown)="onHuePointerDown($event)"
+        (pointermove)="onHuePointerMove($event)"
+        (pointerup)="onHuePointerUp()">
+        <div class="m-cp-hue-thumb" [style.left]="hueThumbLeft()"></div>
+      </div>
+
+      <!-- ── Hex input row ── -->
+      <div class="m-cp-hex-row">
+        <div class="m-cp-hex-preview" [style.background]="hexColor()"></div>
+        <input
+          class="m-cp-hex-input"
+          type="text"
+          maxlength="7"
+          spellcheck="false"
+          [value]="hexInput()"
+          (input)="onHexInputChange($event)"
+          (blur)="applyHexInput()"
+          (keydown)="onHexKeyDown($event)" />
+        <span class="m-cp-hex-label">HEX</span>
+      </div>
+
+      <!-- ── Swatches ── -->
+      @if (swatches().length > 0) {
+        <div class="m-cp-swatches">
+          @for (swatch of swatches(); track swatch) {
+            <button
+              class="m-cp-swatch"
+              type="button"
+              [class.is-active]="isActiveSwatch(swatch)"
+              [style.background]="swatch"
+              [title]="swatch"
+              (click)="pickSwatch(swatch)">
+            </button>
+          }
+        </div>
+      }
+
+      @if (hint()) {
+        <span class="m-cp-hint">{{ hint() }}</span>
+      }
+
+    </div>
+  }
+
+</div>

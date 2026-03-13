@@ -12,6 +12,7 @@ import {
   MChip, MTooltip,
   MCalendar,
   MTable,
+  MColorPicker,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
 } from '../../components/marcha';
@@ -32,6 +33,7 @@ import {
     MChip, MTooltip,
     MCalendar,
     MTable,
+    MColorPicker,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -40,6 +42,12 @@ export class Demo {
   private readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Color Picker
+  readonly colorAccent    = new FormControl('#6366f1');
+  readonly colorInline    = new FormControl('#22c55e');
+  readonly colorNoSwatches = new FormControl('#f97316');
+  readonly colorDisabled  = new FormControl({ value: '#94a3b8', disabled: true });
 
   // Table
   tableSelection: MTableRow[] = [];
