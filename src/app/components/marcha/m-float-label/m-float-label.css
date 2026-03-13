@@ -31,3 +31,11 @@
   color: var(--m-primary);
   background: var(--m-surface-2);
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  /* Ajusta posición del label flotante cuando el input es más alto (44px) */
+  .m-float-label-text {
+    font-size: 1rem;
+  }
+}
