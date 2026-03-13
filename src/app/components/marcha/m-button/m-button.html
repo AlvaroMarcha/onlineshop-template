@@ -1,0 +1,22 @@
+<button
+  [type]="type"
+  [disabled]="disabled || loading"
+  [class]="computedClass"
+  (click)="handleClick($event)"
+>
+  @if (loading) {
+    <m-icon icon="lucide:loader-2" [size]="iconSize" class="m-btn-icon m-btn-icon--spin" />
+  } @else if (icon && iconPos === 'left') {
+    <m-icon [icon]="icon" [size]="iconSize" class="m-btn-icon" />
+  }
+
+  @if (label) {
+    <span class="m-btn-label">{{ label }}</span>
+  }
+
+  <ng-content />
+
+  @if (!loading && icon && iconPos === 'right') {
+    <m-icon [icon]="icon" [size]="iconSize" class="m-btn-icon" />
+  }
+</button>

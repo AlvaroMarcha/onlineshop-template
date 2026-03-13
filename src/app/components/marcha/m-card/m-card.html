@@ -1,0 +1,22 @@
+<article [class]="computedClass">
+  @if (header || subHeader) {
+    <header class="m-card-header">
+      @if (header) {
+        <h3 class="m-card-title">{{ header }}</h3>
+      }
+      @if (subHeader) {
+        <p class="m-card-subtitle">{{ subHeader }}</p>
+      }
+    </header>
+  }
+
+  <!-- Slot: header personalizado vía atributo mCardHeader -->
+  <ng-content select="[mCardHeader]" />
+
+  <div class="m-card-body">
+    <ng-content />
+  </div>
+
+  <!-- Slot: footer vía atributo mCardFooter -->
+  <ng-content select="[mCardFooter]" />
+</article>
