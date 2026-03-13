@@ -1,0 +1,30 @@
+<div
+  class="m-field"
+  [class.is-focused]="isFocused()"
+  [class.is-invalid]="invalid"
+  [class.is-disabled]="isDisabled()"
+>
+  @if (label) {
+    <label class="m-field-label">{{ label }}</label>
+  }
+  <div class="m-select-body">
+    <select
+      class="m-select-el"
+      [disabled]="isDisabled()"
+      (change)="onChange($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    >
+      <option value="-1" [selected]="selectedIndex() === -1" disabled>{{ placeholder }}</option>
+      @for (opt of options; track opt.value; let i = $index) {
+        <option [value]="i" [disabled]="opt.disabled ?? false" [selected]="i === selectedIndex()">
+          {{ opt.label }}
+        </option>
+      }
+    </select>
+    <m-icon class="m-select-arrow" icon="lucide:chevron-down" size="16" />
+  </div>
+  @if (hint) {
+    <span class="m-field-hint" [class.m-field-hint--invalid]="invalid">{{ hint }}</span>
+  }
+</div>

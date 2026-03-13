@@ -29,9 +29,9 @@
           <m-badge value="m-checkbox" severity="success" />
           <m-badge value="m-number-input" severity="success" />
           <m-badge value="m-float-label" severity="success" />
-          <m-badge value="m-select" severity="secondary" />
-          <m-badge value="m-radio-group" severity="secondary" />
-          <m-badge value="m-range-slider" severity="secondary" />
+          <m-badge value="m-select" severity="success" />
+          <m-badge value="m-radio-group" severity="success" />
+          <m-badge value="m-range-slider" severity="success" />
         </div>
       </m-card>
       <m-card header="Overlays y notificaciones" variant="flat" padding="sm">
@@ -233,6 +233,31 @@
       <m-float-label label="Ciudad">
         <input class="m-fl-input" placeholder=" " />
       </m-float-label>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-select · Dropdown estilizado</h2>
+    <div class="demo-form-grid">
+      <m-select label="País" placeholder="Selecciona un país" [options]="paises" [formControl]="form.controls.pais" />
+      <m-select label="Talla" placeholder="Elige talla" [options]="tallas" [formControl]="form.controls.talla" />
+      <m-select label="Con error" [options]="paises" placeholder="Obligatorio" hint="Selecciona una opción" [invalid]="true" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-radio-group · Vertical y horizontal</h2>
+    <div class="demo-form-grid">
+      <m-radio-group label="Plan de suscripción" [options]="planesOpts" />
+      <m-radio-group label="Talla (horizontal)" [options]="tallas" orientation="horizontal" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-range-slider · Rango doble</h2>
+    <div class="demo-form-grid">
+      <m-range-slider label="Rango de precio" [min]="0" [max]="500" [step]="5" hint="Filtra productos por precio" [formControl]="form.controls.rango" />
+      <m-range-slider label="Rango de edad" [min]="18" [max]="65" [step]="1" />
     </div>
   </section>
 </div>
