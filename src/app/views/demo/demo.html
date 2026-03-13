@@ -54,7 +54,7 @@
         <div class="demo-row">
           <m-badge value="m-fieldset" severity="secondary" />
           <m-badge value="m-panel" severity="secondary" />
-          <m-badge value="m-tabs" severity="secondary" />
+          <m-badge value="m-tabs" severity="success" />
           <m-badge value="m-toolbar" severity="secondary" />
         </div>
       </m-card>
@@ -316,5 +316,37 @@
         <m-button label="Cerrar" severity="secondary" variant="outlined" (onClick)="showDrawer.set(false)" />
       </div>
     </m-drawer>
+  </section>
+
+  <m-divider label="Layout y navegacion" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-tabs &middot; Variante line</h2>
+    <m-tabs [tabs]="tabsDemo" [(active)]="activeTab">
+      @if (activeTab() === 0) {
+        <p style="color: var(--m-text-muted)">Panel General &mdash; informacion de tu cuenta y preferencias.</p>
+      }
+      @if (activeTab() === 1) {
+        <p style="color: var(--m-text-muted)">Panel Seguridad &mdash; configura tu contraseña y sesiones activas.</p>
+      }
+      @if (activeTab() === 2) {
+        <p style="color: var(--m-text-muted)">Panel Notificaciones &mdash; gestiona tus alertas y avisos.</p>
+      }
+    </m-tabs>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-tabs &middot; Variante pill</h2>
+    <m-tabs [tabs]="tabsPill" variant="pill" [(active)]="activeTabPill">
+      @if (activeTabPill() === 0) {
+        <p style="color: var(--m-text-muted)">Vista semanal &mdash; resumen de la semana en curso.</p>
+      }
+      @if (activeTabPill() === 1) {
+        <p style="color: var(--m-text-muted)">Vista mensual &mdash; resumen del mes actual.</p>
+      }
+      @if (activeTabPill() === 2) {
+        <p style="color: var(--m-text-muted)">Vista anual &mdash; resumen del año en curso.</p>
+      }
+    </m-tabs>
   </section>
 </div>

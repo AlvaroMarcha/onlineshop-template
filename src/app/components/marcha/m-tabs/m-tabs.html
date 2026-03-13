@@ -1,0 +1,34 @@
+<div class="m-tabs" [class]="'m-tabs--' + variant()">
+  <div class="m-tabs-nav" role="tablist">
+    @for (tab of validTabs(); track trackByIndex($index)) {
+      <button
+        class="m-tabs-tab"
+        role="tab"
+        [class.m-tabs-tab--active]="active() === $index"
+        [class.m-tabs-tab--disabled]="tab.disabled"
+        [attr.aria-selected]="active() === $index"
+        [attr.aria-disabled]="tab.disabled || null"
+        [tabindex]="tab.disabled ? -1 : 0"
+        (click)="select($index)"
+        (keydown.enter)="select($index)"
+        (keydown.space)="select($index)"
+      >
+        @if (tab.icon) {
+          <m-icon [icon]="tab.icon" size="16" />
+        }
+        {{ tab.label }}
+      </button>
+    }
+    @if (variant() === 'line') {
+      <div
+        class="m-tabs-indicator"
+        [style.left.%]="(active() / validTabs().length) * 100"
+        [style.width.%]="100 / validTabs().length"
+      ></div>
+    }
+  </div>
+
+  <div class="m-tabs-content" role="tabpanel">
+    <ng-content />
+  </div>
+</div>

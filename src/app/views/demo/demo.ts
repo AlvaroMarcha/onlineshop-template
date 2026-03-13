@@ -7,8 +7,9 @@ import {
   MCheckbox, MNumberInput, MFloatLabel,
   MSelect, MRadioGroup, MRangeSlider,
   MMessage, MDialog, MDrawer,
+  MTabs, MTabPanel,
   MNotificationService,
-  MDrawerPosition,
+  MDrawerPosition, MTabItem,
 } from '../../components/marcha';
 
 @Component({
@@ -22,6 +23,7 @@ import {
     MCheckbox, MNumberInput, MFloatLabel,
     MSelect, MRadioGroup, MRangeSlider,
     MMessage, MDialog, MDrawer,
+    MTabs, MTabPanel,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -33,6 +35,21 @@ export class Demo {
   showDialog = signal(false);
   showDrawer = signal(false);
   drawerPos  = signal<MDrawerPosition>('right');
+  activeTab  = signal(0);
+  activeTabPill = signal(0);
+
+  readonly tabsDemo: MTabItem[] = [
+    { label: 'General',         icon: 'lucide:user' },
+    { label: 'Seguridad',       icon: 'lucide:lock' },
+    { label: 'Notificaciones',  icon: 'lucide:bell' },
+    { label: 'Deshabilitado',   icon: 'lucide:ban',  disabled: true },
+  ];
+
+  readonly tabsPill: MTabItem[] = [
+    { label: 'Semana' },
+    { label: 'Mes' },
+    { label: 'Año' },
+  ];
 
   form = new FormGroup({
     nombre: new FormControl('', Validators.required),
