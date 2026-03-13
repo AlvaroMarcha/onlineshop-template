@@ -1,27 +1,28 @@
 <p-card class="login-card">
   <ng-template #title>{{ 'login.title' | translate }}</ng-template>
-  <input
-    [(ngModel)]="username"
-    type="text"
-    pInputText
-    [placeholder]="'login.form.both' | translate"
-  />
-  <p-password
-    style="width: 100%"
-    [(ngModel)]="password"
-    [placeholder]="'login.form.password' | translate"
-    [feedback]="false"
-  />
-
+  <form [formGroup]="loginForm">
+    <input
+      formControlName="username"
+      type="text"
+      pInputText
+      [placeholder]="'login.form.both' | translate"
+    />
+    <p-password
+      style="width: 100%"
+      formControlName="password"
+      [placeholder]="'login.form.password' | translate"
+      [feedback]="false"
+    />
+  </form>
   <br />
-  @if(this.validation() !== ""){
+  @if(loginForm.invalid && loginForm.touched) {
   <div class="flexbox w-full mb-5">
-    <p-message [severity]="severityValidation">
+    <p-message severity="error">
       <i class="pi pi-info-circle"></i>
-      <span class="ml-2">{{ this.validation() }}</span>
+      <span class="ml-2">{{ 'validation.required' | translate }}</span>
     </p-message>
   </div>
-  } @else if(errorMessage$()){
+  } @else if(errorMessage$()) {
   <div class="flexbox w-full mb-5">
     <p-message severity="error">
       <i class="pi pi-info-circle"></i>

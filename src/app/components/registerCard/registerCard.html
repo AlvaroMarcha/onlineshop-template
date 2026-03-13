@@ -1,73 +1,93 @@
 <p-card class="register-card">
   <ng-template #title>{{ 'register.title' | translate }}</ng-template>
-  <div class="flex flex-row gap-4">
+  <form [formGroup]="registerForm">
+    <div class="flex flex-row gap-4">
+      <input
+        [style]="{width: '50%', float: 'left'}"
+        formControlName="name"
+        type="text"
+        pInputText
+        [placeholder]="'register.form.name' | translate"
+      />
+      <input
+        formControlName="surnames"
+        type="text"
+        pInputText
+        [placeholder]="'register.form.surnames' | translate"
+      />
+    </div>
     <input
-      [style]="{width: '50%', float: 'left'}"
-      [(ngModel)]="payloadForm.nameValue"
+      formControlName="username"
       type="text"
       pInputText
-      [placeholder]="'register.form.name' | translate"
+      [placeholder]="'register.form.username' | translate"
     />
     <input
-      [(ngModel)]="payloadForm.surnamesValue"
+      formControlName="email"
       type="text"
       pInputText
-      [placeholder]="'register.form.surnames' | translate"
+      [placeholder]="'register.form.email' | translate"
     />
-  </div>
-  <input
-    [(ngModel)]="payloadForm.userValue"
-    type="text"
-    pInputText
-    [placeholder]="'register.form.username' | translate"
-  />
-  <input
-    [(ngModel)]="payloadForm.emailValue"
-    type="text"
-    pInputText
-    [placeholder]="'register.form.email' | translate"
-  />
-  <p-inputmask
-    class="w-full sm:w-40 float-left"
-    mask="+34 999-999-999"
-    [(ngModel)]="payloadForm.phoneValue"
-    [placeholder]="'register.form.phone' | translate"
-  />
-  <div class="mt-10">
-    <p-password
-      style="width: 100%; margin-bottom: 0px !important"
-      [(ngModel)]="payloadForm.passwordValue1"
-      [placeholder]="'register.form.password' | translate"
-      [feedback]="true"
+    <p-inputmask
+      class="w-full sm:w-40 float-left"
+      mask="+34 999-999-999"
+      formControlName="phone"
+      [placeholder]="'register.form.phone' | translate"
     />
-    <p-password
-      style="width: 100%"
-      [(ngModel)]="payloadForm.passwordValue2"
-      [placeholder]="'register.form.confirm_password' | translate"
-      [feedback]="true"
-    />
-  </div>
-  <div class="card flex justify-start m-2">
-    <div class="flex flex-col gap-4">
-      <div *ngFor="let term of legal; let i = index" class="flex items-center">
-        <p-checkbox
-          [inputId]="i.toString()"
-          [value]="term"
-          [(ngModel)]="term.value"
-          [binary]="true"
-        />
-        <label [for]="term.name" class="ml-2">
-          {{ term.label | translate }}
-        </label>
+    <div class="mt-10">
+      <p-password
+        style="width: 100%; margin-bottom: 0px !important"
+        formControlName="password"
+        [placeholder]="'register.form.password' | translate"
+        [feedback]="true"
+      />
+      <p-password
+        style="width: 100%"
+        formControlName="confirmPassword"
+        [placeholder]="'register.form.confirm_password' | translate"
+        [feedback]="true"
+      />
+    </div>
+    <div class="card flex justify-start m-2">
+      <div class="flex flex-col gap-4" formArrayName="termsList">
+        @for (term of legal; track term.name; let i = $index) {
+        <div class="flex items-center">
+          <p-checkbox
+            [inputId]="term.name"
+            [binary]="true"
+            [formControlName]="i"
+          />
+          <label [for]="term.name" class="ml-2">
+            {{ term.label | translate }}
+          </label>
+        </div>
+        }
       </div>
     </div>
-  </div>
+  </form>
   <br />
-  @if(this.validation() !== ""){
+  @if(registerForm.invalid && registerForm.touched) {
+    @if(registerForm.hasError('passwordsMismatch')) {
+    <div class="flexbox w-full mb-5">
+      <p-message severity="warn">
+        <i class="pi pi-info-circle"></i>
+        <span class="ml-2">{{ 'validation.passwords_mismatch' | translate }}</span>
+      </p-message>
+    </div>
+    } @else {
+    <div class="flexbox w-full mb-5">
+      <p-message severity="error">
+        <i class="pi pi-info-circle"></i>
+        <span class="ml-2">{{ 'validation.required' | translate }}</span>
+      </p-message>
+    </div>
+    }
+  }
+  @if(termsError) {
   <div class="flexbox w-full mb-5">
-    <p-message [severity]="severityValidation">
+    <p-message severity="warn">
       <i class="pi pi-info-circle"></i>
-      <span class="ml-2">{{this.validation()}}</span>
+      <span class="ml-2">{{ 'validation.terms_required' | translate }}</span>
     </p-message>
   </div>
   }

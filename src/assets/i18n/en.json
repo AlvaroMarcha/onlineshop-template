@@ -194,5 +194,11 @@
     "continue_shopping": "Seguir comprando",
     "item_count": "{{count}} artículo(s) en el carrito",
     "total_price": "Precio total: {{price}}"
+  },
+  "validation": {
+    "required": "All fields are required",
+    "passwords_mismatch": "Passwords do not match",
+    "terms_required": "Please accept the terms and conditions",
+    "invalid_email": "Invalid email address"
   }
 }

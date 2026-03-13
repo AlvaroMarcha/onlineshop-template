@@ -1,13 +1,8 @@
-import { Component, effect, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, effect, inject } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginRequestInit } from '../../store/auth/auth.actions';
-import {
-  selectAuthError,
-  selectIsLogged,
-  selectToken,
-  selectUser,
-} from '../../store/auth/auth.selectors';
+import { selectAuthError, selectUser } from '../../store/auth/auth.selectors';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,31 +11,28 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-loginCard',
   standalone: true,
-  imports: [FormsModule, PrimengModule, TranslateModule],
+  imports: [ReactiveFormsModule, PrimengModule, TranslateModule],
   templateUrl: './loginCard.html',
   styleUrl: './loginCard.css',
 })
 export class LoginCard {
-  username = '';
-  password = '';
+  private fb = inject(FormBuilder);
+  private store = inject(Store);
+  public router = inject(Router);
 
-  validation = signal('');
-  severityValidation = 'error';
+  loginForm = this.fb.nonNullable.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-  isLogged;
-  loading: boolean = false;
-  token$;
-  user$;
-  errorMessage$;
+  loading = false;
+  errorMessage$ = toSignal(this.store.select(selectAuthError));
 
-  constructor(private store: Store, public router: Router) {
-    this.token$ = toSignal(this.store.select(selectToken));
-    this.user$ = toSignal(this.store.select(selectUser));
-    this.errorMessage$ = toSignal(this.store.select(selectAuthError));
-    this.isLogged = toSignal(this.store.select(selectIsLogged));
+  constructor() {
+    const user$ = toSignal(this.store.select(selectUser));
 
     effect(() => {
-      const user = this.user$();
+      const user = user$();
       if (user) {
         if (user.role_id === 1) {
           this.router.navigate(['/admin/dashboard']);
@@ -51,26 +43,15 @@ export class LoginCard {
     });
   }
 
-  onLogin = () => {
-    this.loading = true;
-    setTimeout(() => {
-      this.getValidationLogin();
-      this.loading = false;
-    }, 700);
-  };
-
-  getValidationLogin = () => {
-    if (this.username === '' && this.password === '') {
-      this.validation.set('Los campos no pueden estar vacíos');
-    } else {
-      if (!this.username || !this.password) {
-        this.validation.set('Los campos no pueden estar vacíos');
-      } else {
-        this.validation.set('');
-        this.store.dispatch(
-          loginRequestInit({ username: this.username, password: this.password })
-        );
-      }
+  onLogin(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
-  };
+    const { username, password } = this.loginForm.getRawValue();
+    this.loading = true;
+    this.store.dispatch(loginRequestInit({ username, password }));
+    this.loading = false;
+  }
 }
+
