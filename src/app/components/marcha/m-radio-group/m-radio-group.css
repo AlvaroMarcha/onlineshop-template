@@ -88,3 +88,28 @@
 }
 
 .is-disabled { opacity: 0.48; cursor: not-allowed; pointer-events: none; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .m-radio-list--horizontal {
+    /* En mobile los radios apilados son más cómodos */
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .m-radio-item {
+    min-height: 44px;
+    gap: 0.75rem;
+  }
+  .m-radio-dot {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  .m-radio-inner {
+    width: 10px;
+    height: 10px;
+  }
+  .m-radio-label {
+    font-size: 1rem;
+  }
+}

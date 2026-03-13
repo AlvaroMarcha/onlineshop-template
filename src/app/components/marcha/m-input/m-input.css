@@ -71,3 +71,15 @@
   color: var(--m-text-faint);
 }
 .m-field-hint--invalid { color: var(--m-danger); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  /* iOS: font-size < 1rem en input dispara zoom automático */
+  .m-field-el {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+  }
+  .has-icon-left  .m-field-el { padding-left: 2.75rem; }
+  .has-icon-right .m-field-el { padding-right: 2.75rem; }
+}

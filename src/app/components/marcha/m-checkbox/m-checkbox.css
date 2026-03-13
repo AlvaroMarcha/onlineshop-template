@@ -63,3 +63,23 @@
 }
 
 .is-disabled { opacity: 0.48; cursor: not-allowed; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  /* Touch target mínimo: envuelve el checkbox en área de 44px */
+  .m-checkbox-wrapper {
+    min-height: 44px;
+    gap: 0.75rem;
+  }
+  .m-checkbox-box {
+    width: 22px;
+    height: 22px;
+  }
+  .m-checkbox-check {
+    width: 13px;
+    height: 13px;
+  }
+  .m-checkbox-label {
+    font-size: 1rem;
+  }
+}
