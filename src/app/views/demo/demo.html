@@ -64,7 +64,7 @@
       <m-card header="Datos y listas" variant="flat" padding="sm">
         <div class="demo-row">
           <m-badge value="m-chip" severity="success" />
-          <m-badge value="m-table" severity="secondary" />
+          <m-badge value="m-table" severity="success" />
           <m-badge value="m-data-view" severity="secondary" />
           <m-badge value="m-rating" severity="secondary" />
           <m-badge value="m-listbox" severity="secondary" />
@@ -424,6 +424,41 @@
       <m-calendar [inline]="true" [formControl]="calInline" />
       <m-calendar mode="range" [inline]="true" [formControl]="calInlineRange" />
     </div>
+  </section>
+
+  <m-divider label="Table" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-table &middot; Equipo &mdash; seleccionable, sorted, paginado</h2>
+    <m-table
+      caption="Equipo Marcha"
+      [columns]="tableColumns"
+      [data]="tableData"
+      [actions]="tableActions"
+      [selectable]="true"
+      [pageSize]="5"
+      (selectionChange)="tableSelection = $event"
+    />
+    @if (tableSelection.length > 0) {
+      <p style="margin-top:.75rem; font-size:.875rem; color:var(--m-text-muted)">
+        <strong>{{ tableSelection.length }}</strong> fila(s) seleccionada(s)
+      </p>
+    }
+    <h2 class="demo-section-title" style="margin-top:2rem">Estado skeleton (loading)</h2>
+    <m-table
+      caption="Cargando datos…"
+      [columns]="tableColumns"
+      [data]="[]"
+      variant="striped"
+      [loading]="true"
+    />
+    <h2 class="demo-section-title" style="margin-top:2rem">Estado vacío con b&uacute;squeda</h2>
+    <m-table
+      caption="Sin resultados"
+      [columns]="tableColumns"
+      [data]="[]"
+      emptyMessage="No hay miembros en el equipo"
+    />
   </section>
 
   <section class="demo-section">
