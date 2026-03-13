@@ -1,17 +1,21 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectIsLogged } from '../store/auth/auth.selectors';
+import { selectIsTokenValid } from '../store/auth/auth.selectors';
+import { logout } from '../store/auth/auth.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = () => {
   const store = inject(Store);
   const router = inject(Router);
 
-  //Get token user
-  const isLogged$ = toSignal(store.select(selectIsLogged));
+  const isValid = toSignal(store.select(selectIsTokenValid));
 
-  //CheckStatus
-  if (!isLogged$()) router.navigate(['/login']);
+  if (!isValid()) {
+    // Token ausente o expirado — limpiar store y redirigir
+    store.dispatch(logout());
+    router.navigate(['/login']);
+    return false;
+  }
   return true;
 };
