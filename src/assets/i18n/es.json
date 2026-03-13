@@ -239,5 +239,11 @@
         "oldest_first": "Más antiguos primero"
       }
     }
+  },
+  "validation": {
+    "required": "Los campos son obligatorios",
+    "passwords_mismatch": "Las contraseñas no coinciden",
+    "terms_required": "Acepte los términos y condiciones",
+    "invalid_email": "El correo electrónico no es válido"
   }
 }
