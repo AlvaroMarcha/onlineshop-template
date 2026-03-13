@@ -21,7 +21,7 @@ export class HeaderBack {
       {
         label: 'Dashboard',
         icon: 'pi pi-home',
-        command: () => console.log('Ir a Dashboard'),
+        command: () => this.router.navigate(['/admin/dashboard']),
       },
       {
         label: 'Usuarios',

@@ -27,7 +27,7 @@ export class LoginCard {
   validation = signal('');
   severityValidation = 'error';
 
-  isLogged: any;
+  isLogged;
   loading: boolean = false;
   token$;
   user$;
@@ -37,8 +37,7 @@ export class LoginCard {
     this.token$ = toSignal(this.store.select(selectToken));
     this.user$ = toSignal(this.store.select(selectUser));
     this.errorMessage$ = toSignal(this.store.select(selectAuthError));
-
-    this.isLogged = signal(this.store.select(selectIsLogged));
+    this.isLogged = toSignal(this.store.select(selectIsLogged));
 
     effect(() => {
       const user = this.user$();
@@ -57,7 +56,6 @@ export class LoginCard {
     setTimeout(() => {
       this.getValidationLogin();
       this.loading = false;
-      this.isLogged = true;
     }, 700);
   };
 

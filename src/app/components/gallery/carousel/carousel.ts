@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimengModule } from '../../../shared/primeng/primeng-module';
+import { ResponsiveOption } from '../../../type/types';
 
 interface CarouselImage {
   url: string;
@@ -13,7 +14,7 @@ interface CarouselImage {
   templateUrl: './carousel.html',
 })
 export class CarouselComponent implements OnInit {
-  responsiveOptions!: any[];
+  responsiveOptions!: ResponsiveOption[];
   images: CarouselImage[] = [
     {
       url: 'https://img.freepik.com/foto-gratis/vista-frontal-elegante-mujer-negocios-sosteniendo-portapapeles-espacio-copiar_23-2148788842.jpg',

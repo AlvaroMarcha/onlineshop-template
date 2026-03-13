@@ -44,7 +44,7 @@ export class Header implements OnInit {
   itemsTiered: MenuItem[] | undefined;
   visible = false;
   isDarkMode = false;
-  isLogged: any;
+  isLogged;
 
   constructor(
     public router: Router,
@@ -52,11 +52,11 @@ export class Header implements OnInit {
     private lang: LanguageService,
     private store: Store
   ) {
+    this.isLogged = toSignal(this.store.select(selectIsLogged));
     this.user$ = toSignal(this.store.select(selectUser), {
       initialValue: null,
     });
 
-    this.isLogged = toSignal(this.store.select(selectIsLogged));
     this.totalAmount = toSignal(this.store.select(selectCartTotal));
     this.itemsCartCount = toSignal(this.store.select(selectCartCount), {
       initialValue: 0,

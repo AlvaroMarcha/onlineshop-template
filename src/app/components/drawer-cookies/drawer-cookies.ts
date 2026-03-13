@@ -53,7 +53,6 @@ export class DrawerCookies {
   }
 
   savePreferences() {
-    console.log('Preferencias guardadas:', this.preferences);
     this.visible = false;
 
     //Save cookies
