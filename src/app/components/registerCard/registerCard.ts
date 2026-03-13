@@ -30,7 +30,7 @@ export class RegisterCard implements OnInit {
   severityValidation = 'warn';
   loading: boolean = false;
 
-  isLogged: any;
+  isLogged;
 
   payloadForm: PayloadFormRegister = {
     userValue: '',
@@ -49,8 +49,7 @@ export class RegisterCard implements OnInit {
   ) {
     this.token$ = toSignal(this.store.select(selectToken));
     this.user$ = toSignal(this.store.select(selectUser));
-
-    this.isLogged = signal(this.store.select(selectIsLogged));
+    this.isLogged = toSignal(this.store.select(selectIsLogged));
 
     effect(() => {
       const user = this.user$();
@@ -116,7 +115,6 @@ export class RegisterCard implements OnInit {
     setTimeout(() => {
       this.getValidationRegister(payloadRequest);
       this.loading = false;
-      this.isLogged = true;
     }, 1200);
   }
 
@@ -139,7 +137,6 @@ export class RegisterCard implements OnInit {
           this.severityValidation = 'warn';
           return this.validation.set('Acepte los términos y condiciones');
         }
-        console.log('Success');
         this.store.dispatch(registerRequest({ payload }));
       }
 
