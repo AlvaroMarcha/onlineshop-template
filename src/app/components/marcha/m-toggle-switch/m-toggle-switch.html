@@ -1,0 +1,27 @@
+<label
+  class="m-toggle-field"
+  [class.is-disabled]="isDisabled()"
+  [class.size-sm]="size() === 'sm'"
+  [class.size-lg]="size() === 'lg'">
+
+  <span class="m-toggle-content">
+    @if (label()) {
+      <span class="m-toggle-label">{{ label() }}</span>
+    }
+    @if (hint()) {
+      <span class="m-toggle-hint">{{ hint() }}</span>
+    }
+  </span>
+
+  <button
+    role="switch"
+    type="button"
+    class="m-toggle-track"
+    [class.is-checked]="checked()"
+    [disabled]="isDisabled()"
+    [attr.aria-checked]="checked()"
+    (click)="onToggle()">
+    <span class="m-toggle-thumb"></span>
+  </button>
+
+</label>

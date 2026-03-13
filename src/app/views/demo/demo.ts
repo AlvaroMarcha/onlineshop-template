@@ -13,8 +13,10 @@ import {
   MCalendar,
   MTable,
   MColorPicker,
+  MToggleSwitch, MCopy, MSortable,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
+  MSortableItem,
 } from '../../components/marcha';
 
 @Component({
@@ -34,6 +36,7 @@ import {
     MCalendar,
     MTable,
     MColorPicker,
+    MToggleSwitch, MCopy, MSortable,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -42,6 +45,25 @@ export class Demo {
   private readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Toggle Switch
+  readonly toggleNotify   = new FormControl(true);
+  readonly toggleDark     = new FormControl(false);
+  readonly toggleDisabled = new FormControl({ value: true, disabled: true });
+
+  // Copy
+  readonly copyCode = 'npm install @marcha/ui';
+
+  // Sortable
+  sortableItems: MSortableItem[] = [
+    { id: 1, label: 'Dashboard' },
+    { id: 2, label: 'Analytics' },
+    { id: 3, label: 'Settings' },
+    { id: 4, label: 'Reports' },
+    { id: 5, label: 'Users' },
+  ];
+
+  onSortChange(items: MSortableItem[]): void { this.sortableItems = items; }
 
   // Color Picker
   readonly colorAccent    = new FormControl('#6366f1');

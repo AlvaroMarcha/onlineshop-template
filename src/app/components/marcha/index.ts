@@ -79,3 +79,10 @@ export { MTable } from './m-table/m-table';
 export type { MTableColumn, MTableVariant, MTableRow, MTableAction } from './m-table/m-table';
 
 export { MColorPicker } from './m-color-picker/m-color-picker';
+
+// Utilidades
+export { MToggleSwitch } from './m-toggle-switch/m-toggle-switch';
+export type { MToggleSize } from './m-toggle-switch/m-toggle-switch';
+export { MCopy } from './m-copy/m-copy';
+export { MSortable } from './m-sortable/m-sortable';
+export type { MSortableItem } from './m-sortable/m-sortable';
