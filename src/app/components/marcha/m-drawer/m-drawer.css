@@ -94,3 +94,23 @@
   font-size: .9375rem;
   line-height: 1.6;
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .m-drawer-panel--right,
+  .m-drawer-panel--left {
+    /* Full width en pantallas muy pequeñas */
+    width: min(420px, 100vw);
+  }
+  .m-drawer-header {
+    padding: 1rem 1.25rem 0.875rem;
+  }
+  .m-drawer-content {
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+  .m-drawer-close {
+    width: 40px;
+    height: 40px;
+  }
+}

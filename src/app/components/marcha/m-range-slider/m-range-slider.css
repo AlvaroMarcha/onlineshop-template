@@ -117,3 +117,19 @@
 .is-disabled { opacity: 0.48; pointer-events: none; }
 
 .m-field-hint { font-size: 0.75rem; color: var(--m-text-faint); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  /* Thumbs más grandes para touch (Apple HIG: 44px área de toque) */
+  .m-range-input::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+  }
+  .m-range-input::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+  }
+  .m-range-wrapper {
+    height: 36px;
+  }
+}

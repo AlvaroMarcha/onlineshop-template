@@ -1,0 +1,113 @@
+/* =============================================
+   m-accordion — Acordeon glassmorphism
+   ============================================= */
+
+.m-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
+}
+
+/* ---- Item ---- */
+.m-accordion__item {
+  border: 1px solid var(--m-glass-border);
+  border-radius: var(--m-radius-lg);
+  background: var(--m-glass-bg);
+  backdrop-filter: blur(var(--m-blur));
+  overflow: hidden;
+  transition: border-color .2s ease;
+}
+
+.m-accordion__item--open {
+  border-color: var(--m-primary);
+}
+
+.m-accordion__item--disabled {
+  opacity: .5;
+  pointer-events: none;
+}
+
+/* ---- Header (trigger) ---- */
+.m-accordion__header {
+  display: flex;
+  align-items: center;
+  gap: .625rem;
+  width: 100%;
+  padding: .875rem 1.125rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--m-text-primary);
+  font-size: .9375rem;
+  font-weight: 500;
+  text-align: left;
+  transition: background .15s ease;
+}
+
+.m-accordion__header:hover {
+  background: var(--m-secondary-bg);
+}
+
+.m-accordion__header:focus-visible {
+  outline: 2px solid var(--m-primary);
+  outline-offset: -2px;
+}
+
+.m-accordion__icon {
+  color: var(--m-primary);
+  flex-shrink: 0;
+}
+
+.m-accordion__label {
+  flex: 1;
+}
+
+/* ---- Chevron animado ---- */
+.m-accordion__chevron {
+  color: var(--m-text-muted);
+  flex-shrink: 0;
+  transition: transform .25s ease;
+}
+
+.m-accordion__item--open .m-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Body colapsable (CSS max-height trick) ---- */
+.m-accordion__body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .28s ease;
+}
+
+.m-accordion__item--open .m-accordion__body {
+  max-height: 600px;
+}
+
+/* ---- Contenido ---- */
+.m-accordion__content {
+  padding: .125rem 1.125rem 1rem;
+  color: var(--m-text-muted);
+  font-size: .9rem;
+  line-height: 1.6;
+  border-top: 1px solid var(--m-glass-border);
+}
+
+/* ---- Dark mode ---- */
+:host-context(.my-app-dark) .m-accordion__item--open {
+  border-color: var(--m-primary);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .m-accordion__header {
+    padding: 1rem 1rem;
+    min-height: 48px;
+    font-size: 1rem;
+  }
+  .m-accordion__content {
+    padding: 0.25rem 1rem 1.125rem;
+    font-size: 0.9375rem;
+  }
+}
