@@ -1,0 +1,64 @@
+frontend:
+  - changed-files:
+    - any-glob-to-any-file: 'src/**'
+
+components:
+  - changed-files:
+    - any-glob-to-any-file: 'src/app/components/**'
+
+views:
+  - changed-files:
+    - any-glob-to-any-file: 'src/app/views/**'
+
+store:
+  - changed-files:
+    - any-glob-to-any-file: 'src/app/store/**'
+
+services:
+  - changed-files:
+    - any-glob-to-any-file: 'src/app/services/**'
+
+auth:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'src/app/store/auth/**'
+      - 'src/app/guards/**'
+      - 'src/app/interceptors/**'
+      - 'src/app/components/loginCard/**'
+      - 'src/app/components/registerCard/**'
+
+cart:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'src/app/store/cart/**'
+      - 'src/app/components/cart/**'
+
+tests:
+  - changed-files:
+    - any-glob-to-any-file: '**/*.spec.ts'
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'package.json'
+      - 'package-lock.json'
+
+ci-cd:
+  - changed-files:
+    - any-glob-to-any-file: '.github/workflows/**'
+
+styles:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.css'
+      - 'src/styles.css'
+
+i18n:
+  - changed-files:
+    - any-glob-to-any-file: 'src/assets/i18n/**'
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '*.md'
+      - '.github/instructions/**'
