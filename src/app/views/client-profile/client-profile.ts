@@ -22,7 +22,6 @@ import { Chart, ChartConfiguration } from 'chart.js';
   standalone: true,
   imports: [PrimengModule, FormsModule],
   templateUrl: './client-profile.html',
-  providers: [MessageService],
 })
 export class ClientProfile implements OnInit, AfterViewInit {
   user$;

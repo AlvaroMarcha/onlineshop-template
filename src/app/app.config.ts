@@ -16,6 +16,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
+import { MessageService } from 'primeng/api';
 
 // NgRx
 import { provideStore } from '@ngrx/store';
@@ -61,6 +62,9 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+
+    // PrimeNG global services
+    MessageService,
 
     // Translate
     importProvidersFrom(
