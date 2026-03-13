@@ -4,9 +4,6 @@ on:
   pull_request_review:
     types:
       - submitted
-  check_suite:
-    types:
-      - completed
 
 permissions:
   contents: write
@@ -17,55 +14,16 @@ jobs:
     name: Auto-merge develop to master
     runs-on: ubuntu-latest
 
-    # Only run when PR from develop to master
+    # Solo ejecutar cuando se aprueba el PR develop → master
     if: |
+      github.event.review.state == 'approved' &&
       github.event.pull_request.base.ref == 'master' &&
       github.event.pull_request.head.ref == 'develop' &&
       github.event.pull_request.draft == false
 
     steps:
-      - name: Check PR approval and status
-        id: check
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const pr = context.payload.pull_request;
-
-            // Check if PR is approved
-            const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-            });
-
-            const approvedReviews = reviews.filter(review => review.state === 'APPROVED');
-
-            if (approvedReviews.length === 0) {
-              console.log('PR has no approvals');
-              return { shouldMerge: false };
-            }
-
-            // Check if all required checks passed
-            const { data: checkRuns } = await github.rest.checks.listForRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: pr.head.sha,
-            });
-
-            const failedChecks = checkRuns.check_runs.filter(check =>
-              check.conclusion === 'failure' || check.conclusion === 'cancelled'
-            );
-
-            if (failedChecks.length > 0) {
-              console.log('Some checks failed:', failedChecks.map(c => c.name));
-              return { shouldMerge: false };
-            }
-
-            console.log('All conditions met for auto-merge to master');
-            return { shouldMerge: true };
-
       - name: Enable auto-merge
-        if: fromJSON(steps.check.outputs.result).shouldMerge == true
+        # --auto delegates to GitHub: merges when all required checks pass
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
