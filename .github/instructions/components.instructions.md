@@ -55,7 +55,13 @@ export class ProductCard {
 
 ```typescript
 // app.routes.ts — lazy-load en rutas admin y features pesadas
-{ path: 'admin/dashboard', loadComponent: () => import('./views/private/dashboard/dashboard').then(m => m.Dashboard) }
+{
+  path: 'admin/dashboard',
+  loadComponent: async () => {
+    const m = await import('./views/private/dashboard/dashboard');
+    return m.Dashboard;
+  },
+}
 
 // Rutas públicas pueden ser eager
 { path: 'shop', component: Shop }

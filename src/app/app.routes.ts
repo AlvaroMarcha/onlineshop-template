@@ -13,8 +13,6 @@ import { ProductView } from './views/product/product';
 import { NotFound } from './views/not-found/not-found';
 import { Cookies } from './views/cookies/cookies';
 import { GalleryView } from './views/gallery/galleryView';
-import { Dashboard } from './views/private/dashboard/dashboard';
-import { ClientProfile } from './views/client-profile/client-profile';
 import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
@@ -32,8 +30,22 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductView },
   { path: 'gallery', component: GalleryView },
   { path: 'cookies', component: Cookies },
-  // Private (BackOffice)
-  { path: 'admin/dashboard', component: Dashboard },
-  { path: 'profile', component: ClientProfile, canActivate: [authGuard] },
+  // Private (BackOffice) — lazy loaded
+  {
+    path: 'admin/dashboard',
+    loadComponent: async () => {
+      const m = await import('./views/private/dashboard/dashboard');
+      return m.Dashboard;
+    },
+    canActivate: [authGuard],
+  },
+  {
+    path: 'profile',
+    loadComponent: async () => {
+      const m = await import('./views/client-profile/client-profile');
+      return m.ClientProfile;
+    },
+    canActivate: [authGuard],
+  },
   { path: '**', component: NotFound },
 ];

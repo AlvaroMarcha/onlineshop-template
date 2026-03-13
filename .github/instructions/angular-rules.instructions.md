@@ -89,3 +89,22 @@ export class MyComponent { ... }
 - Clases de componente delgadas: fetching de datos → servicio/effect; lógica de presentación → template.
 - Métodos de más de 20 líneas se dividen en métodos auxiliares con nombre descriptivo.
 - Formularios siempre con **Reactive Forms** (`FormGroup`, `FormBuilder`) — no template-driven (`ngModel`).
+
+---
+
+## Async/Await — estilo moderno
+
+- **Siempre `async/await`** sobre `.then()` / `.catch()` — más legible, más mantenible.
+- **❌ NUNCA** encadenar `.then(m => m.X)` en `loadComponent` ni en servicios.
+- Usar `try/catch` para manejo de errores en funciones async.
+
+```typescript
+// ✅ Correcto — async/await
+loadComponent: async () => {
+  const m = await import('./views/private/dashboard/dashboard');
+  return m.Dashboard;
+}
+
+// ❌ Incorrecto — .then()
+loadComponent: () => import('./views/private/dashboard/dashboard').then(m => m.Dashboard)
+```
