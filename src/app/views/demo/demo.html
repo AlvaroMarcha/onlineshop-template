@@ -23,12 +23,15 @@
       </m-card>
       <m-card header="Formularios" variant="flat" padding="sm">
         <div class="demo-row">
-          <m-badge value="m-input" severity="secondary" />
-          <m-badge value="m-password" severity="secondary" />
-          <m-badge value="m-textarea" severity="secondary" />
-          <m-badge value="m-checkbox" severity="secondary" />
-          <m-badge value="m-number-input" severity="secondary" />
-          <m-badge value="m-float-label" severity="secondary" />
+          <m-badge value="m-input" severity="success" />
+          <m-badge value="m-password" severity="success" />
+          <m-badge value="m-textarea" severity="success" />
+          <m-badge value="m-checkbox" severity="success" />
+          <m-badge value="m-number-input" severity="success" />
+          <m-badge value="m-float-label" severity="success" />
+          <m-badge value="m-select" severity="secondary" />
+          <m-badge value="m-radio-group" severity="secondary" />
+          <m-badge value="m-range-slider" severity="secondary" />
         </div>
       </m-card>
       <m-card header="Overlays y notificaciones" variant="flat" padding="sm">
@@ -168,5 +171,68 @@
     <m-divider label="o continua con" />
     <m-divider type="dashed" />
     <m-divider type="dotted" label="dotted" />
+  </section>
+
+  <m-divider label="Formularios" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-input · Tipos y estados</h2>
+    <div class="demo-form-grid">
+      <m-input label="Nombre" placeholder="Tu nombre completo" icon="lucide:user" [formControl]="form.controls.nombre" />
+      <m-input label="Email" placeholder="correo@ejemplo.com" icon="lucide:mail" type="email" [formControl]="form.controls.email" />
+      <m-input label="Buscar" placeholder="Escribe para buscar..." icon="lucide:search" iconPos="right" />
+      <m-input label="Con error" placeholder="Campo requerido" hint="Este campo es obligatorio" [invalid]="true" icon="lucide:alert-circle" />
+      <m-input label="Deshabilitado" placeholder="No editable" [invalid]="false" [formControl]="form.controls.nombre" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-password · Mostrar / ocultar</h2>
+    <div class="demo-form-grid">
+      <m-password label="Contrasena" placeholder="Min. 8 caracteres" [formControl]="form.controls.password" />
+      <m-password label="Con error" placeholder="Contrasena" hint="Minimo 8 caracteres" [invalid]="true" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-textarea · Redimencionable</h2>
+    <m-textarea label="Biografia" placeholder="Cuéntanos algo sobre ti..." hint="Maximo 300 caracteres" [rows]="4" [formControl]="form.controls.bio" />
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-checkbox · Booleano</h2>
+    <div class="demo-row" style="flex-direction: column; align-items: flex-start; gap: 1rem">
+      <m-checkbox label="Acepto los terminos y condiciones" [formControl]="form.controls.terminos" />
+      <m-checkbox label="Quiero recibir noticias por email" />
+      <m-checkbox label="Con error — campo requerido" [invalid]="true" />
+      <m-checkbox label="Deshabilitado" [invalid]="false" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-number-input · +/− con min/max</h2>
+    <div class="demo-row" style="align-items: flex-start; gap: 2rem">
+      <div style="width: 160px">
+        <m-number-input label="Cantidad" [min]="1" [max]="99" [formControl]="form.controls.cantidad" />
+      </div>
+      <div style="width: 160px">
+        <m-number-input label="Puntuacion (0-10)" [min]="0" [max]="10" hint="Escala del 0 al 10" />
+      </div>
+      <div style="width: 160px">
+        <m-number-input label="Step 5" [step]="5" [min]="0" [max]="100" />
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-float-label · Etiqueta flotante</h2>
+    <div class="demo-form-grid">
+      <m-float-label label="Nombre completo">
+        <input class="m-fl-input" placeholder=" " />
+      </m-float-label>
+      <m-float-label label="Ciudad">
+        <input class="m-fl-input" placeholder=" " />
+      </m-float-label>
+    </div>
   </section>
 </div>

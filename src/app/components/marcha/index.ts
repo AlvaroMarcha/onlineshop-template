@@ -21,3 +21,17 @@ export type { MBadgeSeverity, MBadgeSize } from './m-badge/m-badge';
 export { MDivider } from './m-divider/m-divider';
 
 export { MOverlayBadge } from './m-overlay-badge/m-overlay-badge';
+
+// Formularios
+export { MInput } from './m-input/m-input';
+export type { MInputType } from './m-input/m-input';
+
+export { MPassword } from './m-password/m-password';
+
+export { MTextarea } from './m-textarea/m-textarea';
+
+export { MCheckbox } from './m-checkbox/m-checkbox';
+
+export { MNumberInput } from './m-number-input/m-number-input';
+
+export { MFloatLabel } from './m-float-label/m-float-label';
