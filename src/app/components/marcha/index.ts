@@ -43,3 +43,17 @@ export { MRadioGroup } from './m-radio-group/m-radio-group';
 export type { MRadioOption } from './m-radio-group/m-radio-group';
 
 export { MRangeSlider } from './m-range-slider/m-range-slider';
+
+// Overlays y notificaciones
+export { MMessage } from './m-message/m-message';
+export type { MMessageSeverity } from './m-message/m-message';
+
+export { MToast } from './m-toast/m-toast';
+export { MNotificationService } from './m-toast/m-notification.service';
+export type { MToastItem, MToastSeverity } from './m-toast/m-notification.service';
+
+export { MDialog } from './m-dialog/m-dialog';
+export type { MDialogSize } from './m-dialog/m-dialog';
+
+export { MDrawer } from './m-drawer/m-drawer';
+export type { MDrawerPosition } from './m-drawer/m-drawer';

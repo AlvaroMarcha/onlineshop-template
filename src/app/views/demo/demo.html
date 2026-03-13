@@ -36,10 +36,10 @@
       </m-card>
       <m-card header="Overlays y notificaciones" variant="flat" padding="sm">
         <div class="demo-row">
-          <m-badge value="m-toast" severity="secondary" />
-          <m-badge value="m-dialog" severity="secondary" />
-          <m-badge value="m-drawer" severity="secondary" />
-          <m-badge value="m-message" severity="secondary" />
+          <m-badge value="m-toast" severity="success" />
+          <m-badge value="m-dialog" severity="success" />
+          <m-badge value="m-drawer" severity="success" />
+          <m-badge value="m-message" severity="success" />
         </div>
       </m-card>
       <m-card header="Navegacion" variant="flat" padding="sm">
@@ -245,6 +245,18 @@
     </div>
   </section>
 
+  <m-divider label="Overlays y notificaciones" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-message &middot; Alertas inline</h2>
+    <div style="display: flex; flex-direction: column; gap: .75rem">
+      <m-message severity="info"    title="Informacion"  text="Hay una actualizacion disponible para tu cuenta." />
+      <m-message severity="success" title="Operacion exitosa" text="Los cambios se han guardado correctamente." />
+      <m-message severity="warn"    title="Atencion"     text="Tu sesion expira en 10 minutos." [closeable]="true" />
+      <m-message severity="error"   title="Error"        text="No se pudo conectar con el servidor. Intentalo de nuevo." [closeable]="true" />
+    </div>
+  </section>
+
   <section class="demo-section">
     <h2 class="demo-section-title">m-radio-group · Vertical y horizontal</h2>
     <div class="demo-form-grid">
@@ -254,10 +266,55 @@
   </section>
 
   <section class="demo-section">
+    <h2 class="demo-section-title">m-toast &middot; Notificaciones globales</h2>
+    <div class="demo-row">
+      <m-button label="Success" severity="success" icon="lucide:check"
+        (onClick)="toast('success', 'Guardado', 'Los cambios se han aplicado.')" />
+      <m-button label="Error" severity="danger" icon="lucide:x"
+        (onClick)="toast('error', 'Error de red', 'Comprueba tu conexion.')" />
+      <m-button label="Info" severity="info" icon="lucide:info"
+        (onClick)="toast('info', 'Informacion', 'Tienes 3 mensajes nuevos.')" />
+      <m-button label="Warn" severity="warn" icon="lucide:alert-triangle"
+        (onClick)="toast('warn', 'Advertencia', 'Espacio en disco al 90%.')" />
+    </div>
+  </section>
+
+  <section class="demo-section">
     <h2 class="demo-section-title">m-range-slider · Rango doble</h2>
     <div class="demo-form-grid">
       <m-range-slider label="Rango de precio" [min]="0" [max]="500" [step]="5" hint="Filtra productos por precio" [formControl]="form.controls.rango" />
       <m-range-slider label="Rango de edad" [min]="18" [max]="65" [step]="1" />
     </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-dialog &middot; Modal</h2>
+    <m-button label="Abrir dialog" severity="primary" icon="lucide:maximize-2"
+      (onClick)="showDialog.set(true)" />
+    <m-dialog [(visible)]="showDialog" header="Confirmar accion">
+      <p>¿Estas seguro de que deseas continuar? Esta accion no se puede deshacer.</p>
+      <div style="display: flex; gap: .75rem; margin-top: 1.5rem; justify-content: flex-end">
+        <m-button label="Cancelar" severity="secondary" variant="outlined" (onClick)="showDialog.set(false)" />
+        <m-button label="Confirmar" severity="danger" (onClick)="showDialog.set(false)" />
+      </div>
+    </m-dialog>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-drawer &middot; Panel lateral</h2>
+    <div class="demo-row">
+      <m-button label="Derecha" severity="primary" icon="lucide:panel-right"
+        (onClick)="openDrawer('right')" />
+      <m-button label="Izquierda" severity="secondary" icon="lucide:panel-left"
+        (onClick)="openDrawer('left')" />
+      <m-button label="Abajo" severity="info" icon="lucide:panel-bottom"
+        (onClick)="openDrawer('bottom')" />
+    </div>
+    <m-drawer [(visible)]="showDrawer" header="Menu lateral" [position]="drawerPos()">
+      <p>Contenido del drawer. Puede incluir navegacion, filtros, detalles, etc.</p>
+      <div style="margin-top: 1.5rem">
+        <m-button label="Cerrar" severity="secondary" variant="outlined" (onClick)="showDrawer.set(false)" />
+      </div>
+    </m-drawer>
   </section>
 </div>

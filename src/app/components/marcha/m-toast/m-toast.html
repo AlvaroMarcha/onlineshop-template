@@ -1,0 +1,16 @@
+<div class="m-toast-container" aria-live="polite" aria-atomic="false">
+  @for (t of svc.toasts(); track trackById($index, t)) {
+    <div class="m-toast-item" [class]="'m-toast-item--' + t.severity" role="alert">
+      <m-icon class="m-toast-icon" [icon]="icon(t.severity)" size="20" />
+      <div class="m-toast-body">
+        <span class="m-toast-summary">{{ t.summary }}</span>
+        @if (t.detail) {
+          <p class="m-toast-detail">{{ t.detail }}</p>
+        }
+      </div>
+      <button class="m-toast-close" (click)="close(t.id)" aria-label="Cerrar">
+        <m-icon icon="lucide:x" size="14" />
+      </button>
+    </div>
+  }
+</div>
