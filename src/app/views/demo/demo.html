@@ -23,6 +23,7 @@
       </m-card>
       <m-card header="Formularios" variant="flat" padding="sm">
         <div class="demo-row">
+          <m-badge value="m-calendar" severity="success" />
           <m-badge value="m-input" severity="success" />
           <m-badge value="m-password" severity="success" />
           <m-badge value="m-textarea" severity="success" />
@@ -401,6 +402,27 @@
       <m-chip label="Offline" severity="secondary" [dot]="true" size="sm" />
       <m-chip label="Online"  severity="success"   [dot]="true" size="lg" />
       <m-chip label="Ocupado" severity="danger"    [dot]="true" size="lg" />
+    </div>
+  </section>
+
+  <m-divider label="Calendar" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-calendar &middot; Selector de fecha (popup)</h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: flex-start; gap: 1.5rem">
+      <div style="display:flex; flex-direction:column; gap:.5rem">
+        <span style="font-size:.8125rem; color:var(--m-text-muted)">Fecha simple</span>
+        <m-calendar [formControl]="calSingle" />
+      </div>
+      <div style="display:flex; flex-direction:column; gap:.5rem">
+        <span style="font-size:.8125rem; color:var(--m-text-muted)">Rango de fechas</span>
+        <m-calendar mode="range" [formControl]="calRange" />
+      </div>
+    </div>
+    <h2 class="demo-section-title">m-calendar &middot; Inline</h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: flex-start; gap: 2rem">
+      <m-calendar [inline]="true" [formControl]="calInline" />
+      <m-calendar mode="range" [inline]="true" [formControl]="calInlineRange" />
     </div>
   </section>
 

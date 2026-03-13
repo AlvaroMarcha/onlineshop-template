@@ -1,0 +1,83 @@
+<!-- Modo inline: solo el panel -->
+@if (inline()) {
+  <div class="m-cal-panel">
+    <ng-container *ngTemplateOutlet="calPanel" />
+  </div>
+} @else {
+  <!-- Modo popup -->
+  <div class="m-cal-wrap">
+    <button
+      type="button"
+      class="m-cal-trigger"
+      [class.m-cal-trigger--open]="isOpen()"
+      [class.m-cal-trigger--disabled]="isDisabled()"
+      [disabled]="isDisabled()"
+      (click)="toggleOpen()"
+      aria-haspopup="dialog"
+      [attr.aria-expanded]="isOpen()"
+    >
+      <m-icon icon="lucide:calendar" [size]="16" class="m-cal-trigger-icon" />
+      <span class="m-cal-trigger-label">
+        {{ inputLabel || 'Selecciona una fecha' }}
+      </span>
+      <m-icon icon="lucide:chevron-down" [size]="14" class="m-cal-trigger-caret"
+        [class.m-cal-trigger-caret--open]="isOpen()" />
+    </button>
+
+    @if (isOpen()) {
+      <div class="m-cal-panel m-cal-panel--popup" role="dialog" aria-modal="true">
+        <ng-container *ngTemplateOutlet="calPanel" />
+      </div>
+    }
+  </div>
+}
+
+<!-- Panel reutilizable -->
+<ng-template #calPanel>
+  <!-- Cabecera -->
+  <div class="m-cal-header">
+    <button type="button" class="m-cal-nav" (click)="prevMonth()" aria-label="Mes anterior">
+      <m-icon icon="lucide:chevron-left" [size]="16" />
+    </button>
+    <span class="m-cal-month-label">{{ monthLabel() }}</span>
+    <button type="button" class="m-cal-nav" (click)="nextMonth()" aria-label="Mes siguiente">
+      <m-icon icon="lucide:chevron-right" [size]="16" />
+    </button>
+  </div>
+
+  <!-- Días de la semana -->
+  <div class="m-cal-grid m-cal-grid--head">
+    @for (d of dayNames; track d) {
+      <span class="m-cal-weekday">{{ d }}</span>
+    }
+  </div>
+
+  <!-- Cuadrícula de días -->
+  <div class="m-cal-grid m-cal-grid--body">
+    @for (day of days(); track day.date.getTime()) {
+      <button
+        type="button"
+        class="m-cal-day"
+        [class.m-cal-day--other]="!day.currentMonth"
+        [class.m-cal-day--today]="day.today"
+        [class.m-cal-day--selected]="isDaySelected(day)"
+        [class.m-cal-day--range]="isDayInRange(day)"
+        [class.m-cal-day--range-start]="isDayRangeStart(day)"
+        [class.m-cal-day--range-end]="isDayRangeEnd(day)"
+        [class.m-cal-day--disabled]="day.disabled"
+        [disabled]="day.disabled"
+        (click)="selectDay(day)"
+        (mouseenter)="onHover(day)"
+        (mouseleave)="onLeave()"
+        [attr.aria-label]="day.date.toLocaleDateString('es-ES')"
+        [attr.aria-pressed]="isDaySelected(day)"
+        [attr.aria-disabled]="day.disabled"
+      >{{ day.day }}</button>
+    }
+  </div>
+
+  <!-- Pie -->
+  <div class="m-cal-footer">
+    <button type="button" class="m-cal-today-btn" (click)="goToToday()">Hoy</button>
+  </div>
+</ng-template>
