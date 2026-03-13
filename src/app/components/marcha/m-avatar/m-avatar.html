@@ -1,0 +1,11 @@
+<div [class]="computedClass">
+  @if (image) {
+    <img [src]="image" [alt]="label || 'avatar'" class="m-avatar-img" />
+  } @else if (icon) {
+    <m-icon [icon]="icon" [size]="iconSize" />
+  } @else if (label) {
+    <span class="m-avatar-initials">{{ initials }}</span>
+  } @else {
+    <m-icon icon="lucide:user" [size]="iconSize" />
+  }
+</div>
