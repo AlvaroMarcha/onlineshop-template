@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../services/language-service';
 import { ActivatedRoute } from '@angular/router';
-import { ProductItem, SizesItems } from '../../type/types';
+import { GalleriaImage, ProductItem, ResponsiveOption, SizesItems } from '../../type/types';
 import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { FormsModule } from '@angular/forms';
 import { ProductReviews } from '../product-reviews/product-reviews';
@@ -18,11 +18,11 @@ export class Product implements OnInit {
   t!: Record<string, string>;
   id!: string;
   active: string | string[] | number[] | number = 0;
-  images: any[] = [];
+  images: GalleriaImage[] = [];
   sizes!: SizesItems[];
   selectedSize!: SizesItems;
 
-  responsiveOptions: any[] = [
+  responsiveOptions: ResponsiveOption[] = [
     {
       breakpoint: '1300px',
       numVisible: 4,

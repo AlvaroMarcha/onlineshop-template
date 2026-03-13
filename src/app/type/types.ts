@@ -44,6 +44,19 @@ export interface ImgItem {
   title: string;
 }
 
+export interface GalleriaImage {
+  itemImageSrc: string;
+  thumbnailImageSrc: string;
+  alt: string;
+  title: string;
+}
+
+export interface ResponsiveOption {
+  breakpoint: string;
+  numVisible: number;
+  numScroll?: number;
+}
+
 // auth state
 export interface User {
   id: number;

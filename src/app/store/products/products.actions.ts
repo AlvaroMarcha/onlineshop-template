@@ -25,5 +25,5 @@ export const productByIdRequestFinal = createAction(
 //Error products
 export const getProductFailure = createAction(
   '[Products] Products Failure action',
-  props<{ error: any }>()
+  props<{ error: string }>()
 );
