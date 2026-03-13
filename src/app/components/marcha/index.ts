@@ -64,3 +64,9 @@ export type { MTabItem, MTabsVariant } from './m-tabs/m-tabs';
 
 export { MAccordion } from './m-accordion/m-accordion';
 export type { MAccordionItem } from './m-accordion/m-accordion';
+
+export { MChip } from './m-chip/m-chip';
+export type { MChipSeverity, MChipSize } from './m-chip/m-chip';
+
+export { MTooltip } from './m-tooltip/m-tooltip';
+export type { MTooltipPosition } from './m-tooltip/m-tooltip';
