@@ -87,3 +87,28 @@
 .m-tabs-content {
   padding: 1.25rem 0 0;
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  /* Scroll horizontal cuando las pestañas no caben en pantalla */
+  .m-tabs-nav {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex-wrap: nowrap;
+  }
+  .m-tabs-nav::-webkit-scrollbar { display: none; }
+
+  .m-tabs--line .m-tabs-tab,
+  .m-tabs--pill .m-tabs-tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+    font-size: .9375rem;
+    padding-left: .875rem;
+    padding-right: .875rem;
+  }
+  .m-tabs--pill .m-tabs-nav {
+    padding: .25rem;
+  }
+}

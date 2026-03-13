@@ -47,3 +47,12 @@
 .m-msg--success { border-color: var(--m-success-border); color: var(--m-success); background: rgba(34, 197, 94, .07); }
 .m-msg--warn    { border-color: var(--m-warn-border);    color: var(--m-warn);    background: rgba(245, 158, 11, .07); }
 .m-msg--error   { border-color: var(--m-danger-border);  color: var(--m-danger);  background: rgba(239, 68, 68, .07); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .m-msg {
+    padding: 1rem 1rem;
+  }
+  .m-msg-title { font-size: 0.9375rem; }
+  .m-msg-text  { font-size: 0.875rem; }
+}

@@ -98,3 +98,16 @@
 :host-context(.my-app-dark) .m-accordion__item--open {
   border-color: var(--m-primary);
 }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .m-accordion__header {
+    padding: 1rem 1rem;
+    min-height: 48px;
+    font-size: 1rem;
+  }
+  .m-accordion__content {
+    padding: 0.25rem 1rem 1.125rem;
+    font-size: 0.9375rem;
+  }
+}
