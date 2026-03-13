@@ -40,6 +40,7 @@
           <m-badge value="m-dialog" severity="success" />
           <m-badge value="m-drawer" severity="success" />
           <m-badge value="m-message" severity="success" />
+          <m-badge value="m-tooltip" severity="success" />
         </div>
       </m-card>
       <m-card header="Navegacion" variant="flat" padding="sm">
@@ -61,6 +62,7 @@
       </m-card>
       <m-card header="Datos y listas" variant="flat" padding="sm">
         <div class="demo-row">
+          <m-badge value="m-chip" severity="success" />
           <m-badge value="m-table" severity="secondary" />
           <m-badge value="m-data-view" severity="secondary" />
           <m-badge value="m-rating" severity="secondary" />
@@ -361,5 +363,60 @@
   <section class="demo-section">
     <h2 class="demo-section-title">m-accordion &middot; Multiple paneles abiertos</h2>
     <m-accordion [items]="accordionMultiple" [multiple]="true" />
+  </section>
+
+  <m-divider label="Chips y Tooltips" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-chip &middot; Severidades</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-chip label="Primary"   severity="primary" />
+      <m-chip label="Secondary" severity="secondary" />
+      <m-chip label="Success"   severity="success"   icon="lucide:check" />
+      <m-chip label="Warn"      severity="warn"      icon="lucide:alert-triangle" />
+      <m-chip label="Danger"    severity="danger"    icon="lucide:x" />
+      <m-chip label="Info"      severity="info"      icon="lucide:info" />
+      <m-chip label="Help"      severity="help"      icon="lucide:help-circle" />
+    </div>
+    <h2 class="demo-section-title">Tama&ntilde;os y removible</h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: center">
+      <m-chip label="Small"    severity="primary" size="sm" />
+      <m-chip label="Medium"   severity="primary" size="md" />
+      <m-chip label="Large"    severity="primary" size="lg" />
+      <m-chip label="Removible" severity="success" [removable]="true" icon="lucide:tag" />
+      <m-chip label="React 18" severity="info" size="sm" icon="lucide:code" [removable]="true" />
+      <m-chip label="Angular 20" severity="primary" size="sm" icon="lucide:zap" [removable]="true" />
+    </div>
+    <h2 class="demo-section-title">Estado de presencia &middot; <code>dot</code></h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: center">
+      <m-chip label="Online"    severity="success"   [dot]="true" />
+      <m-chip label="En pausa"  severity="warn"      [dot]="true" />
+      <m-chip label="Ocupado"   severity="danger"    [dot]="true" />
+      <m-chip label="Ausente"   severity="info"      [dot]="true" />
+      <m-chip label="Offline"   severity="secondary" [dot]="true" />
+    </div>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: center; margin-top: .5rem">
+      <m-chip label="Online"  severity="success"   [dot]="true" size="sm" />
+      <m-chip label="Ocupado" severity="danger"    [dot]="true" size="sm" />
+      <m-chip label="Offline" severity="secondary" [dot]="true" size="sm" />
+      <m-chip label="Online"  severity="success"   [dot]="true" size="lg" />
+      <m-chip label="Ocupado" severity="danger"    [dot]="true" size="lg" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-tooltip &middot; Las 4 posiciones</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-button label="Arriba" severity="secondary"
+        mTooltip="Esto aparece arriba" tooltipPosition="top" />
+      <m-button label="Abajo" severity="secondary"
+        mTooltip="Esto aparece abajo" tooltipPosition="bottom" />
+      <m-button label="Izquierda" severity="secondary"
+        mTooltip="Esto aparece a la izquierda" tooltipPosition="left" />
+      <m-button label="Derecha" severity="secondary"
+        mTooltip="Esto aparece a la derecha" tooltipPosition="right" />
+      <m-button label="Con retraso 600ms" severity="primary" icon="lucide:clock"
+        mTooltip="Aparezco con retraso" [tooltipDelay]="600" />
+    </div>
   </section>
 </div>

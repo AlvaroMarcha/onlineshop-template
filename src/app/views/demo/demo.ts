@@ -9,6 +9,7 @@ import {
   MMessage, MDialog, MDrawer,
   MTabs, MTabPanel,
   MAccordion,
+  MChip, MTooltip,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem,
 } from '../../components/marcha';
@@ -26,6 +27,7 @@ import {
     MMessage, MDialog, MDrawer,
     MTabs, MTabPanel,
     MAccordion,
+    MChip, MTooltip,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
