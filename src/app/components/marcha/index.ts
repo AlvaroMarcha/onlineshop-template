@@ -35,3 +35,11 @@ export { MCheckbox } from './m-checkbox/m-checkbox';
 export { MNumberInput } from './m-number-input/m-number-input';
 
 export { MFloatLabel } from './m-float-label/m-float-label';
+
+export { MSelect } from './m-select/m-select';
+export type { MSelectOption } from './m-select/m-select';
+
+export { MRadioGroup } from './m-radio-group/m-radio-group';
+export type { MRadioOption } from './m-radio-group/m-radio-group';
+
+export { MRangeSlider } from './m-range-slider/m-range-slider';
