@@ -57,3 +57,7 @@ export type { MDialogSize } from './m-dialog/m-dialog';
 
 export { MDrawer } from './m-drawer/m-drawer';
 export type { MDrawerPosition } from './m-drawer/m-drawer';
+
+// Layout y navegacion
+export { MTabs, MTabPanel } from './m-tabs/m-tabs';
+export type { MTabItem, MTabsVariant } from './m-tabs/m-tabs';
