@@ -1,0 +1,264 @@
+<div class="m-table-wrap" [class]="'m-table-wrap--' + variant()">
+
+  <!-- ===== Toolbar ===== -->
+  <div class="m-table-toolbar">
+    <div class="m-table-toolbar-left">
+      @if (caption()) {
+        <span class="m-table-caption">{{ caption() }}</span>
+      }
+      @if (!loading()) {
+        <span class="m-table-count">{{ totalCount() }} registros</span>
+      }
+    </div>
+    <div class="m-table-toolbar-right">
+      @if (showSearch()) {
+        <input
+          class="m-table-search-input"
+          type="search"
+          placeholder="Buscar en la tabla…"
+          [value]="filterText()"
+          (input)="onSearch($event)"
+          autofocus
+        />
+      }
+      <button
+        type="button"
+        class="m-table-toolbar-btn"
+        [class.m-table-toolbar-btn--active]="showSearch()"
+        (click)="toggleSearch()"
+        [attr.aria-label]="showSearch() ? 'Cerrar búsqueda' : 'Buscar'"
+      >
+        <m-icon [icon]="showSearch() ? 'lucide:x' : 'lucide:search'" [size]="15" />
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== Scroll ===== -->
+  <div class="m-table-scroll">
+    <table class="m-table" [class]="'m-table--' + variant()">
+
+      <!-- Cabecera -->
+      <thead>
+        <tr class="m-table-thead-row">
+          @if (selectable()) {
+            <th class="m-table-th m-table-th--check">
+              <input
+                type="checkbox"
+                class="m-table-checkbox"
+                [checked]="allSelected()"
+                (change)="toggleAll()"
+                aria-label="Seleccionar todo"
+              />
+            </th>
+          }
+          @for (col of columns(); track col.field) {
+            <th
+              class="m-table-th"
+              [class.m-table-th--sortable]="col.sortable"
+              [class.m-table-th--sorted]="sortField() === col.field"
+              [style.width]="col.width"
+              [style.text-align]="col.align ?? 'left'"
+              (click)="sort(col)"
+            >
+              <span class="m-table-th-inner">
+                {{ col.header }}
+                @if (col.sortable) {
+                  <m-icon
+                    [icon]="sortIcon(col.field)"
+                    [size]="13"
+                    class="m-table-sort-icon"
+                    [class.m-table-sort-icon--active]="sortField() === col.field"
+                  />
+                }
+              </span>
+            </th>
+          }
+          @if (actions().length > 0) {
+            <th class="m-table-th m-table-th--actions">Acciones</th>
+          }
+        </tr>
+      </thead>
+
+      <!-- Cuerpo -->
+      <tbody>
+        @if (loading()) {
+          <!-- Skeleton -->
+          @for (i of skeletonRows; track i) {
+            <tr class="m-table-row m-table-row--skeleton">
+              @if (selectable()) {
+                <td class="m-table-td">
+                  <span class="m-table-skel" style="width:16px;height:16px;border-radius:4px"></span>
+                </td>
+              }
+              @for (col of columns(); track col.field) {
+                <td class="m-table-td">
+                  <span
+                    class="m-table-skel"
+                    [style.width]="col.type === 'avatar' ? '32px' : (col.align === 'right' ? '40%' : '65%')"
+                    [style.height]="col.type === 'avatar' ? '32px' : '0.875rem'"
+                    [style.border-radius]="col.type === 'avatar' ? '50%' : 'var(--m-radius-full)'"
+                  ></span>
+                </td>
+              }
+              @if (actions().length > 0) {
+                <td class="m-table-td">
+                  <span class="m-table-skel" style="width:64px;height:1.75rem;border-radius:var(--m-radius-md)"></span>
+                </td>
+              }
+            </tr>
+          }
+        } @else if (pagedData().length === 0) {
+          <!-- Estado vacío -->
+          <tr>
+            <td
+              class="m-table-td m-table-empty-cell"
+              [attr.colspan]="columns().length + (selectable() ? 1 : 0) + (actions().length > 0 ? 1 : 0)"
+            >
+              <div class="m-table-empty">
+                <m-icon icon="lucide:inbox" [size]="42" />
+                <span>{{ emptyMessage() }}</span>
+                @if (filterText()) {
+                  <span class="m-table-empty-hint">
+                    Prueba con otro término de búsqueda
+                  </span>
+                }
+              </div>
+            </td>
+          </tr>
+        } @else {
+          @for (row of pagedData(); track trackRow(row)) {
+            <tr
+              class="m-table-row"
+              [class.m-table-row--selected]="isSelected(row)"
+              [class.m-table-row--clickable]="selectable()"
+              (click)="toggleRow(row)"
+            >
+              @if (selectable()) {
+                <td
+                  class="m-table-td m-table-td--check"
+                  (click)="$event.stopPropagation(); toggleRow(row)"
+                >
+                  <input
+                    type="checkbox"
+                    class="m-table-checkbox"
+                    [checked]="isSelected(row)"
+                    (change)="toggleRow(row)"
+                    aria-label="Seleccionar fila"
+                  />
+                </td>
+              }
+              @for (col of columns(); track col.field) {
+                <td class="m-table-td" [style.text-align]="col.align ?? 'left'">
+                  @switch (col.type) {
+                    @case ('badge') {
+                      <m-chip
+                        [label]="badgeLabel(col, cellValue(row, col.field), row)"
+                        [severity]="badgeSeverity(col, cellValue(row, col.field), row)"
+                        size="sm"
+                      />
+                    }
+                    @case ('avatar') {
+                      <m-avatar [label]="cellValue(row, col.field)" size="small" />
+                    }
+                    @default {
+                      {{ formatCell(col, cellValue(row, col.field), row) }}
+                    }
+                  }
+                </td>
+              }
+              @if (actions().length > 0) {
+                <!-- Desktop: botones inline -->
+                <td class="m-table-td m-table-td--actions" (click)="$event.stopPropagation()">
+                  <div class="m-table-actions-desktop">
+                    @for (action of visibleActions(row); track action.label) {
+                      <button
+                        type="button"
+                        class="m-table-action-btn"
+                        [class]="'m-table-action-btn--' + (action.severity ?? 'secondary')"
+                        [disabled]="isActionDisabled(action, row)"
+                        [attr.aria-label]="action.label"
+                        (click)="triggerAction(action, row, $event)"
+                        [title]="action.label"
+                      >
+                        <m-icon [icon]="action.icon" [size]="14" />
+                        <span class="m-table-action-label">{{ action.label }}</span>
+                      </button>
+                    }
+                  </div>
+                  <!-- Mobile: kebab menu -->
+                  <div class="m-table-actions-mobile">
+                    <button
+                      type="button"
+                      class="m-table-kebab"
+                      [class.m-table-kebab--open]="isMenuOpen(row)"
+                      (click)="toggleMenu(row, $event)"
+                      aria-label="Acciones"
+                    >
+                      <m-icon icon="lucide:ellipsis-vertical" [size]="16" />
+                    </button>
+                    @if (isMenuOpen(row)) {
+                      <div class="m-table-action-menu" role="menu">
+                        @for (action of visibleActions(row); track action.label) {
+                          <button
+                            type="button"
+                            class="m-table-action-menu-item"
+                            [class]="'m-table-action-menu-item--' + (action.severity ?? 'secondary')"
+                            [disabled]="isActionDisabled(action, row)"
+                            role="menuitem"
+                            (click)="triggerAction(action, row, $event)"
+                          >
+                            <m-icon [icon]="action.icon" [size]="15" />
+                            {{ action.label }}
+                          </button>
+                        }
+                      </div>
+                    }
+                  </div>
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== Paginador ===== -->
+  @if (!loading() && totalPages() > 1) {
+    <div class="m-table-paginator">
+      <button
+        type="button"
+        class="m-table-page-btn m-table-page-btn--nav"
+        [disabled]="currentPage() === 1"
+        (click)="prevPage()"
+        aria-label="Página anterior"
+      >
+        <m-icon icon="lucide:chevron-left" [size]="14" />
+      </button>
+
+      @for (p of pageNumbers(); track $index) {
+        @if (p === '...') {
+          <span class="m-table-page-ellipsis">…</span>
+        } @else {
+          <button
+            type="button"
+            class="m-table-page-btn"
+            [class.m-table-page-btn--active]="currentPage() === p"
+            (click)="goToPage(p)"
+          >{{ p }}</button>
+        }
+      }
+
+      <button
+        type="button"
+        class="m-table-page-btn m-table-page-btn--nav"
+        [disabled]="currentPage() === totalPages()"
+        (click)="nextPage()"
+        aria-label="Página siguiente"
+      >
+        <m-icon icon="lucide:chevron-right" [size]="14" />
+      </button>
+    </div>
+  }
+
+</div>
