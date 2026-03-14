@@ -2,10 +2,24 @@
   <!-- Sidebar -->
   <aside class="w-full sm:basis-1/6 sm:ml-10">
     <div class="card flex justify-center">
-      <p-menu
-        [model]="items"
-        [ngStyle]="{width: isMobile ? '300px' : '250px'}"
-      />
+      <div class="w-full" [style]="{width: isMobile ? '300px' : '250px'}">
+        <h3 class="font-bold mb-4">Categorías</h3>
+        <div class="flex flex-col gap-1">
+          @for (item of items; track item.label) {
+            @if (item.items) {
+              @for (subItem of item.items; track subItem.label) {
+                <m-button
+                  [label]="subItem.label"
+                  [icon]="subItem.icon || 'lucide:tag'"
+                  variant="text"
+                  [full]="true"
+                  styleClass="justify-start"
+                />
+              }
+            }
+          }
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -14,7 +28,7 @@
     @for(product of products$(); track product.id) {
     <div class="catCard" [style]="{width: isMobile ? '300px' : '240px'}">
       <a href="#">
-        <p-image [src]="product.urlImg" />
+        <img [src]="product.urlImg" alt="{{product.name}}" class="w-full object-cover" />
       </a>
 
       <div class="lowerCatCard">
@@ -31,18 +45,18 @@
           {{product.price}} <span class="text-yellow-200">€</span>
         </p>
         <div class="flex flex-row justify-start gap-2 mt-4">
-          <p-button
+          <m-button
             severity="success"
             label="Añadir"
             (onClick)="addCart(product.id)"
-            icon="pi pi-cart-plus"
-          ></p-button>
-          <p-button
+            icon="lucide:shopping-cart"
+          />
+          <m-button
             severity="info"
             label="Ver"
             variant="outlined"
-            icon="pi pi-eye"
-          ></p-button>
+            icon="lucide:eye"
+          />
         </div>
       </div>
     </div>

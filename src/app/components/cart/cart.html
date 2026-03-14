@@ -1,69 +1,53 @@
 <div class="card">
-  <p-dataview #dv [value]="products$()">
-    <ng-template #list let-items>
-      <div class="grid grid-cols-12 gap-4 grid-nogutter">
-        <div
-          *ngFor="let item of products$(); let i = index"
-          class="col-span-12"
-        >
-          <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4">
-            <div class="md:w-40 relative overflow-hidden rounded-xl">
-              <p-image
-                class="block xl:block mx-auto rounded-border w-full"
-                [src]="item.imageUrl"
-                [alt]="item.name"
+  <div class="grid grid-cols-12 gap-4">
+    @for (item of products$(); track item.id) {
+      <div class="col-span-12">
+        <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4">
+          <div class="md:w-40 relative overflow-hidden rounded-xl">
+            <img
+              class="block xl:block mx-auto rounded-border w-full"
+              [src]="item.imageUrl"
+              [alt]="item.name"
+            />
+          </div>
+          <div
+            class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6"
+          >
+            <div
+              class="flex flex-row md:flex-col justify-between items-start gap-2"
+            >
+              <div>
+                <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                <div
+                  class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2"
+                >
+                  {{ item.name }}
+                </div>
+              </div>
+              <m-button
+                label="Eliminar"
+                severity="danger"
+                (onClick)="removeCartItem(item.id)"
               />
             </div>
-            <div
-              class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6"
-            >
-              <div
-                class="flex flex-row md:flex-col justify-between items-start gap-2"
+            <div class="flex flex-col md:items-end gap-8">
+              <span
+                class="text-xl font-semibold text-surface-900 dark:text-surface-0"
               >
-                <div>
-                  <span class="font-medium text-secondary text-sm"
-                    >{{ item.category }}</span
-                  >
-                  <div
-                    class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2"
-                  >
-                    {{ item.name }}
-                  </div>
-                </div>
-                <p-button
-                  label="Eliminar"
-                  severity="danger"
-                  (onClick)="removeCartItem(item.id)"
-                ></p-button>
-              </div>
-              <div class="flex flex-col md:items-end gap-8">
-                <span
-                  class="text-xl font-semibold text-surface-900 dark:text-surface-0"
-                  >{{ item.price + '€'}}</span
-                >
-                <div class="flex flex-row-reverse md:flex-row gap-2">
-                  <p-inputnumber
-                    [showButtons]="true"
-                    buttonLayout="vertical"
-                    spinnerMode="vertical"
-                    inputId="vertical"
-                    [ngModel]="item.quantity"
-                    (onInput)="onQuantityChange(item.id, $event.value)"
-                    [inputStyle]="{ width: '3rem' }"
-                  >
-                    <ng-template #incrementbuttonicon>
-                      <span class="pi pi-plus"></span>
-                    </ng-template>
-                    <ng-template #decrementbuttonicon>
-                      <span class="pi pi-minus"></span>
-                    </ng-template>
-                  </p-inputnumber>
-                </div>
+                {{ item.price + '€'}}
+              </span>
+              <div class="flex flex-row-reverse md:flex-row gap-2">
+                <m-number-input
+                  [min]="1"
+                  [step]="1"
+                  [(ngModel)]="item.quantity"
+                  (ngModelChange)="onQuantityChange(item.id, $event)"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </ng-template>
-  </p-dataview>
+    }
+  </div>
 </div>
