@@ -1,14 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { Cart } from '../cart/cart';
-import { UpButton } from '../up-button/up-button';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
 import { FormsModule } from '@angular/forms';
-import { Search } from '../search/search';
-import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectIsLogged, selectUser } from '../../store/auth/auth.selectors';
@@ -18,17 +13,31 @@ import {
   selectCartCount,
   selectCartTotal,
 } from '../../store/cart/cart.selector';
+import { MMenubar, MMenubarItem, MMenubarSubItem } from '../marcha/m-menubar/m-menubar';
+import { MButton } from '../marcha/m-button/m-button';
+import { MOverlayBadge } from '../marcha/m-overlay-badge/m-overlay-badge';
+import { MDialog } from '../marcha/m-dialog/m-dialog';
+import { MCard } from '../marcha/m-card/m-card';
+import { Cart } from '../cart/cart';
+import { UpButton } from '../up-button/up-button';
+import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
+import { PrimengModule } from '../../shared/primeng/primeng-module';
+
 @Component({
   standalone: true,
   selector: 'app-header',
   imports: [
-    PrimengModule,
-    Cart,
-    UpButton,
     TranslateModule,
     FormsModule,
-    Search,
+    MMenubar,
+    MButton,
+    MOverlayBadge,
+    MDialog,
+    MCard,
+    Cart,
+    UpButton,
     DrawerCookies,
+    PrimengModule,
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
@@ -37,6 +46,8 @@ export class Header implements OnInit {
   user$;
 
   items: MenuItem[] | undefined;
+  // Marcha UI menu items
+  menubarItems: MMenubarItem[] = [];
   itemsCartCount;
   totalAmount;
   clientItems: MenuItem[] | undefined;
@@ -44,6 +55,7 @@ export class Header implements OnInit {
   visible = false;
   isDarkMode = false;
   isLogged;
+  showUserMenu = false;
 
   constructor(
     public router: Router,
@@ -87,6 +99,7 @@ export class Header implements OnInit {
       'header.empty_cart_detail',
     ]);
 
+    // PrimeNG items (para retrocompatibilidad si se necesitan)
     this.items = [
       { label: t['header.home'], icon: 'pi pi-home', routerLink: '/' },
       {
@@ -100,7 +113,7 @@ export class Header implements OnInit {
         ],
       },
       {
-        label: 'Galería', // Falta traducciones
+        label: 'Galería',
         icon: 'pi pi-images',
         routerLink: '/gallery',
       },
@@ -119,6 +132,24 @@ export class Header implements OnInit {
         icon: 'pi pi-palette',
         routerLink: '/demo',
       },
+    ];
+
+    // Marcha UI menubar items
+    this.menubarItems = [
+      { label: t['header.home'], icon: 'lucide:home' },
+      {
+        label: t['header.shop'],
+        icon: 'lucide:shopping-bag',
+        items: [
+          { label: t['header.cat1'], icon: 'lucide:tag' },
+          { label: t['header.cat2'], icon: 'lucide:tag' },
+          { label: t['header.cat3'], icon: 'lucide:tag' },
+        ],
+      },
+      { label: 'Galería', icon: 'lucide:images' },
+      { label: t['header.contact'], icon: 'lucide:mail' },
+      { label: t['header.about'], icon: 'lucide:info' },
+      { label: 'Design System', icon: 'lucide:palette' },
     ];
 
     this.itemsTiered = [
@@ -194,5 +225,54 @@ export class Header implements OnInit {
 
   clearCart() {
     this.store.dispatch(clearCart());
+  }
+
+  onMenuItemClick(item: MMenubarItem | MMenubarSubItem) {
+    // Mapeo de navegación
+    const routes: Record<string, string> = {
+      'Inicio': '/',
+      'Home': '/',
+      'Tienda': '/shop',
+      'Shop': '/shop',
+      'Galería': '/gallery',
+      'Gallery': '/gallery',
+      'Contacto': '/contact',
+      'Contact': '/contact',
+      'Acerca de': '/about',
+      'About': '/about',
+      'Design System': '/demo',
+    };
+    
+    const route = routes[item.label || ''];
+    if (route) {
+      this.router.navigate([route]);
+    }
+  }
+
+  onLogoClick() {
+    this.router.navigate(['/']);
+  }
+
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  onProfileClick() {
+    this.showUserMenu = false;
+    this.router.navigate(['/profile']);
+  }
+
+  onLogoutClick() {
+    this.showUserMenu = false;
+    this.store.dispatch(logout());
+    this.router.navigate(['/']);
+  }
+
+  onLoginClick() {
+    this.router.navigate(['/login']);
+  }
+
+  onRegisterClick() {
+    this.router.navigate(['/register']);
   }
 }
