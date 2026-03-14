@@ -23,8 +23,9 @@
 }
 
 :host-context(.dark) .header-wrapper {
-  background: rgba(17, 24, 39, 0.7);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: rgba(26, 31, 46, 0.85);
+  border-bottom-color: rgba(148, 163, 184, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(100, 116, 139, 0.2);
 }
 
 #principal-logo {

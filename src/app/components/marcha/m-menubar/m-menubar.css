@@ -148,6 +148,20 @@
 .m-menubar__trigger:hover,
 .m-menubar__item.is-open .m-menubar__trigger  { background: var(--m-secondary-bg); color: var(--m-text); }
 .m-menubar__item.is-active .m-menubar__trigger { color: var(--m-primary); font-weight: 600; }
+
+/* Modo oscuro: usar color primario para mejor visibilidad */
+:host-context(.dark) .m-menubar__trigger {
+  color: var(--m-primary-light);
+}
+:host-context(.dark) .m-menubar__trigger:hover,
+:host-context(.dark) .m-menubar__item.is-open .m-menubar__trigger {
+  color: #fff;
+  background: rgba(99, 102, 241, 0.15);
+}
+:host-context(.dark) .m-menubar__item.is-active .m-menubar__trigger {
+  color: var(--m-primary);
+  background: rgba(99, 102, 241, 0.2);
+}
 .m-menubar__trigger:focus-visible { outline: 2px solid var(--m-primary); outline-offset: -2px; }
 
 /* Active item underline indicator */
