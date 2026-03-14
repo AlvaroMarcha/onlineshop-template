@@ -13,10 +13,11 @@ import {
   MCalendar,
   MTable,
   MColorPicker,
+  MMenubar,
   MToggleSwitch, MCopy, MSortable,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
-  MSortableItem,
+  MSortableItem, MMenubarItem,
 } from '../../components/marcha';
 
 @Component({
@@ -36,6 +37,7 @@ import {
     MCalendar,
     MTable,
     MColorPicker,
+    MMenubar,
     MToggleSwitch, MCopy, MSortable,
   ],
   templateUrl: './demo.html',
@@ -45,6 +47,50 @@ export class Demo {
   private readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Menubar
+  readonly menubarItems: MMenubarItem[] = [
+    {
+      label: 'Archivo', icon: 'lucide:folder',
+      items: [
+        { label: 'Nuevo',    icon: 'lucide:file-plus' },
+        { label: 'Abrir',   icon: 'lucide:folder-open' },
+        { divider: true },
+        { label: 'Guardar', icon: 'lucide:save' },
+        { label: 'Exportar', icon: 'lucide:download', disabled: true },
+      ],
+    },
+    {
+      label: 'Editar', icon: 'lucide:edit-3',
+      items: [
+        { label: 'Deshacer', icon: 'lucide:undo-2' },
+        { label: 'Rehacer', icon: 'lucide:redo-2' },
+        { divider: true },
+        { label: 'Cortar',  icon: 'lucide:scissors' },
+        { label: 'Copiar',  icon: 'lucide:copy' },
+        { label: 'Pegar',   icon: 'lucide:clipboard' },
+      ],
+    },
+    { label: 'Vista',        icon: 'lucide:eye' },
+    { label: 'Herramientas', icon: 'lucide:settings' },
+    { label: 'Ayuda',        icon: 'lucide:help-circle', disabled: true },
+  ];
+  lastMenuClick = '';
+
+  readonly navbarItems: MMenubarItem[] = [
+    { label: 'Inicio',    icon: 'lucide:home',         isActive: true },
+    {
+      label: 'Productos', icon: 'lucide:package',
+      items: [
+        { label: 'Novedades', icon: 'lucide:sparkles' },
+        { label: 'Ofertas',   icon: 'lucide:tag' },
+        { divider: true },
+        { label: 'Catálogo',  icon: 'lucide:grid' },
+      ],
+    },
+    { label: 'Pedidos',   icon: 'lucide:shopping-bag' },
+    { label: 'Soporte',   icon: 'lucide:life-buoy' },
+  ];
 
   // Toggle Switch
   readonly toggleNotify   = new FormControl(true);
