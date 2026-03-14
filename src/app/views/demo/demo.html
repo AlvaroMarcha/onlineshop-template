@@ -51,7 +51,7 @@
         <div class="demo-row">
           <m-badge value="m-menubar" severity="success" />
           <m-badge value="m-context-menu" severity="secondary" />
-          <m-badge value="m-toggle-button" severity="secondary" />
+          <m-badge value="m-toggle-button" severity="success" />
           <m-badge value="m-panel-menu" severity="secondary" />
         </div>
       </m-card>
@@ -581,6 +581,29 @@
           <p style="font-size:.875rem">{{ i + 1 }}. {{ item.label }}</p>
         }
       </m-card>
+    </div>
+  </section>
+
+  <m-divider label="Toggle Button" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toggle-button &middot; Botón activable con ControlValueAccessor</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-toggle-button label="Primary"   icon="lucide:zap"            [formControl]="toggleBtnPrimary" />
+      <m-toggle-button label="Success"   icon="lucide:check"          severity="success"   [formControl]="toggleBtnSuccess" />
+      <m-toggle-button label="Warn"      icon="lucide:alert-triangle" severity="warn"      [formControl]="toggleBtnWarn" />
+      <m-toggle-button label="Danger"    icon="lucide:trash-2"        severity="danger"    [formControl]="toggleBtnDanger" />
+      <m-toggle-button label="Secondary" icon="lucide:circle"         severity="secondary" [formControl]="toggleBtnSecondary" />
+      <m-toggle-button label="Deshabilitado" icon="lucide:lock"       [formControl]="toggleBtnDisabled" />
+    </div>
+    <h2 class="demo-section-title" style="margin-top: 2rem">Tamaños y variante icono</h2>
+    <div class="demo-row" style="align-items: center; flex-wrap: wrap">
+      <m-toggle-button label="Small"  size="sm" icon="lucide:grid" />
+      <m-toggle-button label="Medium" size="md" icon="lucide:grid" />
+      <m-toggle-button label="Large"  size="lg" icon="lucide:grid" />
+      <m-toggle-button icon="lucide:bold" title="Negrita" />
+      <m-toggle-button icon="lucide:italic" title="Cursiva" />
+      <m-toggle-button icon="lucide:underline" title="Subrayado" />
     </div>
   </section>
 
