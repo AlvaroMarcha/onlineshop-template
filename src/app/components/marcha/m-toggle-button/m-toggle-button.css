@@ -1,5 +1,5 @@
 /* =============================================
-   m-toggle-button — Botón activable glassmorphism
+   m-toggle-button â€” BotÃ³n activable
    ============================================= */
 
 :host { display: inline-flex; }
@@ -11,9 +11,8 @@
   padding: .5rem .875rem;
   min-height: 38px;
   border-radius: var(--m-radius-sm);
-  border: 1.5px solid var(--m-glass-border);
-  background: var(--m-glass-bg);
-  backdrop-filter: blur(var(--m-blur));
+  border: 1.5px solid var(--m-border-color);
+  background: var(--m-secondary-bg);
   color: var(--m-text-muted);
   font-family: var(--m-font);
   font-size: .875rem;
@@ -46,7 +45,7 @@
 }
 
 .m-toggle-btn.is-active.sev-secondary {
-  border-color: var(--m-glass-border);
+  border-color: var(--m-border-color);
   background: var(--m-secondary-bg);
   color: var(--m-text);
 }

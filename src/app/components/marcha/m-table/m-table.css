@@ -4,10 +4,8 @@
    Wrapper
    ============================================= */
 .m-table-wrap {
-  background: var(--m-glass-bg);
-  backdrop-filter: blur(14px) saturate(1.5);
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  border: 1.5px solid var(--m-glass-border);
+  background: var(--m-secondary-bg);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-xl);
   overflow: hidden;
   box-shadow: var(--m-shadow-lg);
@@ -22,7 +20,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: .875rem 1.25rem;
-  border-bottom: 1px solid var(--m-glass-border);
+  border-bottom: 1px solid var(--m-border-color);
   min-height: 3.5rem;
   /* Gradiente muy sutil en la cabecera */
   background: linear-gradient(
@@ -55,7 +53,7 @@
   width: 220px;
   padding: 0 .875rem;
   background: var(--m-secondary-bg);
-  border: 1.5px solid var(--m-glass-border);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-full);
   color: var(--m-text);
   font-family: var(--m-font);
@@ -73,7 +71,7 @@
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  border: 1.5px solid var(--m-glass-border);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-md);
   background: transparent;
   color: var(--m-text-muted);
@@ -109,7 +107,7 @@
 /* =============================================
    Header
    ============================================= */
-.m-table-thead-row { border-bottom: 1.5px solid var(--m-glass-border); }
+.m-table-thead-row { border-bottom: 1.5px solid var(--m-border-color); }
 .m-table-th {
   padding: .75rem 1rem;
   font-size: .7rem;
@@ -152,7 +150,7 @@
    Rows
    ============================================= */
 .m-table-row {
-  border-bottom: 1px solid var(--m-glass-border);
+  border-bottom: 1px solid var(--m-border-color);
   transition: background .1s;
 }
 .m-table-row:last-child { border-bottom: none; }
@@ -161,7 +159,7 @@
 }
 .m-table-row--clickable { cursor: pointer; }
 
-/* Fila seleccionada — borde izquierdo + tinte */
+/* Fila seleccionada â€” borde izquierdo + tinte */
 .m-table-row--selected {
   background: rgba(99,102,241,.07);
   box-shadow: inset 3px 0 0 var(--m-primary);
@@ -211,7 +209,7 @@
 }
 
 /* =============================================
-   Estado vacío
+   Estado vacÃ­o
    ============================================= */
 .m-table-empty-cell { padding: 0; }
 .m-table-empty {
@@ -247,7 +245,7 @@
   justify-content: center;
   gap: .3rem;
   padding: .875rem 1.25rem;
-  border-top: 1px solid var(--m-glass-border);
+  border-top: 1px solid var(--m-border-color);
   flex-wrap: wrap;
   background: linear-gradient(
     to right,
@@ -263,7 +261,7 @@
   min-width: 2rem;
   height: 2rem;
   padding: 0 .5rem;
-  border: 1.5px solid var(--m-glass-border);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-md);
   background: transparent;
   color: var(--m-text);
@@ -337,7 +335,7 @@
 /* Variantes de severity */
 .m-table-action-btn--secondary {
   background: var(--m-secondary-bg);
-  border-color: var(--m-glass-border);
+  border-color: var(--m-border-color);
   color: var(--m-text);
 }
 .m-table-action-btn--secondary:hover:not(:disabled) {
@@ -399,7 +397,7 @@
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  border: 1.5px solid var(--m-glass-border);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-md);
   background: transparent;
   color: var(--m-text-muted);
@@ -413,17 +411,15 @@
   background: rgba(99,102,241,.08);
 }
 
-/* ---- Menú desplegable ---- */
+/* ---- MenÃº desplegable ---- */
 .m-table-action-menu {
   position: absolute;
   top: calc(100% - .25rem);
   right: .75rem;
   z-index: 200;
   min-width: 160px;
-  background: var(--m-glass-bg);
-  backdrop-filter: blur(14px) saturate(1.5);
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  border: 1.5px solid var(--m-glass-border);
+  background: var(--m-secondary-bg);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-lg);
   box-shadow: var(--m-shadow-lg);
   overflow: hidden;
@@ -473,10 +469,10 @@
   .m-table-page-btn  { min-width: 1.875rem; height: 1.875rem; font-size: .75rem; }
   .m-table-empty     { padding: 2.5rem 1rem; }
 
-  /* En móvil: ocultar botones inline, mostrar kebab */
+  /* En mÃ³vil: ocultar botones inline, mostrar kebab */
   .m-table-actions-desktop { display: none; }
   .m-table-actions-mobile  { display: flex; justify-content: flex-end; }
-  /* Ocultar labels de acción en pantallas intermedias para ahorrar espacio */
+  /* Ocultar labels de acciÃ³n en pantallas intermedias para ahorrar espacio */
 }
 @media (min-width: 641px) and (max-width: 900px) {
   .m-table-action-label { display: none; }

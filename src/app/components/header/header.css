@@ -1,9 +1,7 @@
 .header-wrapper {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.7);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: var(--m-surface-2);
+  border-bottom: 1px solid var(--m-border-color);
+  box-shadow: var(--m-shadow);
 }
 
 .user-menu-dropdown {
@@ -23,9 +21,9 @@
 }
 
 :host-context(.dark) .header-wrapper {
-  background: rgba(26, 31, 46, 0.85);
-  border-bottom-color: rgba(148, 163, 184, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(100, 116, 139, 0.2);
+  background: var(--m-surface-2);
+  border-bottom-color: var(--m-border-color);
+  box-shadow: var(--m-shadow);
 }
 
 #principal-logo {

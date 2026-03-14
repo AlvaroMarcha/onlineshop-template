@@ -15,12 +15,10 @@
   --m-surface-2:        #ffffff;
   --m-surface-3:        #e8edf8;
 
-  /* Glass */
-  --m-glass-bg:         rgba(255, 255, 255, 0.65);
-  --m-glass-bg-hover:   rgba(255, 255, 255, 0.85);
-  --m-glass-border:     rgba(100, 116, 139, 0.15);
-  --m-glass-shadow:     0 4px 24px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
-  --m-blur:             blur(16px);
+  /* Borders & Shadows */
+  --m-border-color:     rgba(100, 116, 139, 0.15);
+  --m-shadow:           0 4px 24px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --m-surface-hover:    rgba(100, 116, 139, 0.15);
 
   /* Text */
   --m-text:             #1e293b;
@@ -37,7 +35,7 @@
   --m-primary-bg:       linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
 
   /* Secondary */
-  --m-secondary-bg:     rgba(100, 116, 139, 0.1);
+  --m-secondary-bg:     #e8edf5;
   --m-secondary-border: rgba(100, 116, 139, 0.2);
   --m-secondary-text:   #475569;
 
@@ -85,11 +83,10 @@
   --m-surface-2:        #1e293b;  /* slate-800 */
   --m-surface-3:        #334155;  /* slate-700 */
 
-  /* Glass - Con tinte azulado oscuro más visible y elegante */
-  --m-glass-bg:         rgba(30, 41, 59, 0.5);
-  --m-glass-bg-hover:   rgba(30, 41, 59, 0.65);
-  --m-glass-border:     rgba(148, 163, 184, 0.15);
-  --m-glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.08);
+  /* Borders & Shadows */
+  --m-border-color:     rgba(148, 163, 184, 0.15);
+  --m-shadow:           0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.08);
+  --m-surface-hover:    rgba(255, 255, 255, 0.1);
 
   /* Text - Textos más brillantes para mejor contraste */
   --m-text:             #e2e8f0;  /* slate-200 - más brillante */
@@ -106,7 +103,7 @@
   --m-primary-bg:       linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
 
   /* Secondary */
-  --m-secondary-bg:     rgba(255, 255, 255, 0.06);
+  --m-secondary-bg:     #1e293b;
   --m-secondary-border: rgba(255, 255, 255, 0.1);
   --m-secondary-text:   #94a3b8;
 

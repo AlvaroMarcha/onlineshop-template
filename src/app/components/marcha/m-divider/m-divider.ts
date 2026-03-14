@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 /**
- * m-divider — Separador horizontal o vertical con estilo glass.
+ * m-divider — Separador horizontal o vertical con estilo plano.
  * Uso: <m-divider />  o  <m-divider label="o" />
  */
 @Component({

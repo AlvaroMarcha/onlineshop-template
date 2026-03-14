@@ -1,5 +1,5 @@
 /* =============================================
-   m-tooltip — appended to <body> via MTooltip directive
+   m-tooltip â€” appended to <body> via MTooltip directive
    ============================================= */
 .m-tooltip {
   position: absolute;
@@ -7,9 +7,9 @@
   max-width: 240px;
   padding: .375rem .75rem;
   background: var(--m-surface-2);
-  border: 1px solid var(--m-glass-border);
+  border: 1px solid var(--m-border-color);
   border-radius: var(--m-radius-sm);
-  box-shadow: var(--m-glass-shadow);
+  box-shadow: var(--m-shadow);
   color: var(--m-text);
   font-size: .8125rem;
   font-family: var(--m-font);
@@ -32,7 +32,7 @@
   width: 7px;
   height: 7px;
   background: var(--m-surface-2);
-  border: 1px solid var(--m-glass-border);
+  border: 1px solid var(--m-border-color);
   transform: rotate(45deg);
 }
 

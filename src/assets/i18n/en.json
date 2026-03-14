@@ -35,10 +35,39 @@
       "button1": "Sign up",
       "button2": "Learn more"
     },
+    "categories": {
+      "title": "Explore our categories",
+      "subtitle": "Find exactly what you need by browsing through our main categories"
+    },
+    "products": {
+      "title": "Featured products",
+      "subtitle": "Discover our selection of most popular products and special offers",
+      "view_all": "View all products",
+      "add_to_cart": "Add to cart",
+      "no_products": "No products available at this moment"
+    },
+    "features": {
+      "free_shipping": {
+        "title": "Free shipping",
+        "description": "On orders over €50"
+      },
+      "secure_payment": {
+        "title": "Secure payment",
+        "description": "100% protection on your transactions"
+      },
+      "fast_delivery": {
+        "title": "Fast delivery",
+        "description": "Receive your order in 24-48h"
+      },
+      "support_24_7": {
+        "title": "24/7 Support",
+        "description": "We're here to help you always"
+      }
+    },
     "mini_banner": {
-      "title": "Ofertas especiales",
-      "description": "Aprovecha nuestras ofertas limitadas y obtén más valor por tu dinero.",
-      "button": "Ver ofertas"
+      "title": "Special offers",
+      "description": "Take advantage of our limited offers and get more value for your money.",
+      "button": "View offers"
     },
     "mini_cards": {
       "card1": {
@@ -58,7 +87,7 @@
         "description": "Tus datos están seguros con nosotros. Implementamos las mejores prácticas de seguridad para proteger tu información."
       }
     },
-    "features": {
+    "platform_features": {
       "title": "Un producto, muchas soluciones",
       "subtitle": "Descubre cómo nuestra plataforma puede ayudarte a crear pantallas personalizadas para diferentes necesidades.",
       "feature1": {

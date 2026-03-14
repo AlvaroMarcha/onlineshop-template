@@ -39,10 +39,8 @@
   height: 18px;
   flex-shrink: 0;
   border-radius: 50%;
-  border: 1.5px solid var(--m-glass-border);
-  background: var(--m-glass-bg);
-  backdrop-filter: var(--m-blur);
-  -webkit-backdrop-filter: var(--m-blur);
+  border: 1.5px solid var(--m-border-color);
+  background: var(--m-secondary-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +54,7 @@
 
 .is-selected .m-radio-dot {
   border-color: var(--m-primary);
-  background: var(--m-glass-bg-hover);
+  background: var(--m-surface-hover);
   box-shadow: 0 0 0 3px var(--m-primary-glow);
 }
 
@@ -92,7 +90,7 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
   .m-radio-list--horizontal {
-    /* En mobile los radios apilados son más cómodos */
+    /* En mobile los radios apilados son mÃ¡s cÃ³modos */
     flex-direction: column;
     gap: 0.5rem;
   }

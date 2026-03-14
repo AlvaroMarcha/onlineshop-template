@@ -1,5 +1,5 @@
 /**
- * Librería de componentes Marcha — glassmorphism design system.
+ * Librería de componentes Marcha — design system.
  * Importa desde aquí: import { MButton, MCard } from '@/components/marcha';
  */
 

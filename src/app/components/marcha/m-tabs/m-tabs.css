@@ -1,15 +1,15 @@
 .m-tabs { display: flex; flex-direction: column; gap: 0; }
 
-/* ── Nav ── */
+/* â”€â”€ Nav â”€â”€ */
 .m-tabs-nav {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* ── LINE variant ── */
+/* â”€â”€ LINE variant â”€â”€ */
 .m-tabs--line .m-tabs-nav {
-  border-bottom: 2px solid var(--m-glass-border);
+  border-bottom: 2px solid var(--m-border-color);
   gap: 0;
 }
 
@@ -46,7 +46,7 @@
   transition: left .22s cubic-bezier(.4, 0, .2, 1), width .22s;
 }
 
-/* ── PILL variant ── */
+/* â”€â”€ PILL variant â”€â”€ */
 .m-tabs--pill .m-tabs-nav {
   background: var(--m-secondary-bg);
   border-radius: var(--m-radius);
@@ -75,22 +75,22 @@
 .m-tabs--pill .m-tabs-tab:hover { color: var(--m-text); }
 
 .m-tabs--pill .m-tabs-tab--active {
-  background: var(--m-glass-bg);
+  background: var(--m-secondary-bg);
   color: var(--m-text);
   font-weight: 600;
-  box-shadow: var(--m-glass-shadow);
+  box-shadow: var(--m-shadow);
 }
 
 .m-tabs--pill .m-tabs-tab--disabled { opacity: .4; cursor: not-allowed; }
 
-/* ── Content ── */
+/* â”€â”€ Content â”€â”€ */
 .m-tabs-content {
   padding: 1.25rem 0 0;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
-  /* Scroll horizontal cuando las pestañas no caben en pantalla */
+  /* Scroll horizontal cuando las pestaÃ±as no caben en pantalla */
   .m-tabs-nav {
     overflow-x: auto;
     overflow-y: visible;

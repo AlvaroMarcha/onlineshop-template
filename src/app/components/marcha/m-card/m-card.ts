@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-export type MCardVariant = 'glass' | 'solid' | 'flat';
+export type MCardVariant = 'solid' | 'flat';
 
 /**
- * m-card — Contenedor glassmorphism con soporte de header/footer por proyección.
+ * m-card — Contenedor con soporte de header/footer por proyección.
  *
  * Uso con string inputs:
  *   <m-card header="Título" subHeader="Subtítulo">Contenido</m-card>
@@ -25,7 +25,7 @@ export type MCardVariant = 'glass' | 'solid' | 'flat';
 export class MCard {
   @Input() header = '';
   @Input() subHeader = '';
-  @Input() variant: MCardVariant = 'glass';
+  @Input() variant: MCardVariant = 'solid';
   @Input() padding: 'none' | 'sm' | 'md' | 'lg' = 'md';
   @Input() styleClass = '';
 

@@ -13,10 +13,8 @@
   height: 18px;
   flex-shrink: 0;
   border-radius: var(--m-radius-xs);
-  border: 1.5px solid var(--m-glass-border);
-  background: var(--m-glass-bg);
-  backdrop-filter: var(--m-blur);
-  -webkit-backdrop-filter: var(--m-blur);
+  border: 1.5px solid var(--m-border-color);
+  background: var(--m-secondary-bg);
   display: flex;
   align-items: center;
   justify-content: center;

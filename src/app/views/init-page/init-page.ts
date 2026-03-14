@@ -1,62 +1,90 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, computed, inject } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
 import { MCard } from '../../components/marcha/m-card/m-card';
 import { MButton } from '../../components/marcha/m-button/m-button';
-import { MBadge } from '../../components/marcha/m-badge/m-badge';
-import { MChip } from '../../components/marcha/m-chip/m-chip';
 import { MIcon } from '../../components/marcha/m-icon/m-icon';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectProducts } from '../../store/products/products.selector';
+import { allProductsRequestInit } from '../../store/products/products.actions';
+import { addToCart } from '../../store/cart/cart.actions';
+import { ProductCartItem } from '../../type/types';
 
 @Component({
   selector: 'app-init-page',
-  imports: [TranslateModule, MCard, MButton, MBadge, MChip, MIcon],
+  imports: [TranslateModule, CurrencyPipe, MCard, MButton, MIcon],
   templateUrl: './init-page.html',
   styleUrl: './init-page.css',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InitPage implements OnInit {
-  t!: Record<string, string>;
-  
-  // Imagen de fondo del hero - preparada para ser dinámica desde el backend
-  heroBackgroundImage = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2670&auto=format&fit=crop';
-  
-  constructor(
-    private lang: LanguageService,
-    private router: Router
-  ) {}
+  // Injections
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
 
-  async ngOnInit() {
-    this.t = await this.lang.tMany([
-      'home.banner.title',
-      'home.banner.subtitle',
-      'home.banner.button1',
-      'home.banner.button2',
-    ]);
-    
-    // TODO: Cargar imagen de fondo desde el backend
-    // this.loadHeroBackground();
+  // Store products
+  private products$ = toSignal(this.store.select(selectProducts));
+  
+  // Featured products (primeros 6)
+  featuredProducts = computed(() => {
+    const products = this.products$();
+    return products?.slice(0, 6) || [];
+  });
+
+  // Categorías de ejemplo (se pueden cargar dinámicamente del backend)
+  readonly categories = [
+    { id: 1, name: 'Electrónica', icon: 'lucide:laptop' },
+    { id: 2, name: 'Moda', icon: 'lucide:shirt' },
+    { id: 3, name: 'Hogar', icon: 'lucide:home' },
+    { id: 4, name: 'Deportes', icon: 'lucide:dumbbell' },
+    { id: 5, name: 'Libros', icon: 'lucide:book' },
+    { id: 6, name: 'Juguetes', icon: 'lucide:rocket' },
+  ];
+
+  // Features del negocio
+  readonly features = [
+    { icon: 'lucide:truck', key: 'free_shipping' },
+    { icon: 'lucide:shield-check', key: 'secure_payment' },
+    { icon: 'lucide:clock', key: 'fast_delivery' },
+    { icon: 'lucide:headphones', key: 'support_24_7' },
+  ];
+
+  ngOnInit(): void {
+    // Cargar productos al iniciar
+    this.store.dispatch(allProductsRequestInit());
   }
 
-  // TODO: Implementar cuando el backend esté listo
-  // private async loadHeroBackground() {
-  //   this.heroBackgroundImage = await this.settingsService.getHeroBackgroundImage();
-  // }
-
-  navigateToShop() {
+  // Navegación
+  goToShop(): void {
     this.router.navigate(['/shop']);
   }
 
-  navigateToAbout() {
-    this.router.navigate(['/about']);
-  }
-
-  navigateToContact() {
-    this.router.navigate(['/contact']);
-  }
-
-  navigateToRegister() {
+  goToRegister(): void {
     this.router.navigate(['/register']);
+  }
+
+  goToProduct(productId: number): void {
+    this.router.navigate(['/product', productId]);
+  }
+
+  // Añadir al carrito
+  addToCart(productId: number): void {
+    const product = this.products$()?.find(p => p.id === productId);
+    if (!product) return;
+
+    const cartItem: ProductCartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageUrl: product.urlImg || '',
+      quantity: 1,
+      category: product.category,
+    };
+
+    this.store.dispatch(addToCart({ item: cartItem }));
   }
 }

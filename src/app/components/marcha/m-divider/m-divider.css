@@ -16,7 +16,7 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--m-glass-border);
+  background: var(--m-border-color);
 }
 .m-divider:not(:has(.m-divider-label))::after {
   display: none;
@@ -25,7 +25,7 @@
   width: 100%;
 }
 
-/* When no label — full width single line */
+/* When no label â€” full width single line */
 .m-divider:not(:has(span))::before {
   flex: 1;
 }
@@ -37,12 +37,12 @@
 .m-divider--dashed::before,
 .m-divider--dashed::after {
   background: none;
-  border-top: 1px dashed var(--m-glass-border);
+  border-top: 1px dashed var(--m-border-color);
 }
 .m-divider--dotted::before,
 .m-divider--dotted::after {
   background: none;
-  border-top: 1px dotted var(--m-glass-border);
+  border-top: 1px dotted var(--m-border-color);
 }
 
 /* ===== VERTICAL ===== */

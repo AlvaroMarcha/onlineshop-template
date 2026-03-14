@@ -10,9 +10,7 @@
   overflow: hidden;
   flex-shrink: 0;
   font-weight: 600;
-  -webkit-backdrop-filter: var(--m-blur);
-  backdrop-filter: var(--m-blur);
-  border: 1px solid var(--m-glass-border);
+  border: 1px solid var(--m-border-color);
   transition: box-shadow 0.2s ease;
   position: relative;
 }
@@ -42,7 +40,7 @@
 
 /* ===== SEVERITY COLORS ===== */
 .m-avatar--primary   { background: var(--m-primary-glow);  color: var(--m-primary);  border-color: var(--m-primary-border); }
-.m-avatar--secondary { background: var(--m-glass-bg);       color: var(--m-text-muted); }
+.m-avatar--secondary { background: var(--m-secondary-bg);       color: var(--m-text-muted); }
 .m-avatar--success   { background: var(--m-success-glow);   color: var(--m-success);  border-color: var(--m-success-border); }
 .m-avatar--warn      { background: var(--m-warn-glow);      color: var(--m-warn);     border-color: var(--m-warn-border); }
 .m-avatar--danger    { background: var(--m-danger-glow);    color: var(--m-danger);   border-color: var(--m-danger-border); }
