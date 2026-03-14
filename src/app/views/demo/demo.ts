@@ -15,9 +15,10 @@ import {
   MColorPicker,
   MToggleButton, MMenubar,
   MToggleSwitch, MCopy, MSortable,
+  MDataview,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
-  MSortableItem, MMenubarItem,
+  MSortableItem, MMenubarItem, MDataviewSortOption,
 } from '../../components/marcha';
 
 @Component({
@@ -39,6 +40,7 @@ import {
     MColorPicker,
     MToggleButton, MMenubar,
     MToggleSwitch, MCopy, MSortable,
+    MDataview,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -228,6 +230,45 @@ export class Demo {
     { label: 'Pro — 9 € / mes',         value: 'pro'     },
     { label: 'Business — 29 € / mes',   value: 'business'},
   ];
+
+  // Dataview
+  dvLoading = signal(false);
+  readonly dvSortOpts: MDataviewSortOption[] = [
+    { label: 'Precio ↑',  value: 'price', direction: 'asc'  },
+    { label: 'Precio ↓',  value: 'price', direction: 'desc' },
+    { label: 'Nombre',    value: 'name',  direction: 'asc'  },
+  ];
+  readonly dvProducts = signal([
+    { id: 1,  name: 'Zapatillas Running Pro',  price: 89,  category: 'Calzado',     subcategory: 'Running',     badge: 'Nuevo',
+      imageUrl: ['https://picsum.photos/seed/shoe1/400/300','https://picsum.photos/seed/shoe2/400/300','https://picsum.photos/seed/shoe3/400/300'] },
+    { id: 2,  name: 'Camiseta Técnica',        price: 29,  category: 'Ropa',        subcategory: 'Camisetas',   badge: '',
+      imageUrl: 'https://picsum.photos/seed/shirt1/400/300' },
+    { id: 3,  name: 'Pantalón Trail',          price: 59,  category: 'Ropa',        subcategory: 'Pantalones',  badge: 'Oferta',
+      imageUrl: ['https://picsum.photos/seed/pant1/400/300','https://picsum.photos/seed/pant2/400/300'] },
+    { id: 4,  name: 'Mochila Hidratación',     price: 45,  category: 'Accesorios',  subcategory: 'Mochilas',    badge: '',
+      imageUrl: 'https://picsum.photos/seed/bag1/400/300' },
+    { id: 5,  name: 'Gorra Deportiva',         price: 19,  category: 'Accesorios',  subcategory: 'Gorras',      badge: '',
+      imageUrl: 'https://picsum.photos/seed/cap1/400/300' },
+    { id: 6,  name: 'Calcetines Pack x3',      price: 12,  category: 'Ropa',        subcategory: 'Calcetines',  badge: 'Oferta',
+      imageUrl: ['https://picsum.photos/seed/sock1/400/300','https://picsum.photos/seed/sock2/400/300'] },
+    { id: 7,  name: 'Monitor de Frecuencia',   price: 149, category: 'Electrónica', subcategory: 'Wearables',   badge: 'Hot',
+      imageUrl: ['https://picsum.photos/seed/watch1/400/300','https://picsum.photos/seed/watch2/400/300','https://picsum.photos/seed/watch3/400/300','https://picsum.photos/seed/watch4/400/300'] },
+    { id: 8,  name: 'Botella 750ml',           price: 22,  category: 'Accesorios',  subcategory: 'Hidratación', badge: '',
+      imageUrl: 'https://picsum.photos/seed/bottle1/400/300' },
+    { id: 9,  name: 'Guantes de Running',      price: 18,  category: 'Accesorios',  subcategory: 'Guantes',     badge: '',
+      imageUrl: 'https://picsum.photos/seed/glove1/400/300' },
+    { id: 10, name: 'Chubasquero Ultra',       price: 75,  category: 'Ropa',        subcategory: 'Chaquetas',   badge: 'Nuevo',
+      imageUrl: ['https://picsum.photos/seed/jacket1/400/300','https://picsum.photos/seed/jacket2/400/300'] },
+    { id: 11, name: 'Visera Reflectante',      price: 16,  category: 'Accesorios',  subcategory: 'Viseras',     badge: '',
+      imageUrl: 'https://picsum.photos/seed/visor1/400/300' },
+    { id: 12, name: 'Leggings Compresión',     price: 48,  category: 'Ropa',        subcategory: 'Leggings',    badge: 'Oferta',
+      imageUrl: ['https://picsum.photos/seed/legging1/400/300','https://picsum.photos/seed/legging2/400/300'] },
+  ]);
+
+  toggleDvLoading() {
+    this.dvLoading.set(true);
+    setTimeout(() => this.dvLoading.set(false), 2000);
+  }
 
   toggleLoading() {
     this.loading = true;
