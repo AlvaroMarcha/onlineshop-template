@@ -1,55 +1,45 @@
-<p-card class="login-card">
-  <ng-template #title>{{ 'login.title' | translate }}</ng-template>
+<m-card class="login-card" [header]="'login.title' | translate">
   <form [formGroup]="loginForm">
-    <input
+    <m-input
       formControlName="username"
       type="text"
-      pInputText
       [placeholder]="'login.form.both' | translate"
+      styleClass="w-full mb-4"
     />
-    <p-password
-      style="width: 100%"
+    <m-password
       formControlName="password"
       [placeholder]="'login.form.password' | translate"
-      [feedback]="false"
+      styleClass="w-full mb-4"
     />
   </form>
   <br />
   @if(loginForm.invalid && loginForm.touched) {
   <div class="flexbox w-full mb-5">
-    <p-message severity="error">
-      <i class="pi pi-info-circle"></i>
-      <span class="ml-2">{{ 'validation.required' | translate }}</span>
-    </p-message>
+    <m-message severity="error" [title]="'validation.required' | translate" />
   </div>
   } @else if(errorMessage$()) {
   <div class="flexbox w-full mb-5">
-    <p-message severity="error">
-      <i class="pi pi-info-circle"></i>
-      <span class="ml-2">{{ errorMessage$() }}</span>
-    </p-message>
+    <m-message severity="error" [title]="errorMessage$() || ''" />
   </div>
   }
-  <p-button
-    [style]="{width: '100%'}"
+  <m-button
+    styleClass="w-full"
     [label]="'login.form.login_button' | translate"
-    icon="pi pi-check"
+    icon="lucide:check"
     iconPos="left"
     [loading]="loading"
     (onClick)="onLogin()"
     size="small"
   />
-  <p-button
-    [style]="{width: '100%', marginTop: '10px'}"
+  <m-button
+    styleClass="w-full mt-2"
     [label]="'login.form.forgot_password' | translate"
-    link
-    ripple="false"
+    [link]="true"
   />
-  <p-button
-    [style]="{width: '100%', marginTop: '10px'}"
+  <m-button
+    styleClass="w-full mt-2"
     [label]="'login.form.no_account' | translate"
-    link
-    ripple="false"
-    (click)="router.navigate(['register'])"
+    [link]="true"
+    (onClick)="router.navigate(['register'])"
   />
-</p-card>
+</m-card>

@@ -8,7 +8,6 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { createClientUser, Terms } from '../../type/types';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,6 +15,12 @@ import { Store } from '@ngrx/store';
 import { registerRequest } from '../../store/auth/auth.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectUser } from '../../store/auth/auth.selectors';
+import { MCard } from '../marcha/m-card/m-card';
+import { MInput } from '../marcha/m-input/m-input';
+import { MPassword } from '../marcha/m-password/m-password';
+import { MButton } from '../marcha/m-button/m-button';
+import { MMessage } from '../marcha/m-message/m-message';
+import { MCheckbox } from '../marcha/m-checkbox/m-checkbox';
 
 export function passwordsMatchValidator(
   group: AbstractControl
@@ -27,7 +32,7 @@ export function passwordsMatchValidator(
 
 @Component({
   selector: 'app-register-card',
-  imports: [ReactiveFormsModule, PrimengModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule, MCard, MInput, MPassword, MButton, MMessage, MCheckbox],
   templateUrl: './registerCard.html',
   styleUrl: './registerCard.css',
 })
