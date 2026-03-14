@@ -8,15 +8,14 @@ import {
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { providePrimeNG } from 'primeng/config';
-import { MyPreset as CustomPreset } from './theme/nora-blue';
+
 import { provideHttpClient, withInterceptors, HttpClient } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
-import { MessageService } from 'primeng/api';
+
 
 // NgRx
 import { provideStore } from '@ngrx/store';
@@ -51,20 +50,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideAnimationsAsync(),
-
-    // PrimeNG
-    providePrimeNG({
-      ripple: true,
-      theme: {
-        preset: CustomPreset,
-        options: {
-          darkModeSelector: '.my-app-dark',
-        },
-      },
-    }),
-
-    // PrimeNG global services
-    MessageService,
 
     // Translate
     importProvidersFrom(

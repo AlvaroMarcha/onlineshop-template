@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "primeicons/primeicons.css";
 @import "./app/components/marcha/m-tooltip/m-tooltip.css";
 
 /* ============================================================
@@ -81,21 +80,21 @@
 }
 
 .my-app-dark {
-  /* Surfaces */
-  --m-surface:          #09090f;
-  --m-surface-2:        #0f0f1a;
-  --m-surface-3:        #161626;
+  /* Surfaces - Tonos azul-gris (slate/blue) más oscuros y profundos */
+  --m-surface:          #0f172a;  /* slate-900 */
+  --m-surface-2:        #1e293b;  /* slate-800 */
+  --m-surface-3:        #334155;  /* slate-700 */
 
-  /* Glass */
-  --m-glass-bg:         rgba(255, 255, 255, 0.04);
-  --m-glass-bg-hover:   rgba(255, 255, 255, 0.07);
-  --m-glass-border:     rgba(255, 255, 255, 0.08);
-  --m-glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  /* Glass - Con tinte azulado oscuro más visible y elegante */
+  --m-glass-bg:         rgba(30, 41, 59, 0.5);
+  --m-glass-bg-hover:   rgba(30, 41, 59, 0.65);
+  --m-glass-border:     rgba(148, 163, 184, 0.15);
+  --m-glass-shadow:     0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.08);
 
-  /* Text */
-  --m-text:             #e2e8f0;
-  --m-text-muted:       #94a3b8;
-  --m-text-faint:       #475569;
+  /* Text - Textos más brillantes para mejor contraste */
+  --m-text:             #e2e8f0;  /* slate-200 - más brillante */
+  --m-text-muted:       #cbd5e1;  /* slate-300 - más visible */
+  --m-text-faint:       #94a3b8;  /* slate-400 */
 
   /* Primary — Indigo for dark mode */
   --m-primary:          #818cf8;
@@ -172,16 +171,6 @@ body::-webkit-scrollbar {
   display: none; /* Chrome, Safari y Edge */
 }
 
-.p-dialog-content {
-  overflow-y: scroll !important;
-  scrollbar-width: none !important;
-}
-
-.p-dialog-content::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
-  display: none !important;
-}
 
 /* Buttons basic styles */
 .stl-button {
