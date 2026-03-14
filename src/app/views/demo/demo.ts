@@ -13,6 +13,7 @@ import {
   MCalendar,
   MTable,
   MColorPicker,
+  MToggleButton,
   MToggleSwitch, MCopy, MSortable,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
@@ -36,6 +37,7 @@ import {
     MCalendar,
     MTable,
     MColorPicker,
+    MToggleButton,
     MToggleSwitch, MCopy, MSortable,
   ],
   templateUrl: './demo.html',
@@ -45,6 +47,14 @@ export class Demo {
   private readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Toggle Button
+  readonly toggleBtnPrimary   = new FormControl(false);
+  readonly toggleBtnSuccess   = new FormControl(true);
+  readonly toggleBtnWarn      = new FormControl(false);
+  readonly toggleBtnDanger    = new FormControl(false);
+  readonly toggleBtnSecondary = new FormControl(false);
+  readonly toggleBtnDisabled  = new FormControl({ value: true, disabled: true });
 
   // Toggle Switch
   readonly toggleNotify   = new FormControl(true);

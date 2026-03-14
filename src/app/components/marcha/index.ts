@@ -80,6 +80,10 @@ export type { MTableColumn, MTableVariant, MTableRow, MTableAction } from './m-t
 
 export { MColorPicker } from './m-color-picker/m-color-picker';
 
+// Navegacion
+export { MToggleButton } from './m-toggle-button/m-toggle-button';
+export type { MToggleButtonSize, MToggleButtonSeverity } from './m-toggle-button/m-toggle-button';
+
 // Utilidades
 export { MToggleSwitch } from './m-toggle-switch/m-toggle-switch';
 export type { MToggleSize } from './m-toggle-switch/m-toggle-switch';
