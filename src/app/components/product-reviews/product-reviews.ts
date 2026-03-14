@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
 import { ProductReviewsItem } from '../../type/types';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { formatDate } from '../../shared/dates';
 import { FormsModule } from '@angular/forms';
+import { MAccordion } from '../marcha/m-accordion/m-accordion';
+import { MAvatar } from '../marcha/m-avatar/m-avatar';
+import { MButton } from '../marcha/m-button/m-button';
+import { MDialog } from '../marcha/m-dialog/m-dialog';
+import { MIcon } from '../marcha/m-icon/m-icon';
+import { MTextarea } from '../marcha/m-textarea/m-textarea';
 
 @Component({
   selector: 'app-product-reviews',
   standalone: true,
-  imports: [PrimengModule, FormsModule],
+  imports: [FormsModule, MAvatar, MButton, MDialog, MIcon, MTextarea],
   templateUrl: './product-reviews.html',
 })
 export class ProductReviews {
@@ -46,5 +51,9 @@ export class ProductReviews {
 
   showDialog(value: boolean) {
     this.visible = value;
+  }
+
+  setRating(star: number) {
+    this.rating = star;
   }
 }
