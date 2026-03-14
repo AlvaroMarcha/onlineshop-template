@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MDialog } from '../marcha/m-dialog/m-dialog';
+import { MDivider } from '../marcha/m-divider/m-divider';
+import { MCheckbox } from '../marcha/m-checkbox/m-checkbox';
+import { MButton } from '../marcha/m-button/m-button';
 
 const COOKIE_VERSION = '1.0';
 @Component({
   selector: 'app-drawer-cookies',
-  imports: [PrimengModule, FormsModule],
+  imports: [FormsModule, MDialog, MDivider, MCheckbox, MButton],
   templateUrl: './drawer-cookies.html',
 })
 export class DrawerCookies {

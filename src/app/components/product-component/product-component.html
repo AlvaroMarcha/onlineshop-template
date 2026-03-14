@@ -3,38 +3,56 @@
   class="h-full mb-4 p-8 flex items-center justify-center items-start"
   id="product"
 >
-  <p-card
+  <m-card
     class="product w-[100%] md:w-[98%]"
-    header="{{singleProduct?.name}}"
-    [style]="{overflow: 'hidden' }"
+    [header]="singleProduct?.name || 'Producto'"
   >
-    <ng-template #header>
-      <div class="card w-[95%] mx-auto mb-10">
-        <p-galleria
-          [value]="images"
-          [showIndicators]="true"
-          [showThumbnails]="false"
-          [showIndicatorsOnItem]="true"
-          indicatorsPosition="right"
-          [containerStyle]="{ 'max-width': '100%','margin-top': '2em' }"
+    <!-- Image carousel -->
+    <div class="card w-[95%] mx-auto mb-10">
+      <div class="relative max-w-full mt-8">
+        <img
+          [src]="images[active].itemImageSrc"
+          [alt]="images[active].alt"
+          class="w-full block"
+        />
+        
+        <!-- Navigation buttons -->
+        <button
+          (click)="prevImage()"
+          class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full"
         >
-          <ng-template #caption let-item>
-            <div class="text-xl mb-2 font-bold">Precio</div>
-            <p class="text-white">{{ singleProduct?.price }} €</p>
-          </ng-template>
-          <ng-template pTemplate="item" let-item>
-            <img
-              [src]="item.itemImageSrc"
-              style="width: 100%; display: block"
-            />
-          </ng-template>
-          <ng-template pTemplate="indicator" let-index>
-            <span style="color: #ffffff; cursor: pointer"> {{index + 1}} </span>
-          </ng-template>
-        </p-galleria>
+          <m-icon [icon]="'lucide:chevron-left'"></m-icon>
+        </button>
+        <button
+          (click)="nextImage()"
+          class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full"
+        >
+          <m-icon [icon]="'lucide:chevron-right'"></m-icon>
+        </button>
+        
+        <!-- Indicators -->
+        <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+          @for (img of images; track $index) {
+            <button
+              (click)="selectImage($index)"
+              [class]="$index === active ? 'bg-white' : 'bg-white/50'"
+              class="w-8 h-8 rounded-full hover:bg-white/80 transition-colors cursor-pointer flex items-center justify-center"
+            >
+              <span class="text-black font-bold text-sm">{{ $index + 1 }}</span>
+            </button>
+          }
+        </div>
+        
+        <!-- Price caption -->
+        <div class="mt-4 text-center">
+          <div class="text-xl mb-2 font-bold">Precio</div>
+          <p class="text-white">{{ singleProduct?.price }} €</p>
+        </div>
       </div>
-    </ng-template>
-    <ng-template #subtitle>
+    </div>
+
+    <!-- Subtitle with status and category -->
+    <div class="mb-4">
       <span
         [ngClass]="singleProduct?.inventoryStatus === 'Bajo stock' ? 'text-orange-600' : singleProduct?.inventoryStatus === 'Fuera de stock' ? 'text-red-600' : 'text-blue-300'"
       >
@@ -43,67 +61,81 @@
       <span class="text-green-400">
         <span class="text-white"> | </span> {{singleProduct?.category}}</span
       >
-    </ng-template>
-    <p-fieldset legend="Descripción">
+    </div>
+
+    <!-- Description -->
+    <div class="mb-4 p-4 border border-gray-200 rounded-lg dark:border-gray-700">
+      <h3 class="font-bold text-lg mb-2">Descripción</h3>
       <p class="m-0">{{singleProduct?.description}}</p>
-    </p-fieldset>
-    <ng-template #footer>
-      <div class="card flex justify-center">
-        <p-fieldset legend="Características adicionales">
-          <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </p-fieldset>
+    </div>
+
+    <!-- Additional characteristics -->
+    <div class="card flex justify-center mt-4">
+      <div class="w-full p-4 border border-gray-200 rounded-lg dark:border-gray-700">
+        <h3 class="font-bold text-lg mb-2">Características adicionales</h3>
+        <p class="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
       </div>
-      <div class="card flex justify-center align-start">
-        <p-fieldset legend="Detalles">
-          <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </p-fieldset>
+    </div>
+
+    <!-- Details -->
+    <div class="card flex justify-center mt-4">
+      <div class="w-full p-4 border border-gray-200 rounded-lg dark:border-gray-700">
+        <h3 class="font-bold text-lg mb-2">Detalles</h3>
+        <p class="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
       </div>
-      <app-product-reviews></app-product-reviews>
-      <div class="flex justify-center mt-10 gap-4">
-        <p-button
-          label="Volver a tienda"
-          severity="danger"
-          variant="outlined"
-        ></p-button>
-      </div>
-    </ng-template>
-  </p-card>
+    </div>
+
+    <!-- Reviews -->
+    <app-product-reviews class="mt-4"></app-product-reviews>
+
+    <!-- Back button -->
+    <div class="flex justify-center mt-10 gap-4">
+      <m-button
+        [label]="'Volver a tienda'"
+        severity="danger"
+        variant="outlined"
+      ></m-button>
+    </div>
+  </m-card>
+
+  <!-- Options sidebar -->
   <div class="card flex justify-center options">
-    <p-panel header="Personalización">
+    <m-card [header]="'Personalización'">
       <p class="m-0 mb-10">Debes seleccionar una talla para poder continuar</p>
       <div class="card flex justify-center">
-        <p-listbox
+        <m-select
           [(ngModel)]="selectedSize"
-          [options]="sizes"
-          [multiple]="false"
-          [checkmark]="true"
+          [options]="sizesOptions"
           optionLabel="name"
+          [placeholder]="'Selecciona una talla'"
           class="w-full md:w-56"
         />
       </div>
-    </p-panel>
+    </m-card>
   </div>
+
+  <!-- Payment sidebar -->
   <div class="card flex justify-center pay">
-    <p-panel header="Pago">
-      <p-button
-        icon="pi pi-plus"
-        label="Añadir al carrito"
-        styleClass="w-[300px]"
-      ></p-button>
-    </p-panel>
+    <m-card [header]="'Pago'">
+      <m-button
+        [icon]="'lucide:plus'"
+        [label]="'Añadir al carrito'"
+        class="w-[300px]"
+      ></m-button>
+    </m-card>
   </div>
 </div>
 

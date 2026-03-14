@@ -1,5 +1,4 @@
 import { Component, computed, effect, OnInit, signal } from '@angular/core';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -9,14 +8,20 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { selectProducts } from '../../store/products/products.selector';
 import { allProductsRequestInit } from '../../store/products/products.actions';
 import { useDarkMode } from '../../shared/utils';
-import { MenuItem } from 'primeng/api';
 import { ProductCartItem } from '../../type/types';
 import { addToCart } from '../../store/cart/cart.actions';
+import { MButton } from '../../components/marcha/m-button/m-button';
+
+interface MenuItem {
+  label: string;
+  icon?: string;
+  items?: MenuItem[];
+}
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [PrimengModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MButton],
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })

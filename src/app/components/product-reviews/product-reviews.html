@@ -1,17 +1,18 @@
 <div class="card flex justify-center items-start w-full">
-  <p-fieldset legend="Reseñas" [ngStyle]="{width: '100%'}">
+  <div class="w-full p-4 border border-gray-200 rounded-lg dark:border-gray-700">
+    <h3 class="font-bold text-lg mb-4">Reseñas</h3>
     @for (review of reviews; track review.user) {
     <div
       class="card flex flex-col md:flex-row items-start md:items-center gap-4 pb-6 pt-4 w-full"
     >
       <!-- Avatar -->
-      <p-avatar
+      <m-avatar
         [image]="review.avatar"
+        [label]="review.user"
+        size="xlarge"
         class="mb-2 md:mb-0 md:mr-4"
         style="box-shadow: 5px 8px 20px 1px rgba(0, 255, 157, 0.719)"
-        size="xlarge"
-        shape="circle"
-      ></p-avatar>
+      ></m-avatar>
 
       <!-- Contenido de la reseña -->
       <div class="flex-1">
@@ -27,65 +28,72 @@
 
       <!-- Botones (en columna en móvil, en fila en desktop) -->
       <div class="flex md:flex-col gap-2 self-start md:self-center">
-        <p-button
-          icon="pi pi-file-edit"
+        <m-button
+          [icon]="'lucide:file-edit'"
           size="small"
-          severity="warn"
           variant="outlined"
-        ></p-button>
-        <p-button
-          icon="pi pi-trash"
+        ></m-button>
+        <m-button
+          [icon]="'lucide:trash-2'"
           size="small"
+          variant="outlined"
           severity="danger"
-          variant="outlined"
-        ></p-button>
+        ></m-button>
       </div>
     </div>
     }
     <div class="card flex justify-center mt-10">
-      <p-button
-        label="Añadir reseña"
-        severity="info"
-        (click)="showDialog(true)"
-      ></p-button>
+      <m-button
+        [label]="'Añadir reseña'"
+        (onClick)="showDialog(true)"
+      ></m-button>
     </div>
-  </p-fieldset>
+  </div>
 </div>
-<div class="card flex justify-center w-full">
-  <p-dialog
-    header="Nueva reseña"
-    [modal]="true"
-    [(visible)]="visible"
-    [style]="{ width: '90%', maxWidth: '960px' }"
-  >
-    <div class="card">
-      <div class="card flex justify-start mb-3">
-        <p>Puntuación del producto:</p>
-        <p-rating [(ngModel)]="rating" class="pl-4" />
+<m-dialog
+  [header]="'Nueva reseña'"
+  [(visible)]="visible"
+  [style]="{ width: '90%', maxWidth: '960px' }"
+>
+  <div class="card">
+    <div class="card flex justify-start items-center mb-3 gap-2">
+      <p>Puntuación del producto:</p>
+      <div class="flex gap-1 pl-2">
+        @for (star of [1, 2, 3, 4, 5]; track star) {
+          <m-icon 
+            [icon]="star <= rating ? 'lucide:star' : 'lucide:star'" 
+            [class]="star <= rating ? 'text-yellow-400 cursor-pointer' : 'text-gray-400 cursor-pointer'"
+            (click)="setRating(star)"
+          ></m-icon>
+        }
       </div>
-      <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
     </div>
-    <div
-      class="flex flex-col md:flex-row gap-2 mt-4 md:justify-end justify-center w-full"
-    >
-      <p-button
-        styleClass="flex w-full"
-        label="Añadir reseña"
-        iconPos="right"
-        icon="pi pi-check"
-        size="small"
-        severity="warn"
-      ></p-button>
-      <p-button
-        styleClass="flex w-full md:ml-2 mt-2 md:mt-0"
-        label="Cancelar"
-        iconPos="right"
-        icon="pi pi-times"
-        size="small"
-        severity="danger"
-        variant="outlined"
-        (click)="showDialog(false)"
-      />
-    </div>
-  </p-dialog>
-</div>
+    <m-textarea 
+      [(ngModel)]="text" 
+      [placeholder]="'Escribe tu reseña aquí...'"
+      [rows]="10"
+      class="w-full"
+    ></m-textarea>
+  </div>
+  <div
+    class="flex flex-col md:flex-row gap-2 mt-4 md:justify-end justify-center w-full"
+  >
+    <m-button
+      class="flex w-full"
+      [label]="'Añadir reseña'"
+      [icon]="'lucide:check'"
+      iconPos="right"
+      size="small"
+    ></m-button>
+    <m-button
+      class="flex w-full md:ml-2 mt-2 md:mt-0"
+      [label]="'Cancelar'"
+      [icon]="'lucide:x'"
+      iconPos="right"
+      size="small"
+      severity="danger"
+      variant="outlined"
+      (onClick)="showDialog(false)"
+    />
+  </div>
+</m-dialog>

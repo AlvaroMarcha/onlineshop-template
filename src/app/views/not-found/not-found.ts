@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
+import { MButton } from '../../components/marcha/m-button/m-button';
+import { MCard } from '../../components/marcha/m-card/m-card';
 
 @Component({
   selector: 'app-not-found',
-  imports: [PrimengModule],
+  imports: [MButton, MCard],
   templateUrl: './not-found.html',
   styleUrl: './not-found.css',
 })

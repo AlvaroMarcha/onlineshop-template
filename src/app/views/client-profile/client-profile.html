@@ -1,48 +1,41 @@
 <div class="card flex justify-center mb-12">
-  <p-fieldset
-    legend="Imagen de perfil"
-    [style]="{width: '90vw', margin: 'auto'}"
-  >
+  <div class="w-[90vw] mx-auto p-6 border border-gray-200 rounded-lg dark:border-gray-700">
+    <h2 class="font-bold text-xl mb-6">Imagen de perfil</h2>
+    
     <div class="flex justify-center">
-      <p-avatar
-        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+      <m-avatar
+        [image]="'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
+        [label]="user$()?.name || 'Usuario'"
+        size="xlarge"
         class="mr-2"
-        [style]="{width: '120px', height: '120px'}"
-        shape="circle"
       />
     </div>
-    <p-fieldset
-      legend="Cambiar imagen"
-      [toggleable]="true"
-      [(collapsed)]="isCollapsed"
-      [style]="{ width: '80vw', maxWidth: '80vw', margin: 'auto'}"
-    >
+    
+    <div class="w-[80vw] max-w-[80vw] mx-auto mt-6 p-4 border border-gray-200 rounded-lg dark:border-gray-700">
+      <h3 class="font-bold text-lg mb-4">Cambiar imagen</h3>
       <div class="flex justify-center mt-4">
         <div class="card flex justify-center">
-          <div class="card flex justify-center">
-            <p-toast
-              [breakpoints]="{ '920px': { width: '90%', right: '0', left: '0' , margin: 'auto'} }"
-            />
-          </div>
-          <p-fileupload
-            mode="basic"
-            name="demo[]"
-            chooseIcon="pi pi-upload"
-            url="https://www.primefaces.org/cdn/api/upload.php"
+          <m-toast />
+          <input 
+            type="file" 
             accept="image/*"
-            maxFileSize="1000000"
-            (onUpload)="onBasicUploadAuto($event)"
-            [auto]="true"
-            chooseLabel="Browse"
+            (change)="onFileSelected($event)"
+            class="hidden"
+            #fileInput
           />
+          <m-button
+            [label]="'Seleccionar imagen'"
+            [icon]="'lucide:upload'"
+            (onClick)="fileInput.click()"
+          ></m-button>
         </div>
       </div>
-    </p-fieldset>
-    <p-divider [style]="{marginTop: '50px'}" />
-    <p-fieldset
-      legend="Información usuario"
-      [style]="{ width: '80vw', maxWidth: '80vw', margin: 'auto'}"
-    >
+    </div>
+    
+    <m-divider class="mt-12" />
+    
+    <div class="w-[80vw] max-w-[80vw] mx-auto mt-6 p-4 border border-gray-200 rounded-lg dark:border-gray-700">
+      <h3 class="font-bold text-lg mb-4">Información usuario</h3>
       <div class="flex flex-colum flex-wrap gap-3">
         <div
           class="flex flex-colum flex-wrap gap-3"
@@ -50,159 +43,116 @@
         >
           <!-- User name -->
           <div class="card flex justify-center">
-            <p-iftalabel>
-              <input
-                pInputText
-                pSize="small"
+            <m-float-label>
+              <m-input
                 id="username"
-                [value]="this.user$()?.name"
-                [disabled]="isDisabled"
-                autocomplete="off"
+                [placeholder]="this.user$()?.name || ''"
               />
               <label for="username">Nombre</label>
-            </p-iftalabel>
+            </m-float-label>
           </div>
-          <!-- User name -->
+          <!-- User email -->
           <div class="card flex justify-center">
-            <p-iftalabel>
-              <input
-                pInputText
-                pSize="small"
+            <m-float-label>
+              <m-input
                 id="email"
-                [value]="this.user$()?.email"
-                [disabled]="isDisabled"
-                autocomplete="off"
+                [placeholder]="this.user$()?.email || ''"
               />
               <label for="email">Email</label>
-            </p-iftalabel>
+            </m-float-label>
           </div>
           <!-- User phone -->
           <div class="card flex justify-center">
-            <p-iftalabel>
-              <input
-                pInputText
-                pSize="small"
+            <m-float-label>
+              <m-input
                 id="phone"
-                [value]="this.user$()?.phone"
-                [disabled]="isDisabled"
-                autocomplete="off"
+                [placeholder]="this.user$()?.phone || ''"
               />
               <label for="phone">Teléfono</label>
-            </p-iftalabel>
+            </m-float-label>
           </div>
-          <p-button label="Restablecer contraseña" link size="small"></p-button>
+          <m-button 
+            [label]="'Restablecer contraseña'" 
+            [link]="true"
+            size="small"
+          ></m-button>
         </div>
-        <p-divider />
+        <m-divider />
         <div>
           <!-- User status -->
           <div class="card flex justify-center">
             <div class="card flex justify-center">
-              <p-panel header="Status">
+              <m-card [header]="'Status'">
                 <p class="m-0">
                   {{ user$()?.status ? '🟢 Conectado' : '🔘 Desconectado' }}
                 </p>
                 <p class="m-0">
                   Miembro desde: {{ user$()?.created_at | date: 'mediumDate'}}
                 </p>
-              </p-panel>
+              </m-card>
             </div>
           </div>
           <div id="controlForm" class="flex m-3 gap-1">
-            <p-button
+            <m-button
               [label]="labelEdit"
               [severity]="colorEdit"
               size="small"
               variant="outlined"
               (onClick)="editForm()"
-            ></p-button>
-            <p-button
-              label="Cancelar"
+            ></m-button>
+            <m-button
+              [label]="'Cancelar'"
               severity="danger"
               size="small"
               (onClick)="cancelForm()"
-            ></p-button>
+            ></m-button>
           </div>
         </div>
       </div>
-    </p-fieldset>
-    <p-divider [style]="{marginTop: '50px'}" />
-    <!-- TABS -->
-    <div class="card">
-      <p-tabs value="0" scrollable>
-        <p-tablist>
-          <ng-template #previcon>
-            <i class="pi pi-minus"></i>
-          </ng-template>
-          <p-tab value="0" class="flex items-center !gap-2">
-            <i class="pi pi-receipt" style="font-size: 1rem"></i>
-            <span class="font-bold whitespace-nowrap">Pedidos</span>
-          </p-tab>
-          <p-tab value="1" class="flex items-center !gap-2">
-            <i class="pi pi-info-circle" style="font-size: 1rem"></i>
-            <span class="font-bold whitespace-nowrap">Info</span>
-          </p-tab>
-          <ng-template #nexticon>
-            <i class="pi pi-plus"></i>
-          </ng-template>
-        </p-tablist>
-        <p-tabpanels>
-          <!-- Content Orders tab -->
-          <p-tabpanel value="0">
-            <div class="card">
-              <p-table
-                [value]="orders"
-                stripedRows
-                responsiveLayout="stack"
-                breakpoint="960px"
-              >
-                >
-                <ng-template #header>
-                  <tr>
-                    <th>ID</th>
-                    <th>Fecha pedido</th>
-                    <th>Estado</th>
-                    <th>
-                      <i class="pi pi-download"></i>
-                      Facturas
-                    </th>
-                  </tr>
-                </ng-template>
-                <ng-template #body let-product>
-                  <tr>
-                    <td>{{product.id}}</td>
-                    <td>{{product.date}}</td>
-                    <td>{{product.status}}</td>
-                    <td class="flex gap-1.5">
-                      <p-button
-                        label="Descargar"
-                        severity="warn"
-                        variant="outlined"
-                        size="small"
-                      >
-                        <i class="pi pi-receipt"></i>
-                      </p-button>
-                      <p-button
-                        label="Ver"
-                        severity="success"
-                        variant="outlined"
-                        size="small"
-                      >
-                        <i class="pi pi-eye"></i>
-                      </p-button>
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
-            </div>
-          </p-tabpanel>
-          <!-- Content Invoice tab -->
-          <p-tabpanel value="1">
-            <div>
-              <canvas #chartCanvas></canvas>
-            </div>
-          </p-tabpanel>
-        </p-tabpanels>
-      </p-tabs>
     </div>
-  </p-fieldset>
+    
+    <m-divider class="mt-12" />
+    <!-- TABS -->
+    <div class="card mt-6">
+      <m-tabs [tabs]="tabs">
+        <!-- Content Orders tab -->
+        <m-tab-panel [index]="0">
+          <div class="card">
+            <m-table
+              [data]="orders"
+              [columns]="[
+                { field: 'id', header: 'ID' },
+                { field: 'date', header: 'Fecha pedido' },
+                { field: 'status', header: 'Estado' }
+              ]"
+            >
+              <ng-template #actionsTemplate let-row>
+                <div class="flex gap-1.5">
+                  <m-button
+                    [label]="'Descargar'"
+                    severity="warn"
+                    variant="outlined"
+                    size="small"
+                    [icon]="'lucide:receipt'"
+                  ></m-button>
+                  <m-button
+                    [label]="'Ver'"
+                    variant="outlined"
+                    size="small"
+                    [icon]="'lucide:eye'"
+                  ></m-button>
+                </div>
+              </ng-template>
+            </m-table>
+          </div>
+        </m-tab-panel>
+        <!-- Content Invoice tab -->
+        <m-tab-panel [index]="1">
+          <div>
+            <canvas #chartCanvas></canvas>
+          </div>
+        </m-tab-panel>
+      </m-tabs>
+    </div>
+  </div>
 </div>

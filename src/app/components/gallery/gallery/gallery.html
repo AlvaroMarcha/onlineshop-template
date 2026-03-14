@@ -19,37 +19,55 @@
   }
 </div>
 <div class="flex flex-row justify-center mt-6">
-  <p-galleria
-    [value]="pagedImages"
+  <!-- Simple fullscreen dialog -->
+  <m-dialog
     [(visible)]="displayCustom"
-    [(activeIndex)]="activeIndexPage"
-    [responsiveOptions]="responsiveOptions"
-    [containerStyle]="{ 'max-width': '850px' }"
-    [numVisible]="rows"
-    [circular]="true"
-    [showItemNavigators]="true"
-    [showThumbnails]="false"
+    [closeable]="true"
+    size="xl"
   >
-    <ng-template pTemplate="item" let-item>
-      <div>
-        <p-message severity="secondary">
-          <span>{{ item.title }}</span>
-        </p-message>
-        <img
-          [src]="item.itemImageSrc"
-          [alt]="item.alt || item.title || ''"
-          style="width: 100%; height: 600px; display: block"
+    <div>
+      <m-message severity="info" [title]="pagedImages[activeIndexPage]?.title || ''" />
+      <img
+        [src]="pagedImages[activeIndexPage]?.itemImageSrc"
+        [alt]="pagedImages[activeIndexPage]?.alt || pagedImages[activeIndexPage]?.title || ''"
+        style="width: 100%; height: 600px; object-fit: contain; display: block"
+      />
+      <div class="flex justify-between mt-4">
+        <m-button
+          icon="lucide:chevron-left"
+          label="Anterior"
+          (onClick)="activeIndexPage = (activeIndexPage - 1 + pagedImages.length) % pagedImages.length"
+        />
+        <m-button
+          icon="lucide:chevron-right"
+          iconPos="right"
+          label="Siguiente"
+          (onClick)="activeIndexPage = (activeIndexPage + 1) % pagedImages.length"
         />
       </div>
-    </ng-template>
-  </p-galleria>
+    </div>
+  </m-dialog>
 </div>
 <div class="card flex justify-center mt-10 mb-20">
-  <p-paginator
-    [first]="first"
-    [rows]="rows"
-    [totalRecords]="totalRecords"
-    [rowsPerPageOptions]="[4, 8, 12]"
-    (onPageChange)="onPageChange($event)"
-  />
+  <!-- Simple pagination -->
+  <div class="flex gap-2 items-center">
+    <m-button
+      label="Anterior"
+      icon="lucide:chevron-left"
+      variant="outlined"
+      [disabled]="first === 0"
+      (onClick)="first = Math.max(0, first - rows)"
+    />
+    <span class="text-sm">
+      Mostrando {{first + 1}} - {{Math.min(first + rows, totalRecords)}} de {{totalRecords}}
+    </span>
+    <m-button
+      label="Siguiente"
+      icon="lucide:chevron-right"
+      iconPos="right"
+      variant="outlined"
+      [disabled]="first + rows >= totalRecords"
+      (onClick)="first = Math.min(totalRecords - rows, first + rows)"
+    />
+  </div>
 </div>

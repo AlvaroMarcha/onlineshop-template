@@ -2,17 +2,17 @@ import { Component, Signal } from '@angular/core';
 import { ProductCartItem } from '../../type/types';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectCartItems } from '../../store/cart/cart.selector';
 import { removeFromCart, updateQuantity } from '../../store/cart/cart.actions';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { MButton } from '../marcha/m-button/m-button';
+import { MNumberInput } from '../marcha/m-number-input/m-number-input';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule, PrimengModule, InputNumberModule],
+  imports: [CommonModule, FormsModule, MButton, MNumberInput],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
