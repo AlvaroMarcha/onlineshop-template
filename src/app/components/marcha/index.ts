@@ -92,3 +92,7 @@ export type { MToggleSize } from './m-toggle-switch/m-toggle-switch';
 export { MCopy } from './m-copy/m-copy';
 export { MSortable } from './m-sortable/m-sortable';
 export type { MSortableItem } from './m-sortable/m-sortable';
+
+// Visualización de datos
+export { MDataview } from './m-dataview/m-dataview';
+export type { MDataviewLayout, MDataviewSortOption } from './m-dataview/m-dataview';
