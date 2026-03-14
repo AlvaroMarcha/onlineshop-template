@@ -1,467 +1,258 @@
-<div
-  class="bg-slate-900 text-gray-100 p-4 flex justify-between lg:justify-center items-center flex-wrap"
->
-  <div class="font-bold mr-20">
-    🔥 {{ 'home.mini_banner.title' | translate }}
-  </div>
-  <div class="items-center hidden lg:flex">
-    <span class="leading-normal">
-      {{ 'home.mini_banner.description' | translate }}
-    </span>
-  </div>
-  <a class="flex items-center ml-2 mr-20">
-    <a class="text-white" href="#"
-      ><span class="underline font-bold">
-        {{ 'home.mini_banner.button' | translate }}</span
-      ></a
-    >
-  </a>
-  <a
-    class="flex items-center no-underline justify-center rounded-full text-gray-50 hover:bg-slate-700 cursor-pointer transition-colors duration-150"
-    style="width: 2rem; height: 2rem"
-  >
-    <i class="pi pi-times"></i>
-  </a>
-</div>
-<div
-  class="grid grid-cols-12 gap-4 grid-nogutter bg-surface-0 dark:bg-surface-950 text-surface-800 dark:text-surface-50"
->
-  <div
-    class="col-span-12 md:col-span-6 p-12 text-center md:text-left flex items-center"
-  >
-    <section>
-      <span class="block text-6xl font-bold mb-1">
-        {{ 'home.banner.title' | translate }}
-      </span>
-      <p
-        class="mt-0 mb-6 text-surface-700 dark:text-surface-100 leading-normal"
-      >
-        {{ 'home.banner.subtitle' | translate }}
-      </p>
+<!-- Hero Section - Diseño asimétrico con glassmorphism -->
+<section class="hero-section">
+  <!-- Animated gradient background -->
+  <div class="gradient-bg"></div>
+  <div class="gradient-orb orb-1"></div>
+  <div class="gradient-orb orb-2"></div>
+  <div class="gradient-orb orb-3"></div>
 
-      <p-button
-        [label]="'home.banner.button1' | translate"
-        type="button"
-        class="mr-4"
-        raised
-      ></p-button>
-      <p-button
-        [label]="'home.banner.button2' | translate"
-        type="button"
-        outlined
-      ></p-button>
-    </section>
-  </div>
-  <div class="col-span-12 md:col-span-6 overflow-hidden">
-    <img
-      src="banners/principal-banner.jpg"
-      alt="Image"
-      class="md:ml-auto block md:h-full"
-      style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)"
-    />
-  </div>
-</div>
-<p-divider />
-<div
-  id="elements-4"
-  class="flex flex-col sm:flex-row m-4 sm:m-20 text-center gap-4 sm:gap-15"
->
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card1.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card1.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card2.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card2.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card3.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card3.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card4.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card4.description' | translate }}</p>
-    </p-card>
-  </div>
-</div>
+  <div class="hero-container">
+    <!-- Main hero card - floating glassmorphism -->
+    <div class="hero-main">
+      <m-card variant="glass" padding="lg" styleClass="hero-card">
+        <div class="hero-content">
+          <!-- Badge nuevo -->
+          <div class="flex items-center gap-2 mb-6">
+            <m-badge value="Nuevo" severity="success" size="normal" />
+            <m-chip label="Stock limitado" severity="warn" size="sm" [dot]="true" />
+          </div>
 
-<p-divider />
+          <h1 class="hero-title">
+            {{ 'home.banner.title' | translate }}
+          </h1>
+          
+          <p class="hero-subtitle">
+            {{ 'home.banner.subtitle' | translate }}
+          </p>
 
-<div
-  class="bg-surface-0 dark:bg-surface-950 px-6 py-20 md:px-12 lg:px-20 text-center"
->
-  <div class="mb-4 font-bold text-3xl">
-    <span class="text-surface-900 dark:text-surface-0"
-      >{{ 'home.features.title' | translate }}
-    </span>
-  </div>
-  <div class="text-surface-700 dark:text-surface-100 mb-12">
-    {{ 'home.features.subtitle' | translate }}
-  </div>
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-desktop text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature1.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >{{ 'home.features.feature1.description' | translate }}
-      </span>
+          <div class="hero-actions">
+            <m-button
+              [label]="'home.banner.button1' | translate"
+              icon="lucide:shopping-bag"
+              severity="primary"
+              size="large"
+              (onClick)="navigateToShop()"
+            />
+            <m-button
+              [label]="'home.banner.button2' | translate"
+              icon="lucide:arrow-right"
+              variant="outlined"
+              severity="secondary"
+              size="large"
+              (onClick)="navigateToAbout()"
+            />
+          </div>
+        </div>
+      </m-card>
     </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-lock text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature2.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >{{ 'home.features.feature2.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-check-circle text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature3.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >{{ 'home.features.feature3.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-globe text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature4.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal">
-        {{ 'home.features.feature4.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-github text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature5.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal">
-        {{ 'home.features.feature5.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 md:mb-6 mb-0 px-4">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-shield text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature6.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal">
-        {{ 'home.features.feature6.description' | translate }}
-      </span>
+
+    <!-- Floating stats cards - asimétrico -->
+    <div class="floating-cards">
+      <m-card variant="glass" padding="md" styleClass="stat-card stat-card-1">
+        <div class="stat-content">
+          <m-icon icon="lucide:users" size="32" class="stat-icon text-primary" />
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Clientes felices</div>
+        </div>
+      </m-card>
+
+      <m-card variant="glass" padding="md" styleClass="stat-card stat-card-2">
+        <div class="stat-content">
+          <m-icon icon="lucide:package" size="32" class="stat-icon text-success" />
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Productos</div>
+        </div>
+      </m-card>
+
+      <m-card variant="glass" padding="md" styleClass="stat-card stat-card-3">
+        <div class="stat-content">
+          <m-icon icon="lucide:star" size="32" class="stat-icon text-warn" />
+          <div class="stat-number">4.9/5</div>
+          <div class="stat-label">Valoración</div>
+        </div>
+      </m-card>
     </div>
   </div>
-</div>
-<p-divider />
-<div class="flex justify-center align-items-center m-auto w-full sm:w-1/2">
-  <div id="elements-texts" class="mb-10">
-    <div class="block">
-      <h3 class="text-start p-10 text-2xl sm:text-4xl">
-        {{ 'home.title_img.title' | translate }}
-      </h3>
-      <div class="flex flex-col sm:flex-row">
-        <img
-          class="ml-10 rounded-full mb-4 sm:mb-0"
-          src="logos/principal.jpg"
-          alt=""
-          width="240"
+</section>
+
+<!-- Features Section - Grid asimétrico moderno -->
+<section class="features-section">
+  <div class="section-header">
+    <h2 class="section-title">
+      {{ 'home.features.title' | translate }}
+    </h2>
+    <p class="section-subtitle">
+      {{ 'home.features.subtitle' | translate }}
+    </p>
+  </div>
+
+  <div class="features-grid">
+    <!-- Feature card 1 - Grande -->
+    <m-card variant="glass" padding="lg" styleClass="feature-card feature-large">
+      <div class="feature-content">
+        <div class="feature-icon-wrapper feature-icon-primary">
+          <m-icon icon="lucide:zap" size="48" />
+        </div>
+        <h3 class="feature-title">{{ 'home.features.feature1.title' | translate }}</h3>
+        <p class="feature-description">
+          {{ 'home.features.feature1.description' | translate }}
+        </p>
+        <m-button
+          label="Más información"
+          icon="lucide:arrow-right"
+          iconPos="right"
+          variant="text"
+          severity="primary"
         />
-        <p class="p-10 w-full sm:w-100">
-          {{ 'home.title_img.description' | translate }}
+      </div>
+    </m-card>
+
+    <!-- Feature card 2 - Mediana -->
+    <m-card variant="glass" padding="md" styleClass="feature-card feature-medium">
+      <div class="feature-content">
+        <div class="feature-icon-wrapper feature-icon-success">
+          <m-icon icon="lucide:shield-check" size="40" />
+        </div>
+        <h3 class="feature-title">{{ 'home.features.feature2.title' | translate }}</h3>
+        <p class="feature-description">
+          {{ 'home.features.feature2.description' | translate }}
         </p>
       </div>
-    </div>
-  </div>
-</div>
-<p-divider />
+    </m-card>
 
-<div class="bg-surface-50 dark:bg-surface-950 px-6 py-20 md:px-12 lg:px-20">
-  <div
-    class="text-surface-900 dark:text-surface-0 font-bold text-6xl mb-6 text-center"
-  >
-    {{ 'home.prices.prices_title' | translate }}
-  </div>
-  <div
-    class="text-surface-700 dark:text-surface-100 text-xl mb-12 text-center leading-normal"
-  >
-    {{ 'home.prices.prices_description' | translate }}
-  </div>
+    <!-- Feature card 3 - Mediana -->
+    <m-card variant="glass" padding="md" styleClass="feature-card feature-medium">
+      <div class="feature-content">
+        <div class="feature-icon-wrapper feature-icon-info">
+          <m-icon icon="lucide:truck" size="40" />
+        </div>
+        <h3 class="feature-title">{{ 'home.features.feature3.title' | translate }}</h3>
+        <p class="feature-description">
+          {{ 'home.features.feature3.description' | translate }}
+        </p>
+      </div>
+    </m-card>
 
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-12 lg:col-span-4">
-      <div class="p-4 h-full">
-        <div
-          class="shadow p-4 h-full flex flex-col bg-surface-0 dark:bg-surface-900"
-          style="border-radius: 6px"
-        >
-          <div
-            class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
-          >
-            {{ 'home.prices.basic.title' | translate }}
-          </div>
-          <div class="text-surface-600 dark:text-surface-200">
-            {{ 'home.prices.basic.subtitle' | translate }}
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <div class="flex items-center">
-            <span
-              class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >{{ 'home.prices.basic.price' | translate }}
-            </span>
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.basic.features.feature1' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.basic.features.feature2' | translate }}</span
-              >
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.basic.features.feature3' | translate }}
-              </span>
-            </li>
-          </ul>
-          <hr
-            class="mt-auto mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <p-button label="Buy Now" styleClass="p-4 w-full"></p-button>
+    <!-- Feature card 4 - Pequeña horizontal -->
+    <m-card variant="glass" padding="md" styleClass="feature-card feature-small">
+      <div class="feature-content feature-horizontal">
+        <div class="feature-icon-wrapper feature-icon-warn">
+          <m-icon icon="lucide:headphones" size="32" />
+        </div>
+        <div>
+          <h3 class="feature-title-sm">Soporte 24/7</h3>
+          <p class="feature-description-sm">Estamos aquí para ayudarte</p>
         </div>
       </div>
-    </div>
+    </m-card>
 
-    <div class="col-span-12 lg:col-span-4">
-      <div class="p-4 h-full">
-        <div
-          class="shadow p-4 h-full flex flex-col bg-surface-0 dark:bg-surface-900"
-          style="border-radius: 6px"
-        >
-          <div
-            class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
-          >
-            {{ 'home.prices.premium.title' | translate }}
-          </div>
-          <div class="text-surface-600 dark:text-surface-200">
-            {{ 'home.prices.premium.subtitle' | translate }}
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <div class="flex items-center">
-            <span
-              class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >{{ 'home.prices.premium.price' | translate }}
-            </span>
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature1' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature2' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature3' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature4' | translate }}
-              </span>
-            </li>
-          </ul>
-          <hr
-            class="mt-auto mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <p-button label="Buy Now" styleClass="p-4 w-full"></p-button>
+    <!-- Feature card 5 - Pequeña horizontal -->
+    <m-card variant="glass" padding="md" styleClass="feature-card feature-small">
+      <div class="feature-content feature-horizontal">
+        <div class="feature-icon-wrapper feature-icon-danger">
+          <m-icon icon="lucide:gift" size="32" />
+        </div>
+        <div>
+          <h3 class="feature-title-sm">Ofertas exclusivas</h3>
+          <p class="feature-description-sm">Descuentos para miembros</p>
         </div>
       </div>
-    </div>
+    </m-card>
+  </div>
+</section>
 
-    <div class="col-span-12 lg:col-span-4">
-      <div class="p-4 h-full">
-        <div
-          class="shadow p-4 flex flex-col bg-surface-0 dark:bg-surface-900"
-          style="border-radius: 6px"
-        >
-          <div
-            class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
-          >
-            {{ 'home.prices.enterprise.title' | translate }}
+<!-- Stats Section - Moderno -->
+<section class="stats-section">
+  <div class="stats-container">
+    <m-card variant="glass" padding="lg" styleClass="stats-card">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value">
+            <m-icon icon="lucide:trending-up" size="24" class="text-success" />
+            <span>99.9%</span>
           </div>
-          <div class="text-surface-600 dark:text-surface-200">
-            {{ 'home.prices.enterprise.subtitle' | translate }}
+          <div class="stat-label">Tasa de satisfacción</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-value">
+            <m-icon icon="lucide:clock" size="24" class="text-primary" />
+            <span>24h</span>
           </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <div class="flex items-center">
-            <span
-              class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >{{ 'home.prices.enterprise.price' | translate }}</span
-            >
+          <div class="stat-label">Envío rápido</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-value">
+            <m-icon icon="lucide:award" size="24" class="text-warn" />
+            <span>5★</span>
           </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature1' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature2' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature3' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature4' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature5' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature6' | translate }}
-              </span>
-            </li>
-          </ul>
-          <hr
-            class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <p-button label="Buy Now" styleClass="p-4 w-full" outlined></p-button>
+          <div class="stat-label">Calidad garantizada</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-value">
+            <m-icon icon="lucide:lock" size="24" class="text-info" />
+            <span>100%</span>
+          </div>
+          <div class="stat-label">Pago seguro</div>
         </div>
       </div>
-    </div>
+    </m-card>
   </div>
-</div>
-<p-divider />
-<div
-  id="elements-3"
-  class="flex flex-col sm:flex-row m-4 sm:m-20 text-center gap-4 sm:gap-15"
->
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.footer_cards.card1.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.footer_cards.card1.description' | translate }}</p>
-    </p-card>
+</section>
+
+<!-- CTA Section - Impactante -->
+<section class="cta-section">
+  <div class="cta-gradient"></div>
+  <div class="cta-container">
+    <m-card variant="glass" padding="lg" styleClass="cta-card">
+      <div class="cta-content">
+        <div class="cta-badge">
+          <m-chip label="Oferta limitada" severity="danger" size="lg" />
+        </div>
+        
+        <h2 class="cta-title">
+          Descubre nuestra colección exclusiva
+        </h2>
+        
+        <p class="cta-description">
+          Únete a miles de clientes satisfechos y encuentra los productos que necesitas
+        </p>
+
+        <div class="cta-actions">
+          <m-button
+            label="Explorar productos"
+            icon="lucide:compass"
+            severity="primary"
+            size="large"
+            (onClick)="navigateToShop()"
+          />
+          <m-button
+            label="Contáctanos"
+            icon="lucide:message-circle"
+            variant="outlined"
+            severity="contrast"
+            size="large"
+            (onClick)="navigateToContact()"
+          />
+        </div>
+
+        <div class="cta-features">
+          <div class="cta-feature">
+            <m-icon icon="lucide:check-circle" size="20" class="text-success" />
+            <span>Envío gratis</span>
+          </div>
+          <div class="cta-feature">
+            <m-icon icon="lucide:check-circle" size="20" class="text-success" />
+            <span>30 días de garantía</span>
+          </div>
+          <div class="cta-feature">
+            <m-icon icon="lucide:check-circle" size="20" class="text-success" />
+            <span>Devoluciones fáciles</span>
+          </div>
+        </div>
+      </div>
+    </m-card>
   </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.footer_cards.card2.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.footer_cards.card2.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.footer_cards.card3.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.footer_cards.card3.description' | translate }}</p>
-    </p-card>
-  </div>
-</div>
+</section>
