@@ -17,11 +17,9 @@
 .m-num-body {
   display: flex;
   align-items: center;
-  border: 1.5px solid var(--m-glass-border);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-sm);
-  background: var(--m-glass-bg);
-  backdrop-filter: var(--m-blur);
-  -webkit-backdrop-filter: var(--m-blur);
+  background: var(--m-secondary-bg);
   overflow: hidden;
   transition: border-color 0.18s, box-shadow 0.18s;
 }

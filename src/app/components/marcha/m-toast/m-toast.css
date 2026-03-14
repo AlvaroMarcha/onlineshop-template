@@ -17,9 +17,8 @@
   padding: .875rem 1rem;
   border-radius: var(--m-radius);
   border: 1px solid;
-  background: var(--m-glass-bg);
-  backdrop-filter: var(--m-blur);
-  box-shadow: var(--m-glass-shadow);
+  background: var(--m-surface-2);
+  box-shadow: var(--m-shadow);
   pointer-events: all;
   animation: m-toast-in .25s ease both;
 }

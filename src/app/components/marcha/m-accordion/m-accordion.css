@@ -1,5 +1,5 @@
 /* =============================================
-   m-accordion — Acordeon glassmorphism
+   m-accordion â€” Acordeon
    ============================================= */
 
 .m-accordion {
@@ -11,10 +11,9 @@
 
 /* ---- Item ---- */
 .m-accordion__item {
-  border: 1px solid var(--m-glass-border);
+  border: 1px solid var(--m-border-color);
   border-radius: var(--m-radius-lg);
-  background: var(--m-glass-bg);
-  backdrop-filter: blur(var(--m-blur));
+  background: var(--m-surface-2);
   overflow: hidden;
   transition: border-color .2s ease;
 }
@@ -91,7 +90,7 @@
   color: var(--m-text-muted);
   font-size: .9rem;
   line-height: 1.6;
-  border-top: 1px solid var(--m-glass-border);
+  border-top: 1px solid var(--m-border-color);
 }
 
 /* ---- Dark mode ---- */

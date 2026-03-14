@@ -34,7 +34,7 @@
     rgba(0, 95, 55, 0.541),
     rgba(6, 112, 107, 0.849)
   );
-  backdrop-filter: blur(120px);
+
   height: 105px; /* solo título y precio visibles */
   overflow: hidden;
   transition: height 0.4s ease;

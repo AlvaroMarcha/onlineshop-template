@@ -35,6 +35,35 @@
       "button1": "Registrarse",
       "button2": "Saber más"
     },
+    "categories": {
+      "title": "Explora nuestras categorías",
+      "subtitle": "Encuentra exactamente lo que necesitas navegando por nuestras categorías principales"
+    },
+    "products": {
+      "title": "Productos destacados",
+      "subtitle": "Descubre nuestra selección de productos más populares y ofertas especiales",
+      "view_all": "Ver todos los productos",
+      "add_to_cart": "Añadir al carrito",
+      "no_products": "No hay productos disponibles en este momento"
+    },
+    "features": {
+      "free_shipping": {
+        "title": "Envío gratuito",
+        "description": "En pedidos superiores a 50€"
+      },
+      "secure_payment": {
+        "title": "Pago seguro",
+        "description": "Protección 100% en tus transacciones"
+      },
+      "fast_delivery": {
+        "title": "Entrega rápida",
+        "description": "Recibe tu pedido en 24-48h"
+      },
+      "support_24_7": {
+        "title": "Soporte 24/7",
+        "description": "Estamos aquí para ayudarte siempre"
+      }
+    },
     "mini_banner": {
       "title": "Ofertas especiales",
       "description": "Aprovecha nuestras ofertas limitadas y obtén más valor por tu dinero.",
@@ -58,7 +87,7 @@
         "description": "Tus datos están seguros con nosotros. Implementamos las mejores prácticas de seguridad para proteger tu información."
       }
     },
-    "features": {
+    "platform_features": {
       "title": "Un producto, muchas soluciones",
       "subtitle": "Descubre cómo nuestra plataforma puede ayudarte a crear pantallas personalizadas para diferentes necesidades.",
       "feature1": {

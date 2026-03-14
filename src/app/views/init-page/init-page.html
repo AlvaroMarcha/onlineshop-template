@@ -1,220 +1,168 @@
-<!-- Hero Section - Full screen con imagen de fondo dinámica -->
-<section class="hero-section" [style.background-image]="'url(' + heroBackgroundImage + ')'">
-  <!-- Dark overlay para legibilidad -->
+﻿<!-- ====================================
+     HERO SECTION — Banner principal
+     ==================================== -->
+<section class="hero-section">
   <div class="hero-overlay"></div>
-  
-  <!-- Contenido centrado -->
   <div class="hero-content-wrapper">
     <div class="hero-content">
-      <!-- Título principal -->
-      <h1 class="hero-title">
-        {{ 'home.banner.title' | translate }}
-      </h1>
-      
-      <!-- Subtítulo -->
-      <p class="hero-subtitle">
-        {{ 'home.banner.subtitle' | translate }}
-      </p>
-
-      <!-- Botones de acción -->
+      <h1 class="hero-title">{{ 'home.banner.title' | translate }}</h1>
+      <p class="hero-subtitle">{{ 'home.banner.subtitle' | translate }}</p>
       <div class="hero-actions">
-        <m-button
-          [label]="'home.banner.button2' | translate"
-          variant="outlined"
-          severity="secondary"
-          size="large"
-          styleClass="btn-outline-white"
-          (onClick)="navigateToAbout()"
-        />
-        <m-button
+        <m-button 
           [label]="'home.banner.button1' | translate"
           severity="primary"
+          variant="filled"
           size="large"
-          styleClass="btn-primary-glow"
-          (onClick)="navigateToRegister()"
+          icon="lucide:user-plus"
+          (onClick)="goToRegister()"
+        />
+        <m-button 
+          [label]="'home.banner.button2' | translate"
+          severity="secondary"
+          variant="outlined"
+          size="large"
+          icon="lucide:arrow-right"
+          iconPos="right"
+          (onClick)="goToShop()"
         />
       </div>
     </div>
   </div>
 </section>
 
-<!-- Features Section - Grid asimétrico moderno -->
+<!-- ====================================
+     CATEGORÍAS DESTACADAS
+     ==================================== -->
+<section class="categories-section">
+  <div class="container">
+    <h2 class="section-title">{{ 'home.categories.title' | translate }}</h2>
+    <p class="section-subtitle">{{ 'home.categories.subtitle' | translate }}</p>
+    
+    <div class="categories-grid">
+      @for (category of categories; track category.id) {
+        <m-card 
+          variant="flat" 
+          styleClass="category-card"
+          (click)="goToShop()"
+        >
+          <div class="category-content">
+            <m-icon [icon]="category.icon" size="3rem" />
+            <h3>{{ category.name }}</h3>
+          </div>
+        </m-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     PRODUCTOS DESTACADOS
+     ==================================== -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">{{ 'home.products.title' | translate }}</h2>
+        <p class="section-subtitle">{{ 'home.products.subtitle' | translate }}</p>
+      </div>
+      <m-button 
+        [label]="'home.products.view_all' | translate"
+        severity="primary"
+        variant="text"
+        icon="lucide:arrow-right"
+        iconPos="right"
+        (onClick)="goToShop()"
+      />
+    </div>
+
+    <div class="products-grid">
+      @for (product of featuredProducts(); track product.id) {
+        <m-card variant="flat" styleClass="product-card">
+          <!-- Imagen del producto -->
+          <div class="product-image" (click)="goToProduct(product.id)">
+            @if (product.urlImg) {
+              <img [src]="product.urlImg" [alt]="product.name" />
+            } @else {
+              <div class="product-image-placeholder">
+                <m-icon icon="lucide:image" size="3rem" />
+              </div>
+            }
+          </div>
+
+          <!-- Info del producto -->
+          <div class="product-info">
+            <h3 class="product-name" (click)="goToProduct(product.id)">
+              {{ product.name }}
+            </h3>
+            
+            @if (product.description) {
+              <p class="product-description">{{ product.description }}</p>
+            }
+
+            <!-- Precio -->
+            <div class="product-price-section">
+              <span class="product-price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+            </div>
+
+            <!-- Botón añadir al carrito -->
+            <m-button 
+              [label]="'home.products.add_to_cart' | translate"
+              severity="primary"
+              variant="filled"
+              icon="lucide:shopping-cart"
+              [full]="true"
+              (onClick)="addToCart(product.id)"
+            />
+          </div>
+        </m-card>
+      } @empty {
+        <div class="products-empty">
+          <m-icon icon="lucide:package-open" size="4rem" />
+          <p>{{ 'home.products.no_products' | translate }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     CARACTERÍSTICAS DEL NEGOCIO
+     ==================================== -->
 <section class="features-section">
-  <div class="section-header">
-    <h2 class="section-title">
-      {{ 'home.features.title' | translate }}
-    </h2>
-    <p class="section-subtitle">
-      {{ 'home.features.subtitle' | translate }}
-    </p>
-  </div>
-
-  <div class="features-grid">
-    <!-- Feature card 1 - Grande -->
-    <m-card variant="glass" padding="lg" styleClass="feature-card feature-large">
-      <div class="feature-content">
-        <div class="feature-icon-wrapper feature-icon-primary">
-          <m-icon icon="lucide:zap" size="48" />
+  <div class="container">
+    <div class="features-grid">
+      @for (feature of features; track feature.key) {
+        <div class="feature-item">
+          <m-icon [icon]="feature.icon" size="2.5rem" />
+          <div class="feature-text">
+            <h4>{{ 'home.features.' + feature.key + '.title' | translate }}</h4>
+            <p>{{ 'home.features.' + feature.key + '.description' | translate }}</p>
+          </div>
         </div>
-        <h3 class="feature-title">{{ 'home.features.feature1.title' | translate }}</h3>
-        <p class="feature-description">
-          {{ 'home.features.feature1.description' | translate }}
-        </p>
-        <m-button
-          label="Más información"
-          icon="lucide:arrow-right"
-          iconPos="right"
-          variant="text"
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     MINI BANNER PROMOCIONAL
+     ==================================== -->
+<section class="promo-banner-section">
+  <div class="container">
+    <m-card variant="flat" styleClass="promo-banner">
+      <div class="promo-content">
+        <div class="promo-text">
+          <h2>{{ 'home.mini_banner.title' | translate }}</h2>
+          <p>{{ 'home.mini_banner.description' | translate }}</p>
+        </div>
+        <m-button 
+          [label]="'home.mini_banner.button' | translate"
           severity="primary"
+          variant="filled"
+          size="large"
+          icon="lucide:tag"
+          (onClick)="goToShop()"
         />
-      </div>
-    </m-card>
-
-    <!-- Feature card 2 - Mediana -->
-    <m-card variant="glass" padding="md" styleClass="feature-card feature-medium">
-      <div class="feature-content">
-        <div class="feature-icon-wrapper feature-icon-success">
-          <m-icon icon="lucide:shield-check" size="40" />
-        </div>
-        <h3 class="feature-title">{{ 'home.features.feature2.title' | translate }}</h3>
-        <p class="feature-description">
-          {{ 'home.features.feature2.description' | translate }}
-        </p>
-      </div>
-    </m-card>
-
-    <!-- Feature card 3 - Mediana -->
-    <m-card variant="glass" padding="md" styleClass="feature-card feature-medium">
-      <div class="feature-content">
-        <div class="feature-icon-wrapper feature-icon-info">
-          <m-icon icon="lucide:truck" size="40" />
-        </div>
-        <h3 class="feature-title">{{ 'home.features.feature3.title' | translate }}</h3>
-        <p class="feature-description">
-          {{ 'home.features.feature3.description' | translate }}
-        </p>
-      </div>
-    </m-card>
-
-    <!-- Feature card 4 - Pequeña horizontal -->
-    <m-card variant="glass" padding="md" styleClass="feature-card feature-small">
-      <div class="feature-content feature-horizontal">
-        <div class="feature-icon-wrapper feature-icon-warn">
-          <m-icon icon="lucide:headphones" size="32" />
-        </div>
-        <div>
-          <h3 class="feature-title-sm">Soporte 24/7</h3>
-          <p class="feature-description-sm">Estamos aquí para ayudarte</p>
-        </div>
-      </div>
-    </m-card>
-
-    <!-- Feature card 5 - Pequeña horizontal -->
-    <m-card variant="glass" padding="md" styleClass="feature-card feature-small">
-      <div class="feature-content feature-horizontal">
-        <div class="feature-icon-wrapper feature-icon-danger">
-          <m-icon icon="lucide:gift" size="32" />
-        </div>
-        <div>
-          <h3 class="feature-title-sm">Ofertas exclusivas</h3>
-          <p class="feature-description-sm">Descuentos para miembros</p>
-        </div>
-      </div>
-    </m-card>
-  </div>
-</section>
-
-<!-- Stats Section - Moderno -->
-<section class="stats-section">
-  <div class="stats-container">
-    <m-card variant="glass" padding="lg" styleClass="stats-card">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-value">
-            <m-icon icon="lucide:trending-up" size="24" class="text-success" />
-            <span>99.9%</span>
-          </div>
-          <div class="stat-label">Tasa de satisfacción</div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-value">
-            <m-icon icon="lucide:clock" size="24" class="text-primary" />
-            <span>24h</span>
-          </div>
-          <div class="stat-label">Envío rápido</div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-value">
-            <m-icon icon="lucide:award" size="24" class="text-warn" />
-            <span>5★</span>
-          </div>
-          <div class="stat-label">Calidad garantizada</div>
-        </div>
-
-        <div class="stat-item">
-          <div class="stat-value">
-            <m-icon icon="lucide:lock" size="24" class="text-info" />
-            <span>100%</span>
-          </div>
-          <div class="stat-label">Pago seguro</div>
-        </div>
-      </div>
-    </m-card>
-  </div>
-</section>
-
-<!-- CTA Section - Impactante -->
-<section class="cta-section">
-  <div class="cta-gradient"></div>
-  <div class="cta-container">
-    <m-card variant="glass" padding="lg" styleClass="cta-card">
-      <div class="cta-content">
-        <div class="cta-badge">
-          <m-chip label="Oferta limitada" severity="danger" size="lg" />
-        </div>
-        
-        <h2 class="cta-title">
-          Descubre nuestra colección exclusiva
-        </h2>
-        
-        <p class="cta-description">
-          Únete a miles de clientes satisfechos y encuentra los productos que necesitas
-        </p>
-
-        <div class="cta-actions">
-          <m-button
-            label="Explorar productos"
-            icon="lucide:compass"
-            severity="primary"
-            size="large"
-            (onClick)="navigateToShop()"
-          />
-          <m-button
-            label="Contáctanos"
-            icon="lucide:message-circle"
-            variant="outlined"
-            severity="contrast"
-            size="large"
-            (onClick)="navigateToContact()"
-          />
-        </div>
-
-        <div class="cta-features">
-          <div class="cta-feature">
-            <m-icon icon="lucide:check-circle" size="20" class="text-success" />
-            <span>Envío gratis</span>
-          </div>
-          <div class="cta-feature">
-            <m-icon icon="lucide:check-circle" size="20" class="text-success" />
-            <span>30 días de garantía</span>
-          </div>
-          <div class="cta-feature">
-            <m-icon icon="lucide:check-circle" size="20" class="text-success" />
-            <span>Devoluciones fáciles</span>
-          </div>
-        </div>
       </div>
     </m-card>
   </div>

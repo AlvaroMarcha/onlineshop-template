@@ -40,7 +40,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--m-glass-border);
+  background: var(--m-border-color);
   border-radius: var(--m-radius-full);
   overflow: hidden;
 }
@@ -120,7 +120,7 @@
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
-  /* Thumbs más grandes para touch (Apple HIG: 44px área de toque) */
+  /* Thumbs mÃ¡s grandes para touch (Apple HIG: 44px Ã¡rea de toque) */
   .m-range-input::-webkit-slider-thumb {
     width: 28px;
     height: 28px;

@@ -18,14 +18,12 @@
 .m-field-el {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  background: var(--m-glass-bg);
-  border: 1.5px solid var(--m-glass-border);
+  background: var(--m-secondary-bg);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-sm);
   color: var(--m-text);
   font-size: 0.9375rem;
   font-family: var(--m-font);
-  backdrop-filter: var(--m-blur);
-  -webkit-backdrop-filter: var(--m-blur);
   outline: none;
   resize: vertical;
   min-height: 80px;
@@ -38,7 +36,7 @@
 .is-focused .m-field-el {
   border-color: var(--m-primary);
   box-shadow: 0 0 0 3px var(--m-primary-glow);
-  background: var(--m-glass-bg-hover);
+  background: var(--m-surface-hover);
 }
 
 .is-invalid .m-field-el {

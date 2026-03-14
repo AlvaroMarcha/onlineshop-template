@@ -3,7 +3,6 @@
   inset: 0;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(3px);
   animation: m-overlay-fade .2s ease both;
 }
 
@@ -16,10 +15,9 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  background: var(--m-glass-bg);
-  backdrop-filter: var(--m-blur);
-  border: 1px solid var(--m-glass-border);
-  box-shadow: var(--m-glass-shadow);
+  background: var(--m-surface-2);
+  border: 1px solid var(--m-border-color);
+  box-shadow: var(--m-shadow);
   overflow: hidden;
 }
 
@@ -59,7 +57,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.125rem 1.5rem 1rem;
-  border-bottom: 1px solid var(--m-glass-border);
+  border-bottom: 1px solid var(--m-border-color);
   flex-shrink: 0;
 }
 
@@ -99,7 +97,7 @@
 @media (max-width: 640px) {
   .m-drawer-panel--right,
   .m-drawer-panel--left {
-    /* Full width en pantallas muy pequeñas */
+    /* Full width en pantallas muy pequeÃ±as */
     width: min(420px, 100vw);
   }
   .m-drawer-header {

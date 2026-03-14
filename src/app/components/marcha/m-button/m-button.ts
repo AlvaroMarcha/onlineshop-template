@@ -14,7 +14,7 @@ export type MButtonVariant = 'filled' | 'outlined' | 'text';
 export type MButtonSize = 'small' | 'large' | null;
 
 /**
- * m-button — Botón glassmorphism con soporte completo de variantes,
+ * m-button — Botón con soporte completo de variantes,
  * severidades, estados y accesibilidad.
  *
  * API compatible con p-button de PrimeNG:

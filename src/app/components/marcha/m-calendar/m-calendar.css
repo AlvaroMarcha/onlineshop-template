@@ -17,8 +17,8 @@
   gap: .5rem;
   min-height: 2.75rem;
   padding: .5rem .875rem;
-  background: var(--m-glass-bg);
-  border: 1.5px solid var(--m-glass-border);
+  background: var(--m-secondary-bg);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-lg);
   color: var(--m-text);
   font-family: var(--m-font);
@@ -50,10 +50,8 @@
    ============================================= */
 .m-cal-panel {
   width: 300px;
-  background: var(--m-glass-bg);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
-  border: 1.5px solid var(--m-glass-border);
+  background: var(--m-secondary-bg);
+  border: 1.5px solid var(--m-border-color);
   border-radius: var(--m-radius-xl);
   box-shadow: var(--m-shadow-lg);
   overflow: hidden;
@@ -79,7 +77,7 @@
   align-items: center;
   justify-content: space-between;
   padding: .75rem 1rem;
-  border-bottom: 1px solid var(--m-glass-border);
+  border-bottom: 1px solid var(--m-border-color);
 }
 .m-cal-month-label {
   font-size: .9375rem;
@@ -106,7 +104,7 @@
 }
 
 /* =============================================
-   Cuadrícula
+   CuadrÃ­cula
    ============================================= */
 .m-cal-grid {
   display: grid;
@@ -128,7 +126,7 @@
 }
 
 /* =============================================
-   Celdas de día
+   Celdas de dÃ­a
    ============================================= */
 .m-cal-day {
   display: flex;
@@ -153,7 +151,7 @@
   color: var(--m-primary);
 }
 
-/* Días de otros meses */
+/* DÃ­as de otros meses */
 .m-cal-day--other { color: var(--m-text-subtle, color-mix(in srgb, var(--m-text) 35%, transparent)); }
 
 /* Hoy */
@@ -214,7 +212,7 @@
   display: flex;
   justify-content: center;
   padding: .5rem 1rem .75rem;
-  border-top: 1px solid var(--m-glass-border);
+  border-top: 1px solid var(--m-border-color);
 }
 .m-cal-today-btn {
   background: none;

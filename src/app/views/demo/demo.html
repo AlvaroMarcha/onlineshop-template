@@ -4,7 +4,7 @@
       <m-icon icon="lucide:layers" size="32" />
       Marcha Design System
     </h1>
-    <p class="demo-subtitle">Componentes glassmorphism — Libreria completa</p>
+    <p class="demo-subtitle">Componentes â€“ Libreria completa</p>
   </header>
 
   <section class="demo-section">
@@ -83,7 +83,7 @@
   <m-divider label="Demos" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-button · Severidades (filled)</h2>
+    <h2 class="demo-section-title">m-button Â· Severidades (filled)</h2>
     <div class="demo-row">
       <m-button label="Primary" severity="primary" icon="lucide:zap" />
       <m-button label="Secondary" severity="secondary" />
@@ -110,11 +110,11 @@
   <m-divider label="Contenedores" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-card · Variantes</h2>
+    <h2 class="demo-section-title">m-card Â· Variantes</h2>
     <div class="demo-cards">
-      <m-card header="Glass card" subHeader="Variante por defecto">
-        <p style="color: var(--m-text-muted)">Efecto glassmorphism con backdrop-filter blur activo.</p>
-        <div mCardFooter style="padding: 1rem 1.25rem; border-top: 1px solid var(--m-glass-border)">
+      <m-card header="Solid card" subHeader="Variante por defecto">
+        <p style="color: var(--m-text-muted)">Fondo sólido con bordes y sombra.</p>
+        <div mCardFooter style="padding: 1rem 1.25rem; border-top: 1px solid var(--m-border-color)">
           <m-button label="Accion" severity="primary" size="small" />
         </div>
       </m-card>
@@ -122,7 +122,7 @@
         <p style="color: var(--m-text-muted)">Variante solida con fondo opaco.</p>
       </m-card>
       <m-card header="Flat card" subHeader="Solo borde" variant="flat">
-        <p style="color: var(--m-text-muted)">Solo borde glass, sin sombra.</p>
+        <p style="color: var(--m-text-muted)">Solo borde, sin sombra.</p>
       </m-card>
     </div>
   </section>
@@ -130,7 +130,7 @@
   <m-divider />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-avatar · Imagen · Iniciales · Icono</h2>
+    <h2 class="demo-section-title">m-avatar Â· Imagen Â· Iniciales Â· Icono</h2>
     <div class="demo-row">
       <m-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="xlarge" />
       <m-avatar label="Juan Garcia" size="xlarge" severity="primary" />
@@ -145,7 +145,7 @@
   <m-divider label="Indicadores" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-badge · Severidades · Dots</h2>
+    <h2 class="demo-section-title">m-badge Â· Severidades Â· Dots</h2>
     <div class="demo-row" style="align-items: center">
       <m-badge value="Primary" severity="primary" />
       <m-badge value="12" severity="danger" />
@@ -157,7 +157,7 @@
       <m-badge [dot]="true" severity="warn" />
     </div>
 
-    <h2 class="demo-section-title">m-overlay-badge · Sobre botones y avatares</h2>
+    <h2 class="demo-section-title">m-overlay-badge Â· Sobre botones y avatares</h2>
     <div class="demo-row" style="align-items: center">
       <m-overlay-badge value="3" severity="danger">
         <m-button icon="lucide:shopping-cart" severity="secondary" variant="outlined" [rounded]="true" />
@@ -174,7 +174,7 @@
   <m-divider type="dashed" label="m-divider" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-divider · Tipos</h2>
+    <h2 class="demo-section-title">m-divider Â· Tipos</h2>
     <m-divider />
     <m-divider label="o continua con" />
     <m-divider type="dashed" />
@@ -184,7 +184,7 @@
   <m-divider label="Formularios" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-input · Tipos y estados</h2>
+    <h2 class="demo-section-title">m-input Â· Tipos y estados</h2>
     <div class="demo-form-grid">
       <m-input label="Nombre" placeholder="Tu nombre completo" icon="lucide:user" [formControl]="form.controls.nombre" />
       <m-input label="Email" placeholder="correo@ejemplo.com" icon="lucide:mail" type="email" [formControl]="form.controls.email" />
@@ -195,7 +195,7 @@
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-password · Mostrar / ocultar</h2>
+    <h2 class="demo-section-title">m-password Â· Mostrar / ocultar</h2>
     <div class="demo-form-grid">
       <m-password label="Contrasena" placeholder="Min. 8 caracteres" [formControl]="form.controls.password" />
       <m-password label="Con error" placeholder="Contrasena" hint="Minimo 8 caracteres" [invalid]="true" />
@@ -203,22 +203,22 @@
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-textarea · Redimencionable</h2>
-    <m-textarea label="Biografia" placeholder="Cuéntanos algo sobre ti..." hint="Maximo 300 caracteres" [rows]="4" [formControl]="form.controls.bio" />
+    <h2 class="demo-section-title">m-textarea Â· Redimencionable</h2>
+    <m-textarea label="Biografia" placeholder="CuÃ©ntanos algo sobre ti..." hint="Maximo 300 caracteres" [rows]="4" [formControl]="form.controls.bio" />
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-checkbox · Booleano</h2>
+    <h2 class="demo-section-title">m-checkbox Â· Booleano</h2>
     <div class="demo-row" style="flex-direction: column; align-items: flex-start; gap: 1rem">
       <m-checkbox label="Acepto los terminos y condiciones" [formControl]="form.controls.terminos" />
       <m-checkbox label="Quiero recibir noticias por email" />
-      <m-checkbox label="Con error — campo requerido" [invalid]="true" />
+      <m-checkbox label="Con error â€” campo requerido" [invalid]="true" />
       <m-checkbox label="Deshabilitado" [invalid]="false" />
     </div>
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-number-input · +/− con min/max</h2>
+    <h2 class="demo-section-title">m-number-input Â· +/âˆ’ con min/max</h2>
     <div class="demo-row" style="align-items: flex-start; gap: 2rem">
       <div style="width: 160px">
         <m-number-input label="Cantidad" [min]="1" [max]="99" [formControl]="form.controls.cantidad" />
@@ -233,7 +233,7 @@
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-float-label · Etiqueta flotante</h2>
+    <h2 class="demo-section-title">m-float-label Â· Etiqueta flotante</h2>
     <div class="demo-form-grid">
       <m-float-label label="Nombre completo">
         <input class="m-fl-input" placeholder=" " />
@@ -245,11 +245,11 @@
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-select · Dropdown estilizado</h2>
+    <h2 class="demo-section-title">m-select Â· Dropdown estilizado</h2>
     <div class="demo-form-grid">
-      <m-select label="País" placeholder="Selecciona un país" [options]="paises" [formControl]="form.controls.pais" />
+      <m-select label="PaÃ­s" placeholder="Selecciona un paÃ­s" [options]="paises" [formControl]="form.controls.pais" />
       <m-select label="Talla" placeholder="Elige talla" [options]="tallas" [formControl]="form.controls.talla" />
-      <m-select label="Con error" [options]="paises" placeholder="Obligatorio" hint="Selecciona una opción" [invalid]="true" />
+      <m-select label="Con error" [options]="paises" placeholder="Obligatorio" hint="Selecciona una opciÃ³n" [invalid]="true" />
     </div>
   </section>
 
@@ -266,9 +266,9 @@
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-radio-group · Vertical y horizontal</h2>
+    <h2 class="demo-section-title">m-radio-group Â· Vertical y horizontal</h2>
     <div class="demo-form-grid">
-      <m-radio-group label="Plan de suscripción" [options]="planesOpts" />
+      <m-radio-group label="Plan de suscripciÃ³n" [options]="planesOpts" />
       <m-radio-group label="Talla (horizontal)" [options]="tallas" orientation="horizontal" />
     </div>
   </section>
@@ -288,7 +288,7 @@
   </section>
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-range-slider · Rango doble</h2>
+    <h2 class="demo-section-title">m-range-slider Â· Rango doble</h2>
     <div class="demo-form-grid">
       <m-range-slider label="Rango de precio" [min]="0" [max]="500" [step]="5" hint="Filtra productos por precio" [formControl]="form.controls.rango" />
       <m-range-slider label="Rango de edad" [min]="18" [max]="65" [step]="1" />
@@ -300,7 +300,7 @@
     <m-button label="Abrir dialog" severity="primary" icon="lucide:maximize-2"
       (onClick)="showDialog.set(true)" />
     <m-dialog [(visible)]="showDialog" header="Confirmar accion">
-      <p>¿Estas seguro de que deseas continuar? Esta accion no se puede deshacer.</p>
+      <p>Â¿Estas seguro de que deseas continuar? Esta accion no se puede deshacer.</p>
       <div style="display: flex; gap: .75rem; margin-top: 1.5rem; justify-content: flex-end">
         <m-button label="Cancelar" severity="secondary" variant="outlined" (onClick)="showDialog.set(false)" />
         <m-button label="Confirmar" severity="danger" (onClick)="showDialog.set(false)" />
@@ -335,7 +335,7 @@
         <p style="color: var(--m-text-muted)">Panel General &mdash; informacion de tu cuenta y preferencias.</p>
       }
       @if (activeTab() === 1) {
-        <p style="color: var(--m-text-muted)">Panel Seguridad &mdash; configura tu contraseña y sesiones activas.</p>
+        <p style="color: var(--m-text-muted)">Panel Seguridad &mdash; configura tu contraseÃ±a y sesiones activas.</p>
       }
       @if (activeTab() === 2) {
         <p style="color: var(--m-text-muted)">Panel Notificaciones &mdash; gestiona tus alertas y avisos.</p>
@@ -353,7 +353,7 @@
         <p style="color: var(--m-text-muted)">Vista mensual &mdash; resumen del mes actual.</p>
       }
       @if (activeTabPill() === 2) {
-        <p style="color: var(--m-text-muted)">Vista anual &mdash; resumen del año en curso.</p>
+        <p style="color: var(--m-text-muted)">Vista anual &mdash; resumen del aÃ±o en curso.</p>
       }
     </m-tabs>
   </section>
@@ -436,7 +436,7 @@
     <h2 class="demo-section-title">m-color-picker &middot; Selector de color personalizado</h2>
     <div class="demo-grid demo-grid--3">
 
-      <m-card header="Popup (selector)" variant="glass" padding="md">
+      <m-card header="Popup (selector)" variant="solid" padding="md">
         <div class="demo-field-group">
           <m-color-picker label="Color de acento" [formControl]="colorAccent" />
           <p class="demo-value-preview">
@@ -446,11 +446,11 @@
         </div>
       </m-card>
 
-      <m-card header="Inline (embebido)" variant="glass" padding="md">
+      <m-card header="Inline (embebido)" variant="solid" padding="md">
         <m-color-picker [inline]="true" [formControl]="colorInline" />
       </m-card>
 
-      <m-card header="Sin swatches / Deshabilitado" variant="glass" padding="md">
+      <m-card header="Sin swatches / Deshabilitado" variant="solid" padding="md">
         <div class="demo-field-group" style="gap: 1rem;">
           <m-color-picker
             label="Sin swatches"
@@ -486,13 +486,13 @@
     }
     <h2 class="demo-section-title" style="margin-top:2rem">Estado skeleton (loading)</h2>
     <m-table
-      caption="Cargando datos…"
+      caption="Cargando datosâ€¦"
       [columns]="tableColumns"
       [data]="[]"
       variant="striped"
       [loading]="true"
     />
-    <h2 class="demo-section-title" style="margin-top:2rem">Estado vacío con b&uacute;squeda</h2>
+    <h2 class="demo-section-title" style="margin-top:2rem">Estado vacÃ­o con b&uacute;squeda</h2>
     <m-table
       caption="Sin resultados"
       [columns]="tableColumns"
@@ -522,23 +522,23 @@
   <section class="demo-section">
     <h2 class="demo-section-title">m-toggle-switch &middot; Interruptor accesible con ControlValueAccessor</h2>
     <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap; gap: 1.5rem">
-      <m-card variant="glass" padding="md" style="min-width: 220px">
+      <m-card variant="solid" padding="md" style="min-width: 220px">
         <m-toggle-switch
           label="Notificaciones"
           hint="Recibe avisos por email"
           [formControl]="toggleNotify" />
         <p class="demo-hint">Valor: <code>{{ toggleNotify.value }}</code></p>
       </m-card>
-      <m-card variant="glass" padding="md" style="min-width: 220px">
+      <m-card variant="solid" padding="md" style="min-width: 220px">
         <m-toggle-switch [formControl]="toggleDark" />
         <p class="demo-hint">Sin label (minimalista)</p>
       </m-card>
-      <m-card variant="glass" padding="md" style="min-width: 220px">
+      <m-card variant="solid" padding="md" style="min-width: 220px">
         <m-toggle-switch label="Sin permisos" hint="Solo lectura" [formControl]="toggleDisabled" />
         <p class="demo-hint">Estado deshabilitado</p>
       </m-card>
     </div>
-    <h2 class="demo-section-title" style="margin-top:2rem">Tamaños disponibles</h2>
+    <h2 class="demo-section-title" style="margin-top:2rem">TamaÃ±os disponibles</h2>
     <div class="demo-row" style="align-items: center; flex-wrap: wrap">
       <m-toggle-switch label="Small" size="sm" />
       <m-toggle-switch label="Medium (default)" size="md" />
@@ -556,7 +556,7 @@
       <m-copy text="npm install @marcha/ui" variant="icon" />
     </div>
     <div class="demo-row" style="margin-top: 1rem; align-items: center">
-      <code style="flex:1; padding:.5rem 1rem; background:var(--m-glass-bg); border:1px solid var(--m-border-color); border-radius:.5rem; font-size:.875rem">
+      <code style="flex:1; padding:.5rem 1rem; background:var(--m-secondary-bg); border:1px solid var(--m-border-color); border-radius:.5rem; font-size:.875rem">
         {{ copyCode }}
       </code>
       <m-copy [text]="copyCode" variant="icon" />
@@ -568,7 +568,7 @@
   <section class="demo-section">
     <h2 class="demo-section-title">m-sortable &middot; Lista reordenable con drag &amp; drop nativo</h2>
     <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap">
-      <m-card variant="glass" padding="md" style="min-width: 260px; flex: 1">
+      <m-card variant="solid" padding="md" style="min-width: 260px; flex: 1">
         <m-sortable
           [items]="sortableItems"
           (orderChange)="onSortChange($event)" />
@@ -587,7 +587,7 @@
   <m-divider label="Toggle Button" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-toggle-button &middot; Botón activable con ControlValueAccessor</h2>
+    <h2 class="demo-section-title">m-toggle-button &middot; BotÃ³n activable con ControlValueAccessor</h2>
     <div class="demo-row" style="flex-wrap: wrap">
       <m-toggle-button label="Primary"   icon="lucide:zap"            [formControl]="toggleBtnPrimary" />
       <m-toggle-button label="Success"   icon="lucide:check"          severity="success"   [formControl]="toggleBtnSuccess" />
@@ -596,7 +596,7 @@
       <m-toggle-button label="Secondary" icon="lucide:circle"         severity="secondary" [formControl]="toggleBtnSecondary" />
       <m-toggle-button label="Deshabilitado" icon="lucide:lock"       [formControl]="toggleBtnDisabled" />
     </div>
-    <h2 class="demo-section-title" style="margin-top: 2rem">Tamaños y variante icono</h2>
+    <h2 class="demo-section-title" style="margin-top: 2rem">TamaÃ±os y variante icono</h2>
     <div class="demo-row" style="align-items: center; flex-wrap: wrap">
       <m-toggle-button label="Small"  size="sm" icon="lucide:grid" />
       <m-toggle-button label="Medium" size="md" icon="lucide:grid" />
@@ -610,12 +610,12 @@
   <m-divider label="Menubar" />
 
   <section class="demo-section">
-    <h2 class="demo-section-title">m-menubar &middot; Barra de navegación responsive</h2>
+    <h2 class="demo-section-title">m-menubar &middot; Barra de navegaciÃ³n responsive</h2>
 
-    <p class="demo-label">Island (width: fit-content · glassmorphism)</p>
+    <p class="demo-label">Island (width: fit-content Â· )</p>
     <m-menubar [items]="menubarItems" (itemClick)="lastMenuClick = $any($event).label" />
 
-    <p class="demo-label" style="margin-top: 1.5rem">Bar mode · Logo + contenido centrado (contained)</p>
+    <p class="demo-label" style="margin-top: 1.5rem">Bar mode Â· Logo + contenido centrado (contained)</p>
     <div style="margin-inline: -1.5rem">
       <m-menubar
         logo="Marcha UI"
@@ -630,7 +630,7 @@
       </m-menubar>
     </div>
 
-    <p class="demo-label" style="margin-top: 1.5rem">Bar mode · Slot derecho con acciones</p>
+    <p class="demo-label" style="margin-top: 1.5rem">Bar mode Â· Slot derecho con acciones</p>
     <div style="margin-inline: -1.5rem">
       <m-menubar
         logo="Studio"
@@ -647,7 +647,7 @@
 
     @if (lastMenuClick) {
       <p style="margin-top: .75rem; font-size: .875rem; color: var(--m-text-muted)">
-        Último click: <code>{{ lastMenuClick }}</code>
+        Ãšltimo click: <code>{{ lastMenuClick }}</code>
       </p>
     }
   </section>

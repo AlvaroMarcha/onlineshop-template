@@ -5,7 +5,7 @@ export type MAvatarSize = 'small' | 'normal' | 'large' | 'xlarge';
 export type MAvatarShape = 'circle' | 'square';
 
 /**
- * m-avatar — Avatar glassmorphism con soporte de imagen, icono o iniciales.
+ * m-avatar — Avatar con soporte de imagen, icono o iniciales.
  * Uso:
  *   <m-avatar image="url.jpg" size="large" />
  *   <m-avatar label="Juan García" />  ← muestra "JG"

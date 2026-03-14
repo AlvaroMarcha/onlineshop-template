@@ -18,14 +18,14 @@
   transition: opacity .15s, box-shadow .15s;
 }
 
-/* ---- Tamaños ---- */
+/* ---- TamaÃ±os ---- */
 .m-chip--sm { padding: 0.2rem 0.65rem;  font-size: .75rem;   gap: 0.3rem;  }
 .m-chip--md { padding: 0.35rem 0.875rem; font-size: .8125rem; }
 .m-chip--lg { padding: 0.5rem 1.125rem; font-size: .9375rem; gap: 0.5rem;  }
 
 /* ---- Severidades ---- */
 .m-chip--primary   { background: rgba(99,102,241,.15);  border-color: rgba(99,102,241,.4);  color: #6366f1; }
-.m-chip--secondary { background: var(--m-secondary-bg); border-color: var(--m-glass-border); color: var(--m-text-muted); }
+.m-chip--secondary { background: var(--m-secondary-bg); border-color: var(--m-border-color); color: var(--m-text-muted); }
 .m-chip--success   { background: rgba(34,197,94,.13);   border-color: rgba(34,197,94,.4);   color: #16a34a; }
 .m-chip--warn      { background: rgba(245,158,11,.13);  border-color: rgba(245,158,11,.4);  color: #d97706; }
 .m-chip--danger    { background: rgba(239,68,68,.13);   border-color: rgba(239,68,68,.4);   color: #dc2626; }
@@ -47,7 +47,7 @@
 /* ---- Label ---- */
 .m-chip-label { line-height: 1; }
 
-/* ---- Botón eliminar ---- */
+/* ---- BotÃ³n eliminar ---- */
 .m-chip-remove {
   display: inline-flex;
   align-items: center;
