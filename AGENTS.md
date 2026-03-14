@@ -18,7 +18,8 @@ SPA que consume una API REST Spring Boot. Gestiona auth, catálogo, carrito, ped
 | Framework | Angular 20.x (standalone components) |
 | Lenguaje | TypeScript 5.8 |
 | Estado | NgRx 20.0.1 (stores: auth · cart · products) |
-| UI | PrimeNG 20 + Tailwind CSS 4.x |
+| UI Principal | Tailwind CSS 4.x |
+| Design System | **Marcha UI** (componentes propietarios glassmorphism con prefijo `m-`) |
 | i18n | @ngx-translate/core (es / en) |
 | HTTP | @angular/common/http + HttpInterceptorFn |
 | Routing | @angular/router (functional guards) |
@@ -33,6 +34,7 @@ SPA que consume una API REST Spring Boot. Gestiona auth, catálogo, carrito, ped
 ```
 src/app/
 ├── components/   ← Componentes reutilizables (nunca tienen ruta propia)
+│   └── marcha/   → Sistema de diseño Marcha UI (m-button, m-card, m-menubar, etc.)
 ├── views/        ← Páginas ligadas a una ruta (wrappers delgados)
 ├── services/     ← Servicios HTTP (providedIn: 'root')
 ├── store/        ← NgRx feature stores
@@ -77,6 +79,7 @@ src/app/
 |---|---|---|
 | Reglas Angular | `angular-rules.instructions.md` | Convenciones generales Angular/TypeScript, singleton |
 | Componentes y Vistas | `components.instructions.md` | Crear componentes, vistas, guards, rutas |
+| Marcha UI Design System | `marcha.instructions.md` | Crear/modificar componentes Marcha (m-*), glassmorphism, CVA patterns |
 | NgRx Store | `store.instructions.md` | Estado, acciones, effects, selectores |
 | Tests | `testing.instructions.md` | Tests Karma/Jasmine: unit, componente, store |
 | i18n | `i18n.instructions.md` | Añadir/editar traducciones |
