@@ -19,6 +19,9 @@ import { Router } from '@angular/router';
 export class InitPage implements OnInit {
   t!: Record<string, string>;
   
+  // Imagen de fondo del hero - preparada para ser dinámica desde el backend
+  heroBackgroundImage = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2670&auto=format&fit=crop';
+  
   constructor(
     private lang: LanguageService,
     private router: Router
@@ -31,7 +34,15 @@ export class InitPage implements OnInit {
       'home.banner.button1',
       'home.banner.button2',
     ]);
+    
+    // TODO: Cargar imagen de fondo desde el backend
+    // this.loadHeroBackground();
   }
+
+  // TODO: Implementar cuando el backend esté listo
+  // private async loadHeroBackground() {
+  //   this.heroBackgroundImage = await this.settingsService.getHeroBackgroundImage();
+  // }
 
   navigateToShop() {
     this.router.navigate(['/shop']);
@@ -43,5 +54,9 @@ export class InitPage implements OnInit {
 
   navigateToContact() {
     this.router.navigate(['/contact']);
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }

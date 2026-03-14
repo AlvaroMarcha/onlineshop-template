@@ -5,27 +5,38 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
-import { MessageService } from 'primeng/api';
-import { FileUploadEvent } from 'primeng/fileupload';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../store/auth/auth.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { ButtonSeverity } from 'primeng/button';
-import { Order, User } from '../../type/types';
+import { Order } from '../../type/types';
 import { formatDate } from '../../shared/dates';
 import { Chart, ChartConfiguration } from 'chart.js';
+import { MAvatar } from '../../components/marcha/m-avatar/m-avatar';
+import { MToast } from '../../components/marcha/m-toast/m-toast';
+import { MDivider } from '../../components/marcha/m-divider/m-divider';
+import { MFloatLabel } from '../../components/marcha/m-float-label/m-float-label';
+import { MInput } from '../../components/marcha/m-input/m-input';
+import { MButton } from '../../components/marcha/m-button/m-button';
+import { MCard } from '../../components/marcha/m-card/m-card';
+import { MTabs, MTabItem, MTabPanel } from '../../components/marcha/m-tabs/m-tabs';
+import { MTable } from '../../components/marcha/m-table/m-table';
+import { MIcon } from '../../components/marcha/m-icon/m-icon';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-client-profile',
   standalone: true,
-  imports: [PrimengModule, FormsModule],
+  imports: [FormsModule, DatePipe, MAvatar, MToast, MDivider, MFloatLabel, MInput, MButton, MCard, MTabs, MTabPanel, MTable],
   templateUrl: './client-profile.html',
 })
 export class ClientProfile implements OnInit, AfterViewInit {
   user$;
   orders!: Order[];
+  tabs: MTabItem[] = [
+    { label: 'Pedidos', icon: 'lucide:receipt' },
+    { label: 'Info', icon: 'lucide:info' }
+  ];
 
   // Queries
   isMobile = window.matchMedia('(max-width: 600px)').matches;
@@ -33,9 +44,10 @@ export class ClientProfile implements OnInit, AfterViewInit {
   isCollapsed: boolean = true;
   isDisabled: boolean = true;
   labelEdit: string = 'Editar';
-  colorEdit: ButtonSeverity = 'warn';
+  colorEdit: 'primary' | 'danger' | 'warn' = 'warn';
+  selectedFile: File | null = null;
 
-  constructor(private messageService: MessageService, public store: Store) {
+  constructor(public store: Store) {
     this.user$ = toSignal(this.store.select(selectUser));
   }
 
@@ -92,6 +104,7 @@ export class ClientProfile implements OnInit, AfterViewInit {
       },
     });
   }
+
   ngOnInit() {
     this.orders = [
       {
@@ -117,19 +130,18 @@ export class ClientProfile implements OnInit, AfterViewInit {
     ];
   }
 
-  onBasicUploadAuto(event: FileUploadEvent) {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Puede tardar unos minutos',
-      detail: 'Archivo subido de forma automática',
-    });
-    this.isCollapsed = true;
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.isCollapsed = true;
+    }
   }
 
   editForm() {
     this.isDisabled = !this.isDisabled;
     this.labelEdit = this.isDisabled ? 'Editar' : 'Guardar';
-    this.colorEdit = this.isDisabled ? 'warn' : 'info';
+    this.colorEdit = this.isDisabled ? 'warn' : 'primary';
   }
 
   cancelForm() {
