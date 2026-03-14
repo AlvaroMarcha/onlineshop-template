@@ -74,7 +74,7 @@
         </div>
       } @else {
         <m-button
-          label="Iniciar sesión"
+          [label]="_isMobile() ? '' : 'Iniciar sesión'"
           icon="lucide:log-in"
           variant="outlined"
           size="small"
@@ -82,7 +82,7 @@
         />
       }
 
-      <!-- Language Toggle -->
+      <!-- Language Toggle — oculto en móvil para no saturar la barra -->
       <m-button
         icon="lucide:globe"
         variant="text"

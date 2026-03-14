@@ -347,6 +347,9 @@
   .m-menubar__logo-sep { display: none; }
   .m-menubar__burger   { display: flex; }
   .m-menubar--bar .m-menubar__inner { padding-inline: 1rem; }
+
+  /* End slot: menos gap en pantallas estrechas */
+  .m-menubar__end { gap: .25rem; }
 }
 
 @media (min-width: 769px) {

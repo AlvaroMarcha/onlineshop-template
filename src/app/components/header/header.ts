@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, HostListener, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
@@ -50,6 +50,11 @@ export class Header implements OnInit {
   isDarkMode = false;
   isLogged;
   showUserMenu = false;
+
+  readonly _isMobile = signal(typeof window !== 'undefined' && window.innerWidth <= 768);
+
+  @HostListener('window:resize')
+  onResize(): void { this._isMobile.set(window.innerWidth <= 768); }
 
   constructor(
     public router: Router,
