@@ -1,11 +1,9 @@
 import { Component, computed, effect } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { PrimeNG } from 'primeng/config';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { HeaderBack } from './components/private/header-back/header-back';
 import { FooterBack } from './components/private/footer-back/footer-back';
-import { PrimengModule } from './shared/primeng/primeng-module';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MToast } from './components/marcha';
 import { Store } from '@ngrx/store';
@@ -21,7 +19,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
     HeaderBack,
     FooterBack,
     RouterOutlet,
-    PrimengModule,
     TranslateModule,
     MToast,
   ],
@@ -39,7 +36,6 @@ export class App {
   });
 
   constructor(
-    private primeng: PrimeNG,
     private translate: TranslateService,
     public router: Router,
     private store: Store
@@ -55,9 +51,7 @@ export class App {
   }
 
   ngOnInit() {
-    this.primeng.ripple.set(true);
     this.translate.addLangs(['en', 'es']);
-    // this.translate.setFallbackLang('es');
     this.translate.setDefaultLang('es');
   }
 }

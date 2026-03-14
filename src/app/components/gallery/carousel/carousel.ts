@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimengModule } from '../../../shared/primeng/primeng-module';
 import { ResponsiveOption } from '../../../type/types';
 
 interface CarouselImage {
@@ -10,7 +9,7 @@ interface CarouselImage {
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [PrimengModule],
+  imports: [],
   templateUrl: './carousel.html',
 })
 export class CarouselComponent implements OnInit {

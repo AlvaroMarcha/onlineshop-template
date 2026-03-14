@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
+import { MButton } from '../marcha/m-button/m-button';
 
 @Component({
   selector: 'app-up-button',
-  imports: [PrimengModule],
+  imports: [MButton],
   templateUrl: './up-button.html',
 })
 export class UpButton {

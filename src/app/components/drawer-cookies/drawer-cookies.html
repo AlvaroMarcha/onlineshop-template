@@ -1,18 +1,16 @@
 <!-- <div class="card flex justify-center">
-  <p-button
-    (click)="showDialog()"
+  <m-button
+    (onClick)="showDialog()"
     label="Mostrar aviso de cookies"
-    icon="pi pi-cog"
+    icon="lucide:settings"
   />
 </div> -->
 
-<p-dialog
+<m-dialog
   header="Preferencias de cookies"
   [(visible)]="visible"
-  [modal]="true"
-  [style]="{ width: '40rem' }"
-  [closable]="false"
-  [dismissableMask]="true"
+  [closeable]="false"
+  size="lg"
 >
   <div class="mb-4">
     <p class="text-lg font-semibold mb-2">🍪 Usamos cookies</p>
@@ -23,15 +21,17 @@
     </p>
   </div>
   <div class="mb-4">
-    <p-button (click)="router.navigate(['/cookies'])" link="true"
-      >Ir a nuestra política de cookies</p-button
-    >
+    <m-button
+      (onClick)="router.navigate(['/cookies'])"
+      label="Ir a nuestra política de cookies"
+      [link]="true"
+    />
   </div>
 
-  <p-divider />
+  <m-divider />
 
   <!-- Sección de configuración -->
-  <div class="flex flex-column gap-3 mt-3">
+  <div class="flex flex-col gap-3 mt-3">
     <div>
       <strong>✅ Cookies necesarias (siempre activas)</strong>
       <p class="text-sm text-color-secondary">
@@ -39,37 +39,34 @@
       </p>
     </div>
 
-    <p-checkbox
-      binary="true"
+    <m-checkbox
       [(ngModel)]="preferences.pref"
       label="Cookies de preferencias"
-    ></p-checkbox>
-    <small class="text-color-secondary"
-      >Recuerdan tus preferencias como idioma o región.</small
-    >
+    />
+    <small class="text-color-secondary">
+      Recuerdan tus preferencias como idioma o región.
+    </small>
 
-    <p-checkbox
-      binary="true"
+    <m-checkbox
       [(ngModel)]="preferences.stats"
       label="Cookies de estadísticas"
-    ></p-checkbox>
-    <small class="text-color-secondary"
-      >Ayudan a mejorar el sitio mediante datos anónimos.</small
-    >
+    />
+    <small class="text-color-secondary">
+      Ayudan a mejorar el sitio mediante datos anónimos.
+    </small>
 
-    <p-checkbox
-      binary="true"
+    <m-checkbox
       [(ngModel)]="preferences.marketing"
       label="Cookies de marketing"
-    ></p-checkbox>
-    <small class="text-color-secondary"
-      >Usadas para mostrar anuncios personalizados.</small
-    >
+    />
+    <small class="text-color-secondary">
+      Usadas para mostrar anuncios personalizados.
+    </small>
   </div>
 
   <div class="flex justify-end gap-2 mt-4">
-    <p-button label="Rechazar todas" (click)="rejectAll()"></p-button>
-    <p-button label="Aceptar todas" (click)="acceptAll()"></p-button>
-    <p-button label="Guardar prefencias" (click)="savePreferences()"></p-button>
+    <m-button label="Rechazar todas" (onClick)="rejectAll()" />
+    <m-button label="Aceptar todas" (onClick)="acceptAll()" severity="primary" />
+    <m-button label="Guardar preferencias" (onClick)="savePreferences()" severity="success" />
   </div>
-</p-dialog>
+</m-dialog>

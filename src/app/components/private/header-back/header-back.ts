@@ -1,13 +1,23 @@
 import { Component } from '@angular/core';
-import { PrimengModule } from '../../../shared/primeng/primeng-module';
-import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { logout } from '../../../store/auth/auth.actions';
+import { MButton } from '../../marcha/m-button/m-button';
+import { MAvatar } from '../../marcha/m-avatar/m-avatar';
+import { MDrawer } from '../../marcha/m-drawer/m-drawer';
+import { MIcon } from '../../marcha/m-icon/m-icon';
+
+interface MenuItem {
+  label: string;
+  icon: string;
+  command?: () => void;
+  expanded?: boolean;
+  items?: MenuItem[];
+}
 
 @Component({
   selector: 'app-header-back',
-  imports: [PrimengModule],
+  imports: [MButton, MAvatar, MDrawer, MIcon],
   templateUrl: './header-back.html',
 })
 export class HeaderBack {
@@ -20,34 +30,34 @@ export class HeaderBack {
     this.menuItems = [
       {
         label: 'Dashboard',
-        icon: 'pi pi-home',
+        icon: 'lucide:home',
         command: () => this.router.navigate(['/admin/dashboard']),
       },
       {
         label: 'Usuarios',
-        icon: 'pi pi-users',
+        icon: 'lucide:users',
         expanded: false,
         items: [
-          { label: 'Listado', icon: 'pi pi-list' },
-          { label: 'Roles', icon: 'pi pi-shield' },
+          { label: 'Listado', icon: 'lucide:list' },
+          { label: 'Roles', icon: 'lucide:shield' },
         ],
       },
       {
         label: 'Productos',
-        icon: 'pi pi-box',
+        icon: 'lucide:box',
         expanded: false,
         items: [
-          { label: 'Inventario', icon: 'pi pi-database' },
-          { label: 'Categorías', icon: 'pi pi-tags' },
+          { label: 'Inventario', icon: 'lucide:database' },
+          { label: 'Categorías', icon: 'lucide:tags' },
         ],
       },
       {
         label: 'Pedidos',
-        icon: 'pi pi-shopping-cart',
+        icon: 'lucide:shopping-cart',
       },
       {
         label: 'Ajustes',
-        icon: 'pi pi-cog',
+        icon: 'lucide:settings',
       },
     ];
   }

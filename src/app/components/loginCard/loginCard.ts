@@ -3,15 +3,19 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { loginRequestInit } from '../../store/auth/auth.actions';
 import { selectAuthError, selectUser } from '../../store/auth/auth.selectors';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MCard } from '../marcha/m-card/m-card';
+import { MInput } from '../marcha/m-input/m-input';
+import { MPassword } from '../marcha/m-password/m-password';
+import { MButton } from '../marcha/m-button/m-button';
+import { MMessage } from '../marcha/m-message/m-message';
 
 @Component({
   selector: 'app-loginCard',
   standalone: true,
-  imports: [ReactiveFormsModule, PrimengModule, TranslateModule],
+  imports: [ReactiveFormsModule, TranslateModule, MCard, MInput, MPassword, MButton, MMessage],
   templateUrl: './loginCard.html',
   styleUrl: './loginCard.css',
 })

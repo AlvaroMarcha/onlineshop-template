@@ -10,13 +10,6 @@
   box-shadow: 0 2px 10px rgba(47, 196, 158, 0.219);
 }
 
-::ng-deep input,
-p-password {
-  padding: 10;
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
 /* Media queries */
 @media (max-width: 720px) {
   .register-card {

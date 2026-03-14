@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../services/language-service';
 import { ActivatedRoute } from '@angular/router';
-import { GalleriaImage, ProductItem, ResponsiveOption, SizesItems } from '../../type/types';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
+import { GalleriaImage, ProductItem, SizesItems } from '../../type/types';
 import { FormsModule } from '@angular/forms';
 import { ProductReviews } from '../product-reviews/product-reviews';
+import { MCard } from '../marcha/m-card/m-card';
+import { MDialog } from '../marcha/m-dialog/m-dialog';
+import { MAccordion } from '../marcha/m-accordion/m-accordion';
+import { MButton } from '../marcha/m-button/m-button';
+import { MSelect, MSelectOption } from '../marcha/m-select/m-select';
+import { MIcon } from '../marcha/m-icon/m-icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-component',
-  imports: [PrimengModule, FormsModule, ProductReviews],
+  imports: [FormsModule, CommonModule, ProductReviews, MCard, MButton, MSelect, MIcon],
   templateUrl: './product-component.html',
   styleUrl: './product-component.css',
 })
@@ -17,26 +23,19 @@ export class Product implements OnInit {
   singleProduct?: ProductItem;
   t!: Record<string, string>;
   id!: string;
-  active: string | string[] | number[] | number = 0;
+  active: number = 0;
   images: GalleriaImage[] = [];
   sizes!: SizesItems[];
   selectedSize!: SizesItems;
-
-  responsiveOptions: ResponsiveOption[] = [
-    {
-      breakpoint: '1300px',
-      numVisible: 4,
-      numScroll: 1,
-    },
-    {
-      breakpoint: '575px',
-      numVisible: 1,
-      numScroll: 1,
-    },
-  ];
+  showImageDialog = false;
 
   constructor(private lang: LanguageService, private route: ActivatedRoute) {
     this.products = [];
+  }
+
+  /** Transforma SizesItems[] a MSelectOption[] para m-select */
+  get sizesOptions(): MSelectOption[] {
+    return this.sizes?.map(size => ({ label: size.name, value: size.code })) || [];
   }
   async ngOnInit() {
     //Recovery product ID from the route
@@ -130,7 +129,15 @@ export class Product implements OnInit {
     );
   }
 
-  activeIndexChange(index: number) {
+  nextImage() {
+    this.active = (this.active + 1) % this.images.length;
+  }
+
+  prevImage() {
+    this.active = (this.active - 1 + this.images.length) % this.images.length;
+  }
+
+  selectImage(index: number) {
     this.active = index;
   }
 }

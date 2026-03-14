@@ -1,76 +1,39 @@
-<!-- Hero Section - Diseño asimétrico con glassmorphism -->
-<section class="hero-section">
-  <!-- Animated gradient background -->
-  <div class="gradient-bg"></div>
-  <div class="gradient-orb orb-1"></div>
-  <div class="gradient-orb orb-2"></div>
-  <div class="gradient-orb orb-3"></div>
+<!-- Hero Section - Full screen con imagen de fondo dinámica -->
+<section class="hero-section" [style.background-image]="'url(' + heroBackgroundImage + ')'">
+  <!-- Dark overlay para legibilidad -->
+  <div class="hero-overlay"></div>
+  
+  <!-- Contenido centrado -->
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+      <!-- Título principal -->
+      <h1 class="hero-title">
+        {{ 'home.banner.title' | translate }}
+      </h1>
+      
+      <!-- Subtítulo -->
+      <p class="hero-subtitle">
+        {{ 'home.banner.subtitle' | translate }}
+      </p>
 
-  <div class="hero-container">
-    <!-- Main hero card - floating glassmorphism -->
-    <div class="hero-main">
-      <m-card variant="glass" padding="lg" styleClass="hero-card">
-        <div class="hero-content">
-          <!-- Badge nuevo -->
-          <div class="flex items-center gap-2 mb-6">
-            <m-badge value="Nuevo" severity="success" size="normal" />
-            <m-chip label="Stock limitado" severity="warn" size="sm" [dot]="true" />
-          </div>
-
-          <h1 class="hero-title">
-            {{ 'home.banner.title' | translate }}
-          </h1>
-          
-          <p class="hero-subtitle">
-            {{ 'home.banner.subtitle' | translate }}
-          </p>
-
-          <div class="hero-actions">
-            <m-button
-              [label]="'home.banner.button1' | translate"
-              icon="lucide:shopping-bag"
-              severity="primary"
-              size="large"
-              (onClick)="navigateToShop()"
-            />
-            <m-button
-              [label]="'home.banner.button2' | translate"
-              icon="lucide:arrow-right"
-              variant="outlined"
-              severity="secondary"
-              size="large"
-              (onClick)="navigateToAbout()"
-            />
-          </div>
-        </div>
-      </m-card>
-    </div>
-
-    <!-- Floating stats cards - asimétrico -->
-    <div class="floating-cards">
-      <m-card variant="glass" padding="md" styleClass="stat-card stat-card-1">
-        <div class="stat-content">
-          <m-icon icon="lucide:users" size="32" class="stat-icon text-primary" />
-          <div class="stat-number">10K+</div>
-          <div class="stat-label">Clientes felices</div>
-        </div>
-      </m-card>
-
-      <m-card variant="glass" padding="md" styleClass="stat-card stat-card-2">
-        <div class="stat-content">
-          <m-icon icon="lucide:package" size="32" class="stat-icon text-success" />
-          <div class="stat-number">500+</div>
-          <div class="stat-label">Productos</div>
-        </div>
-      </m-card>
-
-      <m-card variant="glass" padding="md" styleClass="stat-card stat-card-3">
-        <div class="stat-content">
-          <m-icon icon="lucide:star" size="32" class="stat-icon text-warn" />
-          <div class="stat-number">4.9/5</div>
-          <div class="stat-label">Valoración</div>
-        </div>
-      </m-card>
+      <!-- Botones de acción -->
+      <div class="hero-actions">
+        <m-button
+          [label]="'home.banner.button2' | translate"
+          variant="outlined"
+          severity="secondary"
+          size="large"
+          styleClass="btn-outline-white"
+          (onClick)="navigateToAbout()"
+        />
+        <m-button
+          [label]="'home.banner.button1' | translate"
+          severity="primary"
+          size="large"
+          styleClass="btn-primary-glow"
+          (onClick)="navigateToRegister()"
+        />
+      </div>
     </div>
   </div>
 </section>

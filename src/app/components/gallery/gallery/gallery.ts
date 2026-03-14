@@ -1,13 +1,21 @@
 import { Component, OnInit, model, effect } from '@angular/core';
-import { PrimengModule } from '../../../shared/primeng/primeng-module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PaginatorState } from 'primeng/paginator';
 import { ImgItem } from '../../../type/types';
+import { MMessage } from '../../marcha/m-message/m-message';
+import { MButton } from '../../marcha/m-button/m-button';
+import { MDialog } from '../../marcha/m-dialog/m-dialog';
+
+interface PaginatorState {
+  first?: number;
+  rows?: number;
+  page?: number;
+  pageCount?: number;
+}
 
 @Component({
   selector: 'app-gallery',
-  imports: [PrimengModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MMessage, MButton, MDialog],
   templateUrl: './gallery.html',
 })
 export class Gallery implements OnInit {
@@ -19,6 +27,9 @@ export class Gallery implements OnInit {
   // Paginator
   first: number = 0;
   rows: number = 4;
+
+  // Expose Math to template
+  Math = Math;
 
   constructor() {
     effect(() => {

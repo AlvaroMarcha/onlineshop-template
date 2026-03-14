@@ -1,65 +1,57 @@
-<p-card class="register-card">
-  <ng-template #title>{{ 'register.title' | translate }}</ng-template>
+<m-card class="register-card" [header]="'register.title' | translate">
   <form [formGroup]="registerForm">
     <div class="flex flex-row gap-4">
-      <input
-        [style]="{width: '50%', float: 'left'}"
+      <m-input
+        styleClass="w-1/2"
         formControlName="name"
         type="text"
-        pInputText
         [placeholder]="'register.form.name' | translate"
       />
-      <input
+      <m-input
+        styleClass="flex-1"
         formControlName="surnames"
         type="text"
-        pInputText
         [placeholder]="'register.form.surnames' | translate"
       />
     </div>
-    <input
+    <m-input
+      styleClass="w-full"
       formControlName="username"
       type="text"
-      pInputText
       [placeholder]="'register.form.username' | translate"
     />
-    <input
+    <m-input
+      styleClass="w-full"
       formControlName="email"
-      type="text"
-      pInputText
+      type="email"
       [placeholder]="'register.form.email' | translate"
     />
-    <p-inputmask
-      class="w-full sm:w-40 float-left"
-      mask="+34 999-999-999"
+    <m-input
+      styleClass="w-full"
       formControlName="phone"
+      type="tel"
       [placeholder]="'register.form.phone' | translate"
     />
     <div class="mt-10">
-      <p-password
-        style="width: 100%; margin-bottom: 0px !important"
+      <m-password
+        styleClass="w-full"
         formControlName="password"
         [placeholder]="'register.form.password' | translate"
-        [feedback]="true"
       />
-      <p-password
-        style="width: 100%"
+      <m-password
+        styleClass="w-full"
         formControlName="confirmPassword"
         [placeholder]="'register.form.confirm_password' | translate"
-        [feedback]="true"
       />
     </div>
     <div class="card flex justify-start m-2">
       <div class="flex flex-col gap-4" formArrayName="termsList">
         @for (term of legal; track term.name; let i = $index) {
         <div class="flex items-center">
-          <p-checkbox
-            [inputId]="term.name"
-            [binary]="true"
+          <m-checkbox
             [formControlName]="i"
+            [label]="term.label | translate"
           />
-          <label [for]="term.name" class="ml-2">
-            {{ term.label | translate }}
-          </label>
         </div>
         }
       </div>
@@ -69,42 +61,32 @@
   @if(registerForm.invalid && registerForm.touched) {
     @if(registerForm.hasError('passwordsMismatch')) {
     <div class="flexbox w-full mb-5">
-      <p-message severity="warn">
-        <i class="pi pi-info-circle"></i>
-        <span class="ml-2">{{ 'validation.passwords_mismatch' | translate }}</span>
-      </p-message>
+      <m-message severity="warn" [title]="'validation.passwords_mismatch' | translate" />
     </div>
     } @else {
     <div class="flexbox w-full mb-5">
-      <p-message severity="error">
-        <i class="pi pi-info-circle"></i>
-        <span class="ml-2">{{ 'validation.required' | translate }}</span>
-      </p-message>
+      <m-message severity="error" [title]="'validation.required' | translate" />
     </div>
     }
   }
   @if(termsError) {
   <div class="flexbox w-full mb-5">
-    <p-message severity="warn">
-      <i class="pi pi-info-circle"></i>
-      <span class="ml-2">{{ 'validation.terms_required' | translate }}</span>
-    </p-message>
+    <m-message severity="warn" [title]="'validation.terms_required' | translate" />
   </div>
   }
-  <p-button
-    [style]="{width: '100%'}"
+  <m-button
+    styleClass="w-full"
     [label]="'register.form.register_button' | translate"
-    icon="pi pi-user-plus"
+    icon="lucide:user-plus"
     iconPos="left"
     size="small"
     [loading]="loading"
     (onClick)="onRegister()"
   />
-  <p-button
-    [style]="{width: '100%', marginTop: '10px'}"
+  <m-button
+    styleClass="w-full mt-2"
     [label]="'register.form.login_link' | translate"
-    (click)="router.navigate(['/login'])"
-    link=""
-    ripple="false"
+    (onClick)="router.navigate(['/login'])"
+    [link]="true"
   />
-</p-card>
+</m-card>
