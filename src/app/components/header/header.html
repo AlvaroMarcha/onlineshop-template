@@ -1,124 +1,133 @@
-<div class="card" id="header">
-  <p-menubar [model]="items">
-    <ng-template pTemplate="start">
-      <p-image
-        class="rounded-full"
-        id="principal-logo"
-        src="logos/principal.jpg"
-        alt="Principal logo"
-        width="50"
+<!-- Modern Marcha UI Header with Glassmorphism -->
+<div class="fixed top-0 left-0 right-0 z-[1000] header-wrapper">
+  <m-menubar
+    [items]="menubarItems"
+    logo="logos/principal.jpg"
+    [fullWidth]="true"
+    [contained]="true"
+    (itemClick)="onMenuItemClick($event)"
+    (logoClick)="onLogoClick()"
+  >
+    <div class="flex items-center gap-3">
+      <!-- Dark/Light Toggle - usar botón simple por ahora -->
+      <m-button
+        [icon]="isDarkMode ? 'lucide:moon' : 'lucide:sun'"
+        variant="text"
+        [rounded]="true"
+        (onClick)="toggleDarkMode()"
       />
-    </ng-template>
-    <ng-template pTemplate="end">
-      <div class="flex flex-row items-center gap-3">
-        <!-- Dark/Light -->
-        <p-toggleButton
-          [(ngModel)]="isDarkMode"
-          onLabel="Oscuro"
-          offLabel="Claro"
-          [onIcon]="'pi pi-moon'"
-          offIcon="pi pi-sun"
-          size="small"
-          styleClass="min-w-10"
-          (ngModelChange)="toggleDarkMode()"
-        ></p-toggleButton>
 
-        <!-- Cart badge -->
-        <div class="relative flex items-center justify-center">
-          @if (itemsCartCount() > 0) {
-          <p-overlayBadge [value]="itemsCartCount()" badgeSize="small">
-            <p-button
-              icon="pi pi-cart-minus"
+      <!-- Cart with badge -->
+      <div class="relative">
+        @if (itemsCartCount() > 0) {
+          <m-overlay-badge [value]="itemsCartCount()" severity="danger">
+            <m-button
+              icon="lucide:shopping-cart"
+              variant="text"
               [rounded]="true"
-              (click)="showDialog()"
-              link
-            ></p-button>
-          </p-overlayBadge>
-          } @else {
-          <p-button
-            icon="pi pi-cart-minus"
-            [rounded]="true"
-            (click)="showDialog()"
-            link
-          ></p-button>
-          }
-        </div>
-
-        <!-- User -->
-        @if (this.isLogged()) {
-        <p-button
-          severity="help"
-          icon="pi pi-user"
-          [rounded]="true"
-          (click)="menuClients.toggle($event)"
-        />
-        <p-tieredmenu #menuClients [model]="clientItems" [popup]="true" />
+              (onClick)="showDialog()"
+            />
+          </m-overlay-badge>
         } @else {
-        <p-button
-          icon="pi pi-user"
-          [rounded]="true"
-          (click)="menu.toggle($event)"
-        />
-        <p-tieredmenu #menu [model]="itemsTiered" [popup]="true" />
+          <m-button
+            icon="lucide:shopping-cart"
+            variant="text"
+            [rounded]="true"
+            (onClick)="showDialog()"
+          />
         }
       </div>
-    </ng-template>
-  </p-menubar>
 
-  <!-- Cart Dialog -->
-  <p-dialog
-    styleClass="w-full md:max-w-[35rem] "
-    [modal]="true"
-    [(visible)]="visible"
-    position="bottomright"
-    [baseZIndex]="10000"
-    [draggable]="false"
-    [resizable]="false"
-    [dismissableMask]="true"
-  >
-    <ng-template pTemplate="header">
-      <div class="flex flex-row justify-center-safe w-full items-center">
-        <p class="text-2xl">{{'cart.title' | translate}}</p>
-        <p class="text-xl text- ml-4">
-          Total:
-          <span class="text-amber-200 font-bold"
-            >{{totalAmount()?.toFixed(2)}}</span
-          >
-          €
-        </p>
-      </div>
-    </ng-template>
-    <div class="px-4 pb-4">
-      <app-cart></app-cart>
-    </div>
-
-    <ng-template pTemplate="footer">
-      <div class="flex flex-col md:flex-row w-full">
-        <p-button
-          styleClass="flex w-full md:w-[350px]"
-          [label]="'cart.checkout_button' | translate"
-        ></p-button>
-        <p-button
-          styleClass="flex w-full md:ml-2 mt-2 md:mt-0"
-          [label]="'cart.empty' | translate"
-          severity="danger"
-          (onClick)="clearCart()"
-          (click)="visible = false; showToastEmtpyCart()"
+      <!-- User Menu -->
+      @if (isLogged()) {
+        <div class="relative">
+          <m-button
+            icon="lucide:user"
+            severity="help"
+            variant="filled"
+            [rounded]="true"
+            (onClick)="toggleUserMenu()"
+          />
+          @if (showUserMenu) {
+            <div class="absolute right-0 top-12 min-w-[200px] user-menu-dropdown">
+              <m-card variant="glass" padding="sm">
+                <div class="flex flex-col gap-2">
+                  <m-button
+                    label="Perfil"
+                    icon="lucide:user-circle"
+                    variant="text"
+                    [full]="true"
+                    (onClick)="onProfileClick()"
+                  />
+                  <m-button
+                    label="Cerrar sesión"
+                    icon="lucide:log-out"
+                    variant="text"
+                    severity="danger"
+                    [full]="true"
+                    (onClick)="onLogoutClick()"
+                  />
+                </div>
+              </m-card>
+            </div>
+          }
+        </div>
+      } @else {
+        <m-button
+          label="Iniciar sesión"
+          icon="lucide:log-in"
+          variant="outlined"
+          size="small"
+          (onClick)="onLoginClick()"
         />
-      </div>
-    </ng-template>
-  </p-dialog>
+      }
 
-  <div class="card flex justify-center">
-    <p-toast [breakpoints]="{ '920px': { width: '90%' } }" />
-  </div>
+      <!-- Language Toggle -->
+      <m-button
+        icon="lucide:globe"
+        variant="text"
+        [rounded]="true"
+        (onClick)="toggleLanguage()"
+      />
+    </div>
+  </m-menubar>
 </div>
-<div
-  class="fixed bg-slate-600 bottom-0 left-1/2 transform -translate-x-1/2 mb-4 z-[999] flex flex-row gap-1 p-2 rounded-full"
+
+<!-- Cart Dialog -->
+<m-dialog
+  [(visible)]="visible"
+  [closeable]="true"
+  header="Carrito de compras"
+  size="lg"
 >
-  <app-search></app-search>
-  <app-up-button></app-up-button>
-</div>
-<div>
-  <app-drawer-cookies></app-drawer-cookies>
-</div>
+  <div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold">{{'cart.title' | translate}}</h2>
+      <div class="text-xl">
+        <span class="text-gray-500">Total:</span>
+        <span class="text-primary font-bold ml-2">{{totalAmount()?.toFixed(2)}} €</span>
+      </div>
+    </div>
+    
+    <app-cart></app-cart>
+
+    <div class="mt-6 flex flex-col gap-3">
+      <m-button
+        [label]="'cart.checkout_button' | translate"
+        severity="primary"
+        [full]="true"
+        size="large"
+      />
+      <m-button
+        label="Vaciar carrito"
+        variant="outlined"
+        severity="danger"
+        [full]="true"
+        (onClick)="clearCart(); showToastEmtpyCart()"
+      />
+    </div>
+  </div>
+</m-dialog>
+
+<app-up-button />
+<app-drawer-cookies />

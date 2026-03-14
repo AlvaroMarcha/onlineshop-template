@@ -1,3 +1,32 @@
+.header-wrapper {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.user-menu-dropdown {
+  animation: slideDown 0.2s ease-out;
+  z-index: 1001;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+:host-context(.dark) .header-wrapper {
+  background: rgba(17, 24, 39, 0.7);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
 #principal-logo {
   margin-right: 30px;
 }
