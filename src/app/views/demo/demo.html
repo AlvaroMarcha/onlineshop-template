@@ -49,6 +49,7 @@
       </m-card>
       <m-card header="Navegacion" variant="flat" padding="sm">
         <div class="demo-row">
+          <m-badge value="m-menubar" severity="success" />
           <m-badge value="m-context-menu" severity="secondary" />
           <m-badge value="m-toggle-button" severity="success" />
           <m-badge value="m-panel-menu" severity="secondary" />
@@ -604,5 +605,50 @@
       <m-toggle-button icon="lucide:italic" title="Cursiva" />
       <m-toggle-button icon="lucide:underline" title="Subrayado" />
     </div>
+  </section>
+
+  <m-divider label="Menubar" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-menubar &middot; Barra de navegación responsive</h2>
+
+    <p class="demo-label">Island (width: fit-content · glassmorphism)</p>
+    <m-menubar [items]="menubarItems" (itemClick)="lastMenuClick = $any($event).label" />
+
+    <p class="demo-label" style="margin-top: 1.5rem">Bar mode · Logo + contenido centrado (contained)</p>
+    <div style="margin-inline: -1.5rem">
+      <m-menubar
+        logo="Marcha UI"
+        logoIcon="lucide:layers"
+        [items]="navbarItems"
+        [contained]="true"
+        maxWidth="1100px"
+        (itemClick)="lastMenuClick = $any($event).label"
+        (logoClick)="lastMenuClick = 'logo'"
+      >
+        <m-button label="Entrar" severity="primary" icon="lucide:log-in" />
+      </m-menubar>
+    </div>
+
+    <p class="demo-label" style="margin-top: 1.5rem">Bar mode · Slot derecho con acciones</p>
+    <div style="margin-inline: -1.5rem">
+      <m-menubar
+        logo="Studio"
+        logoIcon="lucide:sliders"
+        [items]="menubarItems"
+        [fullWidth]="true"
+        (itemClick)="lastMenuClick = $any($event).label"
+      >
+        <m-button icon="lucide:bell"   variant="text" severity="secondary" />
+        <m-button icon="lucide:user"   variant="text" severity="secondary" />
+        <m-button icon="lucide:log-in" severity="primary" />
+      </m-menubar>
+    </div>
+
+    @if (lastMenuClick) {
+      <p style="margin-top: .75rem; font-size: .875rem; color: var(--m-text-muted)">
+        Último click: <code>{{ lastMenuClick }}</code>
+      </p>
+    }
   </section>
 </div>
