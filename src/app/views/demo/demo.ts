@@ -7,7 +7,7 @@ import {
   MCheckbox, MNumberInput, MFloatLabel,
   MSelect, MRadioGroup, MRangeSlider,
   MMessage, MDialog, MDrawer,
-  MTabs, MTabPanel,
+  MTabs,
   MAccordion,
   MChip, MTooltip,
   MCalendar,
@@ -18,6 +18,7 @@ import {
   MDataview,
   MFileUpload, MFileUploadValidationError,
   MRating,
+  MComposer, MComposerSubmit,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
   MSortableItem, MMenubarItem, MDataviewSortOption,
@@ -34,7 +35,7 @@ import {
     MCheckbox, MNumberInput, MFloatLabel,
     MSelect, MRadioGroup, MRangeSlider,
     MMessage, MDialog, MDrawer,
-    MTabs, MTabPanel,
+    MTabs,
     MAccordion,
     MChip, MTooltip,
     MCalendar,
@@ -44,6 +45,7 @@ import {
     MToggleSwitch, MCopy, MSortable,
     MDataview, MFileUpload,
     MRating,
+    MComposer,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -270,6 +272,15 @@ export class Demo {
 
   // Rating
   demoRating = signal<number>(3);
+
+  // Composer
+  composerDialogOpen  = signal(false);
+  composerLastSubmit  = signal<MComposerSubmit | null>(null);
+  composerAttachDialog = signal(false);
+
+  onComposerSubmit(payload: MComposerSubmit): void {
+    this.composerLastSubmit.set(payload);
+  }
 
   // File Upload
   demoUploading  = signal(false);

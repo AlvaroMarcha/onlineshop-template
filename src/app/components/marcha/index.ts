@@ -105,3 +105,7 @@ export type { MFileUploadValidationError } from './m-file-upload/m-file-upload';
 // Rating
 export { MRating } from './m-rating/m-rating';
 export type { MRatingSize } from './m-rating/m-rating';
+
+// Composer
+export { MComposer } from './m-composer/m-composer';
+export type { MComposerMode, MComposerSubmit } from './m-composer/m-composer';

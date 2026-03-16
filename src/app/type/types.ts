@@ -162,6 +162,7 @@ export interface Product {
   featured: boolean;
   digital: boolean;
   slug: string;
+  reviews?: ProductReviewsItem[];
 }
 
 export interface Order {

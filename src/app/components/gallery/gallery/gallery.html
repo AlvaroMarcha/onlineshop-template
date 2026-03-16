@@ -26,10 +26,10 @@
     size="xl"
   >
     <div>
-      <m-message severity="info" [title]="pagedImages[activeIndexPage]?.title || ''" />
+      <m-message severity="info" [title]="pagedImages[activeIndexPage].title || ''" />
       <img
-        [src]="pagedImages[activeIndexPage]?.itemImageSrc"
-        [alt]="pagedImages[activeIndexPage]?.alt || pagedImages[activeIndexPage]?.title || ''"
+        [src]="pagedImages[activeIndexPage].itemImageSrc"
+        [alt]="pagedImages[activeIndexPage].alt || pagedImages[activeIndexPage].title || ''"
         style="width: 100%; height: 600px; object-fit: contain; display: block"
       />
       <div class="flex justify-between mt-4">

@@ -7,18 +7,20 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { selectProducts } from '../../store/products/products.selector';
 import { allProductsRequestInit } from '../../store/products/products.actions';
 import { addToCart } from '../../store/cart/cart.actions';
-import { Product, ProductCartItem } from '../../type/types';
+import { selectUser } from '../../store/auth/auth.selectors';
+import { Product, ProductCartItem, User } from '../../type/types';
 import { MButton } from '../../components/marcha/m-button/m-button';
 import { MChip } from '../../components/marcha/m-chip/m-chip';
 import { MIcon } from '../../components/marcha/m-icon/m-icon';
 import { MDivider } from '../../components/marcha/m-divider/m-divider';
 import { MRating } from '../../components/marcha/m-rating/m-rating';
+import { ProductReviews } from '../../components/product-reviews/product-reviews';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   imports: [TranslateModule, RouterModule, CurrencyPipe, DecimalPipe,
-            MButton, MChip, MIcon, MDivider, MRating],
+            MButton, MChip, MIcon, MDivider, MRating, ProductReviews],
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
@@ -28,6 +30,8 @@ export class ProductView implements OnInit {
   activeImageIdx = signal(0);
 
   private allProducts$!: Signal<Product[]>;
+  private _authUser!: Signal<User | null>;
+  currentUsername = computed<string>(() => this._authUser?.()?.username ?? '');
 
   product = computed<Product | undefined>(() =>
     this.allProducts$().find(p => p.id === this.productId())
@@ -54,6 +58,10 @@ export class ProductView implements OnInit {
   });
 
   constructor(private store: Store, private route: ActivatedRoute) {
+    this._authUser = toSignal(
+      this.store.select(selectUser),
+      { initialValue: null },
+    );
     this.allProducts$ = toSignal(
       this.store.select(selectProducts),
       { initialValue: [] as Product[] },
