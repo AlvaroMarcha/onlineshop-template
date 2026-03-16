@@ -188,16 +188,20 @@
   },
   "login": {
     "title": "Iniciar sesión",
+    "subtitle": "Accede a tu cuenta para continuar",
     "form": {
-      "both": "Usuario o correo electrónico",
-      "usename": "Usuario",
-      "email": "Correo electrónico",
+      "username": "Usuario o correo electrónico",
+      "username_placeholder": "Ingresa tu usuario o email",
+      "username_required": "El usuario o email es requerido",
       "password": "Contraseña",
-      "remember_me": "Recordarme",
-      "forgot_password": "¿Olvidaste tu contraseña?",
-      "login_button": "Iniciar sesión",
-      "no_account": "¿No tienes una cuenta? Regístrate"
-    }
+      "password_placeholder": "Ingresa tu contraseña",
+      "password_required": "La contraseña es requerida",
+      "submit": "Iniciar sesión"
+    },
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "or": "O",
+    "no_account": "¿No tienes una cuenta?",
+    "register_link": "Regístrate aquí"
   },
   "register": {
     "title": "Registrarse",

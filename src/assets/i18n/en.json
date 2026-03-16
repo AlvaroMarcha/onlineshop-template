@@ -187,17 +187,21 @@
     "email_contact": "Correo electrónico"
   },
   "login": {
-    "title": "Iniciar sesión",
+    "title": "Sign in",
+    "subtitle": "Access your account to continue",
     "form": {
-      "both": "Usuario o correo electrónico",
-      "usename": "Usuario",
-      "email": "Correo electrónico",
-      "password": "Contraseña",
-      "remember_me": "Recordarme",
-      "forgot_password": "¿Olvidaste tu contraseña?",
-      "login_button": "Iniciar sesión",
-      "no_account": "¿No tienes una cuenta? Regístrate"
-    }
+      "username": "Username or email",
+      "username_placeholder": "Enter your username or email",
+      "username_required": "Username or email is required",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "password_required": "Password is required",
+      "submit": "Sign in"
+    },
+    "forgot_password": "Forgot your password?",
+    "or": "OR",
+    "no_account": "Don't have an account?",
+    "register_link": "Sign up here"
   },
   "register": {
     "title": "Registrarse",

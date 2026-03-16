@@ -5,6 +5,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MIcon } from '../m-icon/m-icon';
 
 export type MInputType = 'text' | 'email' | 'tel' | 'url' | 'search';
+export type MInputSize = 'small' | 'medium' | 'large';
 
 @Component({
   selector: 'm-input',
@@ -26,6 +27,7 @@ export class MInput implements ControlValueAccessor {
   @Input() icon = '';
   @Input() iconPos: 'left' | 'right' = 'left';
   @Input() type: MInputType = 'text';
+  @Input() size: MInputSize = 'medium';
   @Input() invalid = false;
 
   readonly value = signal('');

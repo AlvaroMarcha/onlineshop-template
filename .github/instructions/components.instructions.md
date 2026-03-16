@@ -47,6 +47,98 @@ export class ProductCard {
 
 ---
 
+## Convenciones de tamaño en componentes Marcha UI
+
+**Tamaño por defecto**: `size="small"` para todos los componentes Marcha UI.
+
+Los componentes Marcha UI (m-button, m-input, m-password, m-select, etc.) soportan tamaños: `small`, `medium`, `large`.
+
+**Regla**: usar **`size="small"`** por defecto en toda la aplicación para mantener consistencia visual y diseño compacto.
+
+```html
+<!-- ✅ Correcto - size="small" por defecto -->
+<m-input formControlName="username" size="small" icon="lucide:user" />
+<m-password formControlName="password" size="small" />
+<m-button type="submit" severity="primary" size="small" [label]="'Enviar'" />
+
+<!-- ⚠️ Solo usar otros tamaños cuando haya razón específica de UX -->
+<m-button size="large" [label]="'CTA Principal'" /> <!-- Hero button -->
+```
+
+### Centrado de botones
+
+Para botones pequeños que no deben ocupar todo el ancho del contenedor:
+
+```html
+<!-- ✅ Botón centrado sin w-full -->
+<div class="flex justify-center mt-2">
+  <m-button type="submit" severity="primary" size="small" [label]="'Enviar'" />
+</div>
+
+<!-- ❌ Evitar w-full en botones pequeños -->
+<m-button size="small" class="w-full" /> <!-- Se ve extraño -->
+```
+
+---
+
+## Encapsulamiento de estilos y ::ng-deep
+
+Angular usa **ViewEncapsulation.Emulated** por defecto, lo que aísla los estilos de cada componente. Esto impide que los estilos CSS de un padre penetren en componentes hijos standalone.
+
+### Problema común
+
+```css
+/* ❌ NO FUNCIONA - No penetra el componente hijo */
+.parent-class m-card {
+  width: 100%;
+  padding: 2rem;
+}
+```
+
+Si `m-card` es un componente standalone, el selector CSS anterior **no aplicará** los estilos al componente hijo debido al encapsulamiento.
+
+### Solución: usar ::ng-deep
+
+```css
+/* ✅ FUNCIONA - Penetra el encapsulamiento */
+::ng-deep .parent-class m-card {
+  width: 100%;
+  padding: 2rem;
+}
+```
+
+**Regla**: cuando necesites aplicar estilos a componentes hijos (especialmente de Marcha UI como `m-card`, `m-button`, etc.), usa `::ng-deep` para penetrar el encapsulamiento.
+
+### Pattern completo para componentes wrapper
+
+```css
+/* Componente host */
+:host {
+  display: block;
+  width: 100%;
+}
+
+.wrapper {
+  width: 40%;
+  margin: 0 auto;
+}
+
+/* Penetrar encapsulamiento para hijos */
+::ng-deep .wrapper m-card {
+  width: 100%;
+  padding: 4rem;
+}
+```
+
+### Cuándo usar ::ng-deep
+
+- **SÍ**: Aplicar estilos a componentes hijos de Marcha UI (m-card, m-button, m-input, etc.)
+- **SÍ**: Overrides de estilos de third-party components (PrimeNG si se usa)
+- **NO**: Para estilos normales dentro del mismo componente
+- **NO**: Para estilos globales (usar `styles.css` en su lugar)
+
+---
+
 ## Crear una nueva vista
 
 **Carpeta**: `src/app/views/<view-name>/`  
