@@ -91,6 +91,20 @@ export interface Address {
 }
 
 /**
+ * Request de registro.
+ * Backend: es.marcha.backend.core.auth.application.dto.request.RegisterRequestDTO
+ */
+export interface RegisterRequest {
+  name: string;
+  surname: string;
+  username: string;
+  email: string;
+  password: string;
+  phone: string;
+  termsAccepted: boolean;
+}
+
+/**
  * Response del login/register/refresh.
  * Backend: es.marcha.backend.core.auth.application.dto.response.AuthResponseDTO
  */

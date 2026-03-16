@@ -6,6 +6,7 @@ import { provideRouter } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { RegisterCard, passwordsMatchValidator } from './registerCard';
 import { registerRequest } from '../../store/auth/auth.actions';
+import { MNotificationService } from '../marcha/m-toast/m-notification.service';
 
 describe('passwordsMatchValidator', () => {
   let fb: FormBuilder;
@@ -34,21 +35,26 @@ describe('passwordsMatchValidator', () => {
 describe('RegisterCard', () => {
   let component: RegisterCard;
   let store: MockStore;
+  let notificationSvc: jasmine.SpyObj<MNotificationService>;
 
   const initialState = {
     auth: { token: null, user: null, loading: false, error: null },
   };
 
   beforeEach(async () => {
+    const notificationSpyObj = jasmine.createSpyObj('MNotificationService', ['warn', 'error', 'success', 'info']);
+    
     await TestBed.configureTestingModule({
       imports: [RegisterCard, ReactiveFormsModule, TranslateModule.forRoot()],
       providers: [
         provideMockStore({ initialState }),
         provideRouter([]),
+        { provide: MNotificationService, useValue: notificationSpyObj },
       ],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
+    notificationSvc = TestBed.inject(MNotificationService) as jasmine.SpyObj<MNotificationService>;
     const fixture = TestBed.createComponent(RegisterCard);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -66,9 +72,10 @@ describe('RegisterCard', () => {
     spyOn(component.registerForm, 'markAllAsTouched');
     component.onRegister();
     expect(component.registerForm.markAllAsTouched).toHaveBeenCalled();
+    expect(notificationSvc.error).toHaveBeenCalled();
   });
 
-  it('onRegister() should set termsError when form valid but terms not accepted', () => {
+  it('onRegister() should show warning toast when form valid but terms not accepted', () => {
     component.registerForm.setValue({
       name: 'John',
       surnames: 'Doe',
@@ -80,7 +87,28 @@ describe('RegisterCard', () => {
       termsList: [false, false],
     });
     component.onRegister();
-    expect(component.termsError).toBeTrue();
+    expect(notificationSvc.warn).toHaveBeenCalledWith(
+      jasmine.stringContaining('rminos'),
+      jasmine.any(String)
+    );
+  });
+  
+  it('onRegister() should show warning toast when passwords mismatch', () => {
+    component.registerForm.setValue({
+      name: 'John',
+      surnames: 'Doe',
+      username: 'johndoe',
+      email: 'john@example.com',
+      phone: 612345678,
+      password: 'secret123',
+      confirmPassword: 'different',
+      termsList: [true, true],
+    });
+    component.onRegister();
+    expect(notificationSvc.warn).toHaveBeenCalledWith(
+      jasmine.stringContaining('contrase'),
+      jasmine.any(String)
+    );
   });
 
   it('onRegister() should dispatch registerRequest when form valid and terms accepted', () => {
@@ -99,3 +127,4 @@ describe('RegisterCard', () => {
     expect(store.dispatch).toHaveBeenCalled();
   });
 });
+

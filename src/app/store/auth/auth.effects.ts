@@ -40,9 +40,12 @@ export class AuthEffects {
       ofType(registerRequest),
       mergeMap(({ payload }) =>
         this.authService.register(payload).pipe(
-          map(({ user, token }) => registerSuccess({ user, token })),
+          map((loginTokenResponse: LoginTokenResponse) =>
+            registerSuccess({ loginTokenResponse })
+          ),
           catchError((error) => {
-            return of(loginFailure({ error }));
+            const errorMsg = error?.error?.message || error?.message || 'Error al registrar usuario';
+            return of(loginFailure({ error: errorMsg }));
           })
         )
       )

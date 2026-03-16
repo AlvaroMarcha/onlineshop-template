@@ -8,8 +8,8 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { createClientUser, Terms } from '../../type/types';
-import { Router } from '@angular/router';
+import { RegisterRequest } from '../../type/types';
+import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '../../store/auth/auth.actions';
@@ -19,8 +19,8 @@ import { MCard } from '../marcha/m-card/m-card';
 import { MInput } from '../marcha/m-input/m-input';
 import { MPassword } from '../marcha/m-password/m-password';
 import { MButton } from '../marcha/m-button/m-button';
-import { MMessage } from '../marcha/m-message/m-message';
 import { MCheckbox } from '../marcha/m-checkbox/m-checkbox';
+import { MNotificationService } from '../marcha/m-toast/m-notification.service';
 
 export function passwordsMatchValidator(
   group: AbstractControl
@@ -32,7 +32,7 @@ export function passwordsMatchValidator(
 
 @Component({
   selector: 'app-register-card',
-  imports: [ReactiveFormsModule, TranslateModule, MCard, MInput, MPassword, MButton, MMessage, MCheckbox],
+  imports: [ReactiveFormsModule, TranslateModule, RouterLink, MCard, MInput, MPassword, MButton, MCheckbox],
   templateUrl: './registerCard.html',
   styleUrl: './registerCard.css',
 })
@@ -40,6 +40,7 @@ export class RegisterCard {
   private fb = inject(FormBuilder);
   private store = inject(Store);
   public router = inject(Router);
+  private notificationSvc = inject(MNotificationService);
 
   registerForm = this.fb.nonNullable.group(
     {
@@ -59,12 +60,6 @@ export class RegisterCard {
   );
 
   loading = false;
-  termsError = false;
-
-  legal: Terms[] = [
-    { name: 'Terms', value: false, label: 'register.form.terms' },
-    { name: 'Privacy', value: false, label: 'register.form.privacy_policy' },
-  ];
 
   constructor() {
     const user$ = toSignal(this.store.select(selectUser));
@@ -81,39 +76,45 @@ export class RegisterCard {
   }
 
   onRegister(): void {
-    this.termsError = false;
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
+      
+      if (this.registerForm.hasError('passwordsMismatch')) {
+        this.notificationSvc.warn(
+          'Las contraseñas no coinciden',
+          'Por favor, asegúrate de que ambas contraseñas sean idénticas'
+        );
+        return;
+      }
+      
+      this.notificationSvc.error(
+        'Error de validación',
+        'Por favor, completa todos los campos requeridos correctamente'
+      );
       return;
     }
+    
     const termsList = (this.registerForm.get('termsList') as FormArray<FormControl<boolean>>).value;
     if (!termsList.every((v) => v)) {
-      this.termsError = true;
+      this.notificationSvc.warn(
+        'Términos pendientes',
+        'Debes aceptar los términos y condiciones y la política de privacidad para continuar'
+      );
       return;
     }
-    const { name, surnames, username, email, phone, password } =
-      this.registerForm.getRawValue();
-    const payload: createClientUser = {
-      client: {
-        id: null,
-        first_name: name,
-        last_name: surnames,
-        email,
-        phone,
-      },
-      user: {
-        id: null,
-        name,
-        username,
-        password,
-        email,
-        phone,
-        status: true,
-        locked: false,
-        created_at: new Date().toISOString(),
-      },
-      role: { id: 4 },
+    
+    const { name, surnames, username, email, phone, password } = this.registerForm.getRawValue();
+    
+    const payload: RegisterRequest = {
+      name,
+      surname: surnames,
+      username,
+      email,
+      password,
+      phone: phone.toString(),
+      termsAccepted: true,
     };
+    
     this.loading = true;
     this.store.dispatch(registerRequest({ payload }));
   }
