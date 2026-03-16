@@ -54,14 +54,17 @@ export const authReducer = createReducer(
     error: null,
   })),
 
-  // Register success (TODO: adaptar para incluir refreshToken cuando se actualice register)
-  on(registerSuccess, (state, { user, token }) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+  // Register success
+  on(registerSuccess, (state, { loginTokenResponse }) => {
+    // Guardar token, refreshToken y user en localStorage
+    localStorage.setItem('token', loginTokenResponse.token);
+    localStorage.setItem('refreshToken', loginTokenResponse.refreshToken);
+    localStorage.setItem('user', JSON.stringify(loginTokenResponse.user));
     return {
       ...state,
-      token,
-      user,
+      token: loginTokenResponse.token,
+      refreshToken: loginTokenResponse.refreshToken,
+      user: loginTokenResponse.user,
       loading: false,
       error: null,
     };

@@ -204,20 +204,23 @@
     "register_link": "Sign up here"
   },
   "register": {
-    "title": "Registrarse",
+    "title": "Sign Up",
+    "subtitle": "Create your account and join our community",
     "form": {
-      "name": "Nombre",
-      "surnames": "Apellidos",
-      "username": "Usuario",
-      "email": "Correo electrónico",
-      "phone": "Teléfono",
-      "address": "Dirección",
-      "password": "Contraseña",
-      "confirm_password": "Confirmar contraseña",
-      "register_button": "Registrarse",
-      "login_link": "¿Ya tienes una cuenta? Inicia sesión",
-      "terms": "Acepto los términos y condiciones",
-      "privacy_policy": "Política de privacidad"
+      "name": "Name",
+      "surnames": "Last Name",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "register_button": "Sign Up",
+      "login_link": "Already have an account? Sign in",
+      "already_have_account": "Already have an account? Sign in",
+      "i_accept": "I accept",
+      "terms": "the terms and conditions",
+      "privacy_policy": "the privacy policy"
     }
   },
   "cart": {

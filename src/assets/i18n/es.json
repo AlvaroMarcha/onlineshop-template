@@ -205,6 +205,7 @@
   },
   "register": {
     "title": "Registrarse",
+    "subtitle": "Crea tu cuenta y únete a nuestra comunidad",
     "form": {
       "name": "Nombre",
       "surnames": "Apellidos",
@@ -216,8 +217,10 @@
       "confirm_password": "Confirmar contraseña",
       "register_button": "Registrarse",
       "login_link": "¿Ya tienes una cuenta? Inicia sesión",
-      "terms": "Acepto los términos y condiciones",
-      "privacy_policy": "Política de privacidad"
+      "already_have_account": "¿Ya tienes una cuenta? Inicia sesión",
+      "i_accept": "Acepto",
+      "terms": "los términos y condiciones",
+      "privacy_policy": "la política de privacidad"
     }
   },
   "cart": {

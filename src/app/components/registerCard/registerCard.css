@@ -1,21 +1,42 @@
-.register-card {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+:host {
+  display: block;
   width: 100%;
-  margin-top: -100px;
-  height: max-content;
-  box-shadow: 0 2px 10px rgba(47, 196, 158, 0.219);
 }
 
-/* Media queries */
-@media (max-width: 720px) {
+.register-card {
+  /* Base: Mobile */
+  width: 95%;
+  margin: 0 auto;
+  padding: 8px;
+  min-height: 100vh;
+}
+
+::ng-deep .register-card m-card {
+  width: 100%;
+  padding: 1.5rem;
+}
+
+/* Tablet */
+@media (min-width: 481px) {
   .register-card {
-    width: 90%;
-    margin: auto;
-    margin-top: -180px;
-    margin-bottom: -100px;
+    width: 92%;
+    padding: 12px;
+  }
+  
+  ::ng-deep .register-card m-card {
+    padding: 2rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .register-card {
+    width: 45%;
+    padding: 20px;
+    min-height: auto;
+  }
+  
+  ::ng-deep .register-card m-card {
+    padding: 4rem;
   }
 }
