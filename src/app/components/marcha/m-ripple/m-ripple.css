@@ -1,0 +1,25 @@
+/* =============================================
+   m-ripple — Material Design Ripple Effect
+   ============================================= */
+
+@keyframes m-ripple-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.m-ripple-container {
+  overflow: hidden;
+}
+
+.m-ripple {
+  will-change: transform, opacity;
+}

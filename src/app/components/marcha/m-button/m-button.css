@@ -32,7 +32,12 @@
   outline: 2px solid var(--m-primary);
   outline-offset: 2px;
 }
-
+/* Asegurar que el contenido del botón esté encima del ripple */
+.m-btn-label,
+.m-btn-icon {
+  position: relative;
+  z-index: 1;
+}
 /* ===== FILLED â€” Primary ===== */
 .m-btn--primary.m-btn--filled {
   background: var(--m-primary-bg);

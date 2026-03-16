@@ -2,6 +2,7 @@ import {
   Component, Input, forwardRef, signal, ChangeDetectionStrategy,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export interface MRadioOption {
   label: string;
@@ -12,6 +13,7 @@ export interface MRadioOption {
 @Component({
   selector: 'm-radio-group',
   standalone: true,
+  imports: [MRipple],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './m-radio-group.html',
   styleUrl: './m-radio-group.css',

@@ -9,6 +9,7 @@ export interface MMenubarItem {
   items?:    MMenubarSubItem[];
   disabled?: boolean;
   isActive?: boolean;
+  command?:  () => void;
 }
 
 export interface MMenubarSubItem {
@@ -17,6 +18,7 @@ export interface MMenubarSubItem {
   disabled?: boolean;
   divider?:  boolean;
   isActive?: boolean;
+  command?:  () => void;
 }
 
 @Component({

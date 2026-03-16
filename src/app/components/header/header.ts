@@ -54,7 +54,16 @@ export class Header implements OnInit {
   readonly _isMobile = signal(typeof window !== 'undefined' && window.innerWidth <= 768);
 
   @HostListener('window:resize')
-  onResize(): void { this._isMobile.set(window.innerWidth <= 768); }
+  onResize(): void {
+    const wasMobile = this._isMobile();
+    const isMobile = window.innerWidth <= 768;
+    this._isMobile.set(isMobile);
+    
+    // Regenerar menú si cambió de mobile a desktop o viceversa
+    if (wasMobile !== isMobile) {
+      this.generateMenus();
+    }
+  }
 
   constructor(
     public router: Router,
@@ -95,6 +104,7 @@ export class Header implements OnInit {
       'header.cart',
       'header.empty_cart_summary',
       'header.empty_cart_detail',
+      'header.language',
     ]);
 
     // Marcha UI menubar items
@@ -114,6 +124,15 @@ export class Header implements OnInit {
       { label: t['header.about'], icon: 'lucide:info' },
       { label: 'Design System', icon: 'lucide:palette' },
     ];
+
+    // Añadir item de idioma solo para mobile
+    if (this._isMobile()) {
+      this.menubarItems.push({
+        label: t['header.language'],
+        icon: 'lucide:globe',
+        command: () => this.toggleLanguage(),
+      });
+    }
   }
 
   showDialog() {
@@ -138,6 +157,12 @@ export class Header implements OnInit {
   }
 
   onMenuItemClick(item: MMenubarItem | MMenubarSubItem) {
+    // Si el item tiene un comando, ejecutarlo
+    if (item.command) {
+      item.command();
+      return;
+    }
+    
     // Mapeo de navegación
     const routes: Record<string, string> = {
       'Inicio': '/',

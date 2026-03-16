@@ -10,7 +10,7 @@
         [class.is-disabled]="opt.disabled || isDisabled()"
         (click)="select(opt)"
       >
-        <span class="m-radio-dot" role="radio" [attr.aria-checked]="isSelected(opt)">
+        <span mRipple class="m-radio-dot" role="radio" [attr.aria-checked]="isSelected(opt)">
           @if (isSelected(opt)) {
             <span class="m-radio-inner"></span>
           }

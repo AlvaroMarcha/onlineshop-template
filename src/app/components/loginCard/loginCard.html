@@ -69,8 +69,9 @@
         
         <!-- Forgot password link - moved here for better flow -->
         <a 
+          mRipple
           href="#" 
-          class="text-xs opacity-60 hover:opacity-100 hover:underline transition-opacity"
+          class="text-xs opacity-60 hover:opacity-100 hover:underline transition-opacity relative inline-block px-3 py-2 rounded overflow-hidden"
           (click)="$event.preventDefault()">
           {{ 'login.forgot_password' | translate }}
         </a>
@@ -87,11 +88,12 @@
     <!-- Register link -->
     <div class="text-center">
       <p class="text-sm">
-        <span class="opacity-60">{{ 'login.no_account' | translate }}</span>
+    
         <a 
+          mRipple
           [routerLink]="['/register']" 
-          class="text-primary font-semibold hover:underline ml-1.5 transition-all">
-          {{ 'login.register_link' | translate }}
+          class="text-primary font-semibold hover:underline ml-1.5 transition-all relative inline-block  rounded overflow-hidden">
+            <span class="opacity-60 p-2 py-2">{{ 'login.no_account' | translate }}</span>{{ 'login.register_link' | translate }}
         </a>
       </p>
     </div>

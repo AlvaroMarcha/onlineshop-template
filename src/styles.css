@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./app/components/marcha/m-tooltip/m-tooltip.css";
+@import "./app/components/marcha/m-ripple/m-ripple.css";
 
 /* ============================================================
    MARCHA DESIGN SYSTEM — CSS Tokens
