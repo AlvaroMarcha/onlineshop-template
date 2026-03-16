@@ -82,13 +82,15 @@
         />
       }
 
-      <!-- Language Toggle — oculto en móvil para no saturar la barra -->
-      <m-button
-        icon="lucide:globe"
-        variant="text"
-        [rounded]="true"
-        (onClick)="toggleLanguage()"
-      />
+      <!-- Language Toggle — visible solo en desktop (md:flex = min-width: 768px) -->
+      <div class="hidden md:flex">
+        <m-button
+          icon="lucide:globe"
+          variant="text"
+          [rounded]="true"
+          (onClick)="toggleLanguage()"
+        />
+      </div>
     </div>
   </m-menubar>
 </div>
