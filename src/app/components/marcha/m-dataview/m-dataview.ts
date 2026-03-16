@@ -13,6 +13,8 @@ export type MDataviewLayout = 'grid' | 'list';
 export interface MDataviewSortOption {
   label: string;
   value: string;
+  /** Campo del ítem usado para ordenar — si no se especifica, se usa `value` */
+  sortField?: string;
   /** 'asc' | 'desc', por defecto 'asc' */
   direction?: 'asc' | 'desc';
 }
@@ -86,10 +88,11 @@ export class MDataview<T = unknown> {
     const opt = this.sortOptions().find(o => o.value === key);
     if (!opt) return all;
 
-    const dir = opt.direction ?? 'asc';
+    const dir     = opt.direction ?? 'asc';
+    const sortKey = opt.sortField ?? key;
     return [...all].sort((a, b) => {
-      const av = (a as Record<string, unknown>)[key];
-      const bv = (b as Record<string, unknown>)[key];
+      const av = (a as Record<string, unknown>)[sortKey];
+      const bv = (b as Record<string, unknown>)[sortKey];
       if (av == null || bv == null) return 0;
       const cmp = av < bv ? -1 : av > bv ? 1 : 0;
       return dir === 'asc' ? cmp : -cmp;

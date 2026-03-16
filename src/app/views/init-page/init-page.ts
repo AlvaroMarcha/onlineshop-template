@@ -80,9 +80,9 @@ export class InitPage implements OnInit {
       id: product.id,
       name: product.name,
       price: product.price,
-      imageUrl: product.urlImg || '',
+      imageUrl: product.mainImageUrl ?? '',
       quantity: 1,
-      category: product.category,
+      category: product.categories[0]?.name ?? '',
     };
 
     this.store.dispatch(addToCart({ item: cartItem }));

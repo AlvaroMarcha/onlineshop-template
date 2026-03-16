@@ -256,9 +256,13 @@
     "description": "Explora nuestra amplia gama de productos y encuentra lo que necesitas.",
     "add_cart": "Añadir al carrito",
     "buy_now": "Comprar ahora",
+    "view": "Ver detalles",
     "out_of_stock": "Fuera de stock",
     "low_stock": "Bajo stock",
     "in_stock": "En stock",
+    "search_placeholder": "Buscar productos...",
+    "all_categories": "Todas las categorías",
+    "no_results": "No se encontraron productos",
     "filter": {
       "title": "Filtrar por",
       "categories": "Categorías",
@@ -286,6 +290,15 @@
         "oldest_first": "Más antiguos primero"
       }
     }
+  },
+  "product": {
+    "reviews": "valoraciones",
+    "tax_included": "IVA incluido",
+    "saving": "Ahorras",
+    "units": "uds. disponibles",
+    "quantity": "Cantidad",
+    "featured": "Destacado",
+    "digital": "Producto digital"
   },
   "validation": {
     "required": "Los campos son obligatorios",

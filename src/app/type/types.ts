@@ -128,18 +128,40 @@ export interface LoginTokenResponse {
 }
 
 //Backoffice
+
+export interface ProductSubcategory {
+  id: number;
+  name: string;
+  slug: string;
+  active: boolean;
+}
+
+export interface ProductCategory {
+  id: number;
+  name: string;
+  slug: string;
+  subcategories: ProductSubcategory[];
+  active: boolean;
+}
+
 export interface Product {
   id: number;
   name: string;
   description: string;
-  urlImg: string;
-  stock: number;
   price: number;
-  bar_code: string;
-  reference: string;
-  visible: boolean;
-  category: string;
-  subcategory: string;
+  discountPrice: number | null;
+  taxRate: number;
+  categories: ProductCategory[];
+  rating: number;
+  ratingCount: number;
+  stock: number;
+  lowStockThreshold: number;
+  mainImageUrl: string | null;
+  images: string[] | null;
+  active: boolean;
+  featured: boolean;
+  digital: boolean;
+  slug: string;
 }
 
 export interface Order {

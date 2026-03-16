@@ -80,8 +80,8 @@
         <m-card variant="flat" styleClass="product-card">
           <!-- Imagen del producto -->
           <div class="product-image" (click)="goToProduct(product.id)">
-            @if (product.urlImg) {
-              <img [src]="product.urlImg" [alt]="product.name" />
+            @if (product.mainImageUrl) {
+              <img [src]="product.mainImageUrl" [alt]="product.name" />
             } @else {
               <div class="product-image-placeholder">
                 <m-icon icon="lucide:image" size="3rem" />
