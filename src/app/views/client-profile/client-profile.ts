@@ -32,6 +32,7 @@ import { MChip } from '../../components/marcha/m-chip/m-chip';
 import { MCopy } from '../../components/marcha/m-copy/m-copy';
 import { MDialog } from '../../components/marcha/m-dialog/m-dialog';
 import { MPassword } from '../../components/marcha/m-password/m-password';
+import { MFileUpload, MFileUploadValidationError } from '../../components/marcha/m-file-upload/m-file-upload';
 
 @Component({
   selector: 'app-client-profile',
@@ -40,7 +41,7 @@ import { MPassword } from '../../components/marcha/m-password/m-password';
     ReactiveFormsModule, DatePipe, TranslateModule,
     MAvatar, MToast, MDivider, MInput, MButton,
     MCard, MTabs, MTabPanel, MTable, MIcon, MChip,
-    MCopy, MDialog, MPassword,
+    MCopy, MDialog, MPassword, MFileUpload,
   ],
   templateUrl: './client-profile.html',
   styleUrl: './client-profile.css',
@@ -83,7 +84,6 @@ export class ClientProfile implements OnInit {
   labelEdit  = '';
   colorEdit: 'primary' | 'danger' | 'warn' = 'warn';
   uploadingPhoto = signal(false);
-  isDraggingOver = signal(false);
 
   // Modales
   showVerifyEmailModal = signal(false);
@@ -320,50 +320,10 @@ export class ClientProfile implements OnInit {
     this.activeTab = index;
   }
 
-  async onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
-    await this.processFile(input.files[0]);
-    input.value = '';
-  }
-
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-    this.isDraggingOver.set(true);
-  }
-
-  onDragLeave(event: DragEvent) {
-    this.isDraggingOver.set(false);
-  }
-
-  async onDrop(event: DragEvent) {
-    event.preventDefault();
-    this.isDraggingOver.set(false);
-    const file = event.dataTransfer?.files[0];
-    if (file) await this.processFile(file);
-  }
-
-  private async processFile(file: File) {
+  async onFileChange(file: File) {
     const user = this.user$();
     if (!user?.id) return;
 
-    // Validar tipo de archivo
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if (!validTypes.includes(file.type)) {
-      const errorMsg = await this.lang.tOne('profile.photo_invalid_format');
-      this.notificationService.error(errorMsg);
-      return;
-    }
-
-    // Validar tamaño de archivo (máximo 5MB)
-    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-    if (file.size > maxSizeInBytes) {
-      const errorMsg = await this.lang.tOne('profile.photo_too_large');
-      this.notificationService.error(errorMsg);
-      return;
-    }
-
-    // Iniciar subida
     this.uploadingPhoto.set(true);
 
     this.userService.uploadProfileImage(user.id, file).subscribe({
@@ -373,13 +333,18 @@ export class ClientProfile implements OnInit {
         this.notificationService.success(successMsg);
         this.uploadingPhoto.set(false);
       },
-      error: async (err) => {
-        console.error('Error subiendo foto:', err);
+      error: async () => {
         const errorMsg = await this.lang.tOne('profile.photo_upload_error');
         this.notificationService.error(errorMsg);
         this.uploadingPhoto.set(false);
       }
     });
+  }
+
+  async onValidationError(err: MFileUploadValidationError) {
+    const key = err === 'invalid_type' ? 'profile.photo_invalid_format' : 'profile.photo_too_large';
+    const msg = await this.lang.tOne(key);
+    this.notificationService.error(msg);
   }
 
   async editForm() {

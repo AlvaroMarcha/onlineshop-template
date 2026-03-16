@@ -1,0 +1,51 @@
+<div
+  [class]="hostClass()"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="ariaLabel() || null"
+  (click)="triggerPick()"
+  (keydown.enter)="triggerPick()"
+  (keydown.space)="$event.preventDefault(); triggerPick()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+>
+  <!-- ── Gradient SVG ring ─────────────────────────────────── -->
+  <svg class="m-file-upload__ring" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="mfuRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="var(--m-primary, #8b5cf6)" />
+        <stop offset="50%"  stop-color="#a78bfa" />
+        <stop offset="100%" stop-color="var(--m-primary, #6366f1)" />
+      </linearGradient>
+    </defs>
+    <!-- Dashed track — siempre visible como hint de interacción -->
+    <circle class="m-file-upload__ring-track" cx="45" cy="45" r="42" />
+    <!-- Fill — se dibuja con hover, gira al subir -->
+    <circle class="m-file-upload__ring-fill"  cx="45" cy="45" r="42" />
+  </svg>
+
+  <!-- ── Contenido proyectado (avatar / preview) ───────────── -->
+  <ng-content />
+
+  <!-- ── Overlay contextual ───────────────────────────────────── -->
+  <div class="m-file-upload__overlay" aria-hidden="true">
+    @if (_isDragging()) {
+      <m-icon icon="lucide:arrow-down-to-line" size="26" class="m-file-upload__icon m-file-upload__icon--drop" />
+    } @else if (uploading()) {
+      <m-icon icon="lucide:loader-2"           size="24" class="m-file-upload__icon m-file-upload__icon--spin" />
+    } @else {
+      <m-icon icon="lucide:camera"             size="20" class="m-file-upload__icon m-file-upload__icon--idle" />
+    }
+  </div>
+
+  <!-- ── Input file oculto ────────────────────────────────────── -->
+  <input
+    type="file"
+    class="m-file-upload__input"
+    [accept]="accept()"
+    [disabled]="disabled() || uploading()"
+    (change)="onFileInputChange($event)"
+    #fileInput
+  />
+</div>
