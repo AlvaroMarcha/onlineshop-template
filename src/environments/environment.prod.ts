@@ -3,5 +3,6 @@ export const environment = {
   urls: {
     authUrl: 'https://alanmarcha.com/auth',
     productsUrl: 'https://alanmarcha.com/products',
+    addressUrl: 'https://alanmarcha.com/address',
   },
 };

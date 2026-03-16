@@ -3,17 +3,19 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
+  signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../store/auth/auth.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { Order } from '../../type/types';
+import { Order, Address, AddressType } from '../../type/types';
 import { formatDate } from '../../shared/dates';
 import { Chart } from 'chart.js';
 import { LanguageService } from '../../services/language-service';
+import { AddressService } from '../../services/address-service';
 import { MAvatar } from '../../components/marcha/m-avatar/m-avatar';
 import { MToast } from '../../components/marcha/m-toast/m-toast';
 import { MDivider } from '../../components/marcha/m-divider/m-divider';
@@ -43,9 +45,18 @@ export class ClientProfile implements OnInit {
   private _chartInstance: Chart | null = null;
   chartLabels: string[] = ['', ''];
 
+  // Addresses state
+  addresses = signal<Address[]>([]);
+  showAddressModal = signal(false);
+  editingAddress = signal<Address | null>(null);
+  readonly MAX_ADDRESSES = 5;
+  readonly AddressType = AddressType;  // Para usar en el template
+  countries: { label: string; value: string }[] = [];
+
   tabs: MTabItem[] = [
     { label: 'Datos personales', icon: 'lucide:user' },
     { label: 'Mis pedidos',      icon: 'lucide:receipt' },
+    { label: 'Direcciones',      icon: 'lucide:map-pin' },
     { label: 'Estadísticas',     icon: 'lucide:bar-chart-2' },
   ];
 
@@ -71,8 +82,24 @@ export class ClientProfile implements OnInit {
     phone: new FormControl({ value: '', disabled: true }),
   });
 
-  constructor(public store: Store, private lang: LanguageService) {
+  addressForm = new FormGroup({
+    type: new FormControl<AddressType>(AddressType.SHIPPING, { nonNullable: true }),
+    addressLine1: new FormControl('', [Validators.required]),
+    addressLine2: new FormControl(''),
+    country: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    postalCode: new FormControl('', [Validators.required]),
+    isDefault: new FormControl(false, { nonNullable: true }),
+  });
+
+  constructor(
+    public store: Store,
+    private lang: LanguageService,
+    private addressService: AddressService
+  ) {
     this.user$ = toSignal(this.store.select(selectUser));
+    console.log('🟢 User signal initialized:', this.user$());
+    console.log('🟢 User active status:', this.user$()?.active);
   }
 
   // Setter: se dispara cuando el canvas aparece en el DOM (al activar tab 2)
@@ -129,6 +156,25 @@ export class ClientProfile implements OnInit {
       email: user?.email ?? '',
       phone: user?.phone ?? '',
     });
+
+    // Cargar direcciones del usuario
+    if (user?.id) {
+      this.loadAddresses(user.id);
+    }
+
+    // Inicializar lista de países (lista simplificada)
+    this.countries = [
+      { label: 'España', value: 'España' },
+      { label: 'Francia', value: 'Francia' },
+      { label: 'Alemania', value: 'Alemania' },
+      { label: 'Italia', value: 'Italia' },
+      { label: 'Portugal', value: 'Portugal' },
+      { label: 'Reino Unido', value: 'Reino Unido' },
+      { label: 'Estados Unidos', value: 'Estados Unidos' },
+      { label: 'México', value: 'México' },
+      { label: 'Argentina', value: 'Argentina' },
+      { label: 'Colombia', value: 'Colombia' },
+    ];
 
     this.orders = [
       {
@@ -211,16 +257,17 @@ export class ClientProfile implements OnInit {
 
   private async loadTranslations() {
     const t = await this.lang.tMany([
-      'profile.tab_personal', 'profile.tab_orders', 'profile.tab_stats',
+      'profile.tab_personal', 'profile.tab_orders', 'profile.tab_addresses', 'profile.tab_stats',
       'profile.col_id', 'profile.col_date', 'profile.col_status',
       'profile.action_view', 'profile.action_invoice',
       'profile.btn_edit', 'profile.chart_2024', 'profile.chart_2025',
     ]);
 
     this.tabs = [
-      { label: t['profile.tab_personal'], icon: 'lucide:user' },
-      { label: t['profile.tab_orders'],   icon: 'lucide:receipt' },
-      { label: t['profile.tab_stats'],    icon: 'lucide:bar-chart-2' },
+      { label: t['profile.tab_personal'],  icon: 'lucide:user' },
+      { label: t['profile.tab_orders'],    icon: 'lucide:receipt' },
+      { label: t['profile.tab_addresses'], icon: 'lucide:map-pin' },
+      { label: t['profile.tab_stats'],     icon: 'lucide:bar-chart-2' },
     ];
 
     this.tableColumns = [
@@ -283,5 +330,171 @@ export class ClientProfile implements OnInit {
     this.isDisabled = true;
     this.labelEdit = await this.lang.tOne('profile.btn_edit');
     this.colorEdit = 'warn';
+  }
+
+  // ==================== Addresses Management ====================
+
+  /**
+   * Cargar direcciones del usuario desde el backend.
+   */
+  private loadAddresses(userId: number) {
+    this.addressService.getAddressesByUser(userId).subscribe({
+      next: (addresses) => this.addresses.set(addresses),
+      error: (err) => console.error('Error cargando direcciones:', err),
+    });
+  }
+
+  /**
+   * Abrir modal para añadir nueva dirección.
+   */
+  openAddAddressModal() {
+    if (this.addresses().length >= this.MAX_ADDRESSES) {
+      alert(`Solo puedes tener un máximo de ${this.MAX_ADDRESSES} direcciones.`);
+      return;
+    }
+    this.editingAddress.set(null);
+    this.addressForm.reset({
+      type: AddressType.SHIPPING,
+      addressLine1: '',
+      addressLine2: '',
+      country: '',
+      city: '',
+      postalCode: '',
+      isDefault: false,
+    });
+    this.showAddressModal.set(true);
+  }
+
+  /**
+   * Abrir modal para editar dirección existente.
+   */
+  openEditAddressModal(address: Address) {
+    this.editingAddress.set(address);
+    this.addressForm.patchValue({
+      type: address.type,
+      addressLine1: address.addressLine1,
+      addressLine2: address.addressLine2 || '',
+      country: address.country,
+      city: address.city,
+      postalCode: address.postalCode,
+      isDefault: address.isDefault,
+    });
+    this.showAddressModal.set(true);
+  }
+
+  /**
+   * Cerrar modal de dirección.
+   */
+  closeAddressModal() {
+    this.showAddressModal.set(false);
+    this.editingAddress.set(null);
+    this.addressForm.reset();
+  }
+
+  /**
+   * Guardar dirección (crear o actualizar).
+   */
+  saveAddress() {
+    if (this.addressForm.invalid) {
+      return;
+    }
+
+    const formValue = this.addressForm.getRawValue();
+    const addressData: Address = {
+      type: formValue.type,
+      addressLine1: formValue.addressLine1 || '',
+      addressLine2: formValue.addressLine2 || undefined,
+      country: formValue.country || '',
+      city: formValue.city || '',
+      postalCode: formValue.postalCode || '',
+      isDefault: formValue.isDefault,
+    };
+
+    const editing = this.editingAddress();
+    const userId = this.user$()?.id;
+
+    if (!userId) {
+      console.error('User ID not found');
+      return;
+    }
+
+    if (editing?.id) {
+      // Actualizar dirección existente
+      addressData.id = editing.id;
+      this.addressService.updateAddress(addressData).subscribe({
+        next: () => {
+          this.loadAddresses(userId);
+          this.closeAddressModal();
+        },
+        error: (err) => console.error('Error actualizando dirección:', err),
+      });
+    } else {
+      // Crear nueva dirección
+      this.addressService.createAddress(addressData).subscribe({
+        next: () => {
+          this.loadAddresses(userId);
+          this.closeAddressModal();
+        },
+        error: (err) => console.error('Error creando dirección:', err),
+      });
+    }
+  }
+
+  /**
+   * Confirmar y eliminar dirección.
+   */
+  async confirmDeleteAddress(address: Address) {
+    const addressName = `${address.addressLine1}, ${address.city}`;
+    const confirmed = window.confirm(
+      `¿Estás seguro de que deseas eliminar la dirección "${addressName}"?\n\nEsta acción no se puede deshacer.`
+    );
+
+    if (confirmed && address.id) {
+      this.deleteAddress(address.id);
+    }
+  }
+
+  /**
+   * Eliminar dirección por ID.
+   */
+  private deleteAddress(id: number) {
+    const userId = this.user$()?.id;
+    if (!userId) return;
+
+    this.addressService.deleteAddress(id).subscribe({
+      next: () => {
+        this.loadAddresses(userId);
+      },
+      error: (err) => console.error('Error eliminando dirección:', err),
+    });
+  }
+
+  /**
+   * Marcar dirección como predeterminada.
+   */
+  setDefaultAddress(address: Address) {
+    if (address.isDefault) return; // Ya es la predeterminada
+
+    const userId = this.user$()?.id;
+    if (!userId || !address.id) return;
+
+    const updatedAddress: Address = {
+      ...address,
+      isDefault: true,
+    };
+
+    this.addressService.updateAddress(updatedAddress).subscribe({
+      next: () => {
+        this.loadAddresses(userId);
+      },
+      error: (err) => console.error('Error estableciendo dirección predeterminada:', err),
+    });
+  }
+
+  /**
+   * Obtener badge severity según tipo de dirección.
+   */
+  getAddressTypeBadge(type: AddressType): 'primary' | 'secondary' {
+    return type === AddressType.SHIPPING ? 'primary' : 'secondary';
   }
 }

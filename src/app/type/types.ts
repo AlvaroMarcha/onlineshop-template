@@ -58,6 +58,16 @@ export interface ResponsiveOption {
 }
 
 // auth state
+
+/**
+ * Enum para tipos de dirección.
+ * Backend: AddressesType
+ */
+export enum AddressType {
+  SHIPPING = 'SHIPPING',
+  BILLING = 'BILLING'
+}
+
 /**
  * User interface que coincide con UserResponseDTO del backend.
  * Backend: es.marcha.backend.core.user.application.dto.response.UserResponseDTO
@@ -69,25 +79,28 @@ export interface User {
   username: string;
   email: string;
   phone: string;
-  roleName: string;  // Backend devuelve string ("ADMIN"/"USER"), no number
+  roleName: string;  // Backend devuelve string ("ROLE_USER"/"ROLE_ADMIN")
   profileImageUrl: string;  // Añadido: URL de imagen de perfil
   createdAt: string;  // ISO date string (LocalDateTime serializado)
-  isActive: boolean;  // Cambiado de 'status'
-  isVerified: boolean;  // Cambiado de 'email_verified_at: Date | null' a boolean
+  active: boolean;  // Estado activo/inactivo del usuario (campo del backend en minúsculas)
+  verified: boolean;  // Verificación de email (campo del backend en minúsculas)
   addresses: Address[];  // Añadido: direcciones del usuario
 }
 
 /**
- * Dirección del usuario (entity Address del backend).
- * Backend: es.marcha.backend.core.user.domain.model.Address
+ * Dirección del usuario (coincide con AddressResponseDTO del backend).
+ * Backend: es.marcha.backend.core.user.application.dto.response.AddressResponseDTO
  */
 export interface Address {
-  id?: number;
-  street: string;
-  city: string;
-  state: string;
-  postalCode: string;
+  id?: number;                    // Opcional para creación
+  isDefault: boolean;
+  type: AddressType;
+  addressLine1: string;
+  addressLine2?: string;          // Opcional (segundo campo de dirección)
   country: string;
+  city: string;
+  postalCode: string;
+  createdAt?: string;             // ISO date string, opcional (generado por backend)
 }
 
 /**

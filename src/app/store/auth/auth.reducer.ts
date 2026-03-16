@@ -20,6 +20,11 @@ export const authReducer = createReducer(
 
   //Login successs from Effect
   on(loginSuccessFinal, (state, { loginTokenResponse }) => {
+    console.log('🔵 Backend response:', JSON.stringify(loginTokenResponse, null, 2));
+    console.log('🔵 User object:', loginTokenResponse.user);
+    console.log('🔵 User active field:', loginTokenResponse.user.active);
+    console.log('🔵 User verified field:', loginTokenResponse.user.verified);
+    
     // Guardar token, refreshToken y user en localStorage
     localStorage.setItem('token', loginTokenResponse.token);
     localStorage.setItem('refreshToken', loginTokenResponse.refreshToken);

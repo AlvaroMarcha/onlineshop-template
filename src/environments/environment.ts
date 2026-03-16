@@ -3,5 +3,6 @@ export const environment = {
   urls: {
     authUrl: 'http://localhost:8080/auth',
     productsUrl: 'http://localhost:8080/products',
+    addressUrl: 'http://localhost:8080/address',
   },
 };

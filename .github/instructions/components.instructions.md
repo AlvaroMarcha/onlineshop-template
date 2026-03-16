@@ -53,13 +53,22 @@ export class ProductCard {
 
 Los componentes Marcha UI (m-button, m-input, m-password, m-select, etc.) soportan tamaños: `small`, `medium`, `large`.
 
-**Regla**: usar **`size="small"`** por defecto en toda la aplicación para mantener consistencia visual y diseño compacto.
+**🔴 REGLA OBLIGATORIA**: usar **`size="small"`** por defecto en **TODOS** los componentes Marcha UI de la aplicación. **SIEMPRE** incluir explícitamente el atributo `size="small"` para mantener consistencia visual y diseño compacto.
+
+**Excepciones**:
+- `m-chip` usa su propia convención: `size="sm"` (valores: `sm` | `md` | `lg`)
+- `m-avatar` usa: `size="small"`, `size="large"`, `size="xlarge"`, etc.
 
 ```html
-<!-- ✅ Correcto - size="small" por defecto -->
+<!-- ✅ Correcto - size="small" SIEMPRE explícito -->
 <m-input formControlName="username" size="small" icon="lucide:user" />
 <m-password formControlName="password" size="small" />
 <m-button type="submit" severity="primary" size="small" [label]="'Enviar'" />
+<m-chip [label]="'Estado'" severity="success" size="sm" />
+
+<!-- ❌ INCORRECTO - Falta size="small" -->
+<m-input formControlName="username" icon="lucide:user" />
+<m-button type="submit" severity="primary" [label]="'Enviar'" />
 
 <!-- ⚠️ Solo usar otros tamaños cuando haya razón específica de UX -->
 <m-button size="large" [label]="'CTA Principal'" /> <!-- Hero button -->
@@ -354,6 +363,63 @@ export const authGuard: CanActivateFn = () => {
 1. Leer estado con `toSignal(store.select(selector))` — almacenar resultados como signals.
 2. Despachar acciones con `store.dispatch(action())`.
 3. **Nunca llamar servicios directamente desde un componente** — ir siempre a través del store.
+
+---
+
+## Diálogos de confirmación para eliminaciones
+
+**🔴 REGLA OBLIGATORIA**: Toda acción de eliminación (delete) DEBE mostrar un diálogo de confirmación antes de proceder.
+
+### Pattern recomendado
+
+```typescript
+// En el componente
+async confirmDelete(item: any) {
+  const confirmed = await this.showDeleteConfirmDialog(item.name);
+  if (confirmed) {
+    this.handleDelete(item.id);
+  }
+}
+
+private async showDeleteConfirmDialog(itemName: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    // Usar m-dialog o similar para mostrar confirmación
+    // Ejemplo con window.confirm (reemplazar con m-dialog):
+    const result = window.confirm(
+      `¿Estás seguro de que deseas eliminar "${itemName}"? Esta acción no se puede deshacer.`
+    );
+    resolve(result);
+  });
+}
+
+private handleDelete(id: number) {
+  // Despachar acción o llamar servicio
+  this.store.dispatch(deleteItem({ id }));
+}
+```
+
+### Características del diálogo
+
+- **Título claro**: "Confirmar eliminación"
+- **Mensaje explícito**: incluir el nombre del elemento a eliminar
+- **Advertencia**: mencionar que la acción es irreversible
+- **Botones**:
+  - Cancelar (secundario, color neutral)
+  - Eliminar (primario, color danger/rojo)
+- **Textos i18n**: añadir claves para título, mensaje, botones
+
+```json
+// src/assets/i18n/es.json
+{
+  "common.confirm_delete_title": "Confirmar eliminación",
+  "common.confirm_delete_message": "¿Estás seguro de que deseas eliminar \"{name}\"?",
+  "common.confirm_delete_warning": "Esta acción no se puede deshacer.",
+  "common.btn_cancel": "Cancelar",
+  "common.btn_delete": "Eliminar"
+}
+```
+
+**❌ NUNCA**: eliminar directamente sin confirmación, excepto acciones triviales como limpiar un filtro temporal.
 
 ---
 
