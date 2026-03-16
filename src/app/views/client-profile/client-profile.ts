@@ -151,6 +151,61 @@ export class ClientProfile implements OnInit {
         date: formatDate(new Date('05-05-2025').toString()),
         status: 'Completado',
       },
+      {
+        id: 5,
+        date: formatDate(new Date('06-10-2025').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 6,
+        date: formatDate(new Date('07-15-2025').toString()),
+        status: 'Cancelado',
+      },
+      {
+        id: 7,
+        date: formatDate(new Date('08-20-2025').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 8,
+        date: formatDate(new Date('09-25-2025').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 9,
+        date: formatDate(new Date('10-30-2025').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 10,
+        date: formatDate(new Date('11-05-2025').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 11,
+        date: formatDate(new Date('12-10-2025').toString()),
+        status: 'Cancelado',
+      },
+      {
+        id: 12,
+        date: formatDate(new Date('01-15-2026').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 13,
+        date: formatDate(new Date('02-20-2026').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 14,
+        date: formatDate(new Date('03-01-2026').toString()),
+        status: 'Completado',
+      },
+      {
+        id: 15,
+        date: formatDate(new Date('03-10-2026').toString()),
+        status: 'Completado',
+      },
     ];
   }
 
