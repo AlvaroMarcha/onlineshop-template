@@ -44,3 +44,9 @@ export const registerSuccess = createAction(
   '[Auth] Register Success',
   props<{ loginTokenResponse: LoginTokenResponse }>()
 );
+
+// Update profile image URL
+export const updateProfileImageUrl = createAction(
+  '[Auth] Update Profile Image URL',
+  props<{ profileImageUrl: string }>()
+);

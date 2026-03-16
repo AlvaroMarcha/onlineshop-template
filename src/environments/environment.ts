@@ -4,5 +4,6 @@ export const environment = {
     authUrl: 'http://localhost:8080/auth',
     productsUrl: 'http://localhost:8080/products',
     addressUrl: 'http://localhost:8080/address',
+    usersUrl: 'http://localhost:8080/users',
   },
 };
