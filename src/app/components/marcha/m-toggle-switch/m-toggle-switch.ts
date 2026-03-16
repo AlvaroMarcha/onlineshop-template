@@ -2,12 +2,14 @@ import {
   Component, input, forwardRef, signal, ChangeDetectionStrategy,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export type MToggleSize = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'm-toggle-switch',
   standalone: true,
+  imports: [MRipple],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './m-toggle-switch.html',
   styleUrl: './m-toggle-switch.css',

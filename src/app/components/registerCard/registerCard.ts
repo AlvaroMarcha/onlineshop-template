@@ -21,6 +21,7 @@ import { MPassword } from '../marcha/m-password/m-password';
 import { MButton } from '../marcha/m-button/m-button';
 import { MCheckbox } from '../marcha/m-checkbox/m-checkbox';
 import { MNotificationService } from '../marcha/m-toast/m-notification.service';
+import { MRipple } from '../marcha/m-ripple/m-ripple.directive';
 
 export function passwordsMatchValidator(
   group: AbstractControl
@@ -32,7 +33,7 @@ export function passwordsMatchValidator(
 
 @Component({
   selector: 'app-register-card',
-  imports: [ReactiveFormsModule, TranslateModule, RouterLink, MCard, MInput, MPassword, MButton, MCheckbox],
+  imports: [ReactiveFormsModule, TranslateModule, RouterLink, MCard, MInput, MPassword, MButton, MCheckbox, MRipple],
   templateUrl: './registerCard.html',
   styleUrl: './registerCard.css',
 })

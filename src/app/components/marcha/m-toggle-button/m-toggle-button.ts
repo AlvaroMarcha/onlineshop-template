@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export type MToggleButtonSize     = 'sm' | 'md' | 'lg';
 export type MToggleButtonSeverity = 'primary' | 'secondary' | 'success' | 'warn' | 'danger';
@@ -11,7 +12,7 @@ export type MToggleButtonSeverity = 'primary' | 'secondary' | 'success' | 'warn'
   selector: 'm-toggle-button',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-toggle-button.html',
   styleUrl: './m-toggle-button.css',
   providers: [{

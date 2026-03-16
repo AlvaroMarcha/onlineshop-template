@@ -2,10 +2,12 @@ import {
   Component, Input, forwardRef, signal, ChangeDetectionStrategy,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 @Component({
   selector: 'm-checkbox',
   standalone: true,
+  imports: [MRipple],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './m-checkbox.html',
   styleUrl: './m-checkbox.css',

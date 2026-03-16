@@ -11,11 +11,12 @@ import { MInput } from '../marcha/m-input/m-input';
 import { MPassword } from '../marcha/m-password/m-password';
 import { MButton } from '../marcha/m-button/m-button';
 import { MMessage } from '../marcha/m-message/m-message';
+import { MRipple } from '../marcha/m-ripple/m-ripple.directive';
 
 @Component({
   selector: 'app-loginCard',
   standalone: true,
-  imports: [ReactiveFormsModule, TranslateModule, RouterLink, MCard, MInput, MPassword, MButton, MMessage],
+  imports: [ReactiveFormsModule, TranslateModule, RouterLink, MCard, MInput, MPassword, MButton, MMessage, MRipple],
   templateUrl: './loginCard.html',
   styleUrl: './loginCard.css',
 })

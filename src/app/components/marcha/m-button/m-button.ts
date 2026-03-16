@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export type MButtonSeverity =
   | 'primary' | 'secondary' | 'success'
@@ -25,7 +26,7 @@ export type MButtonSize = 'small' | 'large' | null;
 @Component({
   selector: 'm-button',
   standalone: true,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-button.html',
   styleUrl: './m-button.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

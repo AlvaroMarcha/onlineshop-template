@@ -5,6 +5,7 @@
 
 // Primitivos
 export { MIcon } from './m-icon/m-icon';
+export { MRipple } from './m-ripple/m-ripple.directive';
 
 export { MButton } from './m-button/m-button';
 export type { MButtonSeverity, MButtonVariant, MButtonSize } from './m-button/m-button';

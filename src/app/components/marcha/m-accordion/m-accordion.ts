@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export interface MAccordionItem {
   header:    string;
@@ -15,7 +16,7 @@ export interface MAccordionItem {
   selector: 'm-accordion',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-accordion.html',
   styleUrl: './m-accordion.css',
 })
