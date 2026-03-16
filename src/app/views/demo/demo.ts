@@ -16,6 +16,7 @@ import {
   MToggleButton, MMenubar,
   MToggleSwitch, MCopy, MSortable,
   MDataview,
+  MFileUpload, MFileUploadValidationError,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
   MSortableItem, MMenubarItem, MDataviewSortOption,
@@ -40,7 +41,7 @@ import {
     MColorPicker,
     MToggleButton, MMenubar,
     MToggleSwitch, MCopy, MSortable,
-    MDataview,
+    MDataview, MFileUpload,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -264,6 +265,26 @@ export class Demo {
     { id: 12, name: 'Leggings Compresión',     price: 48,  category: 'Ropa',        subcategory: 'Leggings',    badge: 'Oferta',
       imageUrl: ['https://picsum.photos/seed/legging1/400/300','https://picsum.photos/seed/legging2/400/300'] },
   ]);
+
+  // File Upload
+  demoUploading  = signal(false);
+  demoLastFile   = signal('');
+  demoErrorMsg   = signal('');
+
+  onDemoFileChange(file: File): void {
+    this.demoLastFile.set(file.name);
+    this.demoErrorMsg.set('');
+  }
+
+  onDemoValidationError(err: MFileUploadValidationError): void {
+    this.demoErrorMsg.set(err === 'invalid_type' ? 'Formato no permitido' : 'Archivo demasiado grande');
+    this.demoLastFile.set('');
+  }
+
+  simulateUpload(): void {
+    this.demoUploading.set(true);
+    setTimeout(() => this.demoUploading.set(false), 2000);
+  }
 
   toggleDvLoading() {
     this.dvLoading.set(true);

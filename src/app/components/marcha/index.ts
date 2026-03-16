@@ -97,3 +97,7 @@ export type { MSortableItem } from './m-sortable/m-sortable';
 // Visualización de datos
 export { MDataview } from './m-dataview/m-dataview';
 export type { MDataviewLayout, MDataviewSortOption } from './m-dataview/m-dataview';
+
+// Uploads
+export { MFileUpload } from './m-file-upload/m-file-upload';
+export type { MFileUploadValidationError } from './m-file-upload/m-file-upload';
