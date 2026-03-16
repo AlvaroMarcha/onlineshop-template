@@ -1,99 +1,98 @@
-<div class="card flex justify-center items-start w-full">
-  <div class="w-full p-4 border border-gray-200 rounded-lg dark:border-gray-700">
-    <h3 class="font-bold text-lg mb-4">Reseñas</h3>
-    @for (review of reviews; track review.user) {
-    <div
-      class="card flex flex-col md:flex-row items-start md:items-center gap-4 pb-6 pt-4 w-full"
-    >
-      <!-- Avatar -->
-      <m-avatar
-        [image]="review.avatar"
-        [label]="review.user"
-        size="xlarge"
-        class="mb-2 md:mb-0 md:mr-4"
-        style="box-shadow: 5px 8px 20px 1px rgba(0, 255, 157, 0.719)"
-      ></m-avatar>
+<div class="reviews-section">
 
-      <!-- Contenido de la reseña -->
-      <div class="flex-1">
-        <h4 class="font-bold text-lg">{{ review.user }}</h4>
-        <p class="text-sm">
-          <span class="text-slate-500">{{ review.date }}</span> |
-          <span class="text-orange-500 font-bold text-xl"
-            >{{ review.rating }}/5</span
-          >
-        </p>
-        <p class="p-2 text-sm text-pretty">{{ review.review }}</p>
-      </div>
+  <h3 class="reviews-section__title">Reseñas</h3>
 
-      <!-- Botones (en columna en móvil, en fila en desktop) -->
-      <div class="flex md:flex-col gap-2 self-start md:self-center">
-        <m-button
-          [icon]="'lucide:file-edit'"
-          size="small"
-          variant="outlined"
-        ></m-button>
-        <m-button
-          [icon]="'lucide:trash-2'"
-          size="small"
-          variant="outlined"
-          severity="danger"
-        ></m-button>
-      </div>
+  <!-- ── Lista de reseñas ──────────────────────────────────────────── -->
+  @if (_isEmpty()) {
+    <div class="reviews-section__empty">
+      <m-icon icon="lucide:message-square-off" size="2.5rem" />
+      <p>Aún no hay reseñas. ¡Sé el primero!</p>
     </div>
-    }
-    <div class="card flex justify-center mt-10">
-      <m-button
-        [label]="'Añadir reseña'"
-        (onClick)="showDialog(true)"
-      ></m-button>
-    </div>
-  </div>
-</div>
-<m-dialog
-  [header]="'Nueva reseña'"
-  [(visible)]="visible"
-  [style]="{ width: '90%', maxWidth: '960px' }"
->
-  <div class="card">
-    <div class="card flex justify-start items-center mb-3 gap-2">
-      <p>Puntuación del producto:</p>
-      <div class="flex gap-1 pl-2">
-        @for (star of [1, 2, 3, 4, 5]; track star) {
-          <m-icon 
-            [icon]="star <= rating ? 'lucide:star' : 'lucide:star'" 
-            [class]="star <= rating ? 'text-yellow-400 cursor-pointer' : 'text-gray-400 cursor-pointer'"
-            (click)="setRating(star)"
-          ></m-icon>
+  } @else {
+    <div class="reviews-list">
+      @for (review of _reviews(); track $index; let idx = $index) {
+        <div class="review-item">
+          <!-- Avatar -->
+          <m-avatar
+            [image]="review.avatar"
+            [label]="review.user"
+            size="xlarge"
+            class="review-item__avatar"
+          />
+
+          <!-- Contenido -->
+          <div class="review-item__body">
+            <div class="review-item__header">
+              <span class="review-item__user">{{ review.user }}</span>
+              @if (isOwn(review)) {
+                <span class="review-item__badge">Tú</span>
+              }
+              <span class="review-item__date">{{ review.date }}</span>
+            </div>
+            <m-rating [value]="review.rating" [readonly]="true" size="sm" />
+            <p class="review-item__text">{{ review.review }}</p>
+          </div>
+
+          <!-- Acciones propias -->
+          @if (isOwn(review)) {
+            <div class="review-item__actions">
+              <m-button
+                icon="lucide:file-edit"
+                size="small"
+                variant="outlined"
+                (onClick)="startEdit(idx)"
+              />
+              <m-button
+                icon="lucide:trash-2"
+                size="small"
+                variant="outlined"
+                severity="danger"
+                (onClick)="deleteReview(idx)"
+              />
+            </div>
+          }
+        </div>
+
+        @if (!$last) {
+          <m-divider />
         }
-      </div>
+      }
     </div>
-    <m-textarea 
-      [(ngModel)]="text" 
-      [placeholder]="'Escribe tu reseña aquí...'"
-      [rows]="10"
-      class="w-full"
-    ></m-textarea>
-  </div>
-  <div
-    class="flex flex-col md:flex-row gap-2 mt-4 md:justify-end justify-center w-full"
-  >
+  }
+
+  <!-- ── Botón añadir reseña ────────────────────────────────────────── -->
+  <div class="reviews-section__cta">
     <m-button
-      class="flex w-full"
-      [label]="'Añadir reseña'"
-      [icon]="'lucide:check'"
-      iconPos="right"
-      size="small"
-    ></m-button>
-    <m-button
-      class="flex w-full md:ml-2 mt-2 md:mt-0"
-      [label]="'Cancelar'"
-      [icon]="'lucide:x'"
-      iconPos="right"
-      size="small"
-      severity="danger"
-      variant="outlined"
-      (onClick)="showDialog(false)"
+      label="Añadir reseña"
+      icon="lucide:plus"
+      (onClick)="openAddDialog()"
     />
   </div>
-</m-dialog>
+
+</div>
+
+<!-- ── Dialog nueva reseña ──────────────────────────────────────────── -->
+<m-composer
+  mode="dialog"
+  dialogHeader="Nueva reseña"
+  placeholder="Escribe tu reseña aquí..."
+  [withRating]="true"
+  [minLength]="10"
+  [maxLength]="500"
+  [(open)]="_addDialogOpen"
+  (submitted)="onReviewSubmit($event)"
+/>
+
+<!-- ── Dialog editar reseña ─────────────────────────────────────────── -->
+@if (_editDraft()) {
+  <m-composer
+    mode="dialog"
+    dialogHeader="Editar reseña"
+    placeholder="Escribe tu reseña aquí..."
+    [withRating]="true"
+    [minLength]="10"
+    [maxLength]="500"
+    [(open)]="_editDialogOpen"
+    (submitted)="onEditSubmit($event)"
+  />
+}

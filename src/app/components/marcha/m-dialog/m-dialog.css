@@ -61,12 +61,12 @@
   background: transparent;
   cursor: pointer;
   border-radius: var(--m-radius-sm);
-  color: var(--m-text-muted);
+  color: var(--m-danger);
   transition: background .15s, color .15s;
 }
 .m-dialog-close:hover {
-  background: var(--m-secondary-bg);
-  color: var(--m-text);
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--m-danger);
 }
 
 .m-dialog-content {

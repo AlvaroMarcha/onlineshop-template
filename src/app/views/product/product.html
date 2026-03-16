@@ -169,6 +169,12 @@
       </div>
     </div>
 
+    <!-- ── Reviews ──────────────────────────────────────────────────── -->
+    <app-product-reviews
+      [reviews]="p.reviews ?? []"
+      [currentUser]="currentUsername()"
+    />
+
   } @else {
 
     <!-- ── Loading skeleton ─────────────────────────────────────── -->

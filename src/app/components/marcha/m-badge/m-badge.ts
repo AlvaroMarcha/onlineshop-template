@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 export type MBadgeSeverity = 'primary' | 'secondary' | 'success' | 'warn' | 'danger' | 'info';
 export type MBadgeSize = 'small' | 'normal' | 'large';
@@ -13,7 +12,7 @@ export type MBadgeSize = 'small' | 'normal' | 'large';
 @Component({
   selector: 'm-badge',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   templateUrl: './m-badge.html',
   styleUrl: './m-badge.css',
 })

@@ -71,6 +71,7 @@
           <m-badge value="m-sortable" severity="success" />
           <m-badge value="m-data-view" severity="success" />
           <m-badge value="m-rating" severity="success" />
+          <m-badge value="m-composer" severity="success" />
           <m-badge value="m-listbox" severity="secondary" />
           <m-badge value="m-file-upload" severity="success" />
           <m-badge value="m-carousel" severity="secondary" />
@@ -839,6 +840,95 @@
       <div class="demo-col" style="gap: 0.5rem;">
         <p class="demo-label">Disabled</p>
         <m-rating [value]="4" [disabled]="true" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── m-composer ────────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-composer &middot; Redactor de texto / reseñas</h2>
+
+    <div class="demo-grid">
+
+      <!-- Inline básico -->
+      <div class="demo-card demo-card--wide">
+        <p class="demo-label">Inline — solo texto</p>
+        <m-composer
+          placeholder="Escribe un comentario..."
+          [showCancel]="false"
+          submitLabel="Publicar"
+          (submitted)="onComposerSubmit($event)"
+        />
+        @if (composerLastSubmit()) {
+          <p class="demo-hint" style="margin-top: 0.5rem">
+            Último envío: <strong>{{ composerLastSubmit()!.text }}</strong>
+          </p>
+        }
+      </div>
+
+      <!-- Inline con rating -->
+      <div class="demo-card demo-card--wide">
+        <p class="demo-label">Inline — con rating obligatorio</p>
+        <m-composer
+          placeholder="Escribe tu reseña..."
+          [withRating]="true"
+          [minLength]="10"
+          [maxLength]="300"
+          submitLabel="Enviar reseña"
+          (submitted)="onComposerSubmit($event)"
+        />
+      </div>
+
+      <!-- Inline con adjunto -->
+      <div class="demo-card demo-card--wide">
+        <p class="demo-label">Inline — con imagen adjunta</p>
+        <m-composer
+          placeholder="Describe la imagen..."
+          [withAttachment]="true"
+          submitLabel="Subir"
+          (submitted)="onComposerSubmit($event)"
+        />
+      </div>
+
+      <!-- Dialog básico -->
+      <div class="demo-card">
+        <p class="demo-label">Mode dialog — sin rating</p>
+        <m-button
+          label="Abrir compositor"
+          icon="lucide:pencil"
+          (onClick)="composerDialogOpen.set(true)"
+        />
+        <m-composer
+          mode="dialog"
+          dialogHeader="Escribe un comentario"
+          placeholder="¿Qué opinas?"
+          [(open)]="composerDialogOpen"
+          (submitted)="onComposerSubmit($event)"
+        />
+      </div>
+
+      <!-- Dialog con rating y adjunto -->
+      <div class="demo-card">
+        <p class="demo-label">Mode dialog — rating + adjunto</p>
+        <m-button
+          label="Nueva reseña completa"
+          icon="lucide:star"
+          severity="warn"
+          (onClick)="composerAttachDialog.set(true)"
+        />
+        <m-composer
+          mode="dialog"
+          dialogHeader="Nueva reseña con foto"
+          placeholder="Cuéntanos más detalles..."
+          [withRating]="true"
+          [withAttachment]="true"
+          [minLength]="20"
+          [maxLength]="500"
+          submitLabel="Publicar reseña"
+          [(open)]="composerAttachDialog"
+          (submitted)="onComposerSubmit($event)"
+        />
       </div>
 
     </div>

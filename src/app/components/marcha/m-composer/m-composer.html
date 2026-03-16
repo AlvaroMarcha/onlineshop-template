@@ -1,0 +1,118 @@
+<!-- ── Inline mode ──────────────────────────────────────────────── -->
+@if (mode() === 'inline') {
+  <ng-container *ngTemplateOutlet="composerBody" />
+}
+
+<!-- ── Dialog mode ──────────────────────────────────────────────── -->
+@if (mode() === 'dialog') {
+  <m-dialog
+    [header]="dialogHeader()"
+    [(visible)]="open"
+    size="md"
+  >
+    <ng-container *ngTemplateOutlet="composerBody" />
+  </m-dialog>
+}
+
+<!-- ── Template compartido ──────────────────────────────────────── -->
+<ng-template #composerBody>
+  <div class="m-composer" [class.is-disabled]="disabled()">
+
+    <!-- Rating (opcional) -->
+    @if (withRating()) {
+      <div class="m-composer__rating">
+        <span class="m-composer__rating-label">Tu valoración</span>
+        <m-rating
+          [value]="_rating()"
+          size="md"
+          (ratingChange)="_rating.set($event)"
+          [disabled]="disabled()"
+        />
+        @if (withRating() && _rating() === 0) {
+          <span class="m-composer__rating-hint">Selecciona una puntuación</span>
+        }
+      </div>
+    }
+
+    <!-- Adjunto (opcional) -->
+    @if (withAttachment()) {
+      <div class="m-composer__attachment">
+        <m-file-upload
+          accept="image/jpeg,image/jpg,image/png,image/webp"
+          [maxSizeMb]="5"
+          [uploading]="_uploading()"
+          [disabled]="disabled()"
+          ariaLabel="Adjuntar imagen"
+          (fileChange)="onFileAdded($event)"
+          (validationError)="onFileError($event)"
+        >
+          @if (_attachments().length > 0) {
+            <img
+              class="m-composer__attachment-preview"
+              [src]="''"
+              alt="preview"
+            />
+          }
+        </m-file-upload>
+        @if (_attachments().length > 0) {
+          <div class="m-composer__attachment-list">
+            @for (file of _attachments(); track $index) {
+              <div class="m-composer__attachment-item">
+                <span class="m-composer__attachment-name">{{ file.name }}</span>
+                <button
+                  class="m-composer__attachment-remove"
+                  (click)="removeAttachment($index)"
+                  aria-label="Eliminar adjunto"
+                >×</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Textarea -->
+    <div class="m-composer__textarea-wrap">
+      <textarea
+        class="m-composer__textarea"
+        [class.is-over-limit]="_isOverLimit()"
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [(ngModel)]="_text"
+        rows="4"
+      ></textarea>
+      @if (maxLength() > 0) {
+        <span class="m-composer__char-count" [class.is-over-limit]="_isOverLimit()">
+          {{ _charCount() }}/{{ maxLength() }}
+        </span>
+      }
+    </div>
+
+    <!-- Acciones -->
+    <div class="m-composer__actions">
+      @if (showCancel()) {
+        <m-button
+          [label]="cancelLabel()"
+          variant="outlined"
+          severity="secondary"
+          size="small"
+          icon="lucide:x"
+          [disabled]="disabled()"
+          (onClick)="onCancel()"
+        />
+      }
+      <m-button
+        [label]="submitLabel()"
+        variant="filled"
+        severity="primary"
+        size="small"
+        icon="lucide:send"
+        iconPos="right"
+        [disabled]="!_canSubmit()"
+        [loading]="loading()"
+        (onClick)="onSubmit()"
+      />
+    </div>
+
+  </div>
+</ng-template>

@@ -11,7 +11,7 @@
         <div class="m-dialog-header">
           <span class="m-dialog-title">{{ header() }}</span>
           @if (closeable()) {
-            <button class="m-dialog-close" (click)="close()" aria-label="Cerrar">
+            <button mRipple class="m-dialog-close" (click)="close()" aria-label="Cerrar">
               <m-icon icon="lucide:x" size="18" />
             </button>
           }

@@ -1,59 +1,88 @@
-import { Component } from '@angular/core';
+import { Component, input, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ProductReviewsItem } from '../../type/types';
-import { formatDate } from '../../shared/dates';
-import { FormsModule } from '@angular/forms';
-import { MAccordion } from '../marcha/m-accordion/m-accordion';
+import { MComposer, MComposerSubmit } from '../marcha/m-composer/m-composer';
+import { MRating } from '../marcha/m-rating/m-rating';
 import { MAvatar } from '../marcha/m-avatar/m-avatar';
 import { MButton } from '../marcha/m-button/m-button';
-import { MDialog } from '../marcha/m-dialog/m-dialog';
 import { MIcon } from '../marcha/m-icon/m-icon';
-import { MTextarea } from '../marcha/m-textarea/m-textarea';
+import { MDivider } from '../marcha/m-divider/m-divider';
 
 @Component({
   selector: 'app-product-reviews',
   standalone: true,
-  imports: [FormsModule, MAvatar, MButton, MDialog, MIcon, MTextarea],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MComposer, MRating, MAvatar, MButton, MIcon, MDivider],
   templateUrl: './product-reviews.html',
+  styleUrl: './product-reviews.css',
 })
 export class ProductReviews {
-  visible: boolean = false;
-  text: string = '';
-  rating: number = 5;
-  reviews: ProductReviewsItem[] = [
-    {
-      user: 'Laura Sánchez',
-      avatar:
-        'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
-      date: formatDate('2025-08-10'),
-      review:
-        '¡Muy buen servicio! La atención fue rápida y el producto llegó en perfectas condiciones. Recomiendo totalmente.',
-      rating: 4,
-    },
-    {
-      user: 'Carlos Ramírez',
-      avatar:
-        'https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png',
-      date: formatDate('2025-08-09'),
-      review:
-        'Tuve un problema con el envío, pero el soporte lo resolvió enseguida. Volveré a comprar sin duda.',
-      rating: 5,
-    },
-    {
-      user: 'María Gómez',
-      avatar:
-        'https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png',
-      date: formatDate('2025-08-07'),
-      review:
-        'El producto superó mis expectativas. Calidad excelente y entrega puntual. ¡Gracias!',
-      rating: 5,
-    },
-  ];
+  /** Reviews del producto (pasadas por el padre desde el estado del store). */
+  readonly reviews    = input<ProductReviewsItem[]>([]);
+  /** Username del usuario autenticado, para identificar sus propias reseñas. */
+  readonly currentUser = input<string>('');
 
-  showDialog(value: boolean) {
-    this.visible = value;
+  // ── Estado local de UI ────────────────────────────────────────────
+  /** Copia local para permitir add/edit/delete sin modificar el input. */
+  readonly _reviews = signal<ProductReviewsItem[]>([]);
+  /** Controla la visibilidad del composer de nueva reseña. */
+  readonly _addDialogOpen = signal<boolean>(false);
+  /** Índice de la reseña actualmente en edición (-1 = ninguna). */
+  readonly _editingIdx = signal<number>(-1);
+  /** Controla la visibilidad del composer de edición. */
+  readonly _editDialogOpen = signal<boolean>(false);
+  /** Texto/rating pre-relleno al editar una reseña. */
+  readonly _editDraft = signal<{ text: string; rating: number } | null>(null);
+
+  readonly _isEmpty = computed(() => this._reviews().length === 0);
+
+  ngOnInit(): void {
+    // Inicializar con los valores del input (no reactivo a cambios posteriores del input
+    // ya que este es un demo template; en producción se usaría linkedSignal o effect)
+    this._reviews.set(this.reviews());
   }
 
-  setRating(star: number) {
-    this.rating = star;
+  // ── Handlers ─────────────────────────────────────────────────────
+
+  openAddDialog(): void {
+    this._addDialogOpen.set(true);
+  }
+
+  onReviewSubmit(payload: MComposerSubmit): void {
+    const newReview: ProductReviewsItem = {
+      user: this.currentUser() || 'Anónimo',
+      avatar: '',
+      date: new Date().toLocaleDateString('es-ES'),
+      review: payload.text,
+      rating: payload.rating ?? 5,
+    };
+    this._reviews.update(list => [newReview, ...list]);
+  }
+
+  startEdit(idx: number): void {
+    const review = this._reviews()[idx];
+    this._editingIdx.set(idx);
+    this._editDraft.set({ text: review.review, rating: review.rating });
+    this._editDialogOpen.set(true);
+  }
+
+  onEditSubmit(payload: MComposerSubmit): void {
+    const idx = this._editingIdx();
+    if (idx < 0) return;
+    this._reviews.update(list =>
+      list.map((r, i) =>
+        i === idx ? { ...r, review: payload.text, rating: payload.rating ?? r.rating } : r
+      )
+    );
+    this._editingIdx.set(-1);
+    this._editDraft.set(null);
+  }
+
+  deleteReview(idx: number): void {
+    this._reviews.update(list => list.filter((_, i) => i !== idx));
+  }
+
+  isOwn(review: ProductReviewsItem): boolean {
+    return this.currentUser() !== '' && review.user === this.currentUser();
   }
 }
+

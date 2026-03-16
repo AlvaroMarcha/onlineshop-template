@@ -5,6 +5,7 @@ import {
   effect,
 } from '@angular/core';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export type MDialogSize = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -12,7 +13,7 @@ export type MDialogSize = 'sm' | 'md' | 'lg' | 'xl';
   selector: 'm-dialog',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-dialog.html',
   styleUrl: './m-dialog.css',
 })
