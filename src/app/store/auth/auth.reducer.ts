@@ -20,12 +20,16 @@ export const authReducer = createReducer(
 
   //Login successs from Effect
   on(loginSuccessFinal, (state, { loginTokenResponse }) => {
+    // Guardar token, refreshToken y user en localStorage
     localStorage.setItem('token', loginTokenResponse.token);
+    localStorage.setItem('refreshToken', loginTokenResponse.refreshToken);
     localStorage.setItem('user', JSON.stringify(loginTokenResponse.user));
     return {
       ...state,
       token: loginTokenResponse.token,
+      refreshToken: loginTokenResponse.refreshToken,
       user: loginTokenResponse.user,
+      error: null,  // Limpiar error en login exitoso
     };
   }),
 
@@ -38,8 +42,9 @@ export const authReducer = createReducer(
   //Logout
   on(logout, (state) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
-    return { ...state, token: null, user: null };
+    return { ...state, token: null, refreshToken: null, user: null, error: null };
   }),
 
   // Register request
@@ -49,7 +54,7 @@ export const authReducer = createReducer(
     error: null,
   })),
 
-  // Register success
+  // Register success (TODO: adaptar para incluir refreshToken cuando se actualice register)
   on(registerSuccess, (state, { user, token }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -58,6 +63,7 @@ export const authReducer = createReducer(
       token,
       user,
       loading: false,
+      error: null,
     };
   })
 );

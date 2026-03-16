@@ -58,24 +58,46 @@ export interface ResponsiveOption {
 }
 
 // auth state
+/**
+ * User interface que coincide con UserResponseDTO del backend.
+ * Backend: es.marcha.backend.core.user.application.dto.response.UserResponseDTO
+ */
 export interface User {
   id: number;
   name: string;
+  surname: string;  // Añadido: apellido del usuario
   username: string;
-  password: string;
   email: string;
   phone: string;
-  status: boolean;
-  email_verified_at: Date | null;
-  locked: boolean;
-  last_login: Date | null;
-  created_at: Date;
-  role_id: number;
+  roleName: string;  // Backend devuelve string ("ADMIN"/"USER"), no number
+  profileImageUrl: string;  // Añadido: URL de imagen de perfil
+  createdAt: string;  // ISO date string (LocalDateTime serializado)
+  isActive: boolean;  // Cambiado de 'status'
+  isVerified: boolean;  // Cambiado de 'email_verified_at: Date | null' a boolean
+  addresses: Address[];  // Añadido: direcciones del usuario
 }
 
+/**
+ * Dirección del usuario (entity Address del backend).
+ * Backend: es.marcha.backend.core.user.domain.model.Address
+ */
+export interface Address {
+  id?: number;
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+}
+
+/**
+ * Response del login/register/refresh.
+ * Backend: es.marcha.backend.core.auth.application.dto.response.AuthResponseDTO
+ */
 export interface LoginTokenResponse {
   user: User;
-  token: string;
+  token: string;  // JWT access token (validez 60 minutos)
+  refreshToken: string;  // UUID refresh token (validez 30 días)
 }
 
 //Backoffice

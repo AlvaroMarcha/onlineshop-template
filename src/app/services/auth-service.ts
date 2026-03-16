@@ -10,22 +10,32 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Login con username o email y contraseña.
+   * Backend: POST /auth/login
+   * Request: { usernameOrEmail: string, password: string }
+   * Response: AuthResponseDTO { user, token, refreshToken }
+   */
   login(
-    username: string,
+    usernameOrEmail: string,
     password: string
-  ): Observable<{ user: User; token: string }> {
-    return this.http.post<{ user: User; token: string }>(
+  ): Observable<LoginTokenResponse> {
+    return this.http.post<LoginTokenResponse>(
       `${this.apiAuth}/login`,
       {
-        user: username,
-        pass: password,
+        usernameOrEmail,
+        password,
       }
     );
   }
 
+  /**
+   * Register (temporalmente mantiene estructura antigua).
+   * TODO: adaptar a RegisterRequestDTO plano del backend.
+   */
   register(
     payload: createClientUser
-  ): Observable<{ user: User; token: string }> {
+  ): Observable<LoginTokenResponse> {
     return this.http
       .post(`${this.apiAuth}/register`, payload)
       .pipe(
