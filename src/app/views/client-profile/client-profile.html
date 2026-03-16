@@ -12,19 +12,37 @@
           <div class="relative group">
             <m-avatar
               [label]="user$()?.name || 'Usuario'"
+              [image]="user$()?.profileImageUrl || ''"
               size="xlarge"
               severity="primary"
             />
-            <button
-              class="absolute inset-0 flex flex-col items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
-              (click)="fileInput.click()"
-              type="button"
-              [title]="'profile.click_to_change_photo' | translate"
-            >
-              <m-icon icon="lucide:camera" size="28" class="text-white mb-1" />
-              <span class="text-xs text-white font-medium">{{ 'profile.change_photo' | translate }}</span>
-            </button>
-            <input type="file" accept="image/*" (change)="onFileSelected($event)" class="hidden" #fileInput />
+            
+            @if (uploadingPhoto()) {
+              <!-- Spinner de carga -->
+              <div class="absolute inset-0 flex items-center justify-center rounded-full bg-black/80">
+                <m-icon icon="lucide:loader-2" size="32" class="text-white animate-spin" />
+              </div>
+            } @else {
+              <!-- Botón para cambiar foto -->
+              <button
+                class="absolute inset-0 flex flex-col items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
+                (click)="fileInput.click()"
+                type="button"
+                [title]="'profile.click_to_change_photo' | translate"
+              >
+                <m-icon icon="lucide:camera" size="28" class="text-white mb-1" />
+                <span class="text-xs text-white font-medium">{{ 'profile.change_photo' | translate }}</span>
+              </button>
+            }
+            
+            <input 
+              type="file" 
+              accept="image/jpeg,image/jpg,image/png" 
+              (change)="onFileSelected($event)" 
+              class="hidden" 
+              #fileInput 
+              [disabled]="uploadingPhoto()"
+            />
           </div>
 
           <!-- Nombre completo -->

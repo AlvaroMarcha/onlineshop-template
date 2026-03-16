@@ -312,6 +312,10 @@
     "stats_title": "Purchase statistics",
     "stats_subtitle": "Summary of your annual activity.",
     "chart_2024": "Orders 2024",
-    "chart_2025": "Orders 2025"
+    "chart_2025": "Orders 2025",
+    "photo_upload_success": "Profile photo updated successfully",
+    "photo_upload_error": "Error uploading photo. Please try again",
+    "photo_invalid_format": "Invalid file format. Only JPEG, JPG and PNG images are allowed",
+    "photo_too_large": "Image is too large. Maximum allowed size is 5MB"
   }
 }

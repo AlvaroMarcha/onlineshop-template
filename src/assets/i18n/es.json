@@ -357,6 +357,10 @@
     "stats_title": "Estadísticas de compra",
     "stats_subtitle": "Resumen de tu actividad anual.",
     "chart_2024": "Pedidos 2024",
-    "chart_2025": "Pedidos 2025"
+    "chart_2025": "Pedidos 2025",
+    "photo_upload_success": "Foto de perfil actualizada correctamente",
+    "photo_upload_error": "Error al subir la foto. Por favor, inténtalo de nuevo",
+    "photo_invalid_format": "Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG",
+    "photo_too_large": "La imagen es demasiado grande. El tamaño máximo permitido es 5MB"
   }
 }

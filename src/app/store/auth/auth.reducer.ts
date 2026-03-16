@@ -7,6 +7,7 @@ import {
   logout,
   registerRequest,
   registerSuccess,
+  updateProfileImageUrl,
 } from './auth.actions';
 
 export const authReducer = createReducer(
@@ -72,6 +73,19 @@ export const authReducer = createReducer(
       user: loginTokenResponse.user,
       loading: false,
       error: null,
+    };
+  }),
+
+  // Update profile image URL
+  on(updateProfileImageUrl, (state, { profileImageUrl }) => {
+    if (!state.user) return state;
+    
+    const updatedUser = { ...state.user, profileImageUrl };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    
+    return {
+      ...state,
+      user: updatedUser,
     };
   })
 );

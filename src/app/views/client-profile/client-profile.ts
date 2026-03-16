@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../store/auth/auth.selectors';
+import { updateProfileImageUrl } from '../../store/auth/auth.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -16,6 +17,8 @@ import { formatDate } from '../../shared/dates';
 import { Chart } from 'chart.js';
 import { LanguageService } from '../../services/language-service';
 import { AddressService } from '../../services/address-service';
+import { UserService } from '../../services/user-service';
+import { MNotificationService } from '../../components/marcha/m-toast/m-notification.service';
 import { MAvatar } from '../../components/marcha/m-avatar/m-avatar';
 import { MToast } from '../../components/marcha/m-toast/m-toast';
 import { MDivider } from '../../components/marcha/m-divider/m-divider';
@@ -74,7 +77,7 @@ export class ClientProfile implements OnInit {
   isDisabled = true;
   labelEdit  = '';
   colorEdit: 'primary' | 'danger' | 'warn' = 'warn';
-  selectedFile: File | null = null;
+  uploadingPhoto = signal(false);
 
   profileForm = new FormGroup({
     name:  new FormControl({ value: '', disabled: true }),
@@ -95,11 +98,11 @@ export class ClientProfile implements OnInit {
   constructor(
     public store: Store,
     private lang: LanguageService,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private userService: UserService,
+    private notificationService: MNotificationService
   ) {
     this.user$ = toSignal(this.store.select(selectUser));
-    console.log('🟢 User signal initialized:', this.user$());
-    console.log('🟢 User active status:', this.user$()?.active);
   }
 
   // Setter: se dispara cuando el canvas aparece en el DOM (al activar tab 2)
@@ -165,15 +168,15 @@ export class ClientProfile implements OnInit {
     // Inicializar lista de países (lista simplificada)
     this.countries = [
       { label: 'España', value: 'España' },
-      { label: 'Francia', value: 'Francia' },
-      { label: 'Alemania', value: 'Alemania' },
-      { label: 'Italia', value: 'Italia' },
-      { label: 'Portugal', value: 'Portugal' },
-      { label: 'Reino Unido', value: 'Reino Unido' },
-      { label: 'Estados Unidos', value: 'Estados Unidos' },
-      { label: 'México', value: 'México' },
-      { label: 'Argentina', value: 'Argentina' },
-      { label: 'Colombia', value: 'Colombia' },
+      // { label: 'Francia', value: 'Francia' },
+      // { label: 'Alemania', value: 'Alemania' },
+      // { label: 'Italia', value: 'Italia' },
+      // { label: 'Portugal', value: 'Portugal' },
+      // { label: 'Reino Unido', value: 'Reino Unido' },
+      // { label: 'Estados Unidos', value: 'Estados Unidos' },
+      // { label: 'México', value: 'México' },
+      // { label: 'Argentina', value: 'Argentina' },
+      // { label: 'Colombia', value: 'Colombia' },
     ];
 
     this.orders = [
@@ -299,11 +302,51 @@ export class ClientProfile implements OnInit {
     this.activeTab = index;
   }
 
-  onFileSelected(event: Event) {
+  async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+    const user = this.user$();
+    if (!user?.id) return;
+
+    // Validar tipo de archivo
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if (!validTypes.includes(file.type)) {
+      const errorMsg = await this.lang.tOne('profile.photo_invalid_format');
+      this.notificationService.error(errorMsg);
+      input.value = ''; // Limpiar el input
+      return;
     }
+
+    // Validar tamaño de archivo (máximo 5MB)
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSizeInBytes) {
+      const errorMsg = await this.lang.tOne('profile.photo_too_large');
+      this.notificationService.error(errorMsg);
+      input.value = ''; // Limpiar el input
+      return;
+    }
+
+    // Iniciar subida
+    this.uploadingPhoto.set(true);
+
+    this.userService.uploadProfileImage(user.id, file).subscribe({
+      next: async (imageUrl) => {
+        this.store.dispatch(updateProfileImageUrl({ profileImageUrl: imageUrl }));
+        const successMsg = await this.lang.tOne('profile.photo_upload_success');
+        this.notificationService.success(successMsg);
+        this.uploadingPhoto.set(false);
+        input.value = ''; // Limpiar el input
+      },
+      error: async (err) => {
+        console.error('Error subiendo foto:', err);
+        const errorMsg = await this.lang.tOne('profile.photo_upload_error');
+        this.notificationService.error(errorMsg);
+        this.uploadingPhoto.set(false);
+        input.value = ''; // Limpiar el input
+      }
+    });
   }
 
   async editForm() {
