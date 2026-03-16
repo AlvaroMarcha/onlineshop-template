@@ -1,29 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
+import { Component, computed, effect, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductItem } from '../../type/types';
 import { LanguageService } from '../../services/language-service';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectProducts } from '../../store/products/products.selector';
+import { allProductsRequestInit } from '../../store/products/products.actions';
+import { useDarkMode } from '../../shared/utils';
+import { ProductCartItem } from '../../type/types';
+import { addToCart } from '../../store/cart/cart.actions';
+import { MButton } from '../../components/marcha/m-button/m-button';
+
+interface MenuItem {
+  label: string;
+  icon?: string;
+  items?: MenuItem[];
+}
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [PrimengModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MButton],
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })
 export class Shop implements OnInit {
-  products: ProductItem[];
+  products$;
+  items: MenuItem[] | undefined;
+  isMobile = window.matchMedia('(max-width: 600px)').matches;
+
   t!: Record<string, string>;
   layout: 'list' | 'grid' = 'grid';
   options = ['list', 'grid'];
 
-  constructor(private lang: LanguageService, public router: Router) {
-    this.products = [];
+  constructor(
+    private lang: LanguageService,
+    public router: Router,
+    private store: Store
+  ) {
+    this.products$ = toSignal(this.store.select(selectProducts));
   }
 
   async ngOnInit() {
+    this.store.dispatch(allProductsRequestInit());
+
     this.t = await this.lang.tMany([
       'shop.title',
       'shop.description',
@@ -34,54 +55,63 @@ export class Shop implements OnInit {
       'shop.in_stock',
     ]);
 
-    this.products = [
+    this.items = [
       {
-        id: 'p001',
-        name: 'Auriculares Bluetooth',
-        description:
-          'Auriculares inalámbricos con cancelación de ruido activa.',
-        image: 'logos/principal.jpg',
-        price: 59.99,
-        inventoryStatus: this.t['shop.in_stock'],
-        category: 'Electrónica',
-      },
-      {
-        id: 'p002',
-        name: 'Camiseta deportiva',
-        description:
-          'Camiseta transpirable para entrenamiento de alta intensidad.',
-        image: 'logos/principal.jpg',
-        price: 24.95,
-        inventoryStatus: this.t['shop.low_stock'],
-        category: 'Ropa',
-      },
-      {
-        id: 'p003',
-        name: 'Botella térmica',
-        description: 'Botella de acero inoxidable que mantiene la temperatura.',
-        image: 'logos/principal.jpg',
-        price: 14.5,
-        inventoryStatus: this.t['shop.in_stock'],
-        category: 'Hogar',
-      },
-      {
-        id: 'p004',
-        name: 'Reloj inteligente',
-        description: 'Reloj con monitor de ritmo cardíaco y GPS integrado.',
-        image: 'logos/principal.jpg',
-        price: 120.0,
-        inventoryStatus: this.t['shop.in_stock'],
-        category: 'Tecnología',
-      },
-      {
-        id: 'p005',
-        name: 'Teclado mecánico',
-        description: 'Teclado retroiluminado con switches personalizados.',
-        image: 'logos/principal.jpg',
-        price: 89.9,
-        inventoryStatus: this.t['shop.low_stock'],
-        category: 'Oficina',
+        label: 'Categorías',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'New',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'New',
+            icon: 'pi pi-circle-on',
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-circle-on',
+          },
+        ],
       },
     ];
+  }
+
+  get isDarkMode() {
+    return useDarkMode();
+  }
+
+  /**
+   * Adds a product to the global shopping cart.
+   *
+   * Finds the product in the current product list (`products$`),
+   * converts it into the `ProductCartItem` format, and dispatches
+   * it to the NgRx store using the `addToCart` action.
+   *
+   * @param id - The ID of the product to be added to the cart.
+   * @returns void
+   */
+  addCart(id: number) {
+    const productToAdd = this.products$()?.find((p) => p.id === id);
+    const productConvert: ProductCartItem = {
+      id: productToAdd?.id!,
+      name: productToAdd?.name!,
+      category: productToAdd?.category!,
+      price: productToAdd?.price!,
+      imageUrl: productToAdd?.urlImg!,
+      quantity: 1,
+    };
+    this.store.dispatch(addToCart({ item: productConvert }));
   }
 }

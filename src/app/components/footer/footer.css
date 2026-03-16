@@ -1,57 +1,43 @@
-footer {
-  display: grid;
-  width: 100%;
-  height: max-content;
-  grid-template-columns: 60% 20% 20%;
-  grid-template-rows: 60% 1fr;
-  grid-template-areas:
-    "footer-principal footer-secondary footer-tertiary"
-    "footer-socials footer-secondary footer-tertiary";
+/* Footer styles - glassmorphism compatible */
+
+footer button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: auto;
 }
 
-footer > div {
-  background-color: rgba(136, 136, 136, 0.397);
-  color: white;
+footer a,
+footer button {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.principal {
-  grid-area: footer-principal;
-}
-
-.secondary {
-  grid-area: footer-secondary;
-}
-
-.tertiary {
-  grid-area: footer-tertiary;
-}
-
-.socials {
-  grid-area: footer-socials;
-}
-
-/* Media Queries */
-/* Pantallas pequeñas */
-@media (max-width: 720px) {
-  footer {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas:
-      "footer-principal"
-      "footer-secondary"
-      "footer-tertiary"
-      "footer-socials";
+/* Scroll to top button animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
   }
-
-  footer > div {
-    width: 100%;
-    text-align: center;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
+}
 
-  .socials {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 10px 15px -3px rgba(var(--m-primary-rgb), 0.25);
   }
+  50% {
+    box-shadow: 0 10px 25px -3px rgba(var(--m-primary-rgb), 0.4);
+  }
+}
+
+footer button[aria-label="Scroll to top"] {
+  animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+footer button[aria-label="Scroll to top"]:hover {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

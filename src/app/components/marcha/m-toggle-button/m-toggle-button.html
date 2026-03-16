@@ -1,0 +1,15 @@
+<button
+  mRipple
+  type="button"
+  [class]="cssClass()"
+  [attr.aria-pressed]="active()"
+  [disabled]="isDisabled() || null"
+  (click)="onToggle()"
+>
+  @if (icon()) {
+    <m-icon [icon]="icon()" size="16" class="m-toggle-btn__icon" />
+  }
+  @if (label()) {
+    <span class="m-toggle-btn__label">{{ label() }}</span>
+  }
+</button>

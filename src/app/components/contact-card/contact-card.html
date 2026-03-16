@@ -1,40 +1,37 @@
-<p-card class="contact-card">
-  <ng-template #title>{{ 'contact.title' | translate }}</ng-template>
-  <input
+<m-card class="contact-card" [header]="'contact.title' | translate">
+  <m-input
     [(ngModel)]="nameValue"
     type="text"
-    pInputText
     [placeholder]="'contact.form.name' | translate"
+    styleClass="w-full mb-4"
   />
 
-  <input
+  <m-input
     [(ngModel)]="emailValue"
     type="email"
-    pInputText
     [placeholder]="'contact.form.email' | translate"
+    styleClass="w-full mb-4"
   />
 
-  <input
+  <m-input
     [(ngModel)]="topicValue"
-    type="email"
-    pInputText
+    type="text"
     [placeholder]="'contact.form.subject' | translate"
+    styleClass="w-full mb-4"
   />
 
-  <textarea
-    rows="5"
-    cols="30"
-    pTextarea
+  <m-textarea
+    [rows]="5"
     [(ngModel)]="messageValue"
     [placeholder]="'contact.form.message' | translate"
-  ></textarea>
+    styleClass="w-full mb-4"
+  />
 
-  <p-button
-    [style]="{width: '100%', marginTop: '10px'}"
+  <m-button
+    styleClass="w-full mt-2"
     [label]="'contact.form.submit_button' | translate"
-    icon="pi pi-send"
+    icon="lucide:send"
     iconPos="left"
     size="small"
-  >
-  </p-button>
-</p-card>
+  />
+</m-card>

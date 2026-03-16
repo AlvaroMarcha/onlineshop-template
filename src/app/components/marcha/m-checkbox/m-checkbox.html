@@ -1,0 +1,18 @@
+<label
+  class="m-checkbox-wrapper"
+  [class.is-checked]="checked()"
+  [class.is-invalid]="invalid"
+  [class.is-disabled]="isDisabled()"
+  (click)="toggle()"
+>
+  <span mRipple class="m-checkbox-box" role="checkbox" [attr.aria-checked]="checked()">
+    @if (checked()) {
+      <svg class="m-checkbox-check" viewBox="0 0 12 10" fill="none">
+        <path d="M1 5l3.5 4L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    }
+  </span>
+  @if (label) {
+    <span class="m-checkbox-label">{{ label }}</span>
+  }
+</label>

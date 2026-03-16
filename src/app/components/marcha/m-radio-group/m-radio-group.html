@@ -1,0 +1,22 @@
+<div class="m-radio-field" [class.is-invalid]="invalid" [class.is-disabled]="isDisabled()">
+  @if (label) {
+    <span class="m-radio-group-label">{{ label }}</span>
+  }
+  <div class="m-radio-list" [class.m-radio-list--horizontal]="orientation === 'horizontal'">
+    @for (opt of options; track opt.value) {
+      <label
+        class="m-radio-item"
+        [class.is-selected]="isSelected(opt)"
+        [class.is-disabled]="opt.disabled || isDisabled()"
+        (click)="select(opt)"
+      >
+        <span mRipple class="m-radio-dot" role="radio" [attr.aria-checked]="isSelected(opt)">
+          @if (isSelected(opt)) {
+            <span class="m-radio-inner"></span>
+          }
+        </span>
+        <span class="m-radio-label">{{ opt.label }}</span>
+      </label>
+    }
+  </div>
+</div>

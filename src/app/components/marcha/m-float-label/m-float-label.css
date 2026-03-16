@@ -1,0 +1,41 @@
+:host { display: block; width: 100%; }
+
+.m-float-label-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* El input/textarea proyectado debe tener placeholder=" " */
+.m-float-label-text {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9375rem;
+  color: var(--m-text-faint);
+  pointer-events: none;
+  transition: top 0.18s, font-size 0.18s, color 0.18s, transform 0.18s;
+  background: transparent;
+  padding: 0 0.25rem;
+  white-space: nowrap;
+}
+
+/* Flota cuando el input tiene foco o tiene valor (placeholder no visible) */
+.m-float-label-wrapper:has(input:focus) .m-float-label-text,
+.m-float-label-wrapper:has(input:not(:placeholder-shown)) .m-float-label-text,
+.m-float-label-wrapper:has(textarea:focus) .m-float-label-text,
+.m-float-label-wrapper:has(textarea:not(:placeholder-shown)) .m-float-label-text {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--m-primary);
+  background: var(--m-surface-2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  /* Ajusta posición del label flotante cuando el input es más alto (44px) */
+  .m-float-label-text {
+    font-size: 1rem;
+  }
+}

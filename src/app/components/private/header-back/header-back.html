@@ -1,0 +1,56 @@
+<div
+  class="flex items-center justify-between px-4 py-2 bg-primary text-green-400 border-b border-gray-200 shadow-md"
+>
+  <m-button
+    icon="lucide:menu"
+    variant="text"
+    styleClass="text-white"
+    (onClick)="drawerVisible = true"
+  />
+
+  <span class="font-bold text-lg">Backoffice Dashboard</span>
+
+  <div class="flex items-center gap-2">
+    <m-avatar
+      image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+      shape="circle"
+    />
+    <span class="hidden md:inline">Admin</span>
+  </div>
+</div>
+
+<!-- Drawer -->
+<m-drawer [(visible)]="drawerVisible" position="left">
+  <div class="flex flex-col h-full w-64">
+    <div class="flex items-center px-4 py-3 border-b">
+      <m-icon icon="lucide:settings" class="mr-2" />
+      <span class="font-bold">Menú</span>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-2">
+      <!-- Menu Items -->
+      <div class="flex flex-col gap-2">
+        @for (item of menuItems; track item.label) {
+          <m-button
+            [label]="item.label"
+            [icon]="item.icon"
+            variant="text"
+            [full]="true"
+            (onClick)="item.command ? item.command() : null"
+            styleClass="justify-start"
+          />
+        }
+      </div>
+    </div>
+
+    <div class="p-4 border-t mt-auto">
+      <m-button
+        icon="lucide:log-out"
+        label="Cerrar sesión"
+        severity="danger"
+        [full]="true"
+        (onClick)="logout()"
+      />
+    </div>
+  </div>
+</m-drawer>

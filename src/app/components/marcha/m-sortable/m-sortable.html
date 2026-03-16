@@ -1,0 +1,33 @@
+<div class="m-sortable-list">
+
+  @if (items().length === 0) {
+    <div class="m-sortable-empty">
+      <m-icon icon="lucide:list" size="28" />
+      <span>{{ emptyMessage() }}</span>
+    </div>
+  }
+
+  @for (item of items(); track item.id; let i = $index) {
+    <div
+      class="m-sortable-item"
+      [class.is-dragging]="isDragging(i)"
+      [class.is-over]="isDragOver(i)"
+      draggable="true"
+      (dragstart)="onDragStart($event, i)"
+      (dragover)="onDragOver($event, i)"
+      (dragleave)="onDragLeave()"
+      (drop)="onDrop($event, i)"
+      (dragend)="onDragEnd()">
+
+      <span class="m-sortable-handle" title="Arrastrar">
+        <m-icon icon="lucide:grip-vertical" size="16" />
+      </span>
+
+      <span class="m-sortable-label">{{ item.label }}</span>
+
+      <span class="m-sortable-index">{{ i + 1 }}</span>
+
+    </div>
+  }
+
+</div>

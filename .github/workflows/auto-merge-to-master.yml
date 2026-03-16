@@ -1,0 +1,33 @@
+name: Auto-merge to master
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    name: Auto-merge develop to master
+    runs-on: ubuntu-latest
+
+    # Solo ejecutar cuando se aprueba el PR develop → master
+    if: |
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'master' &&
+      github.event.pull_request.head.ref == 'develop' &&
+      github.event.pull_request.draft == false
+
+    steps:
+      - name: Enable auto-merge
+        # --auto delegates to GitHub: merges when all required checks pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --auto \
+            --merge \
+            --repo ${{ github.repository }}

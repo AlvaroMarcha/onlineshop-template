@@ -40,3 +40,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#.env
+# Solo ignorar el archivo de entorno con secretos reales de producción
+/src/environments/environment.prod.secret.ts

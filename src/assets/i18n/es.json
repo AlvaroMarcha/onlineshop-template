@@ -15,25 +15,65 @@
     "language": "Idioma"
   },
   "footer": {
-    "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas.",
-    "about": "Sobre nosotros",
+    "company_name": "Marcha Shop",
+    "company_desc": "Tu tienda online de confianza. Ofrecemos productos de calidad con envío rápido y atención personalizada.",
+    "customer_service": "Atención al cliente",
     "contact": "Contacto",
-    "privacy_policy": "Política de privacidad",
+    "shipping_returns": "Envíos y devoluciones",
+    "payment_methods": "Métodos de pago",
+    "faq": "Preguntas frecuentes",
+    "legal": "Legal",
     "terms_conditions": "Términos y condiciones",
+    "privacy_policy": "Política de privacidad",
+    "cookies_policy": "Política de cookies",
     "legal_notice": "Aviso legal",
+    "quick_links": "Enlaces rápidos",
+    "all_rights": "Todos los derechos reservados",
+    "secure_payment": "Pago seguro",
+    "about": "Sobre nosotros",
     "conditions": "Condiciones de uso",
     "socials": "Redes sociales",
     "sitemap": "Mapa del sitio",
     "services": "Servicios",
     "support": "Soporte",
-    "legals": "Legales"
+    "legals": "Legales",
+    "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas."
   },
   "home": {
     "banner": {
-      "title": "Crea las pantallas que tus visitantes merecen ver",
-      "subtitle": "Con nuestra plataforma, puedes crear pantallas personalizadas para tus aplicaciones web y móviles de manera rápida y sencilla.",
-      "button1": "Comienza ahora",
-      "button2": "Ver ejemplos"
+      "title": "Crea experiencias elegantes y visualizaciones únicas",
+      "subtitle": "Regístrate para obtener acceso prioritario a nuestra plataforma y lleva tus proyectos al siguiente nivel.",
+      "button1": "Registrarse",
+      "button2": "Saber más"
+    },
+    "categories": {
+      "title": "Explora nuestras categorías",
+      "subtitle": "Encuentra exactamente lo que necesitas navegando por nuestras categorías principales"
+    },
+    "products": {
+      "title": "Productos destacados",
+      "subtitle": "Descubre nuestra selección de productos más populares y ofertas especiales",
+      "view_all": "Ver todos los productos",
+      "add_to_cart": "Añadir al carrito",
+      "no_products": "No hay productos disponibles en este momento"
+    },
+    "features": {
+      "free_shipping": {
+        "title": "Envío gratuito",
+        "description": "En pedidos superiores a 50€"
+      },
+      "secure_payment": {
+        "title": "Pago seguro",
+        "description": "Protección 100% en tus transacciones"
+      },
+      "fast_delivery": {
+        "title": "Entrega rápida",
+        "description": "Recibe tu pedido en 24-48h"
+      },
+      "support_24_7": {
+        "title": "Soporte 24/7",
+        "description": "Estamos aquí para ayudarte siempre"
+      }
     },
     "mini_banner": {
       "title": "Ofertas especiales",
@@ -58,7 +98,7 @@
         "description": "Tus datos están seguros con nosotros. Implementamos las mejores prácticas de seguridad para proteger tu información."
       }
     },
-    "features": {
+    "platform_features": {
       "title": "Un producto, muchas soluciones",
       "subtitle": "Descubre cómo nuestra plataforma puede ayudarte a crear pantallas personalizadas para diferentes necesidades.",
       "feature1": {
@@ -159,19 +199,24 @@
   },
   "login": {
     "title": "Iniciar sesión",
+    "subtitle": "Accede a tu cuenta para continuar",
     "form": {
-      "both": "Usuario o correo electrónico",
-      "usename": "Usuario",
-      "email": "Correo electrónico",
+      "username": "Usuario o correo electrónico",
+      "username_placeholder": "Ingresa tu usuario o email",
+      "username_required": "El usuario o email es requerido",
       "password": "Contraseña",
-      "remember_me": "Recordarme",
-      "forgot_password": "¿Olvidaste tu contraseña?",
-      "login_button": "Iniciar sesión",
-      "no_account": "¿No tienes una cuenta? Regístrate"
-    }
+      "password_placeholder": "Ingresa tu contraseña",
+      "password_required": "La contraseña es requerida",
+      "submit": "Iniciar sesión"
+    },
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "or": "O",
+    "no_account": "¿No tienes una cuenta?",
+    "register_link": "Regístrate aquí"
   },
   "register": {
     "title": "Registrarse",
+    "subtitle": "Crea tu cuenta y únete a nuestra comunidad",
     "form": {
       "name": "Nombre",
       "surnames": "Apellidos",
@@ -183,8 +228,10 @@
       "confirm_password": "Confirmar contraseña",
       "register_button": "Registrarse",
       "login_link": "¿Ya tienes una cuenta? Inicia sesión",
-      "terms": "Acepto los términos y condiciones",
-      "privacy_policy": "Política de privacidad"
+      "already_have_account": "¿Ya tienes una cuenta? Inicia sesión",
+      "i_accept": "Acepto",
+      "terms": "los términos y condiciones",
+      "privacy_policy": "la política de privacidad"
     }
   },
   "cart": {
@@ -239,5 +286,77 @@
         "oldest_first": "Más antiguos primero"
       }
     }
+  },
+  "validation": {
+    "required": "Los campos son obligatorios",
+    "passwords_mismatch": "Las contraseñas no coinciden",
+    "terms_required": "Acepte los términos y condiciones",
+    "invalid_email": "El correo electrónico no es válido"
+  },
+  "profile": {
+    "member_since": "Miembro desde",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "verified": "Verificado",
+    "not_verified": "No verificado",
+    "reset_password": "Restablecer contraseña",
+    "change_photo": "Cambiar foto",
+    "click_to_change_photo": "Click para cambiar foto",
+    "username": "Nombre de usuario",
+    "role": "Rol",
+    "tab_personal": "Datos personales",
+    "tab_orders": "Mis pedidos",
+    "tab_addresses": "Direcciones",
+    "tab_stats": "Estadísticas",
+    "personal_title": "Información personal",
+    "personal_subtitle": "Actualiza tus datos de contacto.",
+    "field_name": "Nombre completo",
+    "field_name_placeholder": "Tu nombre",
+    "field_email": "Email",
+    "field_email_placeholder": "Tu email",
+    "field_phone": "Teléfono",
+    "field_phone_placeholder": "Tu teléfono",
+    "btn_edit": "Editar",
+    "btn_save": "Guardar",
+    "btn_cancel": "Cancelar",
+    "btn_update": "Actualizar",
+    "orders_title": "Mis pedidos",
+    "orders_subtitle": "Historial de todos tus pedidos.",
+    "col_id": "ID",
+    "col_date": "Fecha pedido",
+    "col_status": "Estado",
+    "status_completed": "Completado",
+    "status_cancelled": "Cancelado",
+    "action_view": "Ver",
+    "action_invoice": "Factura",
+    "addresses_title": "Mis direcciones",
+    "addresses_subtitle": "Gestiona tus direcciones de envío y facturación.",
+    "addresses_empty_title": "No tienes direcciones guardadas",
+    "addresses_empty_subtitle": "Añade tu primera dirección para facilitar tus compras futuras.",
+    "addresses_limit_reached": "Has alcanzado el límite máximo de direcciones",
+    "btn_add_address": "Añadir dirección",
+    "btn_add_first_address": "Añadir mi primera dirección",
+    "btn_set_default": "Marcar como predeterminada",
+    "address_type_shipping": "Envío",
+    "address_type_billing": "Facturación",
+    "address_default": "Predeterminada",
+    "modal_add_address": "Añadir dirección",
+    "modal_edit_address": "Editar dirección",
+    "field_address_type": "Tipo de dirección",
+    "field_address_line1": "Dirección",
+    "field_address_line1_placeholder": "Calle, número",
+    "field_address_line2": "Dirección adicional",
+    "field_address_line2_placeholder": "Piso, puerta, bloque (opcional)",
+    "field_country": "País",
+    "field_country_placeholder": "Selecciona un país",
+    "field_city": "Ciudad",
+    "field_city_placeholder": "Tu ciudad",
+    "field_postal_code": "Código postal",
+    "field_postal_code_placeholder": "CP",
+    "field_set_default": "Establecer como dirección predeterminada",
+    "stats_title": "Estadísticas de compra",
+    "stats_subtitle": "Resumen de tu actividad anual.",
+    "chart_2024": "Pedidos 2024",
+    "chart_2025": "Pedidos 2025"
   }
 }

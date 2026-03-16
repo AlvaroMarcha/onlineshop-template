@@ -1,0 +1,18 @@
+<div class="card">
+  <!-- Simple grid display of images (replace carousel for now) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+    @for (image of images; track image.url) {
+      <div class="rounded p-4">
+        <div class="mb-4">
+          <div class="flex justify-center relative mx-auto">
+            <img
+              [src]="image.url"
+              [alt]="image.alt"
+              class="h-[400px] w-full object-contain rounded-lg shadow-md shadow-grey-100"
+            />
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

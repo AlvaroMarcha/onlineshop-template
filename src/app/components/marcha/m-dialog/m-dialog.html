@@ -1,0 +1,25 @@
+@if (visible()) {
+  <div
+    class="m-dialog-backdrop"
+    (click)="onBackdropClick($event)"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="header()"
+  >
+    <div class="m-dialog-panel" [class]="'m-dialog-panel--' + size()">
+      @if (header() || closeable()) {
+        <div class="m-dialog-header">
+          <span class="m-dialog-title">{{ header() }}</span>
+          @if (closeable()) {
+            <button class="m-dialog-close" (click)="close()" aria-label="Cerrar">
+              <m-icon icon="lucide:x" size="18" />
+            </button>
+          }
+        </div>
+      }
+      <div class="m-dialog-content">
+        <ng-content />
+      </div>
+    </div>
+  </div>
+}

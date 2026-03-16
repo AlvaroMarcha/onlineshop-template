@@ -1,0 +1,715 @@
+<div class="demo-page">
+  <header class="demo-header">
+    <h1 class="demo-title">
+      <m-icon icon="lucide:layers" size="32" />
+      Marcha Design System
+    </h1>
+    <p class="demo-subtitle">Componentes â€“ Libreria completa</p>
+  </header>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">Estado de la libreria</h2>
+    <div class="demo-roadmap">
+      <m-card header="Primitivos" variant="flat" padding="sm">
+        <div class="demo-row">
+          <m-badge value="m-icon" severity="success" />
+          <m-badge value="m-button" severity="success" />
+          <m-badge value="m-card" severity="success" />
+          <m-badge value="m-avatar" severity="success" />
+          <m-badge value="m-badge" severity="success" />
+          <m-badge value="m-divider" severity="success" />
+          <m-badge value="m-overlay-badge" severity="success" />
+        </div>
+      </m-card>
+      <m-card header="Formularios" variant="flat" padding="sm">
+        <div class="demo-row">
+          <m-badge value="m-calendar" severity="success" />
+          <m-badge value="m-input" severity="success" />
+          <m-badge value="m-password" severity="success" />
+          <m-badge value="m-textarea" severity="success" />
+          <m-badge value="m-checkbox" severity="success" />
+          <m-badge value="m-number-input" severity="success" />
+          <m-badge value="m-float-label" severity="success" />
+          <m-badge value="m-select" severity="success" />
+          <m-badge value="m-radio-group" severity="success" />
+          <m-badge value="m-range-slider" severity="success" />
+          <m-badge value="m-color-picker" severity="success" />
+          <m-badge value="m-toggle-switch" severity="success" />
+          <m-badge value="m-copy" severity="success" />
+        </div>
+      </m-card>
+      <m-card header="Overlays y notificaciones" variant="flat" padding="sm">
+        <div class="demo-row">
+          <m-badge value="m-toast" severity="success" />
+          <m-badge value="m-dialog" severity="success" />
+          <m-badge value="m-drawer" severity="success" />
+          <m-badge value="m-message" severity="success" />
+          <m-badge value="m-tooltip" severity="success" />
+        </div>
+      </m-card>
+      <m-card header="Navegacion" variant="flat" padding="sm">
+        <div class="demo-row">
+          <m-badge value="m-menubar" severity="success" />
+          <m-badge value="m-context-menu" severity="secondary" />
+          <m-badge value="m-toggle-button" severity="success" />
+          <m-badge value="m-panel-menu" severity="secondary" />
+        </div>
+      </m-card>
+      <m-card header="Layout" variant="flat" padding="sm">
+        <div class="demo-row">
+          <m-badge value="m-fieldset" severity="secondary" />
+          <m-badge value="m-panel" severity="secondary" />
+          <m-badge value="m-tabs" severity="success" />
+          <m-badge value="m-accordion" severity="success" />
+          <m-badge value="m-toolbar" severity="secondary" />
+        </div>
+      </m-card>
+      <m-card header="Datos y listas" variant="flat" padding="sm">
+        <div class="demo-row">
+          <m-badge value="m-chip" severity="success" />
+          <m-badge value="m-table" severity="success" />
+          <m-badge value="m-sortable" severity="success" />
+          <m-badge value="m-data-view" severity="success" />
+          <m-badge value="m-rating" severity="secondary" />
+          <m-badge value="m-listbox" severity="secondary" />
+          <m-badge value="m-file-upload" severity="secondary" />
+          <m-badge value="m-carousel" severity="secondary" />
+          <m-badge value="m-image" severity="secondary" />
+        </div>
+      </m-card>
+    </div>
+  </section>
+
+  <m-divider label="Demos" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-button Â· Severidades (filled)</h2>
+    <div class="demo-row">
+      <m-button label="Primary" severity="primary" icon="lucide:zap" />
+      <m-button label="Secondary" severity="secondary" />
+      <m-button label="Success" severity="success" icon="lucide:check" />
+      <m-button label="Warn" severity="warn" icon="lucide:alert-triangle" />
+      <m-button label="Danger" severity="danger" icon="lucide:trash-2" />
+      <m-button label="Info" severity="info" icon="lucide:info" />
+      <m-button label="Help" severity="help" icon="lucide:help-circle" />
+    </div>
+    <h2 class="demo-section-title">Variantes + Tamanos</h2>
+    <div class="demo-row">
+      <m-button label="Filled" severity="primary" variant="filled" />
+      <m-button label="Outlined" severity="primary" variant="outlined" />
+      <m-button label="Text" severity="primary" variant="text" />
+      <m-button label="Small" size="small" severity="success" />
+      <m-button label="Large" size="large" severity="danger" variant="outlined" />
+      <m-button icon="lucide:home" severity="primary" [rounded]="true" />
+      <m-button icon="lucide:settings" severity="secondary" variant="outlined" />
+      <m-button label="Cargando" severity="primary" [loading]="loading" (onClick)="toggleLoading()" />
+      <m-button label="Disabled" severity="primary" [disabled]="true" />
+    </div>
+  </section>
+
+  <m-divider label="Contenedores" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-card Â· Variantes</h2>
+    <div class="demo-cards">
+      <m-card header="Solid card" subHeader="Variante por defecto">
+        <p style="color: var(--m-text-muted)">Fondo sólido con bordes y sombra.</p>
+        <div mCardFooter style="padding: 1rem 1.25rem; border-top: 1px solid var(--m-border-color)">
+          <m-button label="Accion" severity="primary" size="small" />
+        </div>
+      </m-card>
+      <m-card header="Solid card" subHeader="Sin blur" variant="solid">
+        <p style="color: var(--m-text-muted)">Variante solida con fondo opaco.</p>
+      </m-card>
+      <m-card header="Flat card" subHeader="Solo borde" variant="flat">
+        <p style="color: var(--m-text-muted)">Solo borde, sin sombra.</p>
+      </m-card>
+    </div>
+  </section>
+
+  <m-divider />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-avatar Â· Imagen Â· Iniciales Â· Icono</h2>
+    <div class="demo-row">
+      <m-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="xlarge" />
+      <m-avatar label="Juan Garcia" size="xlarge" severity="primary" />
+      <m-avatar label="Ana Lopez" size="large" severity="info" />
+      <m-avatar icon="lucide:user" size="large" severity="secondary" />
+      <m-avatar icon="lucide:shield" size="large" severity="success" />
+      <m-avatar label="CI" size="large" severity="primary" shape="circle" />
+      <m-avatar label="SQ" size="large" severity="warn" shape="square" />
+    </div>
+  </section>
+
+  <m-divider label="Indicadores" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-badge Â· Severidades Â· Dots</h2>
+    <div class="demo-row" style="align-items: center">
+      <m-badge value="Primary" severity="primary" />
+      <m-badge value="12" severity="danger" />
+      <m-badge value="Success" severity="success" />
+      <m-badge value="Warn" severity="warn" />
+      <m-badge value="Info" severity="info" />
+      <m-badge [dot]="true" severity="danger" />
+      <m-badge [dot]="true" severity="success" />
+      <m-badge [dot]="true" severity="warn" />
+    </div>
+
+    <h2 class="demo-section-title">m-overlay-badge Â· Sobre botones y avatares</h2>
+    <div class="demo-row" style="align-items: center">
+      <m-overlay-badge value="3" severity="danger">
+        <m-button icon="lucide:shopping-cart" severity="secondary" variant="outlined" [rounded]="true" />
+      </m-overlay-badge>
+      <m-overlay-badge value="12" severity="primary">
+        <m-button icon="lucide:bell" severity="secondary" variant="outlined" [rounded]="true" />
+      </m-overlay-badge>
+      <m-overlay-badge value="1" severity="warn">
+        <m-avatar icon="lucide:user" size="large" severity="secondary" />
+      </m-overlay-badge>
+    </div>
+  </section>
+
+  <m-divider type="dashed" label="m-divider" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-divider Â· Tipos</h2>
+    <m-divider />
+    <m-divider label="o continua con" />
+    <m-divider type="dashed" />
+    <m-divider type="dotted" label="dotted" />
+  </section>
+
+  <m-divider label="Formularios" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-input Â· Tipos y estados</h2>
+    <div class="demo-form-grid">
+      <m-input label="Nombre" placeholder="Tu nombre completo" icon="lucide:user" [formControl]="form.controls.nombre" />
+      <m-input label="Email" placeholder="correo@ejemplo.com" icon="lucide:mail" type="email" [formControl]="form.controls.email" />
+      <m-input label="Buscar" placeholder="Escribe para buscar..." icon="lucide:search" iconPos="right" />
+      <m-input label="Con error" placeholder="Campo requerido" hint="Este campo es obligatorio" [invalid]="true" icon="lucide:alert-circle" />
+      <m-input label="Deshabilitado" placeholder="No editable" [invalid]="false" [formControl]="form.controls.nombre" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-password Â· Mostrar / ocultar</h2>
+    <div class="demo-form-grid">
+      <m-password label="Contrasena" placeholder="Min. 8 caracteres" [formControl]="form.controls.password" />
+      <m-password label="Con error" placeholder="Contrasena" hint="Minimo 8 caracteres" [invalid]="true" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-textarea Â· Redimencionable</h2>
+    <m-textarea label="Biografia" placeholder="CuÃ©ntanos algo sobre ti..." hint="Maximo 300 caracteres" [rows]="4" [formControl]="form.controls.bio" />
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-checkbox Â· Booleano</h2>
+    <div class="demo-row" style="flex-direction: column; align-items: flex-start; gap: 1rem">
+      <m-checkbox label="Acepto los terminos y condiciones" [formControl]="form.controls.terminos" />
+      <m-checkbox label="Quiero recibir noticias por email" />
+      <m-checkbox label="Con error â€” campo requerido" [invalid]="true" />
+      <m-checkbox label="Deshabilitado" [invalid]="false" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-number-input Â· +/âˆ’ con min/max</h2>
+    <div class="demo-row" style="align-items: flex-start; gap: 2rem">
+      <div style="width: 160px">
+        <m-number-input label="Cantidad" [min]="1" [max]="99" [formControl]="form.controls.cantidad" />
+      </div>
+      <div style="width: 160px">
+        <m-number-input label="Puntuacion (0-10)" [min]="0" [max]="10" hint="Escala del 0 al 10" />
+      </div>
+      <div style="width: 160px">
+        <m-number-input label="Step 5" [step]="5" [min]="0" [max]="100" />
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-float-label Â· Etiqueta flotante</h2>
+    <div class="demo-form-grid">
+      <m-float-label label="Nombre completo">
+        <input class="m-fl-input" placeholder=" " />
+      </m-float-label>
+      <m-float-label label="Ciudad">
+        <input class="m-fl-input" placeholder=" " />
+      </m-float-label>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-select Â· Dropdown estilizado</h2>
+    <div class="demo-form-grid">
+      <m-select label="PaÃ­s" placeholder="Selecciona un paÃ­s" [options]="paises" [formControl]="form.controls.pais" />
+      <m-select label="Talla" placeholder="Elige talla" [options]="tallas" [formControl]="form.controls.talla" />
+      <m-select label="Con error" [options]="paises" placeholder="Obligatorio" hint="Selecciona una opciÃ³n" [invalid]="true" />
+    </div>
+  </section>
+
+  <m-divider label="Overlays y notificaciones" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-message &middot; Alertas inline</h2>
+    <div style="display: flex; flex-direction: column; gap: .75rem">
+      <m-message severity="info"    title="Informacion"  text="Hay una actualizacion disponible para tu cuenta." />
+      <m-message severity="success" title="Operacion exitosa" text="Los cambios se han guardado correctamente." />
+      <m-message severity="warn"    title="Atencion"     text="Tu sesion expira en 10 minutos." [closeable]="true" />
+      <m-message severity="error"   title="Error"        text="No se pudo conectar con el servidor. Intentalo de nuevo." [closeable]="true" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-radio-group Â· Vertical y horizontal</h2>
+    <div class="demo-form-grid">
+      <m-radio-group label="Plan de suscripciÃ³n" [options]="planesOpts" />
+      <m-radio-group label="Talla (horizontal)" [options]="tallas" orientation="horizontal" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toast &middot; Notificaciones globales</h2>
+    <div class="demo-row">
+      <m-button label="Success" severity="success" icon="lucide:check"
+        (onClick)="toast('success', 'Guardado', 'Los cambios se han aplicado.')" />
+      <m-button label="Error" severity="danger" icon="lucide:x"
+        (onClick)="toast('error', 'Error de red', 'Comprueba tu conexion.')" />
+      <m-button label="Info" severity="info" icon="lucide:info"
+        (onClick)="toast('info', 'Informacion', 'Tienes 3 mensajes nuevos.')" />
+      <m-button label="Warn" severity="warn" icon="lucide:alert-triangle"
+        (onClick)="toast('warn', 'Advertencia', 'Espacio en disco al 90%.')" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-range-slider Â· Rango doble</h2>
+    <div class="demo-form-grid">
+      <m-range-slider label="Rango de precio" [min]="0" [max]="500" [step]="5" hint="Filtra productos por precio" [formControl]="form.controls.rango" />
+      <m-range-slider label="Rango de edad" [min]="18" [max]="65" [step]="1" />
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-dialog &middot; Modal</h2>
+    <m-button label="Abrir dialog" severity="primary" icon="lucide:maximize-2"
+      (onClick)="showDialog.set(true)" />
+    <m-dialog [(visible)]="showDialog" header="Confirmar accion">
+      <p>Â¿Estas seguro de que deseas continuar? Esta accion no se puede deshacer.</p>
+      <div style="display: flex; gap: .75rem; margin-top: 1.5rem; justify-content: flex-end">
+        <m-button label="Cancelar" severity="secondary" variant="outlined" (onClick)="showDialog.set(false)" />
+        <m-button label="Confirmar" severity="danger" (onClick)="showDialog.set(false)" />
+      </div>
+    </m-dialog>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-drawer &middot; Panel lateral</h2>
+    <div class="demo-row">
+      <m-button label="Derecha" severity="primary" icon="lucide:panel-right"
+        (onClick)="openDrawer('right')" />
+      <m-button label="Izquierda" severity="secondary" icon="lucide:panel-left"
+        (onClick)="openDrawer('left')" />
+      <m-button label="Abajo" severity="info" icon="lucide:panel-bottom"
+        (onClick)="openDrawer('bottom')" />
+    </div>
+    <m-drawer [(visible)]="showDrawer" header="Menu lateral" [position]="drawerPos()">
+      <p>Contenido del drawer. Puede incluir navegacion, filtros, detalles, etc.</p>
+      <div style="margin-top: 1.5rem">
+        <m-button label="Cerrar" severity="secondary" variant="outlined" (onClick)="showDrawer.set(false)" />
+      </div>
+    </m-drawer>
+  </section>
+
+  <m-divider label="Layout y navegacion" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-tabs &middot; Variante line</h2>
+    <m-tabs [tabs]="tabsDemo" [(active)]="activeTab">
+      @if (activeTab() === 0) {
+        <p style="color: var(--m-text-muted)">Panel General &mdash; informacion de tu cuenta y preferencias.</p>
+      }
+      @if (activeTab() === 1) {
+        <p style="color: var(--m-text-muted)">Panel Seguridad &mdash; configura tu contraseÃ±a y sesiones activas.</p>
+      }
+      @if (activeTab() === 2) {
+        <p style="color: var(--m-text-muted)">Panel Notificaciones &mdash; gestiona tus alertas y avisos.</p>
+      }
+    </m-tabs>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-tabs &middot; Variante pill</h2>
+    <m-tabs [tabs]="tabsPill" variant="pill" [(active)]="activeTabPill">
+      @if (activeTabPill() === 0) {
+        <p style="color: var(--m-text-muted)">Vista semanal &mdash; resumen de la semana en curso.</p>
+      }
+      @if (activeTabPill() === 1) {
+        <p style="color: var(--m-text-muted)">Vista mensual &mdash; resumen del mes actual.</p>
+      }
+      @if (activeTabPill() === 2) {
+        <p style="color: var(--m-text-muted)">Vista anual &mdash; resumen del aÃ±o en curso.</p>
+      }
+    </m-tabs>
+  </section>
+
+  <m-divider label="Acordeones" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-accordion &middot; Exclusivo (single-open)</h2>
+    <m-accordion [items]="accordionItems" />
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-accordion &middot; Multiple paneles abiertos</h2>
+    <m-accordion [items]="accordionMultiple" [multiple]="true" />
+  </section>
+
+  <m-divider label="Chips y Tooltips" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-chip &middot; Severidades</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-chip label="Primary"   severity="primary" />
+      <m-chip label="Secondary" severity="secondary" />
+      <m-chip label="Success"   severity="success"   icon="lucide:check" />
+      <m-chip label="Warn"      severity="warn"      icon="lucide:alert-triangle" />
+      <m-chip label="Danger"    severity="danger"    icon="lucide:x" />
+      <m-chip label="Info"      severity="info"      icon="lucide:info" />
+      <m-chip label="Help"      severity="help"      icon="lucide:help-circle" />
+    </div>
+    <h2 class="demo-section-title">Tama&ntilde;os y removible</h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: center">
+      <m-chip label="Small"    severity="primary" size="sm" />
+      <m-chip label="Medium"   severity="primary" size="md" />
+      <m-chip label="Large"    severity="primary" size="lg" />
+      <m-chip label="Removible" severity="success" [removable]="true" icon="lucide:tag" />
+      <m-chip label="React 18" severity="info" size="sm" icon="lucide:code" [removable]="true" />
+      <m-chip label="Angular 20" severity="primary" size="sm" icon="lucide:zap" [removable]="true" />
+    </div>
+    <h2 class="demo-section-title">Estado de presencia &middot; <code>dot</code></h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: center">
+      <m-chip label="Online"    severity="success"   [dot]="true" />
+      <m-chip label="En pausa"  severity="warn"      [dot]="true" />
+      <m-chip label="Ocupado"   severity="danger"    [dot]="true" />
+      <m-chip label="Ausente"   severity="info"      [dot]="true" />
+      <m-chip label="Offline"   severity="secondary" [dot]="true" />
+    </div>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: center; margin-top: .5rem">
+      <m-chip label="Online"  severity="success"   [dot]="true" size="sm" />
+      <m-chip label="Ocupado" severity="danger"    [dot]="true" size="sm" />
+      <m-chip label="Offline" severity="secondary" [dot]="true" size="sm" />
+      <m-chip label="Online"  severity="success"   [dot]="true" size="lg" />
+      <m-chip label="Ocupado" severity="danger"    [dot]="true" size="lg" />
+    </div>
+  </section>
+
+  <m-divider label="Calendar" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-calendar &middot; Selector de fecha (popup)</h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: flex-start; gap: 1.5rem">
+      <div style="display:flex; flex-direction:column; gap:.5rem">
+        <span style="font-size:.8125rem; color:var(--m-text-muted)">Fecha simple</span>
+        <m-calendar [formControl]="calSingle" />
+      </div>
+      <div style="display:flex; flex-direction:column; gap:.5rem">
+        <span style="font-size:.8125rem; color:var(--m-text-muted)">Rango de fechas</span>
+        <m-calendar mode="range" [formControl]="calRange" />
+      </div>
+    </div>
+    <h2 class="demo-section-title">m-calendar &middot; Inline</h2>
+    <div class="demo-row" style="flex-wrap: wrap; align-items: flex-start; gap: 2rem">
+      <m-calendar [inline]="true" [formControl]="calInline" />
+      <m-calendar mode="range" [inline]="true" [formControl]="calInlineRange" />
+    </div>
+  </section>
+
+  <m-divider label="Color Picker" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-color-picker &middot; Selector de color personalizado</h2>
+    <div class="demo-grid demo-grid--3">
+
+      <m-card header="Popup (selector)" variant="solid" padding="md">
+        <div class="demo-field-group">
+          <m-color-picker label="Color de acento" [formControl]="colorAccent" />
+          <p class="demo-value-preview">
+            Valor: <code>{{ colorAccent.value }}</code>
+            <span class="demo-color-dot" [style.background]="colorAccent.value"></span>
+          </p>
+        </div>
+      </m-card>
+
+      <m-card header="Inline (embebido)" variant="solid" padding="md">
+        <m-color-picker [inline]="true" [formControl]="colorInline" />
+      </m-card>
+
+      <m-card header="Sin swatches / Deshabilitado" variant="solid" padding="md">
+        <div class="demo-field-group" style="gap: 1rem;">
+          <m-color-picker
+            label="Sin swatches"
+            [swatches]="[]"
+            [formControl]="colorNoSwatches"
+            hint="Solo gradiente y hex" />
+          <m-color-picker
+            label="Deshabilitado"
+            [formControl]="colorDisabled" />
+        </div>
+      </m-card>
+
+    </div>
+  </section>
+
+  <m-divider label="Table" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-table &middot; Equipo &mdash; seleccionable, sorted, paginado</h2>
+    <m-table
+      caption="Equipo Marcha"
+      [columns]="tableColumns"
+      [data]="tableData"
+      [actions]="tableActions"
+      [selectable]="true"
+      [pageSize]="5"
+      (selectionChange)="tableSelection = $event"
+    />
+    @if (tableSelection.length > 0) {
+      <p style="margin-top:.75rem; font-size:.875rem; color:var(--m-text-muted)">
+        <strong>{{ tableSelection.length }}</strong> fila(s) seleccionada(s)
+      </p>
+    }
+    <h2 class="demo-section-title" style="margin-top:2rem">Estado skeleton (loading)</h2>
+    <m-table
+      caption="Cargando datosâ€¦"
+      [columns]="tableColumns"
+      [data]="[]"
+      variant="striped"
+      [loading]="true"
+    />
+    <h2 class="demo-section-title" style="margin-top:2rem">Estado vacÃ­o con b&uacute;squeda</h2>
+    <m-table
+      caption="Sin resultados"
+      [columns]="tableColumns"
+      [data]="[]"
+      emptyMessage="No hay miembros en el equipo"
+    />
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-tooltip &middot; Las 4 posiciones</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-button label="Arriba" severity="secondary"
+        mTooltip="Esto aparece arriba" tooltipPosition="top" />
+      <m-button label="Abajo" severity="secondary"
+        mTooltip="Esto aparece abajo" tooltipPosition="bottom" />
+      <m-button label="Izquierda" severity="secondary"
+        mTooltip="Esto aparece a la izquierda" tooltipPosition="left" />
+      <m-button label="Derecha" severity="secondary"
+        mTooltip="Esto aparece a la derecha" tooltipPosition="right" />
+      <m-button label="Con retraso 600ms" severity="primary" icon="lucide:clock"
+        mTooltip="Aparezco con retraso" [tooltipDelay]="600" />
+    </div>
+  </section>
+
+  <m-divider label="Toggle Switch" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toggle-switch &middot; Interruptor accesible con ControlValueAccessor</h2>
+    <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap; gap: 1.5rem">
+      <m-card variant="solid" padding="md" style="min-width: 220px">
+        <m-toggle-switch
+          label="Notificaciones"
+          hint="Recibe avisos por email"
+          [formControl]="toggleNotify" />
+        <p class="demo-hint">Valor: <code>{{ toggleNotify.value }}</code></p>
+      </m-card>
+      <m-card variant="solid" padding="md" style="min-width: 220px">
+        <m-toggle-switch [formControl]="toggleDark" />
+        <p class="demo-hint">Sin label (minimalista)</p>
+      </m-card>
+      <m-card variant="solid" padding="md" style="min-width: 220px">
+        <m-toggle-switch label="Sin permisos" hint="Solo lectura" [formControl]="toggleDisabled" />
+        <p class="demo-hint">Estado deshabilitado</p>
+      </m-card>
+    </div>
+    <h2 class="demo-section-title" style="margin-top:2rem">TamaÃ±os disponibles</h2>
+    <div class="demo-row" style="align-items: center; flex-wrap: wrap">
+      <m-toggle-switch label="Small" size="sm" />
+      <m-toggle-switch label="Medium (default)" size="md" />
+      <m-toggle-switch label="Large" size="lg" />
+    </div>
+  </section>
+
+  <m-divider label="Copy" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-copy &middot; Copiar al portapapeles con feedback visual</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-copy text="npm install @marcha/ui" label="Copiar comando" />
+      <m-copy text="npm install @marcha/ui" variant="ghost" label="Ghost" />
+      <m-copy text="npm install @marcha/ui" variant="icon" />
+    </div>
+    <div class="demo-row" style="margin-top: 1rem; align-items: center">
+      <code style="flex:1; padding:.5rem 1rem; background:var(--m-secondary-bg); border:1px solid var(--m-border-color); border-radius:.5rem; font-size:.875rem">
+        {{ copyCode }}
+      </code>
+      <m-copy [text]="copyCode" variant="icon" />
+    </div>
+  </section>
+
+  <m-divider label="Sortable" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-sortable &middot; Lista reordenable con drag &amp; drop nativo</h2>
+    <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap">
+      <m-card variant="solid" padding="md" style="min-width: 260px; flex: 1">
+        <m-sortable
+          [items]="sortableItems"
+          (orderChange)="onSortChange($event)" />
+      </m-card>
+      <m-card variant="flat" padding="md" style="min-width: 200px">
+        <p style="font-size:.875rem; color:var(--m-text-muted); margin-bottom:.75rem">
+          Orden actual:
+        </p>
+        @for (item of sortableItems; track item.id; let i = $index) {
+          <p style="font-size:.875rem">{{ i + 1 }}. {{ item.label }}</p>
+        }
+      </m-card>
+    </div>
+  </section>
+
+  <m-divider label="Toggle Button" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toggle-button &middot; BotÃ³n activable con ControlValueAccessor</h2>
+    <div class="demo-row" style="flex-wrap: wrap">
+      <m-toggle-button label="Primary"   icon="lucide:zap"            [formControl]="toggleBtnPrimary" />
+      <m-toggle-button label="Success"   icon="lucide:check"          severity="success"   [formControl]="toggleBtnSuccess" />
+      <m-toggle-button label="Warn"      icon="lucide:alert-triangle" severity="warn"      [formControl]="toggleBtnWarn" />
+      <m-toggle-button label="Danger"    icon="lucide:trash-2"        severity="danger"    [formControl]="toggleBtnDanger" />
+      <m-toggle-button label="Secondary" icon="lucide:circle"         severity="secondary" [formControl]="toggleBtnSecondary" />
+      <m-toggle-button label="Deshabilitado" icon="lucide:lock"       [formControl]="toggleBtnDisabled" />
+    </div>
+    <h2 class="demo-section-title" style="margin-top: 2rem">TamaÃ±os y variante icono</h2>
+    <div class="demo-row" style="align-items: center; flex-wrap: wrap">
+      <m-toggle-button label="Small"  size="sm" icon="lucide:grid" />
+      <m-toggle-button label="Medium" size="md" icon="lucide:grid" />
+      <m-toggle-button label="Large"  size="lg" icon="lucide:grid" />
+      <m-toggle-button icon="lucide:bold" title="Negrita" />
+      <m-toggle-button icon="lucide:italic" title="Cursiva" />
+      <m-toggle-button icon="lucide:underline" title="Subrayado" />
+    </div>
+  </section>
+
+  <m-divider label="Menubar" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-menubar &middot; Barra de navegaciÃ³n responsive</h2>
+
+    <p class="demo-label">Island (width: fit-content Â· )</p>
+    <m-menubar [items]="menubarItems" (itemClick)="lastMenuClick = $any($event).label" />
+
+    <p class="demo-label" style="margin-top: 1.5rem">Bar mode Â· Logo + contenido centrado (contained)</p>
+    <div style="margin-inline: -1.5rem">
+      <m-menubar
+        logo="Marcha UI"
+        logoIcon="lucide:layers"
+        [items]="navbarItems"
+        [contained]="true"
+        maxWidth="1100px"
+        (itemClick)="lastMenuClick = $any($event).label"
+        (logoClick)="lastMenuClick = 'logo'"
+      >
+        <m-button label="Entrar" severity="primary" icon="lucide:log-in" />
+      </m-menubar>
+    </div>
+
+    <p class="demo-label" style="margin-top: 1.5rem">Bar mode Â· Slot derecho con acciones</p>
+    <div style="margin-inline: -1.5rem">
+      <m-menubar
+        logo="Studio"
+        logoIcon="lucide:sliders"
+        [items]="menubarItems"
+        [fullWidth]="true"
+        (itemClick)="lastMenuClick = $any($event).label"
+      >
+        <m-button icon="lucide:bell"   variant="text" severity="secondary" />
+        <m-button icon="lucide:user"   variant="text" severity="secondary" />
+        <m-button icon="lucide:log-in" severity="primary" />
+      </m-menubar>
+    </div>
+
+    @if (lastMenuClick) {
+      <p style="margin-top: .75rem; font-size: .875rem; color: var(--m-text-muted)">
+        Último click: <code>{{ lastMenuClick }}</code>
+      </p>
+    }
+  </section>
+
+  <m-divider label="Dataview" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-dataview &middot; Grid / Lista con skeleton, sort y paginación</h2>
+
+    <div style="display:flex; justify-content:flex-end; margin-bottom: 1rem">
+      <m-button
+        [label]="dvLoading() ? 'Cargando...' : 'Simular carga (2 s)'"
+        severity="secondary"
+        icon="lucide:loader"
+        (onClick)="toggleDvLoading()"
+      />
+    </div>
+
+    <m-dataview
+      header="Catálogo de productos"
+      [items]="dvProducts()"
+      [loading]="dvLoading()"
+      [rows]="6"
+      [sortOptions]="dvSortOpts"
+      imageField="imageUrl"
+      [chipsFields1]="['category']"
+      [chipsFields2]="['subcategory']"
+    >
+      <!-- ▸ Template GRID — solo cuerpo, la imagen y chips los gestiona el componente -->
+      <ng-template #gridItem let-p>
+        <div style="padding: .75rem; display:flex; flex-direction:column; gap:.5rem; flex:1">
+          <p style="margin:0; font-weight:600; font-size:.9rem; color: var(--m-text-primary); line-height:1.3">{{ p.name }}</p>
+          @if (p.badge) {
+            <m-badge
+              [value]="p.badge"
+              [severity]="p.badge === 'Nuevo' ? 'primary' : p.badge === 'Hot' ? 'danger' : 'warn'"
+              style="align-self:flex-start"
+            />
+          }
+          <div style="margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:.5rem">
+            <p style="margin:0; font-size:1.05rem; font-weight:700; color: var(--m-primary)">{{ p.price }} €</p>
+            <m-button icon="lucide:shopping-cart" severity="primary" size="small" title="Añadir al carrito" />
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- ▸ Template LISTA — solo cuerpo -->
+      <ng-template #listItem let-p>
+        <div style="display:flex; align-items:center; gap:.75rem; padding:.75rem 1rem; flex:1; min-width:0">
+          <div style="flex:1; min-width:0">
+            <p style="margin:0; font-weight:600; font-size:.9rem; color: var(--m-text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ p.name }}</p>
+          </div>
+          @if (p.badge) {
+            <m-badge
+              [value]="p.badge"
+              [severity]="p.badge === 'Nuevo' ? 'primary' : p.badge === 'Hot' ? 'danger' : 'warn'"
+            />
+          }
+          <p style="margin:0; font-size:1rem; font-weight:700; color: var(--m-primary); flex-shrink:0">{{ p.price }} €</p>
+          <m-button icon="lucide:shopping-cart" severity="primary" size="small" />
+        </div>
+      </ng-template>
+    </m-dataview>
+  </section>
+</div>

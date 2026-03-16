@@ -1,0 +1,66 @@
+:host {
+  display: block;
+}
+
+/* ===== HORIZONTAL ===== */
+.m-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  color: var(--m-text-faint);
+  font-size: 0.8125rem;
+}
+.m-divider::before,
+.m-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--m-border-color);
+}
+.m-divider:not(:has(.m-divider-label))::after {
+  display: none;
+}
+.m-divider:not(:has(.m-divider-label))::before {
+  width: 100%;
+}
+
+/* When no label â€” full width single line */
+.m-divider:not(:has(span))::before {
+  flex: 1;
+}
+.m-divider:not(:has(span)):not(.m-divider--vertical) {
+  gap: 0;
+}
+
+/* ===== DASHED / DOTTED ===== */
+.m-divider--dashed::before,
+.m-divider--dashed::after {
+  background: none;
+  border-top: 1px dashed var(--m-border-color);
+}
+.m-divider--dotted::before,
+.m-divider--dotted::after {
+  background: none;
+  border-top: 1px dotted var(--m-border-color);
+}
+
+/* ===== VERTICAL ===== */
+.m-divider--vertical {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1rem;
+  height: 100%;
+}
+.m-divider--vertical::before,
+.m-divider--vertical::after {
+  height: auto;
+  width: 1px;
+  flex: 1;
+}
+
+.m-divider-label {
+  white-space: nowrap;
+  flex-shrink: 0;
+}

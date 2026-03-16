@@ -1,0 +1,42 @@
+/* =============================================
+   m-tooltip â€” appended to <body> via MTooltip directive
+   ============================================= */
+.m-tooltip {
+  position: absolute;
+  z-index: 9000;
+  max-width: 240px;
+  padding: .375rem .75rem;
+  background: var(--m-surface-2);
+  border: 1px solid var(--m-border-color);
+  border-radius: var(--m-radius-sm);
+  box-shadow: var(--m-shadow);
+  color: var(--m-text);
+  font-size: .8125rem;
+  font-family: var(--m-font);
+  line-height: 1.4;
+  white-space: normal;
+  word-break: break-word;
+  pointer-events: none;
+  animation: m-tooltip-in .14s ease both;
+}
+
+@keyframes m-tooltip-in {
+  from { opacity: 0; transform: scale(.92); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Flecha decorativa */
+.m-tooltip::before {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--m-surface-2);
+  border: 1px solid var(--m-border-color);
+  transform: rotate(45deg);
+}
+
+.m-tooltip--top::before    { bottom: -4px; left: 50%; translate: -50% 0; border-top: none; border-left: none; }
+.m-tooltip--bottom::before { top: -4px;   left: 50%; translate: -50% 0; border-bottom: none; border-right: none; }
+.m-tooltip--left::before   { right: -4px; top: 50%;  translate: 0 -50%; border-left: none; border-bottom: none; }
+.m-tooltip--right::before  { left: -4px;  top: 50%;  translate: 0 -50%; border-right: none; border-top: none; }

@@ -1,467 +1,169 @@
-<div
-  class="bg-slate-900 text-gray-100 p-4 flex justify-between lg:justify-center items-center flex-wrap"
->
-  <div class="font-bold mr-20">
-    🔥 {{ 'home.mini_banner.title' | translate }}
-  </div>
-  <div class="items-center hidden lg:flex">
-    <span class="leading-normal">
-      {{ 'home.mini_banner.description' | translate }}
-    </span>
-  </div>
-  <a class="flex items-center ml-2 mr-20">
-    <a class="text-white" href="#"
-      ><span class="underline font-bold">
-        {{ 'home.mini_banner.button' | translate }}</span
-      ></a
-    >
-  </a>
-  <a
-    class="flex items-center no-underline justify-center rounded-full text-gray-50 hover:bg-slate-700 cursor-pointer transition-colors duration-150"
-    style="width: 2rem; height: 2rem"
-  >
-    <i class="pi pi-times"></i>
-  </a>
-</div>
-<div
-  class="grid grid-cols-12 gap-4 grid-nogutter bg-surface-0 dark:bg-surface-950 text-surface-800 dark:text-surface-50"
->
-  <div
-    class="col-span-12 md:col-span-6 p-12 text-center md:text-left flex items-center"
-  >
-    <section>
-      <span class="block text-6xl font-bold mb-1">
-        {{ 'home.banner.title' | translate }}
-      </span>
-      <p
-        class="mt-0 mb-6 text-surface-700 dark:text-surface-100 leading-normal"
-      >
-        {{ 'home.banner.subtitle' | translate }}
-      </p>
-
-      <p-button
-        [label]="'home.banner.button1' | translate"
-        type="button"
-        class="mr-4"
-        raised
-      ></p-button>
-      <p-button
-        [label]="'home.banner.button2' | translate"
-        type="button"
-        outlined
-      ></p-button>
-    </section>
-  </div>
-  <div class="col-span-12 md:col-span-6 overflow-hidden">
-    <img
-      src="banners/principal-banner.jpg"
-      alt="Image"
-      class="md:ml-auto block md:h-full"
-      style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)"
-    />
-  </div>
-</div>
-<p-divider />
-<div
-  id="elements-4"
-  class="flex flex-col sm:flex-row m-4 sm:m-20 text-center gap-4 sm:gap-15"
->
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card1.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card1.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card2.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card2.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card3.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card3.description' | translate }}</p>
-    </p-card>
-  </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.mini_cards.card4.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.mini_cards.card4.description' | translate }}</p>
-    </p-card>
-  </div>
-</div>
-
-<p-divider />
-
-<div
-  class="bg-surface-0 dark:bg-surface-950 px-6 py-20 md:px-12 lg:px-20 text-center"
->
-  <div class="mb-4 font-bold text-3xl">
-    <span class="text-surface-900 dark:text-surface-0"
-      >{{ 'home.features.title' | translate }}
-    </span>
-  </div>
-  <div class="text-surface-700 dark:text-surface-100 mb-12">
-    {{ 'home.features.subtitle' | translate }}
-  </div>
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-desktop text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature1.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >{{ 'home.features.feature1.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-lock text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature2.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >{{ 'home.features.feature2.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-check-circle text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature3.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal"
-        >{{ 'home.features.feature3.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-globe text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature4.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal">
-        {{ 'home.features.feature4.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 mb-6 px-8">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-github text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature5.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal">
-        {{ 'home.features.feature5.description' | translate }}
-      </span>
-    </div>
-    <div class="col-span-12 md:col-span-4 md:mb-6 mb-0 px-4">
-      <span
-        class="p-4 shadow mb-4 inline-block bg-surface-0 dark:bg-surface-900"
-        style="border-radius: 10px"
-      >
-        <i class="pi pi-shield text-4xl text-primary"></i>
-      </span>
-      <div
-        class="text-surface-900 dark:text-surface-0 text-xl mb-4 font-medium"
-      >
-        {{ 'home.features.feature6.title' | translate }}
-      </div>
-      <span class="text-surface-700 dark:text-surface-100 leading-normal">
-        {{ 'home.features.feature6.description' | translate }}
-      </span>
-    </div>
-  </div>
-</div>
-<p-divider />
-<div class="flex justify-center align-items-center m-auto w-full sm:w-1/2">
-  <div id="elements-texts" class="mb-10">
-    <div class="block">
-      <h3 class="text-start p-10 text-2xl sm:text-4xl">
-        {{ 'home.title_img.title' | translate }}
-      </h3>
-      <div class="flex flex-col sm:flex-row">
-        <img
-          class="ml-10 rounded-full mb-4 sm:mb-0"
-          src="logos/principal.jpg"
-          alt=""
-          width="240"
+﻿<!-- ====================================
+     HERO SECTION — Banner principal
+     ==================================== -->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ 'home.banner.title' | translate }}</h1>
+      <p class="hero-subtitle">{{ 'home.banner.subtitle' | translate }}</p>
+      <div class="hero-actions">
+        <m-button 
+          [label]="'home.banner.button1' | translate"
+          severity="primary"
+          variant="filled"
+          size="large"
+          icon="lucide:user-plus"
+          (onClick)="goToRegister()"
         />
-        <p class="p-10 w-full sm:w-100">
-          {{ 'home.title_img.description' | translate }}
-        </p>
+        <m-button 
+          [label]="'home.banner.button2' | translate"
+          severity="secondary"
+          variant="outlined"
+          size="large"
+          icon="lucide:arrow-right"
+          iconPos="right"
+          (onClick)="goToShop()"
+        />
       </div>
     </div>
   </div>
-</div>
-<p-divider />
+</section>
 
-<div class="bg-surface-50 dark:bg-surface-950 px-6 py-20 md:px-12 lg:px-20">
-  <div
-    class="text-surface-900 dark:text-surface-0 font-bold text-6xl mb-6 text-center"
-  >
-    {{ 'home.prices.prices_title' | translate }}
-  </div>
-  <div
-    class="text-surface-700 dark:text-surface-100 text-xl mb-12 text-center leading-normal"
-  >
-    {{ 'home.prices.prices_description' | translate }}
-  </div>
-
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-12 lg:col-span-4">
-      <div class="p-4 h-full">
-        <div
-          class="shadow p-4 h-full flex flex-col bg-surface-0 dark:bg-surface-900"
-          style="border-radius: 6px"
+<!-- ====================================
+     CATEGORÍAS DESTACADAS
+     ==================================== -->
+<section class="categories-section">
+  <div class="container">
+    <h2 class="section-title">{{ 'home.categories.title' | translate }}</h2>
+    <p class="section-subtitle">{{ 'home.categories.subtitle' | translate }}</p>
+    
+    <div class="categories-grid">
+      @for (category of categories; track category.id) {
+        <m-card 
+          variant="flat" 
+          styleClass="category-card"
+          (click)="goToShop()"
         >
-          <div
-            class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
-          >
-            {{ 'home.prices.basic.title' | translate }}
+          <div class="category-content">
+            <m-icon [icon]="category.icon" size="3rem" />
+            <h3>{{ category.name }}</h3>
           </div>
-          <div class="text-surface-600 dark:text-surface-200">
-            {{ 'home.prices.basic.subtitle' | translate }}
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <div class="flex items-center">
-            <span
-              class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >{{ 'home.prices.basic.price' | translate }}
-            </span>
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.basic.features.feature1' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.basic.features.feature2' | translate }}</span
-              >
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.basic.features.feature3' | translate }}
-              </span>
-            </li>
-          </ul>
-          <hr
-            class="mt-auto mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <p-button label="Buy Now" styleClass="p-4 w-full"></p-button>
-        </div>
+        </m-card>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     PRODUCTOS DESTACADOS
+     ==================================== -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">{{ 'home.products.title' | translate }}</h2>
+        <p class="section-subtitle">{{ 'home.products.subtitle' | translate }}</p>
       </div>
+      <m-button 
+        [label]="'home.products.view_all' | translate"
+        severity="primary"
+        variant="text"
+        icon="lucide:arrow-right"
+        iconPos="right"
+        (onClick)="goToShop()"
+      />
     </div>
 
-    <div class="col-span-12 lg:col-span-4">
-      <div class="p-4 h-full">
-        <div
-          class="shadow p-4 h-full flex flex-col bg-surface-0 dark:bg-surface-900"
-          style="border-radius: 6px"
-        >
-          <div
-            class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
-          >
-            {{ 'home.prices.premium.title' | translate }}
+    <div class="products-grid">
+      @for (product of featuredProducts(); track product.id) {
+        <m-card variant="flat" styleClass="product-card">
+          <!-- Imagen del producto -->
+          <div class="product-image" (click)="goToProduct(product.id)">
+            @if (product.urlImg) {
+              <img [src]="product.urlImg" [alt]="product.name" />
+            } @else {
+              <div class="product-image-placeholder">
+                <m-icon icon="lucide:image" size="3rem" />
+              </div>
+            }
           </div>
-          <div class="text-surface-600 dark:text-surface-200">
-            {{ 'home.prices.premium.subtitle' | translate }}
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <div class="flex items-center">
-            <span
-              class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >{{ 'home.prices.premium.price' | translate }}
-            </span>
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature1' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature2' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature3' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.premium.features.feature4' | translate }}
-              </span>
-            </li>
-          </ul>
-          <hr
-            class="mt-auto mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <p-button label="Buy Now" styleClass="p-4 w-full"></p-button>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-span-12 lg:col-span-4">
-      <div class="p-4 h-full">
-        <div
-          class="shadow p-4 flex flex-col bg-surface-0 dark:bg-surface-900"
-          style="border-radius: 6px"
-        >
-          <div
-            class="text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
-          >
-            {{ 'home.prices.enterprise.title' | translate }}
+          <!-- Info del producto -->
+          <div class="product-info">
+            <h3 class="product-name" (click)="goToProduct(product.id)">
+              {{ product.name }}
+            </h3>
+            
+            @if (product.description) {
+              <p class="product-description">{{ product.description }}</p>
+            }
+
+            <!-- Precio -->
+            <div class="product-price-section">
+              <span class="product-price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+            </div>
+
+            <!-- Botón añadir al carrito -->
+            <m-button 
+              [label]="'home.products.add_to_cart' | translate"
+              severity="primary"
+              variant="filled"
+              icon="lucide:shopping-cart"
+              [full]="true"
+              (onClick)="addToCart(product.id)"
+            />
           </div>
-          <div class="text-surface-600 dark:text-surface-200">
-            {{ 'home.prices.enterprise.subtitle' | translate }}
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <div class="flex items-center">
-            <span
-              class="font-bold text-2xl text-surface-900 dark:text-surface-0"
-              >{{ 'home.prices.enterprise.price' | translate }}</span
-            >
-          </div>
-          <hr
-            class="my-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <ul class="list-none p-0 m-0 flex-grow-1">
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature1' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature2' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature3' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature4' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature5' | translate }}
-              </span>
-            </li>
-            <li class="flex items-center mb-4">
-              <i class="pi pi-check-circle text-green-500 mr-2"></i>
-              <span class="text-surface-900 dark:text-surface-0"
-                >{{ 'home.prices.enterprise.features.feature6' | translate }}
-              </span>
-            </li>
-          </ul>
-          <hr
-            class="mb-4 mx-0 border-t border-0 border-surface-200 dark:border-surface-700"
-          />
-          <p-button label="Buy Now" styleClass="p-4 w-full" outlined></p-button>
+        </m-card>
+      } @empty {
+        <div class="products-empty">
+          <m-icon icon="lucide:package-open" size="4rem" />
+          <p>{{ 'home.products.no_products' | translate }}</p>
         </div>
-      </div>
+      }
     </div>
   </div>
-</div>
-<p-divider />
-<div
-  id="elements-3"
-  class="flex flex-col sm:flex-row m-4 sm:m-20 text-center gap-4 sm:gap-15"
->
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.footer_cards.card1.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.footer_cards.card1.description' | translate }}</p>
-    </p-card>
+</section>
+
+<!-- ====================================
+     CARACTERÍSTICAS DEL NEGOCIO
+     ==================================== -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-grid">
+      @for (feature of features; track feature.key) {
+        <div class="feature-item">
+          <m-icon [icon]="feature.icon" size="2.5rem" />
+          <div class="feature-text">
+            <h4>{{ 'home.features.' + feature.key + '.title' | translate }}</h4>
+            <p>{{ 'home.features.' + feature.key + '.description' | translate }}</p>
+          </div>
+        </div>
+      }
+    </div>
   </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.footer_cards.card2.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.footer_cards.card2.description' | translate }}</p>
-    </p-card>
+</section>
+
+<!-- ====================================
+     MINI BANNER PROMOCIONAL
+     ==================================== -->
+<section class="promo-banner-section">
+  <div class="container">
+    <m-card variant="flat" styleClass="promo-banner">
+      <div class="promo-content">
+        <div class="promo-text">
+          <h2>{{ 'home.mini_banner.title' | translate }}</h2>
+          <p>{{ 'home.mini_banner.description' | translate }}</p>
+        </div>
+        <m-button 
+          [label]="'home.mini_banner.button' | translate"
+          severity="primary"
+          variant="filled"
+          size="large"
+          icon="lucide:tag"
+          (onClick)="goToShop()"
+        />
+      </div>
+    </m-card>
   </div>
-  <div class="w-full sm:w-auto">
-    <p-card>
-      <ng-template #title>
-        <h4>{{ 'home.footer_cards.card3.title' | translate }}</h4>
-      </ng-template>
-      <p>{{ 'home.footer_cards.card3.description' | translate }}</p>
-    </p-card>
-  </div>
-</div>
+</section>

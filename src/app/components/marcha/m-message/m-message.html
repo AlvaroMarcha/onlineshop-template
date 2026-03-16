@@ -1,0 +1,14 @@
+@if (!closed()) {
+  <div class="m-msg" [class]="'m-msg--' + severity()" role="alert">
+    <m-icon class="m-msg-icon" [icon]="icon()" size="20" />
+    <div class="m-msg-body">
+      @if (title()) { <span class="m-msg-title">{{ title() }}</span> }
+      @if (text())  { <p class="m-msg-text">{{ text() }}</p> }
+    </div>
+    @if (closeable()) {
+      <button class="m-msg-close" (click)="close()" aria-label="Cerrar">
+        <m-icon icon="lucide:x" size="16" />
+      </button>
+    }
+  </div>
+}

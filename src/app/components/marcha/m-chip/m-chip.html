@@ -1,0 +1,21 @@
+<span
+  class="m-chip"
+  [class]="'m-chip--' + severity() + ' m-chip--' + size()"
+>
+  @if (dot()) {
+    <span class="m-chip-dot"></span>
+  } @else if (icon()) {
+    <m-icon [icon]="icon()!" [size]="size() === 'sm' ? 12 : size() === 'lg' ? 18 : 14" />
+  }
+  <span class="m-chip-label">{{ label() }}</span>
+  @if (removable()) {
+    <button
+      type="button"
+      class="m-chip-remove"
+      (click)="remove($event)"
+      aria-label="Eliminar"
+    >
+      <m-icon icon="lucide:x" [size]="size() === 'sm' ? 10 : 12" />
+    </button>
+  }
+</span>

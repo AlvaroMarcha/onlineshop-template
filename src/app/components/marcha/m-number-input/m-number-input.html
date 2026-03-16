@@ -1,0 +1,45 @@
+<div
+  class="m-field"
+  [class.is-focused]="isFocused()"
+  [class.is-invalid]="invalid"
+  [class.is-disabled]="isDisabled()"
+>
+  @if (label) {
+    <label class="m-field-label">{{ label }}</label>
+  }
+  <div class="m-num-body">
+    <button
+      type="button"
+      class="m-num-btn"
+      [disabled]="isDisabled() || !canDecrement"
+      (click)="decrement()"
+      aria-label="Decrementar"
+    >
+      <m-icon icon="lucide:minus" size="14" />
+    </button>
+    <input
+      class="m-num-el"
+      type="number"
+      [value]="value()"
+      [min]="min ?? ''"
+      [max]="max ?? ''"
+      [step]="step"
+      [disabled]="isDisabled()"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+    <button
+      type="button"
+      class="m-num-btn"
+      [disabled]="isDisabled() || !canIncrement"
+      (click)="increment()"
+      aria-label="Incrementar"
+    >
+      <m-icon icon="lucide:plus" size="14" />
+    </button>
+  </div>
+  @if (hint) {
+    <span class="m-field-hint" [class.m-field-hint--invalid]="invalid">{{ hint }}</span>
+  }
+</div>

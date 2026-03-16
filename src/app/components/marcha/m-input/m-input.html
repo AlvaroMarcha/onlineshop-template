@@ -1,0 +1,36 @@
+<div
+  class="m-field"
+  [class.has-icon-left]="icon && iconPos === 'left'"
+  [class.has-icon-right]="icon && iconPos === 'right'"
+  [class.is-focused]="isFocused()"
+  [class.is-invalid]="invalid"
+  [class.is-disabled]="isDisabled()"
+  [class.m-field--small]="size === 'small'"
+  [class.m-field--medium]="size === 'medium'"
+  [class.m-field--large]="size === 'large'"
+>
+  @if (label) {
+    <label class="m-field-label">{{ label }}</label>
+  }
+  <div class="m-field-body">
+    @if (icon && iconPos === 'left') {
+      <m-icon class="m-field-icon m-field-icon--left" [icon]="icon" size="16" />
+    }
+    <input
+      class="m-field-el"
+      [type]="type"
+      [placeholder]="placeholder"
+      [value]="value()"
+      [disabled]="isDisabled()"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+    @if (icon && iconPos === 'right') {
+      <m-icon class="m-field-icon m-field-icon--right" [icon]="icon" size="16" />
+    }
+  </div>
+  @if (hint) {
+    <span class="m-field-hint" [class.m-field-hint--invalid]="invalid">{{ hint }}</span>
+  }
+</div>

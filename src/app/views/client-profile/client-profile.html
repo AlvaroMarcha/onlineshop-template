@@ -1,0 +1,445 @@
+﻿<m-toast />
+
+<div class="min-h-screen px-4 py-8 md:px-8">
+  <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
+
+    <!-- SIDEBAR -->
+    <aside class="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-[5rem] lg:self-start lg:max-h-[calc(100vh-6.5rem)] lg:overflow-y-auto">
+      <m-card variant="solid" padding="lg">
+        <div class="flex flex-col items-center gap-4">
+
+          <!-- Avatar con overlay de camara -->
+          <div class="relative group">
+            <m-avatar
+              [label]="user$()?.name || 'Usuario'"
+              size="xlarge"
+              severity="primary"
+            />
+            <button
+              class="absolute inset-0 flex flex-col items-center justify-center rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
+              (click)="fileInput.click()"
+              type="button"
+              [title]="'profile.click_to_change_photo' | translate"
+            >
+              <m-icon icon="lucide:camera" size="28" class="text-white mb-1" />
+              <span class="text-xs text-white font-medium">{{ 'profile.change_photo' | translate }}</span>
+            </button>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" class="hidden" #fileInput />
+          </div>
+
+          <!-- Nombre completo -->
+          <div class="text-center">
+            <p class="text-lg font-bold">
+              {{ user$()?.name || '-' }}
+              @if (user$()?.surname) {
+                {{ user$()?.surname }}
+              }
+            </p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+              @{{ user$()?.username || '-' }}
+            </p>
+          </div>
+
+          <!-- Estados -->
+          <div class="flex items-center gap-2">
+            <m-chip
+              [label]="user$()?.active ? ('profile.active' | translate) : ('profile.inactive' | translate)"
+              [severity]="user$()?.active ? 'success' : 'secondary'"
+              [dot]="true"
+              size="sm"
+            />
+            <m-chip
+              [label]="user$()?.verified ? ('profile.verified' | translate) : ('profile.not_verified' | translate)"
+              [severity]="user$()?.verified ? 'info' : 'warn'"
+              [dot]="true"
+              size="sm"
+            />
+          </div>
+
+          <m-divider />
+
+          <!-- Información del usuario -->
+          <div class="w-full flex flex-col gap-3 text-sm">
+            <!-- Email -->
+            <div class="flex items-start gap-3">
+              <m-icon icon="lucide:mail" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Email</span>
+                <span class="text-gray-700 dark:text-gray-200 break-all">{{ user$()?.email || '-' }}</span>
+              </div>
+            </div>
+
+            <!-- Teléfono -->
+            @if (user$()?.phone) {
+              <div class="flex items-start gap-3">
+                <m-icon icon="lucide:phone" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{{ 'profile.field_phone' | translate }}</span>
+                  <span class="text-gray-700 dark:text-gray-200">{{ user$()?.phone }}</span>
+                </div>
+              </div>
+            }
+
+            <!-- Rol -->
+            @if (user$()?.roleName) {
+              <div class="flex items-start gap-3">
+                <m-icon icon="lucide:shield" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{{ 'profile.role' | translate }}</span>
+                  <span class="text-gray-700 dark:text-gray-200">{{ user$()?.roleName }}</span>
+                </div>
+              </div>
+            }
+
+            <!-- Miembro desde -->
+            @if (user$()?.createdAt) {
+              <div class="flex items-start gap-3">
+                <m-icon icon="lucide:calendar" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
+                <div class="flex flex-col min-w-0">
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{{ 'profile.member_since' | translate }}</span>
+                  <span class="text-gray-700 dark:text-gray-200">{{ user$()?.createdAt | date: 'mediumDate' }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <m-divider />
+
+          <m-button
+            [label]="'profile.reset_password' | translate"
+            icon="lucide:key-round"
+            variant="text"
+            size="small"
+            [full]="true"
+          />
+        </div>
+      </m-card>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 min-w-0">
+      <m-tabs [tabs]="tabs" [active]="activeTab" (activeChange)="onTabChange($event)">
+
+        <!-- TAB 0: Datos personales -->
+        @if (activeTab === 0) {
+          <m-tab-panel [index]="0">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-6">
+                <div>
+                  <h3 class="text-base font-semibold mb-1">{{ 'profile.personal_title' | translate }}</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.personal_subtitle' | translate }}</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" [formGroup]="profileForm">
+                  <m-input
+                    [label]="'profile.field_name' | translate"
+                    [placeholder]="'profile.field_name_placeholder' | translate"
+                    icon="lucide:user"
+                    formControlName="name"
+                    size="small"
+                  />
+                  <m-input
+                    [label]="'profile.field_email' | translate"
+                    type="email"
+                    [placeholder]="'profile.field_email_placeholder' | translate"
+                    icon="lucide:mail"
+                    formControlName="email"
+                    size="small"
+                  />
+                  <m-input
+                    [label]="'profile.field_phone' | translate"
+                    type="tel"
+                    [placeholder]="'profile.field_phone_placeholder' | translate"
+                    icon="lucide:phone"
+                    formControlName="phone"
+                    size="small"
+                  />
+                </div>
+                <m-divider />
+                <div class="flex flex-wrap gap-2">
+                  <m-button
+                    [label]="labelEdit"
+                    [icon]="isDisabled ? 'lucide:pencil' : 'lucide:save'"
+                    [severity]="colorEdit"
+                    variant="outlined"
+                    size="small"
+                    (onClick)="editForm()"
+                  />
+                  @if (!isDisabled) {
+                    <m-button [label]="'profile.btn_cancel' | translate" icon="lucide:x" severity="danger" variant="text" size="small" (onClick)="cancelForm()" />
+                  }
+                </div>
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 1: Mis pedidos -->
+        @if (activeTab === 1) {
+          <m-tab-panel [index]="1">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h3 class="text-base font-semibold mb-1">{{ 'profile.orders_title' | translate }}</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.orders_subtitle' | translate }}</p>
+                </div>
+                <m-table
+                  [data]="orders"
+                  [columns]="tableColumns"
+                  [actions]="tableActions"
+                  variant="striped"
+                />
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 2: Direcciones -->
+        @if (activeTab === 2) {
+          <m-tab-panel [index]="2">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-4">
+                <!-- Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div>
+                    <h3 class="text-base font-semibold mb-1">{{ 'profile.addresses_title' | translate }}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.addresses_subtitle' | translate }}</p>
+                  </div>
+                  <m-button
+                    [label]="'profile.btn_add_address' | translate"
+                    icon="lucide:plus"
+                    severity="primary"
+                    variant="outlined"
+                    size="small"
+                    (onClick)="openAddAddressModal()"
+                    [disabled]="addresses().length >= MAX_ADDRESSES"
+                  />
+                </div>
+
+                <!-- Empty State -->
+                @if (addresses().length === 0) {
+                  <div class="flex flex-col items-center justify-center gap-4 py-12 text-center">
+                    <m-icon icon="lucide:map-pin-off" size="48" class="text-gray-400" />
+                    <div>
+                      <p class="text-base font-medium text-gray-700 dark:text-gray-300">{{ 'profile.addresses_empty_title' | translate }}</p>
+                      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ 'profile.addresses_empty_subtitle' | translate }}</p>
+                    </div>
+                    <m-button
+                      [label]="'profile.btn_add_first_address' | translate"
+                      icon="lucide:plus"
+                      severity="primary"
+                      variant="filled"
+                      size="small"
+                      (onClick)="openAddAddressModal()"
+                    />
+                  </div>
+                }
+
+                <!-- Addresses Grid -->
+                @if (addresses().length > 0) {
+                  <div class="grid grid-cols-1 gap-4">
+                    @for (address of addresses(); track address.id) {
+                      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-primary-400 dark:hover:border-primary-500 transition-colors">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                          <!-- Address Info -->
+                          <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-2">
+                              <m-chip
+                                [label]="address.type === AddressType.SHIPPING ? ('profile.address_type_shipping' | translate) : ('profile.address_type_billing' | translate)"
+                                [severity]="getAddressTypeBadge(address.type)"
+                                size="sm"
+                              />
+                              @if (address.isDefault) {
+                                <m-chip
+                                  [label]="'profile.address_default' | translate"
+                                  severity="warn"
+                                  size="sm"
+                                  icon="lucide:star"
+                                />
+                              }
+                            </div>
+                            <p class="text-sm font-medium text-gray-800 dark:text-gray-200">{{ address.addressLine1 }}</p>
+                            @if (address.addressLine2) {
+                              <p class="text-sm text-gray-600 dark:text-gray-400">{{ address.addressLine2 }}</p>
+                            }
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                              {{ address.postalCode }} {{ address.city }}, {{ address.country }}
+                            </p>
+                          </div>
+
+                          <!-- Actions -->
+                          <div class="flex items-center gap-2">
+                            @if (!address.isDefault) {
+                              <m-button
+                                [label]="'profile.btn_set_default' | translate"
+                                icon="lucide:star"
+                                severity="warn"
+                                variant="text"
+                                size="small"
+                                (onClick)="setDefaultAddress(address)"
+                              />
+                            }
+                            <m-button
+                              icon="lucide:pencil"
+                              severity="secondary"
+                              variant="text"
+                              size="small"
+                              (onClick)="openEditAddressModal(address)"
+                            />
+                            <m-button
+                              icon="lucide:trash-2"
+                              severity="danger"
+                              variant="text"
+                              size="small"
+                              (onClick)="confirmDeleteAddress(address)"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Límite de direcciones -->
+                  @if (addresses().length >= MAX_ADDRESSES) {
+                    <div class="text-sm text-gray-500 dark:text-gray-400 text-center py-2">
+                      {{ 'profile.addresses_limit_reached' | translate }} ({{ addresses().length }}/{{ MAX_ADDRESSES }})
+                    </div>
+                  }
+                }
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 3: Estadisticas -->
+        @if (activeTab === 3) {
+          <m-tab-panel [index]="3">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h3 class="text-base font-semibold mb-1">{{ 'profile.stats_title' | translate }}</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.stats_subtitle' | translate }}</p>
+                </div>
+                <div class="h-72">
+                  <canvas #chartCanvas></canvas>
+                </div>
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
+      </m-tabs>
+    </main>
+
+  </div>
+</div>
+
+<!-- Modal de Dirección -->
+@if (showAddressModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" (click)="closeAddressModal()">
+    <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl" (click)="$event.stopPropagation()">
+      <div class="p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold">
+            {{ editingAddress() ? ('profile.modal_edit_address' | translate) : ('profile.modal_add_address' | translate) }}
+          </h3>
+          <button type="button" (click)="closeAddressModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+            <m-icon icon="lucide:x" size="20" />
+          </button>
+        </div>
+
+        <form [formGroup]="addressForm" (ngSubmit)="saveAddress()" class="flex flex-col gap-4">
+          <!-- Tipo de dirección -->
+          <div>
+            <label class="block text-sm font-medium mb-2">{{ 'profile.field_address_type' | translate }}</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" formControlName="type" [value]="AddressType.SHIPPING" class="text-primary-500" />
+                <span class="text-sm">{{ 'profile.address_type_shipping' | translate }}</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" formControlName="type" [value]="AddressType.BILLING" class="text-primary-500" />
+                <span class="text-sm">{{ 'profile.address_type_billing' | translate }}</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Campos del formulario -->
+          <m-input
+            [label]="'profile.field_address_line1' | translate"
+            [placeholder]="'profile.field_address_line1_placeholder' | translate"
+            icon="lucide:map-pin"
+            formControlName="addressLine1"
+            [required]="true"
+            size="small"
+          />
+          <m-input
+            [label]="'profile.field_address_line2' | translate"
+            [placeholder]="'profile.field_address_line2_placeholder' | translate"
+            icon="lucide:home"
+            formControlName="addressLine2"
+            size="small"
+          />
+
+          <div class="grid grid-cols-2 gap-3">
+            <!-- TODO: Reemplazar con m-select cuando esté disponible -->
+            <div>
+              <label class="block text-sm font-medium mb-1.5">{{ 'profile.field_country' | translate }} *</label>
+              <select
+                formControlName="country"
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+              >
+                <option value="">{{ 'profile.field_country_placeholder' | translate }}</option>
+                @for (country of countries; track country.value) {
+                  <option [value]="country.value">{{ country.label }}</option>
+                }
+              </select>
+            </div>
+
+            <m-input
+              [label]="'profile.field_postal_code' | translate"
+              [placeholder]="'profile.field_postal_code_placeholder' | translate"
+              formControlName="postalCode"
+              [required]="true"
+              size="small"
+            />
+          </div>
+
+          <m-input
+            [label]="'profile.field_city' | translate"
+            [placeholder]="'profile.field_city_placeholder' | translate"
+            icon="lucide:map"
+            formControlName="city"
+            [required]="true"
+            size="small"
+          />
+
+          <!-- Checkbox para dirección predeterminada -->
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" formControlName="isDefault" class="text-primary-500" />
+            <span class="text-sm">{{ 'profile.field_set_default' | translate }}</span>
+          </label>
+
+          <!-- Botones del modal -->
+          <div class="flex justify-end gap-2 mt-2">
+            <m-button
+              [label]="'profile.btn_cancel' | translate"
+              severity="secondary"
+              variant="text"
+              size="small"
+              type="button"
+              (onClick)="closeAddressModal()"
+            />
+            <m-button
+              [label]="editingAddress() ? ('profile.btn_update' | translate) : ('profile.btn_save' | translate)"
+              severity="primary"
+              variant="filled"
+              size="small"
+              type="submit"
+              [disabled]="addressForm.invalid"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}

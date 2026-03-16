@@ -1,0 +1,18 @@
+:host {
+  display: inline-flex;
+}
+
+.m-overlay-badge-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.m-overlay-badge-indicator {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  pointer-events: none;
+  z-index: 1;
+  /* Subtle glow behind the badge */
+  filter: drop-shadow(0 0 4px currentColor);
+}

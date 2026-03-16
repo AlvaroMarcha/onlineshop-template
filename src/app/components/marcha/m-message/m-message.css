@@ -1,0 +1,58 @@
+.m-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .875rem 1rem;
+  border-radius: var(--m-radius);
+  border: 1px solid;
+  animation: m-msg-in .2s ease both;
+}
+
+@keyframes m-msg-in {
+  from { opacity: 0; transform: translateY(-.375rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+.m-msg-icon { flex-shrink: 0; margin-top: 2px; }
+
+.m-msg-body { flex: 1; display: flex; flex-direction: column; gap: .2rem; }
+
+.m-msg-title { font-size: .875rem; font-weight: 600; color: var(--m-text); }
+
+.m-msg-text {
+  font-size: .8125rem;
+  color: var(--m-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.m-msg-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--m-radius-xs);
+  color: currentColor;
+  opacity: .55;
+  transition: opacity .15s;
+}
+.m-msg-close:hover { opacity: 1; }
+
+/* Severidades */
+.m-msg--info    { border-color: var(--m-info-border);    color: var(--m-info);    background: rgba(6, 182, 212, .07); }
+.m-msg--success { border-color: var(--m-success-border); color: var(--m-success); background: rgba(34, 197, 94, .07); }
+.m-msg--warn    { border-color: var(--m-warn-border);    color: var(--m-warn);    background: rgba(245, 158, 11, .07); }
+.m-msg--error   { border-color: var(--m-danger-border);  color: var(--m-danger);  background: rgba(239, 68, 68, .07); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .m-msg {
+    padding: 1rem 1rem;
+  }
+  .m-msg-title { font-size: 0.9375rem; }
+  .m-msg-text  { font-size: 0.875rem; }
+}

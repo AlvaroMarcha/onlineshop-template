@@ -1,5 +1,143 @@
 @import "tailwindcss";
-@import "primeicons/primeicons.css";
+@import "./app/components/marcha/m-tooltip/m-tooltip.css";
+@import "./app/components/marcha/m-ripple/m-ripple.css";
+
+/* ============================================================
+   MARCHA DESIGN SYSTEM — CSS Tokens
+   Dark mode: .my-app-dark class on <html>
+   ============================================================ */
+
+/* Tailwind 4: dark mode via class */
+@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
+
+:root {
+  /* Surfaces */
+  --m-surface:          #f1f5ff;
+  --m-surface-2:        #ffffff;
+  --m-surface-3:        #e8edf8;
+
+  /* Borders & Shadows */
+  --m-border-color:     rgba(100, 116, 139, 0.15);
+  --m-shadow:           0 4px 24px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --m-surface-hover:    rgba(100, 116, 139, 0.15);
+
+  /* Text */
+  --m-text:             #1e293b;
+  --m-text-muted:       #64748b;
+  --m-text-faint:       #94a3b8;
+
+  /* Primary — Blue */
+  --m-primary:          #3b82f6;
+  --m-primary-dark:     #2563eb;
+  --m-primary-light:    #60a5fa;
+  --m-primary-fg:       #ffffff;
+  --m-primary-glow:     rgba(59, 130, 246, 0.22);
+  --m-primary-border:   rgba(59, 130, 246, 0.32);
+  --m-primary-bg:       linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+
+  /* Secondary */
+  --m-secondary-bg:     #e8edf5;
+  --m-secondary-border: rgba(100, 116, 139, 0.2);
+  --m-secondary-text:   #475569;
+
+  /* Semantic colors */
+  --m-success:          #22c55e;
+  --m-success-bg:       linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  --m-success-glow:     rgba(34, 197, 94, 0.2);
+  --m-success-border:   rgba(34, 197, 94, 0.3);
+
+  --m-warn:             #f59e0b;
+  --m-warn-bg:          linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --m-warn-glow:        rgba(245, 158, 11, 0.2);
+  --m-warn-border:      rgba(245, 158, 11, 0.3);
+
+  --m-danger:           #ef4444;
+  --m-danger-bg:        linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  --m-danger-glow:      rgba(239, 68, 68, 0.2);
+  --m-danger-border:    rgba(239, 68, 68, 0.3);
+
+  --m-info:             #06b6d4;
+  --m-info-bg:          linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+  --m-info-glow:        rgba(6, 182, 212, 0.2);
+  --m-info-border:      rgba(6, 182, 212, 0.3);
+
+  --m-help:             #a855f7;
+  --m-help-bg:          linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  --m-help-glow:        rgba(168, 85, 247, 0.2);
+  --m-help-border:      rgba(168, 85, 247, 0.3);
+
+  /* Border radius */
+  --m-radius-xs:        4px;
+  --m-radius-sm:        8px;
+  --m-radius:           12px;
+  --m-radius-lg:        16px;
+  --m-radius-xl:        20px;
+  --m-radius-full:      9999px;
+
+  /* Font */
+  --m-font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+.my-app-dark {
+  /* Surfaces - Tonos azul-gris (slate/blue) más oscuros y profundos */
+  --m-surface:          #0f172a;  /* slate-900 */
+  --m-surface-2:        #1e293b;  /* slate-800 */
+  --m-surface-3:        #334155;  /* slate-700 */
+
+  /* Borders & Shadows */
+  --m-border-color:     rgba(148, 163, 184, 0.15);
+  --m-shadow:           0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.08);
+  --m-surface-hover:    rgba(255, 255, 255, 0.1);
+
+  /* Text - Textos más brillantes para mejor contraste */
+  --m-text:             #e2e8f0;  /* slate-200 - más brillante */
+  --m-text-muted:       #cbd5e1;  /* slate-300 - más visible */
+  --m-text-faint:       #94a3b8;  /* slate-400 */
+
+  /* Primary — Indigo for dark mode */
+  --m-primary:          #818cf8;
+  --m-primary-dark:     #6366f1;
+  --m-primary-light:    #a5b4fc;
+  --m-primary-fg:       #ffffff;
+  --m-primary-glow:     rgba(99, 102, 241, 0.38);
+  --m-primary-border:   rgba(99, 102, 241, 0.38);
+  --m-primary-bg:       linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+
+  /* Secondary */
+  --m-secondary-bg:     #1e293b;
+  --m-secondary-border: rgba(255, 255, 255, 0.1);
+  --m-secondary-text:   #94a3b8;
+
+  /* Semantic colors — slightly brighter for dark backgrounds */
+  --m-success:          #4ade80;
+  --m-success-glow:     rgba(34, 197, 94, 0.3);
+  --m-success-border:   rgba(34, 197, 94, 0.35);
+
+  --m-warn:             #fbbf24;
+  --m-warn-glow:        rgba(245, 158, 11, 0.3);
+  --m-warn-border:      rgba(245, 158, 11, 0.35);
+
+  --m-danger:           #f87171;
+  --m-danger-glow:      rgba(239, 68, 68, 0.3);
+  --m-danger-border:    rgba(239, 68, 68, 0.35);
+
+  --m-info:             #22d3ee;
+  --m-info-glow:        rgba(6, 182, 212, 0.3);
+  --m-info-border:      rgba(6, 182, 212, 0.35);
+
+  --m-help:             #c084fc;
+  --m-help-glow:        rgba(168, 85, 247, 0.3);
+  --m-help-border:      rgba(168, 85, 247, 0.35);
+}
+
+body {
+  background: var(--m-surface);
+  color: var(--m-text);
+  font-family: var(--m-font);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
 
 @layer base {
   *,
@@ -19,6 +157,18 @@
     /* color: #333; */
   }
 }
+
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge antiguos */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Edge */
+}
+
 
 /* Buttons basic styles */
 .stl-button {

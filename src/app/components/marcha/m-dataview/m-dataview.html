@@ -1,0 +1,294 @@
+<div class="m-dv">
+
+  <!-- ══════════════════════════════════════════
+       CABECERA
+       ══════════════════════════════════════════ -->
+  <div class="m-dv__header">
+    <div class="m-dv__header-left">
+      @if (header()) {
+        <h3 class="m-dv__title">{{ header() }}</h3>
+      }
+      @if (!loading() && items().length) {
+        <span class="m-dv__count">{{ _sortedItems().length }} resultado@if (_sortedItems().length !== 1) { s }</span>
+      }
+    </div>
+
+    <div class="m-dv__header-right">
+      <!-- Sort dropdown -->
+      @if (sortOptions().length) {
+        <div class="m-dv__sort">
+          <m-icon icon="lucide:arrow-up-down" size="15" class="m-dv__sort-icon" />
+          <select
+            class="m-dv__sort-select"
+            [value]="_sortValue()"
+            (change)="onSortChange(($any($event.target)).value)"
+          >
+            <option value="">Ordenar por...</option>
+            @for (opt of sortOptions(); track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Layout toggle -->
+      <div class="m-dv__layout-toggle" role="group" aria-label="Cambiar vista">
+        <button
+          class="m-dv__layout-btn"
+          [class.is-active]="_layout() === 'grid'"
+          (click)="setLayout('grid')"
+          title="Vista cuadrícula"
+          [attr.aria-pressed]="_layout() === 'grid'"
+        >
+          <m-icon icon="lucide:layout-grid" size="16" />
+        </button>
+        <button
+          class="m-dv__layout-btn"
+          [class.is-active]="_layout() === 'list'"
+          (click)="setLayout('list')"
+          title="Vista lista"
+          [attr.aria-pressed]="_layout() === 'list'"
+        >
+          <m-icon icon="lucide:list" size="16" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SKELETON
+       ══════════════════════════════════════════ -->
+  @if (loading()) {
+    <div
+      class="m-dv__content"
+      [class.m-dv__content--grid]="_layout() === 'grid'"
+      [class.m-dv__content--list]="_layout() === 'list'"
+    >
+      @for (sk of _skeletonArray(); track $index) {
+        @if (_layout() === 'grid') {
+          <div class="m-dv__skeleton m-dv__skeleton--card">
+            <div class="m-dv__skel-img shimmer"></div>
+            <div class="m-dv__skel-body">
+              <div class="m-dv__skel-line m-dv__skel-line--lg shimmer"></div>
+              <div class="m-dv__skel-line m-dv__skel-line--md shimmer"></div>
+              <div class="m-dv__skel-line m-dv__skel-line--sm shimmer"></div>
+            </div>
+          </div>
+        } @else {
+          <div class="m-dv__skeleton m-dv__skeleton--row">
+            <div class="m-dv__skel-img-row shimmer"></div>
+            <div class="m-dv__skel-body m-dv__skel-body--row">
+              <div class="m-dv__skel-line m-dv__skel-line--lg shimmer"></div>
+              <div class="m-dv__skel-line m-dv__skel-line--xl shimmer"></div>
+              <div class="m-dv__skel-line m-dv__skel-line--md shimmer"></div>
+            </div>
+            <div class="m-dv__skel-action shimmer"></div>
+          </div>
+        }
+      }
+    </div>
+  }
+
+  <!-- ══════════════════════════════════════════
+       EMPTY STATE
+       ══════════════════════════════════════════ -->
+  @if (!loading() && !_sortedItems().length) {
+    <div class="m-dv__empty">
+      <m-icon [icon]="emptyIcon()" size="48" class="m-dv__empty-icon" />
+      <p class="m-dv__empty-msg">{{ emptyMessage() }}</p>
+    </div>
+  }
+
+  <!-- ══════════════════════════════════════════
+       CONTENIDO
+       ══════════════════════════════════════════ -->
+  @if (!loading() && _sortedItems().length) {
+    <div
+      class="m-dv__content"
+      [class.m-dv__content--grid]="_layout() === 'grid'"
+      [class.m-dv__content--list]="_layout() === 'list'"
+    >
+      @for (item of _pagedItems(); track $index; let localIdx = $index) {
+
+        <!-- ─── GRID ─── -->
+        @if (_layout() === 'grid') {
+          <div
+            class="m-dv__item m-dv__item--grid"
+            [class.m-dv__item--with-img]="imageField() && getImageUrl(item)"
+          >
+            @if (imageField() && getImageUrl(item)) {
+              <div
+                class="m-dv__item-img m-dv__item-img--grid"
+                role="button"
+                tabindex="0"
+                aria-label="Ver imagen ampliada"
+                (click)="openLightbox(localIdx)"
+                (keydown.enter)="openLightbox(localIdx)"
+                (keydown.space)="$event.preventDefault(); openLightbox(localIdx)"
+              >
+                <img [src]="getImageUrl(item)" alt="" loading="lazy" />
+                <div class="m-dv__img-overlay">
+                  <m-icon icon="lucide:expand" size="22" />
+                </div>
+                @if (getImages(item).length > 1) {
+                  <span class="m-dv__img-count">
+                    <m-icon icon="lucide:images" size="12" />
+                    {{ getImages(item).length }}
+                  </span>
+                }
+              </div>
+            }
+
+            @if (gridItemTpl()) {
+              <ng-container *ngTemplateOutlet="gridItemTpl()!; context: { $implicit: item }" />
+            } @else if (listItemTpl()) {
+              <ng-container *ngTemplateOutlet="listItemTpl()!; context: { $implicit: item }" />
+            }
+
+            @if (chipsFields1().length || chipsFields2().length) {
+              <div class="m-dv__item-chips">
+                @for (chip of getChips(item, chipsFields1()); track chip) {
+                  <m-chip [label]="chip" size="sm" severity="primary" />
+                }
+                @for (chip of getChips(item, chipsFields2()); track chip) {
+                  <m-chip [label]="chip" size="sm" />
+                }
+              </div>
+            }
+          </div>
+        }
+
+        <!-- ─── LISTA ─── -->
+        @if (_layout() === 'list') {
+          <div class="m-dv__item m-dv__item--list">
+            @if (imageField() && getImageUrl(item)) {
+              <div
+                class="m-dv__item-img m-dv__item-img--list"
+                role="button"
+                tabindex="0"
+                aria-label="Ver imagen ampliada"
+                (click)="openLightbox(localIdx)"
+                (keydown.enter)="openLightbox(localIdx)"
+                (keydown.space)="$event.preventDefault(); openLightbox(localIdx)"
+              >
+                <img [src]="getImageUrl(item)" alt="" loading="lazy" />
+                <div class="m-dv__img-overlay">
+                  <m-icon icon="lucide:expand" size="18" />
+                </div>
+                @if (getImages(item).length > 1) {
+                  <span class="m-dv__img-count">
+                    <m-icon icon="lucide:images" size="11" />
+                    {{ getImages(item).length }}
+                  </span>
+                }
+              </div>
+            }
+
+            <div class="m-dv__item-list-body">
+              @if (listItemTpl()) {
+                <ng-container *ngTemplateOutlet="listItemTpl()!; context: { $implicit: item }" />
+              } @else if (gridItemTpl()) {
+                <ng-container *ngTemplateOutlet="gridItemTpl()!; context: { $implicit: item }" />
+              }
+
+              @if (chipsFields1().length || chipsFields2().length) {
+                <div class="m-dv__item-chips m-dv__item-chips--list">
+                  @for (chip of getChips(item, chipsFields1()); track chip) {
+                    <m-chip [label]="chip" size="sm" severity="primary" />
+                  }
+                  @for (chip of getChips(item, chipsFields2()); track chip) {
+                    <m-chip [label]="chip" size="sm" />
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+      }
+    </div>
+  }
+
+  <!-- ══════════════════════════════════════════
+       PAGINACIÓN
+       ══════════════════════════════════════════ -->
+  @if (paginator() && !loading() && _totalPages() > 1) {
+    <div class="m-dv__paginator">
+      <button
+        class="m-dv__page-btn m-dv__page-btn--nav"
+        [disabled]="_currentPage() === 1 || null"
+        (click)="prevPage()"
+        aria-label="Página anterior"
+      >
+        <m-icon icon="lucide:chevron-left" size="16" />
+      </button>
+
+      @for (page of _pageNumbers(); track $index) {
+        @if (page === '...') {
+          <span class="m-dv__page-ellipsis">…</span>
+        } @else {
+          <button
+            class="m-dv__page-btn"
+            [class.is-active]="page === _currentPage()"
+            (click)="setPage(page)"
+          >{{ page }}</button>
+        }
+      }
+
+      <button
+        class="m-dv__page-btn m-dv__page-btn--nav"
+        [disabled]="_currentPage() === _totalPages() || null"
+        (click)="nextPage()"
+        aria-label="Página siguiente"
+      >
+        <m-icon icon="lucide:chevron-right" size="16" />
+      </button>
+    </div>
+  }
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     LIGHTBOX
+     ══════════════════════════════════════════ -->
+@if (_lightboxOpen() && _lightboxImage()) {
+  <div
+    class="m-dv-lb"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visor de imagen"
+    (click)="closeLightbox()"
+  >
+    <div class="m-dv-lb__content" (click)="$event.stopPropagation()">
+
+      <div class="m-dv-lb__top-bar">
+        @if (_lightboxCounter()) {
+          <span class="m-dv-lb__counter">{{ _lightboxCounter() }}</span>
+        }
+        <button class="m-dv-lb__close" (click)="closeLightbox()" aria-label="Cerrar visor">
+          <m-icon icon="lucide:x" size="20" />
+        </button>
+      </div>
+
+      <img class="m-dv-lb__img" [src]="_lightboxImage()" alt="Imagen ampliada" />
+
+      @if (_lightboxImages().length > 1) {
+        <button
+          class="m-dv-lb__nav m-dv-lb__nav--prev"
+          (click)="lightboxPrev()"
+          aria-label="Imagen anterior"
+        >
+          <m-icon icon="lucide:chevron-left" size="26" />
+        </button>
+        <button
+          class="m-dv-lb__nav m-dv-lb__nav--next"
+          (click)="lightboxNext()"
+          aria-label="Imagen siguiente"
+        >
+          <m-icon icon="lucide:chevron-right" size="26" />
+        </button>
+      }
+
+    </div>
+  </div>
+}

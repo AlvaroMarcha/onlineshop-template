@@ -1,0 +1,156 @@
+<!-- Desktop nav + Mobile burger -->
+<nav [class]="navClass()">
+  <div
+    class="m-menubar__inner"
+    [style.max-width]="contained() ? maxWidth() : null"
+  >
+    <!-- Logo -->
+    @if (logo() || logoIcon()) {
+      <button class="m-menubar__logo" type="button" (click)="logoClick.emit()">
+        @if (logoIcon()) {
+          <span class="m-menubar__logo-icon-wrap">
+            <m-icon [icon]="logoIcon()" size="16" />
+          </span>
+        }
+        @if (logo()) {
+          <span class="m-menubar__logo-text">{{ logo() }}</span>
+        }
+      </button>
+      <div class="m-menubar__logo-sep" aria-hidden="true"></div>
+    }
+
+    <!-- Desktop nav -->
+    <div class="m-menubar__nav" role="menubar">
+      @for (item of items(); track $index) {
+        <div
+          class="m-menubar__item"
+          [class.is-open]="_openIndex() === $index"
+          [class.is-disabled]="item.disabled"
+          [class.is-active]="item.isActive"
+        >
+          <button
+            mRipple
+            class="m-menubar__trigger"
+            type="button"
+            [attr.aria-haspopup]="item.items?.length ? 'menu' : null"
+            [attr.aria-expanded]="_openIndex() === $index"
+            (click)="onItemClick($index, item, $event)"
+          >
+            @if (item.icon) {
+              <m-icon [icon]="item.icon" size="15" class="m-menubar__icon" />
+            }
+            <span>{{ item.label }}</span>
+            @if (item.items?.length) {
+              <m-icon icon="lucide:chevron-down" size="13" class="m-menubar__chevron" />
+            }
+          </button>
+
+          @if (item.items?.length && _openIndex() === $index) {
+            <ul class="m-menubar__dropdown" role="menu">
+              @for (sub of item.items; track $index) {
+                @if (sub.divider) {
+                  <li class="m-menubar__divider" role="separator"></li>
+                } @else {
+                  <li
+                    class="m-menubar__sub"
+                    [class.is-disabled]="sub.disabled"
+                    [class.is-active]="sub.isActive"
+                    role="menuitem"
+                    (click)="onSubClick(sub, $event)"
+                  >
+                    @if (sub.icon) {
+                      <m-icon [icon]="sub.icon" size="15" class="m-menubar__sub-icon" />
+                    }
+                    <span>{{ sub.label }}</span>
+                  </li>
+                }
+              }
+            </ul>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- End slot + Burger -->
+    <div class="m-menubar__end">
+      <ng-content />
+
+      <button
+        class="m-menubar__burger"
+        [class.is-open]="_mobileOpen()"
+        type="button"
+        aria-label="Menu"
+        [attr.aria-expanded]="_mobileOpen()"
+        (click)="toggleMobile($event)"
+      >
+        <span class="m-menubar__burger-bar"></span>
+        <span class="m-menubar__burger-bar"></span>
+        <span class="m-menubar__burger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile panel -->
+  @if (_mobileOpen()) {
+    <div class="m-menubar__mobile" role="menu">
+      <div class="m-menubar__mobile-inner">
+        @for (item of items(); track $index) {
+          @if (!item.items?.length) {
+            <button
+              class="m-menubar__mobile-item"
+              [class.is-disabled]="item.disabled"
+              [class.is-active]="item.isActive"
+              type="button"
+              role="menuitem"
+              (click)="toggleMobileItem($index, item, $event)"
+            >
+              @if (item.icon) {
+                <m-icon [icon]="item.icon" size="18" />
+              }
+              <span>{{ item.label }}</span>
+            </button>
+          } @else {
+            <button
+              class="m-menubar__mobile-item"
+              [class.is-open]="_mobileExpand() === $index"
+              [class.is-disabled]="item.disabled"
+              type="button"
+              role="menuitem"
+              [attr.aria-expanded]="_mobileExpand() === $index"
+              (click)="toggleMobileItem($index, item, $event)"
+            >
+              @if (item.icon) {
+                <m-icon [icon]="item.icon" size="18" />
+              }
+              <span>{{ item.label }}</span>
+              <m-icon icon="lucide:chevron-right" size="16" class="m-menubar__mobile-chevron" />
+            </button>
+
+            @if (_mobileExpand() === $index) {
+              <div class="m-menubar__mobile-sub">
+                @for (sub of item.items; track $index) {
+                  @if (sub.divider) {
+                    <div class="m-menubar__mobile-divider"></div>
+                  } @else {
+                    <button
+                      class="m-menubar__mobile-sub-item"
+                      [class.is-disabled]="sub.disabled"
+                      type="button"
+                      role="menuitem"
+                      (click)="onMobileSubClick(sub, $event)"
+                    >
+                      @if (sub.icon) {
+                        <m-icon [icon]="sub.icon" size="16" />
+                      }
+                      <span>{{ sub.label }}</span>
+                    </button>
+                  }
+                }
+              </div>
+            }
+          }
+        }
+      </div>
+    </div>
+  }
+</nav>

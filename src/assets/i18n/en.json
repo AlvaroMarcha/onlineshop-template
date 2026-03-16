@@ -15,30 +15,70 @@
     "language": "Idioma"
   },
   "footer": {
-    "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas.",
-    "about": "Sobre nosotros",
-    "contact": "Contacto",
-    "privacy_policy": "Política de privacidad",
-    "terms_conditions": "Términos y condiciones",
-    "legal_notice": "Aviso legal",
-    "conditions": "Condiciones de uso",
-    "socials": "Redes sociales",
-    "sitemap": "Mapa del sitio",
-    "services": "Servicios",
-    "support": "Soporte",
-    "legals": "Legales"
+    "company_name": "Marcha Shop",
+    "company_desc": "Your trusted online store. We offer quality products with fast shipping and personalized attention.",
+    "customer_service": "Customer Service",
+    "contact": "Contact",
+    "shipping_returns": "Shipping & Returns",
+    "payment_methods": "Payment Methods",
+    "faq": "FAQ",
+    "legal": "Legal",
+    "terms_conditions": "Terms & Conditions",
+    "privacy_policy": "Privacy Policy",
+    "cookies_policy": "Cookies Policy",
+    "legal_notice": "Legal Notice",
+    "quick_links": "Quick Links",
+    "all_rights": "All rights reserved",
+    "secure_payment": "Secure Payment",
+    "about": "About Us",
+    "conditions": "Terms of Use",
+    "socials": "Social Media",
+    "sitemap": "Sitemap",
+    "services": "Services",
+    "support": "Support",
+    "legals": "Legal",
+    "description": "We offer a wide range of customization options so you can adapt the screens to your specific needs."
   },
   "home": {
     "banner": {
-      "title": "Crea las pantallas que tus visitantes merecen ver",
-      "subtitle": "Con nuestra plataforma, puedes crear pantallas personalizadas para tus aplicaciones web y móviles de manera rápida y sencilla.",
-      "button1": "Comienza ahora",
-      "button2": "Ver ejemplos"
+      "title": "Create elegant experiences and unique visualizations",
+      "subtitle": "Sign up to gain priority access to our platform and take your projects to the next level.",
+      "button1": "Sign up",
+      "button2": "Learn more"
+    },
+    "categories": {
+      "title": "Explore our categories",
+      "subtitle": "Find exactly what you need by browsing through our main categories"
+    },
+    "products": {
+      "title": "Featured products",
+      "subtitle": "Discover our selection of most popular products and special offers",
+      "view_all": "View all products",
+      "add_to_cart": "Add to cart",
+      "no_products": "No products available at this moment"
+    },
+    "features": {
+      "free_shipping": {
+        "title": "Free shipping",
+        "description": "On orders over €50"
+      },
+      "secure_payment": {
+        "title": "Secure payment",
+        "description": "100% protection on your transactions"
+      },
+      "fast_delivery": {
+        "title": "Fast delivery",
+        "description": "Receive your order in 24-48h"
+      },
+      "support_24_7": {
+        "title": "24/7 Support",
+        "description": "We're here to help you always"
+      }
     },
     "mini_banner": {
-      "title": "Ofertas especiales",
-      "description": "Aprovecha nuestras ofertas limitadas y obtén más valor por tu dinero.",
-      "button": "Ver ofertas"
+      "title": "Special offers",
+      "description": "Take advantage of our limited offers and get more value for your money.",
+      "button": "View offers"
     },
     "mini_cards": {
       "card1": {
@@ -58,7 +98,7 @@
         "description": "Tus datos están seguros con nosotros. Implementamos las mejores prácticas de seguridad para proteger tu información."
       }
     },
-    "features": {
+    "platform_features": {
       "title": "Un producto, muchas soluciones",
       "subtitle": "Descubre cómo nuestra plataforma puede ayudarte a crear pantallas personalizadas para diferentes necesidades.",
       "feature1": {
@@ -158,33 +198,40 @@
     "email_contact": "Correo electrónico"
   },
   "login": {
-    "title": "Iniciar sesión",
+    "title": "Sign in",
+    "subtitle": "Access your account to continue",
     "form": {
-      "both": "Usuario o correo electrónico",
-      "usename": "Usuario",
-      "email": "Correo electrónico",
-      "password": "Contraseña",
-      "remember_me": "Recordarme",
-      "forgot_password": "¿Olvidaste tu contraseña?",
-      "login_button": "Iniciar sesión",
-      "no_account": "¿No tienes una cuenta? Regístrate"
-    }
+      "username": "Username or email",
+      "username_placeholder": "Enter your username or email",
+      "username_required": "Username or email is required",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "password_required": "Password is required",
+      "submit": "Sign in"
+    },
+    "forgot_password": "Forgot your password?",
+    "or": "OR",
+    "no_account": "Don't have an account?",
+    "register_link": "Sign up here"
   },
   "register": {
-    "title": "Registrarse",
+    "title": "Sign Up",
+    "subtitle": "Create your account and join our community",
     "form": {
-      "name": "Nombre",
-      "surnames": "Apellidos",
-      "username": "Usuario",
-      "email": "Correo electrónico",
-      "phone": "Teléfono",
-      "address": "Dirección",
-      "password": "Contraseña",
-      "confirm_password": "Confirmar contraseña",
-      "register_button": "Registrarse",
-      "login_link": "¿Ya tienes una cuenta? Inicia sesión",
-      "terms": "Acepto los términos y condiciones",
-      "privacy_policy": "Política de privacidad"
+      "name": "Name",
+      "surnames": "Last Name",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "register_button": "Sign Up",
+      "login_link": "Already have an account? Sign in",
+      "already_have_account": "Already have an account? Sign in",
+      "i_accept": "I accept",
+      "terms": "the terms and conditions",
+      "privacy_policy": "the privacy policy"
     }
   },
   "cart": {
@@ -194,5 +241,77 @@
     "continue_shopping": "Seguir comprando",
     "item_count": "{{count}} artículo(s) en el carrito",
     "total_price": "Precio total: {{price}}"
+  },
+  "validation": {
+    "required": "All fields are required",
+    "passwords_mismatch": "Passwords do not match",
+    "terms_required": "Please accept the terms and conditions",
+    "invalid_email": "Invalid email address"
+  },
+  "profile": {
+    "member_since": "Member since",
+    "active": "Active",
+    "inactive": "Inactive",
+    "verified": "Verified",
+    "not_verified": "Not verified",
+    "reset_password": "Reset password",
+    "change_photo": "Change photo",
+    "click_to_change_photo": "Click to change photo",
+    "username": "Username",
+    "role": "Role",
+    "tab_personal": "Personal data",
+    "tab_orders": "My orders",
+    "tab_addresses": "Addresses",
+    "tab_stats": "Statistics",
+    "personal_title": "Personal information",
+    "personal_subtitle": "Update your contact details.",
+    "field_name": "Full name",
+    "field_name_placeholder": "Your name",
+    "field_email": "Email",
+    "field_email_placeholder": "Your email",
+    "field_phone": "Phone",
+    "field_phone_placeholder": "Your phone",
+    "btn_edit": "Edit",
+    "btn_save": "Save",
+    "btn_cancel": "Cancel",
+    "btn_update": "Update",
+    "orders_title": "My orders",
+    "orders_subtitle": "History of all your orders.",
+    "col_id": "ID",
+    "col_date": "Order date",
+    "col_status": "Status",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled",
+    "action_view": "View",
+    "action_invoice": "Invoice",
+    "addresses_title": "My addresses",
+    "addresses_subtitle": "Manage your shipping and billing addresses.",
+    "addresses_empty_title": "No saved addresses",
+    "addresses_empty_subtitle": "Add your first address to make future purchases easier.",
+    "addresses_limit_reached": "You have reached the maximum number of addresses",
+    "btn_add_address": "Add address",
+    "btn_add_first_address": "Add my first address",
+    "btn_set_default": "Set as default",
+    "address_type_shipping": "Shipping",
+    "address_type_billing": "Billing",
+    "address_default": "Default",
+    "modal_add_address": "Add address",
+    "modal_edit_address": "Edit address",
+    "field_address_type": "Address type",
+    "field_address_line1": "Address",
+    "field_address_line1_placeholder": "Street, number",
+    "field_address_line2": "Additional address",
+    "field_address_line2_placeholder": "Floor, door, block (optional)",
+    "field_country": "Country",
+    "field_country_placeholder": "Select a country",
+    "field_city": "City",
+    "field_city_placeholder": "Your city",
+    "field_postal_code": "Postal code",
+    "field_postal_code_placeholder": "ZIP",
+    "field_set_default": "Set as default address",
+    "stats_title": "Purchase statistics",
+    "stats_subtitle": "Summary of your annual activity.",
+    "chart_2024": "Orders 2024",
+    "chart_2025": "Orders 2025"
   }
 }

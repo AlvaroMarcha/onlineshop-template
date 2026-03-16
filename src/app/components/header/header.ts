@@ -1,41 +1,85 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { Component, HostListener, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cart } from '../cart/cart';
-import { UpButton } from '../up-button/up-button';
-import { PrimengModule } from '../../shared/primeng/primeng-module';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
 import { FormsModule } from '@angular/forms';
-import { Search } from '../search/search';
+import { Store } from '@ngrx/store';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { selectIsLogged, selectUser } from '../../store/auth/auth.selectors';
+import { logout } from '../../store/auth/auth.actions';
+import { clearCart } from '../../store/cart/cart.actions';
+import {
+  selectCartCount,
+  selectCartTotal,
+} from '../../store/cart/cart.selector';
+import { MMenubar, MMenubarItem, MMenubarSubItem } from '../marcha/m-menubar/m-menubar';
+import { MButton } from '../marcha/m-button/m-button';
+import { MOverlayBadge } from '../marcha/m-overlay-badge/m-overlay-badge';
+import { MDialog } from '../marcha/m-dialog/m-dialog';
+import { MCard } from '../marcha/m-card/m-card';
+import { Cart } from '../cart/cart';
+import { UpButton } from '../up-button/up-button';
 import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
+
 @Component({
   standalone: true,
   selector: 'app-header',
-  providers: [MessageService],
   imports: [
-    PrimengModule,
-    Cart,
-    UpButton,
     TranslateModule,
     FormsModule,
-    Search,
+    MMenubar,
+    MButton,
+    MOverlayBadge,
+    MDialog,
+    MCard,
+    Cart,
+    UpButton,
     DrawerCookies,
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header implements OnInit {
-  items: MenuItem[] | undefined;
-  itemsTiered: MenuItem[] | undefined;
+  user$;
+
+  // Marcha UI menu items
+  menubarItems: MMenubarItem[] = [];
+  itemsCartCount;
+  totalAmount;
   visible = false;
   isDarkMode = false;
+  isLogged;
+  showUserMenu = false;
+
+  readonly _isMobile = signal(typeof window !== 'undefined' && window.innerWidth <= 768);
+
+  @HostListener('window:resize')
+  onResize(): void {
+    const wasMobile = this._isMobile();
+    const isMobile = window.innerWidth <= 768;
+    this._isMobile.set(isMobile);
+    
+    // Regenerar menú si cambió de mobile a desktop o viceversa
+    if (wasMobile !== isMobile) {
+      this.generateMenus();
+    }
+  }
 
   constructor(
     public router: Router,
-    public messageService: MessageService,
-    private lang: LanguageService
-  ) {}
+    private lang: LanguageService,
+    private store: Store
+  ) {
+    this.isLogged = toSignal(this.store.select(selectIsLogged));
+    this.user$ = toSignal(this.store.select(selectUser), {
+      initialValue: null,
+    });
+
+    this.totalAmount = toSignal(this.store.select(selectCartTotal));
+    this.itemsCartCount = toSignal(this.store.select(selectCartCount), {
+      initialValue: 0,
+    });
+  }
 
   currentLang = 'es';
 
@@ -60,40 +104,35 @@ export class Header implements OnInit {
       'header.cart',
       'header.empty_cart_summary',
       'header.empty_cart_detail',
+      'header.language',
     ]);
 
-    this.items = [
-      { label: t['header.home'], icon: 'pi pi-home', routerLink: '/' },
+    // Marcha UI menubar items
+    this.menubarItems = [
+      { label: t['header.home'], icon: 'lucide:home' },
       {
         label: t['header.shop'],
-        icon: 'pi pi-cart-minus',
-        routerLink: '/shop',
+        icon: 'lucide:shopping-bag',
         items: [
-          { label: t['header.cat1'], icon: 'pi pi-list' },
-          { label: t['header.cat2'], icon: 'pi pi-list' },
-          { label: t['header.cat3'], icon: 'pi pi-list' },
+          { label: t['header.cat1'], icon: 'lucide:tag' },
+          { label: t['header.cat2'], icon: 'lucide:tag' },
+          { label: t['header.cat3'], icon: 'lucide:tag' },
         ],
       },
-      {
-        label: t['header.contact'],
-        icon: 'pi pi-envelope',
-        routerLink: '/contact',
-      },
-      {
-        label: t['header.about'],
-        icon: 'pi pi-info-circle',
-        routerLink: '/about',
-      },
+      { label: 'Galería', icon: 'lucide:images' },
+      { label: t['header.contact'], icon: 'lucide:mail' },
+      { label: t['header.about'], icon: 'lucide:info' },
+      { label: 'Design System', icon: 'lucide:palette' },
     ];
 
-    this.itemsTiered = [
-      { label: t['header.login'], icon: 'pi pi-user', routerLink: 'login' },
-      {
-        label: t['header.register'],
-        icon: 'pi pi-user-plus',
-        routerLink: 'register',
-      },
-    ];
+    // Añadir item de idioma solo para mobile
+    if (this._isMobile()) {
+      this.menubarItems.push({
+        label: t['header.language'],
+        icon: 'lucide:globe',
+        command: () => this.toggleLanguage(),
+      });
+    }
   }
 
   showDialog() {
@@ -104,19 +143,6 @@ export class Header implements OnInit {
     const nextLang = this.lang.getCurrentLanguage() === 'es' ? 'en' : 'es';
     this.lang.changeLanguage(nextLang);
   }
-  async showToastEmtpyCart() {
-    const t = await this.lang.tMany([
-      'header.empty_cart_summary',
-      'header.empty_cart_detail',
-    ]);
-
-    this.messageService.add({
-      severity: 'success',
-      summary: t['header.empty_cart_summary'],
-      detail: t['header.empty_cart_detail'],
-      life: 3000,
-    });
-  }
 
   toggleDarkMode() {
     const element = document.querySelector('html');
@@ -124,5 +150,64 @@ export class Header implements OnInit {
       element.classList.toggle('my-app-dark');
       this.isDarkMode = true;
     }
+  }
+
+  clearCart() {
+    this.store.dispatch(clearCart());
+  }
+
+  onMenuItemClick(item: MMenubarItem | MMenubarSubItem) {
+    // Si el item tiene un comando, ejecutarlo
+    if (item.command) {
+      item.command();
+      return;
+    }
+    
+    // Mapeo de navegación
+    const routes: Record<string, string> = {
+      'Inicio': '/',
+      'Home': '/',
+      'Tienda': '/shop',
+      'Shop': '/shop',
+      'Galería': '/gallery',
+      'Gallery': '/gallery',
+      'Contacto': '/contact',
+      'Contact': '/contact',
+      'Acerca de': '/about',
+      'About': '/about',
+      'Design System': '/demo',
+    };
+    
+    const route = routes[item.label || ''];
+    if (route) {
+      this.router.navigate([route]);
+    }
+  }
+
+  onLogoClick() {
+    this.router.navigate(['/']);
+  }
+
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  onProfileClick() {
+    this.showUserMenu = false;
+    this.router.navigate(['/profile']);
+  }
+
+  onLogoutClick() {
+    this.showUserMenu = false;
+    this.store.dispatch(logout());
+    this.router.navigate(['/']);
+  }
+
+  onLoginClick() {
+    this.router.navigate(['/login']);
+  }
+
+  onRegisterClick() {
+    this.router.navigate(['/register']);
   }
 }
