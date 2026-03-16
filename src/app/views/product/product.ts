@@ -12,12 +12,13 @@ import { MButton } from '../../components/marcha/m-button/m-button';
 import { MChip } from '../../components/marcha/m-chip/m-chip';
 import { MIcon } from '../../components/marcha/m-icon/m-icon';
 import { MDivider } from '../../components/marcha/m-divider/m-divider';
+import { MRating } from '../../components/marcha/m-rating/m-rating';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   imports: [TranslateModule, RouterModule, CurrencyPipe, DecimalPipe,
-            MButton, MChip, MIcon, MDivider],
+            MButton, MChip, MIcon, MDivider, MRating],
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
@@ -51,8 +52,6 @@ export class ProductView implements OnInit {
     if (!p || p.discountPrice === null || p.discountPrice >= p.price) return null;
     return Math.round((1 - p.discountPrice / p.price) * 100);
   });
-
-  readonly stars = [1, 2, 3, 4, 5];
 
   constructor(private store: Store, private route: ActivatedRoute) {
     this.allProducts$ = toSignal(

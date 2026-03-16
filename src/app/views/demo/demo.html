@@ -70,7 +70,7 @@
           <m-badge value="m-table" severity="success" />
           <m-badge value="m-sortable" severity="success" />
           <m-badge value="m-data-view" severity="success" />
-          <m-badge value="m-rating" severity="secondary" />
+          <m-badge value="m-rating" severity="success" />
           <m-badge value="m-listbox" severity="secondary" />
           <m-badge value="m-file-upload" severity="success" />
           <m-badge value="m-carousel" severity="secondary" />
@@ -795,4 +795,53 @@
       </div>
     </div>
   </section>
+
+  <!-- ── m-rating ──────────────────────────────────────────────────── -->
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-rating &middot; Valoración con estrellas</h2>
+
+    <div class="demo-row" style="align-items: flex-start; gap: 3rem; flex-wrap: wrap;">
+
+      <!-- Interactivo -->
+      <div class="demo-col" style="gap: 0.5rem;">
+        <p class="demo-label">Interactivo (click para valorar)</p>
+        <m-rating
+          [value]="demoRating()"
+          [showValue]="true"
+          (ratingChange)="demoRating.set($event)"
+        />
+        <p class="demo-label" style="font-size: 0.75rem; color: var(--m-text-muted)">
+          Valor: {{ demoRating() }}
+        </p>
+      </div>
+
+      <!-- Readonly -->
+      <div class="demo-col" style="gap: 0.5rem;">
+        <p class="demo-label">Readonly &mdash; 4 de 5</p>
+        <m-rating [value]="4" [readonly]="true" />
+      </div>
+
+      <!-- Tamaños -->
+      <div class="demo-col" style="gap: 0.5rem;">
+        <p class="demo-label">Tamaños</p>
+        <m-rating size="sm" [value]="3" [readonly]="true" />
+        <m-rating size="md" [value]="3" [readonly]="true" />
+        <m-rating size="lg" [value]="3" [readonly]="true" />
+      </div>
+
+      <!-- Max personalizado -->
+      <div class="demo-col" style="gap: 0.5rem;">
+        <p class="demo-label">max=3 &mdash; valoración compacta</p>
+        <m-rating [max]="3" [value]="2" [showValue]="true" [readonly]="true" />
+      </div>
+
+      <!-- Disabled -->
+      <div class="demo-col" style="gap: 0.5rem;">
+        <p class="demo-label">Disabled</p>
+        <m-rating [value]="4" [disabled]="true" />
+      </div>
+
+    </div>
+  </section>
+
 </div>

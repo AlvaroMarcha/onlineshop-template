@@ -217,21 +217,6 @@
   margin-bottom: 1.125rem;
 }
 
-.stars { display: flex; gap: 0.05rem; }
-
-.star {
-  font-size: 1.15rem;
-  color: var(--m-text-muted);
-  opacity: 0.25;
-  transition: opacity 0.1s;
-  line-height: 1;
-}
-
-.star--on {
-  color: #facc15;
-  opacity: 1;
-}
-
 .rating-score {
   font-size: 0.9rem;
   font-weight: 700;
