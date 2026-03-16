@@ -311,6 +311,7 @@
 .m-menubar__mobile-item.is-open  { background: var(--m-secondary-bg); color: var(--m-text); }
 .m-menubar__mobile-item.is-active { color: var(--m-primary); background: rgba(99,102,241,.06); }
 .m-menubar__mobile-item.is-disabled { opacity: .45; pointer-events: none; }
+.m-menubar__mobile-item:active { background: var(--m-secondary-bg); opacity: .75; transition: none; }
 
 .m-menubar__mobile-chevron {
   color: var(--m-text-muted); margin-left: auto;

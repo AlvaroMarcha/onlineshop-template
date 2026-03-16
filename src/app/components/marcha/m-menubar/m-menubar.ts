@@ -2,6 +2,7 @@ import {
   Component, input, output, signal, computed, ChangeDetectionStrategy, HostListener,
 } from '@angular/core';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export interface MMenubarItem {
   label:     string;
@@ -25,7 +26,7 @@ export interface MMenubarSubItem {
   selector: 'm-menubar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-menubar.html',
   styleUrl: './m-menubar.css',
   host: { '[style.display]': '"block"' },

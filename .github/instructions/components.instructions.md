@@ -262,6 +262,51 @@ Si `m-card` es un componente standalone, el selector CSS anterior **no aplicará
 
 ## Crear una nueva vista
 
+### 🔴 OBLIGATORIO: Análisis previo y confirmación
+
+Antes de implementar cualquier vista nueva, el agente DEBE:
+
+1. **Analizar y presentar al usuario** un resumen con:
+   - Estructura de layout propuesta (columnas, secciones, responsive)
+   - Componentes Marcha UI que se usarán y por qué
+   - Datos/signals/store que necesita la vista
+   - Guards o restricciones de ruta
+   - Lista completa de claves i18n nuevas que se añadirán
+2. **Esperar confirmación explícita** del usuario antes de escribir ningún archivo.
+3. Solo tras la aprobación proceder con la implementación.
+
+### 🌍 OBLIGATORIO: Traducciones en toda vista nueva
+
+**Toda vista nueva debe incluir sus traducciones** en el mismo PR:
+
+1. Añadir la sección correspondiente a `src/assets/i18n/es.json`.
+2. Añadir **las mismas claves** a `src/assets/i18n/en.json` con el texto en inglés.
+3. Usar `TranslatePipe` (`| translate`) en el template para todos los textos visibles.
+4. Para textos dinámicos en TypeScript (tabs, columnas de tabla, labels de gráficos), usar `LanguageService.tMany()` en `ngOnInit` y recargar al cambiar idioma con `LanguageService.onLanguageChange()`.
+
+```typescript
+// ✅ Correcto — textos dinámicos con LanguageService
+async ngOnInit() {
+  await this.loadTranslations();
+  this.lang.onLanguageChange(() => this.loadTranslations());
+}
+
+private async loadTranslations() {
+  const t = await this.lang.tMany([
+    'profile.tab_personal',
+    'profile.tab_orders',
+    'profile.col_id',
+  ]);
+  this.tabs = [
+    { label: t['profile.tab_personal'], icon: 'lucide:user' },
+    { label: t['profile.tab_orders'],  icon: 'lucide:receipt' },
+  ];
+  this.tableColumns = [
+    { field: 'id',   header: t['profile.col_id'] },
+  ];
+}
+```
+
 **Carpeta**: `src/app/views/<view-name>/`  
 **Archivos**: `<name>.ts`, `<name>.html`, `<name>.css`  
 **Registrar**: añadir en `app.routes.ts`

@@ -19,13 +19,6 @@
         {{ tab.label }}
       </button>
     }
-    @if (variant() === 'line') {
-      <div
-        class="m-tabs-indicator"
-        [style.left.%]="(active() / validTabs().length) * 100"
-        [style.width.%]="100 / validTabs().length"
-      ></div>
-    }
   </div>
 
   <div class="m-tabs-content" role="tabpanel">

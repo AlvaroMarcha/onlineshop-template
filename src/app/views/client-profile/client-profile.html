@@ -1,158 +1,173 @@
-<div class="card flex justify-center mb-12">
-  <div class="w-[90vw] mx-auto p-6 border border-gray-200 rounded-lg dark:border-gray-700">
-    <h2 class="font-bold text-xl mb-6">Imagen de perfil</h2>
-    
-    <div class="flex justify-center">
-      <m-avatar
-        [image]="'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png'"
-        [label]="user$()?.name || 'Usuario'"
-        size="xlarge"
-        class="mr-2"
-      />
-    </div>
-    
-    <div class="w-[80vw] max-w-[80vw] mx-auto mt-6 p-4 border border-gray-200 rounded-lg dark:border-gray-700">
-      <h3 class="font-bold text-lg mb-4">Cambiar imagen</h3>
-      <div class="flex justify-center mt-4">
-        <div class="card flex justify-center">
-          <m-toast />
-          <input 
-            type="file" 
-            accept="image/*"
-            (change)="onFileSelected($event)"
-            class="hidden"
-            #fileInput
-          />
-          <m-button
-            [label]="'Seleccionar imagen'"
-            [icon]="'lucide:upload'"
-            (onClick)="fileInput.click()"
-          ></m-button>
-        </div>
-      </div>
-    </div>
-    
-    <m-divider class="mt-12" />
-    
-    <div class="w-[80vw] max-w-[80vw] mx-auto mt-6 p-4 border border-gray-200 rounded-lg dark:border-gray-700">
-      <h3 class="font-bold text-lg mb-4">Información usuario</h3>
-      <div class="flex flex-colum flex-wrap gap-3">
-        <div
-          class="flex flex-colum flex-wrap gap-3"
-          [style]="{justifyContent: isMobile ? 'center' : 'start'}"
-        >
-          <!-- User name -->
-          <div class="card flex justify-center">
-            <m-float-label>
-              <m-input
-                id="username"
-                [placeholder]="this.user$()?.name || ''"
-              />
-              <label for="username">Nombre</label>
-            </m-float-label>
-          </div>
-          <!-- User email -->
-          <div class="card flex justify-center">
-            <m-float-label>
-              <m-input
-                id="email"
-                [placeholder]="this.user$()?.email || ''"
-              />
-              <label for="email">Email</label>
-            </m-float-label>
-          </div>
-          <!-- User phone -->
-          <div class="card flex justify-center">
-            <m-float-label>
-              <m-input
-                id="phone"
-                [placeholder]="this.user$()?.phone || ''"
-              />
-              <label for="phone">Teléfono</label>
-            </m-float-label>
-          </div>
-          <m-button 
-            [label]="'Restablecer contraseña'" 
-            [link]="true"
-            size="small"
-          ></m-button>
-        </div>
-        <m-divider />
-        <div>
-          <!-- User status -->
-          <div class="card flex justify-center">
-            <div class="card flex justify-center">
-              <m-card [header]="'Status'">
-                <p class="m-0">
-                  {{ user$()?.isActive ? '🟢 Conectado' : '🔘 Desconectado' }}
-                </p>
-                <p class="m-0">
-                  Miembro desde: {{ user$()?.createdAt | date: 'mediumDate'}}
-                </p>
-              </m-card>
-            </div>
-          </div>
-          <div id="controlForm" class="flex m-3 gap-1">
-            <m-button
-              [label]="labelEdit"
-              [severity]="colorEdit"
-              size="small"
-              variant="outlined"
-              (onClick)="editForm()"
-            ></m-button>
-            <m-button
-              [label]="'Cancelar'"
-              severity="danger"
-              size="small"
-              (onClick)="cancelForm()"
-            ></m-button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <m-divider class="mt-12" />
-    <!-- TABS -->
-    <div class="card mt-6">
-      <m-tabs [tabs]="tabs">
-        <!-- Content Orders tab -->
-        <m-tab-panel [index]="0">
-          <div class="card">
-            <m-table
-              [data]="orders"
-              [columns]="[
-                { field: 'id', header: 'ID' },
-                { field: 'date', header: 'Fecha pedido' },
-                { field: 'status', header: 'Estado' }
-              ]"
+﻿<m-toast />
+
+<div class="min-h-screen px-4 py-8 md:px-8">
+  <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
+
+    <!-- SIDEBAR -->
+    <aside class="w-full lg:w-72 flex-shrink-0">
+      <m-card variant="solid" padding="lg">
+        <div class="flex flex-col items-center gap-4">
+
+          <!-- Avatar con overlay de camara -->
+          <div class="relative group">
+            <m-avatar
+              [label]="user$()?.name || 'Usuario'"
+              size="xlarge"
+              severity="primary"
+            />
+            <button
+              class="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer border-0"
+              (click)="fileInput.click()"
+              type="button"
             >
-              <ng-template #actionsTemplate let-row>
-                <div class="flex gap-1.5">
-                  <m-button
-                    [label]="'Descargar'"
-                    severity="warn"
-                    variant="outlined"
-                    size="small"
-                    [icon]="'lucide:receipt'"
-                  ></m-button>
-                  <m-button
-                    [label]="'Ver'"
-                    variant="outlined"
-                    size="small"
-                    [icon]="'lucide:eye'"
-                  ></m-button>
+              <m-icon icon="lucide:camera" size="22" class="text-white" />
+            </button>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" class="hidden" #fileInput />
+          </div>
+
+          <!-- Nombre y email -->
+          <div class="text-center">
+            <p class="text-lg font-bold">{{ user$()?.name || '-' }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ user$()?.email || '-' }}</p>
+          </div>
+
+          <!-- Estado -->
+          <m-chip
+            [label]="user$()?.isActive ? ('profile.active' | translate) : ('profile.inactive' | translate)"
+            [severity]="user$()?.isActive ? 'success' : 'secondary'"
+            [dot]="true"
+            size="sm"
+          />
+
+          <m-divider />
+
+          <!-- Meta info -->
+          <div class="w-full flex flex-col gap-3 text-sm text-gray-600 dark:text-gray-300">
+            <div class="flex items-center gap-2">
+              <m-icon icon="lucide:calendar" size="15" />
+              <span>
+                {{ 'profile.member_since' | translate }}
+                @if (user$()?.createdAt) {
+                  {{ user$()?.createdAt | date: 'mediumDate' }}
+                } @else {
+                  -
+                }
+              </span>
+            </div>
+            @if (user$()?.phone) {
+              <div class="flex items-center gap-2">
+                <m-icon icon="lucide:phone" size="15" />
+                <span>{{ user$()?.phone }}</span>
+              </div>
+            }
+          </div>
+
+          <m-divider />
+
+          <m-button
+            [label]="'profile.reset_password' | translate"
+            icon="lucide:key-round"
+            variant="text"
+            size="small"
+            [full]="true"
+          />
+        </div>
+      </m-card>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 min-w-0">
+      <m-tabs [tabs]="tabs" [active]="activeTab" (activeChange)="onTabChange($event)">
+
+        <!-- TAB 0: Datos personales -->
+        @if (activeTab === 0) {
+          <m-tab-panel [index]="0">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-6">
+                <div>
+                  <h3 class="text-base font-semibold mb-1">{{ 'profile.personal_title' | translate }}</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.personal_subtitle' | translate }}</p>
                 </div>
-              </ng-template>
-            </m-table>
-          </div>
-        </m-tab-panel>
-        <!-- Content Invoice tab -->
-        <m-tab-panel [index]="1">
-          <div>
-            <canvas #chartCanvas></canvas>
-          </div>
-        </m-tab-panel>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" [formGroup]="profileForm">
+                  <m-input
+                    [label]="'profile.field_name' | translate"
+                    [placeholder]="'profile.field_name_placeholder' | translate"
+                    icon="lucide:user"
+                    formControlName="name"
+                  />
+                  <m-input
+                    [label]="'profile.field_email' | translate"
+                    type="email"
+                    [placeholder]="'profile.field_email_placeholder' | translate"
+                    icon="lucide:mail"
+                    formControlName="email"
+                  />
+                  <m-input
+                    [label]="'profile.field_phone' | translate"
+                    type="tel"
+                    [placeholder]="'profile.field_phone_placeholder' | translate"
+                    icon="lucide:phone"
+                    formControlName="phone"
+                  />
+                </div>
+                <m-divider />
+                <div class="flex flex-wrap gap-2">
+                  <m-button
+                    [label]="labelEdit"
+                    [icon]="isDisabled ? 'lucide:pencil' : 'lucide:save'"
+                    [severity]="colorEdit"
+                    variant="outlined"
+                    size="small"
+                    (onClick)="editForm()"
+                  />
+                  @if (!isDisabled) {
+                    <m-button [label]="'profile.btn_cancel' | translate" icon="lucide:x" severity="danger" variant="text" size="small" (onClick)="cancelForm()" />
+                  }
+                </div>
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 1: Mis pedidos -->
+        @if (activeTab === 1) {
+          <m-tab-panel [index]="1">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h3 class="text-base font-semibold mb-1">{{ 'profile.orders_title' | translate }}</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.orders_subtitle' | translate }}</p>
+                </div>
+                <m-table
+                  [data]="orders"
+                  [columns]="tableColumns"
+                  [actions]="tableActions"
+                  variant="striped"
+                />
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 2: Estadisticas -->
+        @if (activeTab === 2) {
+          <m-tab-panel [index]="2">
+            <m-card variant="solid" padding="lg">
+              <div class="flex flex-col gap-4">
+                <div>
+                  <h3 class="text-base font-semibold mb-1">{{ 'profile.stats_title' | translate }}</h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'profile.stats_subtitle' | translate }}</p>
+                </div>
+                <div class="h-72">
+                  <canvas #chartCanvas></canvas>
+                </div>
+              </div>
+            </m-card>
+          </m-tab-panel>
+        }
+
       </m-tabs>
-    </div>
+    </main>
+
   </div>
 </div>
