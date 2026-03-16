@@ -84,10 +84,10 @@
             <div class="card flex justify-center">
               <m-card [header]="'Status'">
                 <p class="m-0">
-                  {{ user$()?.status ? '🟢 Conectado' : '🔘 Desconectado' }}
+                  {{ user$()?.isActive ? '🟢 Conectado' : '🔘 Desconectado' }}
                 </p>
                 <p class="m-0">
-                  Miembro desde: {{ user$()?.created_at | date: 'mediumDate'}}
+                  Miembro desde: {{ user$()?.createdAt | date: 'mediumDate'}}
                 </p>
               </m-card>
             </div>

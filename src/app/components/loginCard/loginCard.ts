@@ -38,7 +38,8 @@ export class LoginCard {
     effect(() => {
       const user = user$();
       if (user) {
-        if (user.role_id === 1) {
+        // Backend devuelve roleName como string: "ADMIN" o "USER"
+        if (user.roleName === 'ADMIN') {
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.router.navigate(['/profile']);
@@ -54,6 +55,7 @@ export class LoginCard {
     }
     const { username, password } = this.loginForm.getRawValue();
     this.loading = true;
+    // El backend acepta username O email en el campo 'usernameOrEmail'
     this.store.dispatch(loginRequestInit({ username, password }));
     this.loading = false;
   }

@@ -71,7 +71,7 @@ export class RegisterCard {
     effect(() => {
       const user = user$();
       if (user) {
-        if (user.role_id === 1) {
+        if (user.roleName === 'ADMIN') {
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.router.navigate(['/profile']);

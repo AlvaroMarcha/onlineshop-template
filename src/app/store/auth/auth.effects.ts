@@ -21,11 +21,15 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(loginRequestInit),
       exhaustMap((action) =>
+        // El backend acepta username O email en 'usernameOrEmail'
         this.authService.login(action.username, action.password).pipe(
           map((loginTokenResponse: LoginTokenResponse) =>
             loginSuccessFinal({ loginTokenResponse })
           ),
-          catchError((error) => of(loginFailure({ error })))
+          catchError((error) => {
+            const errorMsg = error?.error?.message || error?.message || 'Error al iniciar sesión';
+            return of(loginFailure({ error: errorMsg }));
+          })
         )
       )
     )
