@@ -361,6 +361,19 @@
     "photo_upload_success": "Foto de perfil actualizada correctamente",
     "photo_upload_error": "Error al subir la foto. Por favor, inténtalo de nuevo",
     "photo_invalid_format": "Formato de archivo no válido. Solo se permiten imágenes JPEG, JPG y PNG",
-    "photo_too_large": "La imagen es demasiado grande. El tamaño máximo permitido es 5MB"
+    "photo_too_large": "La imagen es demasiado grande. El tamaño máximo permitido es 5MB",
+    "verify_email": "Verificar email",
+    "verify_email_title": "Verificar cuenta de email",
+    "verify_email_description": "Recibirás un email con un enlace de verificación en la siguiente dirección:",
+    "send_verification_email": "Enviar email de verificación",
+    "verification_email_sent": "Email de verificación enviado correctamente. Revisa tu bandeja de entrada",
+    "change_password": "Cambiar contraseña",
+    "current_password": "Contraseña actual",
+    "current_password_placeholder": "Ingresa tu contraseña actual",
+    "new_password": "Nueva contraseña",
+    "new_password_placeholder": "Ingresa tu nueva contraseña",
+    "confirm_new_password": "Confirmar nueva contraseña",
+    "confirm_new_password_placeholder": "Confirma tu nueva contraseña",
+    "password_changed_success": "Contraseña cambiada correctamente"
   }
 }

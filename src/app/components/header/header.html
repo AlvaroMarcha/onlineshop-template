@@ -40,13 +40,13 @@
 
       <!-- User Menu -->
       @if (isLogged()) {
-        <div class="relative">
-          <m-button
-            icon="lucide:user"
-            severity="help"
-            variant="filled"
-            [rounded]="true"
-            (onClick)="toggleUserMenu()"
+        <div class="relative" #userMenuContainer>
+          <m-avatar
+            [image]="user$()?.profileImageUrl || 'https://ui-avatars.com/api/?name=' + (user$()?.name || 'User') + '&background=9333ea&color=fff'"
+            size="normal"
+            shape="circle"
+            class="cursor-pointer"
+            (click)="toggleUserMenu()"
           />
           @if (showUserMenu) {
             <div class="absolute right-0 top-12 min-w-[200px] user-menu-dropdown">

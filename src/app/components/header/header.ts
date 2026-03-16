@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, signal } from '@angular/core';
+import { Component, HostListener, OnInit, signal, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
@@ -17,6 +17,7 @@ import { MButton } from '../marcha/m-button/m-button';
 import { MOverlayBadge } from '../marcha/m-overlay-badge/m-overlay-badge';
 import { MDialog } from '../marcha/m-dialog/m-dialog';
 import { MCard } from '../marcha/m-card/m-card';
+import { MAvatar } from '../marcha/m-avatar/m-avatar';
 import { Cart } from '../cart/cart';
 import { UpButton } from '../up-button/up-button';
 import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
@@ -32,6 +33,7 @@ import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
     MOverlayBadge,
     MDialog,
     MCard,
+    MAvatar,
     Cart,
     UpButton,
     DrawerCookies,
@@ -51,6 +53,8 @@ export class Header implements OnInit {
   isLogged;
   showUserMenu = false;
 
+  @ViewChild('userMenuContainer') userMenuContainer?: ElementRef;
+
   readonly _isMobile = signal(typeof window !== 'undefined' && window.innerWidth <= 768);
 
   @HostListener('window:resize')
@@ -62,6 +66,16 @@ export class Header implements OnInit {
     // Regenerar menú si cambió de mobile a desktop o viceversa
     if (wasMobile !== isMobile) {
       this.generateMenus();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (this.showUserMenu && this.userMenuContainer) {
+      const clickedInside = this.userMenuContainer.nativeElement.contains(event.target);
+      if (!clickedInside) {
+        this.showUserMenu = false;
+      }
     }
   }
 
@@ -88,6 +102,11 @@ export class Header implements OnInit {
     this.lang.onLanguageChange(() => {
       this.generateMenus();
     });
+    
+    // Sincronizar estado del tema oscuro con el DOM
+    if (typeof document !== 'undefined') {
+      this.isDarkMode = document.querySelector('html')?.classList.contains('my-app-dark') || false;
+    }
   }
 
   async generateMenus() {
@@ -148,7 +167,7 @@ export class Header implements OnInit {
     const element = document.querySelector('html');
     if (element !== null) {
       element.classList.toggle('my-app-dark');
-      this.isDarkMode = true;
+      this.isDarkMode = element.classList.contains('my-app-dark');
     }
   }
 
