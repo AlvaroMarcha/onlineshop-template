@@ -15,18 +15,29 @@
     "language": "Idioma"
   },
   "footer": {
-    "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas.",
-    "about": "Sobre nosotros",
+    "company_name": "Marcha Shop",
+    "company_desc": "Tu tienda online de confianza. Ofrecemos productos de calidad con envío rápido y atención personalizada.",
+    "customer_service": "Atención al cliente",
     "contact": "Contacto",
-    "privacy_policy": "Política de privacidad",
+    "shipping_returns": "Envíos y devoluciones",
+    "payment_methods": "Métodos de pago",
+    "faq": "Preguntas frecuentes",
+    "legal": "Legal",
     "terms_conditions": "Términos y condiciones",
+    "privacy_policy": "Política de privacidad",
+    "cookies_policy": "Política de cookies",
     "legal_notice": "Aviso legal",
+    "quick_links": "Enlaces rápidos",
+    "all_rights": "Todos los derechos reservados",
+    "secure_payment": "Pago seguro",
+    "about": "Sobre nosotros",
     "conditions": "Condiciones de uso",
     "socials": "Redes sociales",
     "sitemap": "Mapa del sitio",
     "services": "Servicios",
     "support": "Soporte",
-    "legals": "Legales"
+    "legals": "Legales",
+    "description": "Ofrecemos una amplia gama de opciones de personalización para que puedas adaptar las pantallas a tus necesidades específicas."
   },
   "home": {
     "banner": {
