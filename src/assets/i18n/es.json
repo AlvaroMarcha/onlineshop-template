@@ -302,6 +302,7 @@
     "reset_password": "Restablecer contraseña",
     "change_photo": "Cambiar foto",
     "click_to_change_photo": "Click para cambiar foto",
+    "photo_hint": "Toca o arrastra una foto",
     "username": "Nombre de usuario",
     "role": "Rol",
     "tab_personal": "Datos personales",

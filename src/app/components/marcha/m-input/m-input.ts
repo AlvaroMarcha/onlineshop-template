@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export type MInputType = 'text' | 'email' | 'tel' | 'url' | 'search';
 export type MInputSize = 'small' | 'medium' | 'large';
@@ -11,7 +12,7 @@ export type MInputSize = 'small' | 'medium' | 'large';
   selector: 'm-input',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-input.html',
   styleUrl: './m-input.css',
   providers: [{

@@ -257,6 +257,7 @@
     "reset_password": "Reset password",
     "change_photo": "Change photo",
     "click_to_change_photo": "Click to change photo",
+    "photo_hint": "Tap or drag a photo",
     "username": "Username",
     "role": "Role",
     "tab_personal": "Personal data",
