@@ -29,6 +29,9 @@ import { MTabs, MTabItem, MTabPanel } from '../../components/marcha/m-tabs/m-tab
 import { MTable, MTableColumn, MTableAction } from '../../components/marcha/m-table/m-table';
 import { MIcon } from '../../components/marcha/m-icon/m-icon';
 import { MChip } from '../../components/marcha/m-chip/m-chip';
+import { MCopy } from '../../components/marcha/m-copy/m-copy';
+import { MDialog } from '../../components/marcha/m-dialog/m-dialog';
+import { MPassword } from '../../components/marcha/m-password/m-password';
 
 @Component({
   selector: 'app-client-profile',
@@ -37,6 +40,7 @@ import { MChip } from '../../components/marcha/m-chip/m-chip';
     ReactiveFormsModule, DatePipe, TranslateModule,
     MAvatar, MToast, MDivider, MInput, MButton,
     MCard, MTabs, MTabPanel, MTable, MIcon, MChip,
+    MCopy, MDialog, MPassword,
   ],
   templateUrl: './client-profile.html',
 })
@@ -79,6 +83,12 @@ export class ClientProfile implements OnInit {
   colorEdit: 'primary' | 'danger' | 'warn' = 'warn';
   uploadingPhoto = signal(false);
 
+  // Modales
+  showVerifyEmailModal = signal(false);
+  showChangePasswordModal = signal(false);
+  sendingVerification = signal(false);
+  changingPassword = signal(false);
+
   profileForm = new FormGroup({
     name:  new FormControl({ value: '', disabled: true }),
     email: new FormControl({ value: '', disabled: true }),
@@ -93,6 +103,12 @@ export class ClientProfile implements OnInit {
     city: new FormControl('', [Validators.required]),
     postalCode: new FormControl('', [Validators.required]),
     isDefault: new FormControl(false, { nonNullable: true }),
+  });
+
+  changePasswordForm = new FormGroup({
+    currentPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   constructor(
@@ -373,6 +389,107 @@ export class ClientProfile implements OnInit {
     this.isDisabled = true;
     this.labelEdit = await this.lang.tOne('profile.btn_edit');
     this.colorEdit = 'warn';
+  }
+
+  // ==================== Role Display ====================
+
+  /**
+   * Obtener nombre traducido del rol.
+   */
+  getRoleDisplayName(roleName: string | undefined): string {
+    if (!roleName) return '';
+    
+    const roleMap: Record<string, string> = {
+      'ROLE_USER': 'Usuario',
+      'ROLE_ADMIN': 'Admin',
+      'SUPER_ADMIN': 'Super Admin',
+    };
+    
+    return roleMap[roleName] || roleName;
+  }
+
+  // ==================== Email Verification ====================
+
+  /**
+   * Abrir modal de verificación de email.
+   */
+  openVerifyEmailModal() {
+    this.showVerifyEmailModal.set(true);
+  }
+
+  /**
+   * Cerrar modal de verificación de email.
+   */
+  closeVerifyEmailModal() {
+    this.showVerifyEmailModal.set(false);
+  }
+
+  /**
+   * Enviar email de verificación al usuario actual.
+   */
+  async sendVerificationEmail() {
+    const user = this.user$();
+    if (!user?.email) return;
+
+    this.sendingVerification.set(true);
+
+    // TODO: Implementar llamada al backend POST /auth/resend-verification
+    // Por ahora, simular el envío
+    setTimeout(async () => {
+      const successMsg = await this.lang.tOne('profile.verification_email_sent');
+      this.notificationService.success(successMsg);
+      this.sendingVerification.set(false);
+      this.closeVerifyEmailModal();
+    }, 1500);
+  }
+
+  // ==================== Change Password ====================
+
+  /**
+   * Abrir modal de cambio de contraseña.
+   */
+  openChangePasswordModal() {
+    this.changePasswordForm.reset();
+    this.showChangePasswordModal.set(true);
+  }
+
+  /**
+   * Cerrar modal de cambio de contraseña.
+   */
+  closeChangePasswordModal() {
+    this.showChangePasswordModal.set(false);
+    this.changePasswordForm.reset();
+  }
+
+  /**
+   * Cambiar contraseña del usuario.
+   */
+  async changePassword() {
+    if (this.changePasswordForm.invalid) {
+      const errorMsg = await this.lang.tOne('validation.required');
+      this.notificationService.error(errorMsg);
+      return;
+    }
+
+    const formValue = this.changePasswordForm.getRawValue();
+
+    // Validar que las contraseñas nuevas coincidan
+    if (formValue.newPassword !== formValue.confirmPassword) {
+      const errorMsg = await this.lang.tOne('validation.passwords_mismatch');
+      this.notificationService.error(errorMsg);
+      return;
+    }
+
+    this.changingPassword.set(true);
+
+    // TODO: Implementar llamada al backend
+    // Por ahora, simular el cambio
+    setTimeout(async () => {
+      const successMsg = await this.lang.tOne('profile.password_changed_success');
+      this.notificationService.success(successMsg);
+      this.changingPassword.set(false);
+      this.closeChangePasswordModal();
+    }, 1500);
   }
 
   // ==================== Addresses Management ====================

@@ -59,19 +59,33 @@
           </div>
 
           <!-- Estados -->
-          <div class="flex items-center gap-2">
-            <m-chip
-              [label]="user$()?.active ? ('profile.active' | translate) : ('profile.inactive' | translate)"
-              [severity]="user$()?.active ? 'success' : 'secondary'"
-              [dot]="true"
-              size="sm"
-            />
-            <m-chip
-              [label]="user$()?.verified ? ('profile.verified' | translate) : ('profile.not_verified' | translate)"
-              [severity]="user$()?.verified ? 'info' : 'warn'"
-              [dot]="true"
-              size="sm"
-            />
+          <div class="flex flex-col items-center gap-2">
+            <div class="flex items-center gap-2">
+              <m-chip
+                [label]="user$()?.active ? ('profile.active' | translate) : ('profile.inactive' | translate)"
+                [severity]="user$()?.active ? 'success' : 'secondary'"
+                [dot]="true"
+                size="sm"
+              />
+              <m-chip
+                [label]="user$()?.verified ? ('profile.verified' | translate) : ('profile.not_verified' | translate)"
+                [severity]="user$()?.verified ? 'info' : 'warn'"
+                [dot]="true"
+                size="sm"
+              />
+            </div>
+            
+            <!-- Botón de verificar email (solo si no está verificado) -->
+            @if (!user$()?.verified) {
+              <m-button
+                [label]="'profile.verify_email' | translate"
+                icon="lucide:mail-check"
+                severity="info"
+                variant="outlined"
+                size="small"
+                (onClick)="openVerifyEmailModal()"
+              />
+            }
           </div>
 
           <m-divider />
@@ -79,22 +93,40 @@
           <!-- Información del usuario -->
           <div class="w-full flex flex-col gap-3 text-sm">
             <!-- Email -->
-            <div class="flex items-start gap-3">
-              <m-icon icon="lucide:mail" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
-              <div class="flex flex-col min-w-0">
-                <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Email</span>
-                <span class="text-gray-700 dark:text-gray-200 break-all">{{ user$()?.email || '-' }}</span>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-start gap-3 min-w-0 flex-1">
+                <m-icon icon="lucide:mail" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
+                <div class="flex flex-col min-w-0 flex-1">
+                  <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Email</span>
+                  <span class="text-gray-700 dark:text-gray-200 truncate">{{ user$()?.email || '-' }}</span>
+                </div>
               </div>
+              @if (user$()?.email) {
+                <m-copy
+                  [text]="user$()!.email"
+                  variant="icon"
+                  [label]="''"
+                  class="flex-shrink-0"
+                />
+              }
             </div>
 
             <!-- Teléfono -->
             @if (user$()?.phone) {
-              <div class="flex items-start gap-3">
-                <m-icon icon="lucide:phone" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
-                <div class="flex flex-col min-w-0">
-                  <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{{ 'profile.field_phone' | translate }}</span>
-                  <span class="text-gray-700 dark:text-gray-200">{{ user$()?.phone }}</span>
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3 min-w-0 flex-1">
+                  <m-icon icon="lucide:phone" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
+                  <div class="flex flex-col min-w-0">
+                    <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{{ 'profile.field_phone' | translate }}</span>
+                    <span class="text-gray-700 dark:text-gray-200">{{ user$()?.phone }}</span>
+                  </div>
                 </div>
+                <m-copy
+                  [text]="user$()!.phone"
+                  variant="icon"
+                  [label]="''"
+                  class="flex-shrink-0"
+                />
               </div>
             }
 
@@ -104,7 +136,7 @@
                 <m-icon icon="lucide:shield" size="16" class="text-primary-500 mt-0.5 flex-shrink-0" />
                 <div class="flex flex-col min-w-0">
                   <span class="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{{ 'profile.role' | translate }}</span>
-                  <span class="text-gray-700 dark:text-gray-200">{{ user$()?.roleName }}</span>
+                  <span class="text-gray-700 dark:text-gray-200">{{ getRoleDisplayName(user$()?.roleName) }}</span>
                 </div>
               </div>
             }
@@ -124,11 +156,12 @@
           <m-divider />
 
           <m-button
-            [label]="'profile.reset_password' | translate"
+            [label]="'profile.change_password' | translate"
             icon="lucide:key-round"
             variant="text"
             size="small"
             [full]="true"
+            (onClick)="openChangePasswordModal()"
           />
         </div>
       </m-card>
@@ -350,6 +383,91 @@
 
   </div>
 </div>
+
+<!-- MODAL: Verificar Email -->
+<m-dialog
+  [(visible)]="showVerifyEmailModal"
+  [header]="'profile.verify_email_title' | translate"
+  size="sm"
+>
+  <div class="flex flex-col gap-4">
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+      {{ 'profile.verify_email_description' | translate }}
+    </p>
+    <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+      {{ user$()?.email }}
+    </p>
+  </div>
+
+  <div class="flex justify-end gap-2 mt-6">
+    <m-button
+      [label]="'profile.btn_cancel' | translate"
+      variant="text"
+      severity="danger"
+      size="small"
+      (onClick)="closeVerifyEmailModal()"
+    />
+    <m-button
+      [label]="'profile.send_verification_email' | translate"
+      icon="lucide:send"
+      severity="info"
+      size="small"
+      [loading]="sendingVerification()"
+      (onClick)="sendVerificationEmail()"
+    />
+  </div>
+</m-dialog>
+
+<!-- MODAL: Cambiar Contraseña -->
+<m-dialog
+  [(visible)]="showChangePasswordModal"
+  [header]="'profile.change_password' | translate"
+  size="md"
+>
+  <form [formGroup]="changePasswordForm" class="flex flex-col gap-4">
+    <m-password
+      [label]="'profile.current_password' | translate"
+      icon="lucide:lock"
+      formControlName="currentPassword"
+      [placeholder]="'profile.current_password_placeholder' | translate"
+      size="small"
+    />
+    
+    <m-password
+      [label]="'profile.new_password' | translate"
+      icon="lucide:key"
+      formControlName="newPassword"
+      [placeholder]="'profile.new_password_placeholder' | translate"
+      size="small"
+    />
+    
+    <m-password
+      [label]="'profile.confirm_new_password' | translate"
+      icon="lucide:key"
+      formControlName="confirmPassword"
+      [placeholder]="'profile.confirm_new_password_placeholder' | translate"
+      size="small"
+    />
+
+    <div class="flex justify-end gap-2 mt-2">
+      <m-button
+        [label]="'profile.btn_cancel' | translate"
+        variant="text"
+        severity="secondary"
+        size="small"
+        (onClick)="closeChangePasswordModal()"
+      />
+      <m-button
+        [label]="'profile.btn_save' | translate"
+        icon="lucide:check"
+        severity="primary"
+        size="small"
+        [loading]="changingPassword()"
+        (onClick)="changePassword()"
+      />
+    </div>
+  </form>
+</m-dialog>
 
 <!-- Modal de Dirección -->
 @if (showAddressModal()) {

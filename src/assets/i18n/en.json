@@ -316,6 +316,19 @@
     "photo_upload_success": "Profile photo updated successfully",
     "photo_upload_error": "Error uploading photo. Please try again",
     "photo_invalid_format": "Invalid file format. Only JPEG, JPG and PNG images are allowed",
-    "photo_too_large": "Image is too large. Maximum allowed size is 5MB"
+    "photo_too_large": "Image is too large. Maximum allowed size is 5MB",
+    "verify_email": "Verify email",
+    "verify_email_title": "Verify email account",
+    "verify_email_description": "You will receive an email with a verification link at the following address:",
+    "send_verification_email": "Send verification email",
+    "verification_email_sent": "Verification email sent successfully. Check your inbox",
+    "change_password": "Change password",
+    "current_password": "Current password",
+    "current_password_placeholder": "Enter your current password",
+    "new_password": "New password",
+    "new_password_placeholder": "Enter your new password",
+    "confirm_new_password": "Confirm new password",
+    "confirm_new_password_placeholder": "Confirm your new password",
+    "password_changed_success": "Password changed successfully"
   }
 }
