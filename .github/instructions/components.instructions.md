@@ -139,6 +139,127 @@ Si `m-card` es un componente standalone, el selector CSS anterior **no aplicará
 
 ---
 
+## Diseño Responsive: Mobile First
+
+**Estrategia obligatoria**: usar **Mobile First** para todo el diseño responsive.
+
+### ¿Por qué Mobile First?
+
+- **Más fácil de mantener**: escalar hacia arriba es más simple que reducir
+- **Mejor performance**: móviles cargan solo los estilos base
+- **Progressive Enhancement**: funcionalidad básica primero, mejoras después
+- **Cobertura completa**: más fácil abarcar todas las pantallas
+
+### Pattern Mobile First
+
+```css
+/* ❌ EVITAR - Desktop First (obsoleto) */
+.container {
+  width: 50%;  /* Estilo desktop por defecto */
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;  /* Override para tablet */
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 95%;  /* Override para mobile */
+    padding: 0.5rem;
+  }
+}
+```
+
+```css
+/* ✅ CORRECTO - Mobile First */
+.container {
+  width: 95%;  /* Estilo móvil por defecto */
+  padding: 0.5rem;
+}
+
+@media (min-width: 481px) {
+  .container {
+    width: 90%;  /* Tablet: mejora progresiva */
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    width: 50%;  /* Desktop: mejora progresiva */
+    padding: 2rem;
+  }
+}
+```
+
+### Breakpoints estándar
+
+| Breakpoint | min-width | Target |
+|---|---|---|
+| Base | - | Mobile (< 480px) |
+| Small | `481px` | Tablet / Phablet |
+| Medium | `769px` | Desktop / Laptop |
+| Large | `1025px` | Large Desktop (si necesario) |
+
+### Reglas Mobile First
+
+1. **Estilos base = móvil** — sin media query
+2. **Usar `min-width` en media queries** — nunca `max-width`
+3. **Breakpoints consistentes** — usar los estándar en toda la app
+4. **Progressive enhancement** — agregar complejidad gradualmente
+
+### Ejemplo completo
+
+```css
+:host {
+  display: block;
+  width: 100%;
+}
+
+.login-card {
+  /* Base: Mobile */
+  width: 95%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  min-height: 100vh;
+}
+
+::ng-deep .login-card m-card {
+  padding: 1.5rem;
+}
+
+/* Tablet */
+@media (min-width: 481px) {
+  .login-card {
+    width: 92%;
+    padding: 0.75rem;
+  }
+
+  ::ng-deep .login-card m-card {
+    padding: 2rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .login-card {
+    width: 45%;
+    padding: 1.25rem;
+    min-height: auto;
+  }
+
+  ::ng-deep .login-card m-card {
+    padding: 4rem;
+  }
+}
+```
+
+---
+
 ## Crear una nueva vista
 
 **Carpeta**: `src/app/views/<view-name>/`  

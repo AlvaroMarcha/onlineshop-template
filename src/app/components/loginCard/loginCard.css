@@ -8,16 +8,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  width: 95%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 8px;
   min-height: 100vh;
 }
 
 /* Penetrar el encapsulamiento de m-card */
 ::ng-deep .login-card m-card {
   width: 100%;
-  padding: 4rem;
+  padding: 1.5rem;
 }
 
 /* Links con color primario */
@@ -29,12 +29,12 @@
   opacity: 0.8;
 }
 
-/* Responsive - Tablet y móvil */
-@media (max-width: 768px) {
+/* Responsive - Mobile First */
+/* Tablet */
+@media (min-width: 481px) {
   .login-card {
     width: 92%;
     padding: 12px;
-    min-height: auto;
   }
 
   ::ng-deep .login-card m-card {
@@ -42,15 +42,29 @@
   }
 }
 
-/* Móviles pequeños */
-@media (max-width: 480px) {
+/* Desktop 1 */
+@media (min-width: 1219px) {
   .login-card {
-    width: 95%;
-    padding: 8px;
+    width: 45%;
+    padding: 20px;
+    min-height: auto;
   }
 
   ::ng-deep .login-card m-card {
-    padding: 1.5rem;
+    padding: 4rem;
+  }
+}
+
+/* Desktop 2*/
+@media (min-width: 1419px) {
+  .login-card {
+    width: 28%;
+    padding: 20px;
+    min-height: auto;
+  }
+
+  ::ng-deep .login-card m-card {
+    padding: 4rem;
   }
 }
 
