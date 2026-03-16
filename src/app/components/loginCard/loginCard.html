@@ -1,45 +1,99 @@
-<m-card class="login-card" [header]="'login.title' | translate">
-  <form [formGroup]="loginForm">
-    <m-input
-      formControlName="username"
-      type="text"
-      [placeholder]="'login.form.both' | translate"
-      styleClass="w-full mb-4"
-    />
-    <m-password
-      formControlName="password"
-      [placeholder]="'login.form.password' | translate"
-      styleClass="w-full mb-4"
-    />
-  </form>
-  <br />
-  @if(loginForm.invalid && loginForm.touched) {
-  <div class="flexbox w-full mb-5">
-    <m-message severity="error" [title]="'validation.required' | translate" />
-  </div>
-  } @else if(errorMessage$()) {
-  <div class="flexbox w-full mb-5">
-    <m-message severity="error" [title]="errorMessage$() || ''" />
-  </div>
-  }
-  <m-button
-    styleClass="w-full"
-    [label]="'login.form.login_button' | translate"
-    icon="lucide:check"
-    iconPos="left"
-    [loading]="loading"
-    (onClick)="onLogin()"
-    size="small"
-  />
-  <m-button
-    styleClass="w-full mt-2"
-    [label]="'login.form.forgot_password' | translate"
-    [link]="true"
-  />
-  <m-button
-    styleClass="w-full mt-2"
-    [label]="'login.form.no_account' | translate"
-    [link]="true"
-    (onClick)="router.navigate(['register'])"
-  />
-</m-card>
+<div class="login-card">
+  <m-card class="w-full">
+    <!-- Header -->
+    <div class="flex flex-col items-center gap-1 mb-8">
+      <h1 class="text-3xl font-bold text-center bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
+        {{ 'login.title' | translate }}
+      </h1>
+      <p class="text-sm opacity-60 text-center">
+        {{ 'login.subtitle' | translate }}
+      </p>
+    </div>
+
+    <!-- Error message -->
+    @if (errorMessage$()) {
+      <m-message 
+        severity="error" 
+        [closeable]="true"
+        class="mb-6">
+        {{ errorMessage$() }}
+      </m-message>
+    }
+
+    <!-- Login form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="flex flex-col gap-5">
+      <!-- Username or Email input -->
+      <div class="flex flex-col gap-1.5">
+        <m-input
+          id="username"
+          formControlName="username"
+          [placeholder]="'login.form.username_placeholder' | translate"
+          icon="lucide:user"
+          size="small"
+          [invalid]="!!(loginForm.get('username')?.invalid && loginForm.get('username')?.touched)"
+        />
+        @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+          <span class="text-xs text-red-500">
+            {{ 'login.form.username_required' | translate }}
+          </span>
+        }
+      </div>
+
+      <!-- Password input -->
+      <div class="flex flex-col gap-1.5">
+        <m-password
+          id="password"
+          formControlName="password"
+          [placeholder]="'login.form.password_placeholder' | translate"
+          size="small"
+          [invalid]="!!(loginForm.get('password')?.invalid && loginForm.get('password')?.touched)"
+        />
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <span class="text-xs text-red-500">
+            {{ 'login.form.password_required' | translate }}
+          </span>
+        }
+      </div>
+
+      <!-- Submit button -->
+      <div class="flex flex-col items-center gap-3 mt-2">
+        <m-button
+          type="submit"
+          [label]="'login.form.submit' | translate"
+          severity="primary"
+          size="small"
+          [loading]="loading"
+          [disabled]="loginForm.invalid"
+          styleClass="px-12"
+        />
+        
+        <!-- Forgot password link - moved here for better flow -->
+        <a 
+          href="#" 
+          class="text-xs opacity-60 hover:opacity-100 hover:underline transition-opacity"
+          (click)="$event.preventDefault()">
+          {{ 'login.forgot_password' | translate }}
+        </a>
+      </div>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-4 my-8">
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+      <span class="text-xs opacity-50 font-medium">{{ 'login.or' | translate }}</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+    </div>
+
+    <!-- Register link -->
+    <div class="text-center">
+      <p class="text-sm">
+        <span class="opacity-60">{{ 'login.no_account' | translate }}</span>
+        <a 
+          [routerLink]="['/register']" 
+          class="text-primary font-semibold hover:underline ml-1.5 transition-all">
+          {{ 'login.register_link' | translate }}
+        </a>
+      </p>
+    </div>
+  </m-card>
+</div>

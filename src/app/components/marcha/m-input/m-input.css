@@ -34,10 +34,33 @@
   transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
 }
 
+/* Size variants */
+.m-field--small .m-field-el {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.m-field--medium .m-field-el {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+}
+
+.m-field--large .m-field-el {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
 .m-field-el::placeholder { color: var(--m-text-faint); }
 
 .has-icon-left  .m-field-el { padding-left: 2.5rem; }
 .has-icon-right .m-field-el { padding-right: 2.5rem; }
+
+/* Icon adjustments for sizes */
+.m-field--small.has-icon-left .m-field-el { padding-left: 2.25rem; }
+.m-field--small.has-icon-right .m-field-el { padding-right: 2.25rem; }
+
+.m-field--large.has-icon-left .m-field-el { padding-left: 2.75rem; }
+.m-field--large.has-icon-right .m-field-el { padding-right: 2.75rem; }
 
 .m-field-icon {
   position: absolute;

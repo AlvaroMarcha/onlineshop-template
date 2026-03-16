@@ -4,6 +4,8 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MIcon } from '../m-icon/m-icon';
 
+export type MPasswordSize = 'small' | 'medium' | 'large';
+
 @Component({
   selector: 'm-password',
   standalone: true,
@@ -21,6 +23,7 @@ export class MPassword implements ControlValueAccessor {
   @Input() label = '';
   @Input() placeholder = '';
   @Input() hint = '';
+  @Input() size: MPasswordSize = 'medium';
   @Input() invalid = false;
 
   readonly value = signal('');

@@ -1,21 +1,56 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .login-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 360px;
-  margin-top: -100px;
+  width: 40%;
+  margin: 0 auto;
   padding: 20px;
-  height: max-content;
-  box-shadow: 0 2px 10px rgba(47, 196, 158, 0.219);
+  min-height: 100vh;
 }
 
-/* Media queries */
-@media (max-width: 720px) {
+/* Penetrar el encapsulamiento de m-card */
+::ng-deep .login-card m-card {
+  width: 100%;
+  padding: 4rem;
+}
+
+/* Links con color primario */
+.login-card a {
+  transition: all 0.2s ease;
+}
+
+.login-card a:hover {
+  opacity: 0.8;
+}
+
+/* Responsive - Tablet y móvil */
+@media (max-width: 768px) {
   .login-card {
-    width: 90%;
-    margin: auto;
-    margin-top: -30px;
+    width: 92%;
+    padding: 12px;
+    min-height: auto;
+  }
+
+  ::ng-deep .login-card m-card {
+    padding: 2rem;
   }
 }
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .login-card {
+    width: 95%;
+    padding: 8px;
+  }
+
+  ::ng-deep .login-card m-card {
+    padding: 1.5rem;
+  }
+}
+
