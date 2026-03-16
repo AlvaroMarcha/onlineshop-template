@@ -83,11 +83,11 @@
         <h1 class="info-panel__name">{{ p.name }}</h1>
 
         <div class="info-panel__rating">
-          <div class="stars">
-            @for (star of stars; track star) {
-              <span class="star" [class.star--on]="star <= p.rating">★</span>
-            }
-          </div>
+          <m-rating
+            [value]="p.rating"
+            [readonly]="true"
+            size="sm"
+          />
           <span class="rating-score">{{ p.rating | number:'1.1-1' }}</span>
           <span class="rating-count">({{ p.ratingCount }} {{ 'product.reviews' | translate }})</span>
         </div>

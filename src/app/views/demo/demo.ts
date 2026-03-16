@@ -17,6 +17,7 @@ import {
   MToggleSwitch, MCopy, MSortable,
   MDataview,
   MFileUpload, MFileUploadValidationError,
+  MRating,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
   MSortableItem, MMenubarItem, MDataviewSortOption,
@@ -42,6 +43,7 @@ import {
     MToggleButton, MMenubar,
     MToggleSwitch, MCopy, MSortable,
     MDataview, MFileUpload,
+    MRating,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -265,6 +267,9 @@ export class Demo {
     { id: 12, name: 'Leggings Compresión',     price: 48,  category: 'Ropa',        subcategory: 'Leggings',    badge: 'Oferta',
       imageUrl: ['https://picsum.photos/seed/legging1/400/300','https://picsum.photos/seed/legging2/400/300'] },
   ]);
+
+  // Rating
+  demoRating = signal<number>(3);
 
   // File Upload
   demoUploading  = signal(false);

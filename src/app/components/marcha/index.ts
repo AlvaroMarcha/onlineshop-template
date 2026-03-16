@@ -101,3 +101,7 @@ export type { MDataviewLayout, MDataviewSortOption } from './m-dataview/m-datavi
 // Uploads
 export { MFileUpload } from './m-file-upload/m-file-upload';
 export type { MFileUploadValidationError } from './m-file-upload/m-file-upload';
+
+// Rating
+export { MRating } from './m-rating/m-rating';
+export type { MRatingSize } from './m-rating/m-rating';

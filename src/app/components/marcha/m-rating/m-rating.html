@@ -1,0 +1,32 @@
+<div
+  [class]="cssClass()"
+  [attr.role]="readonly() ? 'img' : 'group'"
+  [attr.aria-label]="readonly() ? (_value() + ' de ' + max() + ' estrellas') : 'Selecciona una valoración'"
+  (mouseleave)="onLeave()"
+>
+  @for (star of _stars(); track star) {
+    <span
+      class="m-rating__star"
+      [class.is-filled]="isFilled(star)"
+      [attr.tabindex]="_isInteractive() ? 0 : null"
+      [attr.aria-label]="star + ' de ' + max() + ' estrellas'"
+      (click)="onSelect(star)"
+      (mouseenter)="onHover(star)"
+      (keydown.enter)="onSelect(star)"
+      (keydown.space)="$event.preventDefault(); onSelect(star)"
+    >
+      <svg
+        class="m-rating__star-svg"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    </span>
+  }
+
+  @if (showValue()) {
+    <span class="m-rating__value">{{ _value() }}</span>
+  }
+</div>
