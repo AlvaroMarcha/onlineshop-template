@@ -43,6 +43,7 @@ import { MPassword } from '../../components/marcha/m-password/m-password';
     MCopy, MDialog, MPassword,
   ],
   templateUrl: './client-profile.html',
+  styleUrl: './client-profile.css',
 })
 export class ClientProfile implements OnInit {
   user$;
@@ -82,6 +83,7 @@ export class ClientProfile implements OnInit {
   labelEdit  = '';
   colorEdit: 'primary' | 'danger' | 'warn' = 'warn';
   uploadingPhoto = signal(false);
+  isDraggingOver = signal(false);
 
   // Modales
   showVerifyEmailModal = signal(false);
@@ -321,8 +323,27 @@ export class ClientProfile implements OnInit {
   async onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
+    await this.processFile(input.files[0]);
+    input.value = '';
+  }
 
-    const file = input.files[0];
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    this.isDraggingOver.set(true);
+  }
+
+  onDragLeave(event: DragEvent) {
+    this.isDraggingOver.set(false);
+  }
+
+  async onDrop(event: DragEvent) {
+    event.preventDefault();
+    this.isDraggingOver.set(false);
+    const file = event.dataTransfer?.files[0];
+    if (file) await this.processFile(file);
+  }
+
+  private async processFile(file: File) {
     const user = this.user$();
     if (!user?.id) return;
 
@@ -331,7 +352,6 @@ export class ClientProfile implements OnInit {
     if (!validTypes.includes(file.type)) {
       const errorMsg = await this.lang.tOne('profile.photo_invalid_format');
       this.notificationService.error(errorMsg);
-      input.value = ''; // Limpiar el input
       return;
     }
 
@@ -340,7 +360,6 @@ export class ClientProfile implements OnInit {
     if (file.size > maxSizeInBytes) {
       const errorMsg = await this.lang.tOne('profile.photo_too_large');
       this.notificationService.error(errorMsg);
-      input.value = ''; // Limpiar el input
       return;
     }
 
@@ -353,14 +372,12 @@ export class ClientProfile implements OnInit {
         const successMsg = await this.lang.tOne('profile.photo_upload_success');
         this.notificationService.success(successMsg);
         this.uploadingPhoto.set(false);
-        input.value = ''; // Limpiar el input
       },
       error: async (err) => {
         console.error('Error subiendo foto:', err);
         const errorMsg = await this.lang.tOne('profile.photo_upload_error');
         this.notificationService.error(errorMsg);
         this.uploadingPhoto.set(false);
-        input.value = ''; // Limpiar el input
       }
     });
   }

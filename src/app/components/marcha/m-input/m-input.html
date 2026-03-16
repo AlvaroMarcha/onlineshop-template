@@ -13,7 +13,9 @@
     <label class="m-field-label">{{ label }}</label>
   }
   <div class="m-field-body">
-    @if (icon && iconPos === 'left') {
+    @if (isDisabled()) {
+      <div class="m-field-disabled-ripple" mRipple></div>
+    }@if (icon && iconPos === 'left') {
       <m-icon class="m-field-icon m-field-icon--left" [icon]="icon" size="16" />
     }
     <input

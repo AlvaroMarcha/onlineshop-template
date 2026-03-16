@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MIcon } from '../m-icon/m-icon';
+import { MRipple } from '../m-ripple/m-ripple.directive';
 
 export type MAvatarSize = 'small' | 'normal' | 'large' | 'xlarge';
 export type MAvatarShape = 'circle' | 'square';
@@ -14,7 +15,7 @@ export type MAvatarShape = 'circle' | 'square';
 @Component({
   selector: 'm-avatar',
   standalone: true,
-  imports: [MIcon],
+  imports: [MIcon, MRipple],
   templateUrl: './m-avatar.html',
   styleUrl: './m-avatar.css',
 })
