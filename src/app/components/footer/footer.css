@@ -4,9 +4,8 @@ footer button {
   background: none;
   border: none;
   padding: 0;
-  text-align: left;
   cursor: pointer;
-  width: 100%;
+  width: auto;
 }
 
 footer a,
