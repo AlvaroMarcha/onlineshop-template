@@ -1,132 +1,177 @@
-<footer class="bg-gray-900 text-white px-6 py-10">
-  <div class="grid gap-10 text-center md:grid-cols-4 md:text-left">
-    <!-- Principal -->
-    <div class="flex flex-col items-center md:items-start">
-      <img src="logos/principal.jpg" class="w-16 rounded-full mb-4" />
-      <h3 class="text-2xl font-bold text-green-500">Nombre del sitio</h3>
-      <p class="mt-4 text-gray-300 max-w-xs">
-        {{ 'footer.description' | translate }}
+<footer class="bg-gradient-to-b from-gray-900/95 to-gray-950 backdrop-blur-md text-gray-100 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    <!-- Main grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+      
+      <!-- Column 1: Company Info -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <img src="logos/principal.jpg" alt="Logo" class="w-10 h-10 rounded-full ring-2 ring-primary/20" />
+          <h3 class="text-xl font-bold text-white">{{ 'footer.company_name' | translate }}</h3>
+        </div>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          {{ 'footer.company_desc' | translate }}
+        </p>
+        <div class="flex gap-3 pt-2">
+          <a href="https://instagram.com" target="_blank" rel="noopener" mRipple
+             class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-primary/20 hover:text-primary transition-all relative overflow-hidden">
+            <m-icon icon="lucide:instagram" [size]="18" />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" mRipple
+             class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-primary/20 hover:text-primary transition-all relative overflow-hidden">
+            <m-icon icon="lucide:facebook" [size]="18" />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" mRipple
+             class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-primary/20 hover:text-primary transition-all relative overflow-hidden">
+            <m-icon icon="lucide:twitter" [size]="18" />
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" mRipple
+             class="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 hover:bg-primary/20 hover:text-primary transition-all relative overflow-hidden">
+            <m-icon icon="lucide:youtube" [size]="18" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Customer Service -->
+      <div class="space-y-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-primary">
+          {{ 'footer.customer_service' | translate }}
+        </h4>
+        <ul class="space-y-2.5 text-sm">
+          <li>
+            <button (click)="navigate('/contact')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:mail" [size]="14" />
+              {{ 'footer.contact' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/shop')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:package" [size]="14" />
+              {{ 'footer.shipping_returns' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/about')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:credit-card" [size]="14" />
+              {{ 'footer.payment_methods' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/about')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:help-circle" [size]="14" />
+              {{ 'footer.faq' | translate }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Legal -->
+      <div class="space-y-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-primary">
+          {{ 'footer.legal' | translate }}
+        </h4>
+        <ul class="space-y-2.5 text-sm">
+          <li>
+            <button (click)="navigate('/terms')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:file-text" [size]="14" />
+              {{ 'footer.terms_conditions' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/priv')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:shield" [size]="14" />
+              {{ 'footer.privacy_policy' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/cookies')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:cookie" [size]="14" />
+              {{ 'footer.cookies_policy' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/notice')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:info" [size]="14" />
+              {{ 'footer.legal_notice' | translate }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Quick Links -->
+      <div class="space-y-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-primary">
+          {{ 'footer.quick_links' | translate }}
+        </h4>
+        <ul class="space-y-2.5 text-sm">
+          <li>
+            <button (click)="navigate('/')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:home" [size]="14" />
+              {{ 'header.home' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/shop')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:shopping-bag" [size]="14" />
+              {{ 'header.shop' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/about')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:users" [size]="14" />
+              {{ 'header.about' | translate }}
+            </button>
+          </li>
+          <li>
+            <button (click)="navigate('/profile')" mRipple
+                    class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 relative overflow-hidden rounded px-1 -mx-1">
+              <m-icon icon="lucide:user" [size]="14" />
+              {{ 'header.profile' | translate }}
+            </button>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-white/5 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+      <p>
+        © {{ currentYear }} {{ 'footer.company_name' | translate }}. {{ 'footer.all_rights' | translate }}
       </p>
-    </div>
-
-    <!-- Socials -->
-    <div>
-      <h3 class="mb-4 text-lg font-semibold text-green-400">
-        {{ 'footer.socials' | translate }}
-      </h3>
-      <ul class="flex justify-center md:justify-start gap-6 text-2xl">
-        <li class="pi pi-instagram hover:text-green-500 transition-colors"></li>
-        <li class="pi pi-whatsapp hover:text-green-500 transition-colors"></li>
-        <li class="pi pi-twitter hover:text-green-500 transition-colors"></li>
-      </ul>
-    </div>
-
-    <!-- Sitemap -->
-    <div>
-      <h3 class="mb-4 text-lg font-semibold text-green-400">
-        {{ 'footer.sitemap' | translate }}
-      </h3>
-      <ul class="space-y-2">
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/"
-          >
-            {{ 'header.home' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/shop"
-          >
-            {{ 'header.shop' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/contact"
-          >
-            {{ 'header.contact' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/about"
-          >
-            {{ 'header.about' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/login"
-          >
-            {{ 'header.login' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/register"
-          >
-            {{ 'header.register' | translate }}
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Legals -->
-    <div>
-      <h3 class="mb-4 text-lg font-semibold text-green-400">
-        {{ 'footer.legals' | translate }}
-      </h3>
-      <ul class="space-y-2">
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/notice"
-          >
-            {{ 'footer.legal_notice' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/cond"
-          >
-            {{ 'footer.conditions' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/terms"
-          >
-            {{ 'footer.terms_conditions' | translate }}
-          </a>
-        </li>
-        <li>
-          <a
-            class="hover:text-green-500 transition-colors underline underline-offset-2"
-            routerLink="/priv"
-          >
-            {{ 'footer.privacy_policy' | translate }}
-          </a>
-        </li>
-      </ul>
+      <div class="flex items-center gap-4">
+        <span class="text-gray-600">{{ 'footer.secure_payment' | translate }}</span>
+        <div class="flex gap-2">
+          <m-icon icon="lucide:credit-card" [size]="18" class="opacity-60" />
+          <m-icon icon="lucide:shield-check" [size]="18" class="opacity-60 text-green-400" />
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Bottom bar -->
-  <div
-    class="border-t border-gray-700 mt-10 pt-4 text-sm text-gray-400 text-center"
-  >
-    © 2025 Nombre del sitio ·
-    <a href="/cookies" class="hover:text-green-500 transition-colors">
-      Cookies
-    </a>
-  </div>
+  <!-- Scroll to top button -->
+  @if (showScrollTop()) {
+    <button
+      (click)="scrollToTop()" mRipple
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0 
+             w-11 h-11 flex items-center justify-center rounded-full 
+             bg-gradient-to-br from-primary/90 to-primary shadow-lg shadow-primary/25 
+             text-white hover:scale-110 hover:shadow-xl hover:shadow-primary/40 
+             transition-all duration-500 ease-out z-50 backdrop-blur-sm relative overflow-hidden"
+      aria-label="Scroll to top"
+    >
+      <m-icon icon="lucide:arrow-up" [size]="20" />
+    </button>
+  }
 </footer>
