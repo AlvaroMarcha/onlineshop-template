@@ -1,65 +1,208 @@
-<div class="flex flex-col sm:flex-row w-full mt-5 mb-20 gap-8">
-  <!-- Sidebar -->
-  <aside class="w-full sm:basis-1/6 sm:ml-10">
-    <div class="card flex justify-center">
-      <div class="w-full" [style]="{width: isMobile ? '300px' : '250px'}">
-        <h3 class="font-bold mb-4">Categorías</h3>
-        <div class="flex flex-col gap-1">
-          @for (item of items; track item.label) {
-            @if (item.items) {
-              @for (subItem of item.items; track subItem.label) {
-                <m-button
-                  [label]="subItem.label"
-                  [icon]="subItem.icon || 'lucide:tag'"
-                  variant="text"
-                  [full]="true"
-                  styleClass="justify-start"
-                />
-              }
+<div class="shop-page">
+
+  <!-- ── Search bar ──────────────────────────────────────── -->
+  <div class="shop-bar">
+    <label class="shop-search">
+      <m-icon icon="lucide:search" size="16" class="shop-search__icon" />
+      <input
+        class="shop-search__input"
+        type="search"
+        [value]="searchQuery()"
+        (input)="searchQuery.set($any($event.target).value)"
+        [placeholder]="'shop.search_placeholder' | translate"
+        autocomplete="off"
+      />
+      @if (searchQuery()) {
+        <button class="shop-search__clear" (click)="searchQuery.set('')" type="button" aria-label="Limpiar búsqueda">
+          <m-icon icon="lucide:x" size="14" />
+        </button>
+      }
+    </label>
+  </div>
+
+  <!-- ── Category pills ───────────────────────────────────── -->
+  @if (categories().length) {
+    <div class="cat-pills" role="list">
+      <button
+        class="cat-pill"
+        [class.cat-pill--active]="activeCategory() === null"
+        (click)="activeCategory.set(null)"
+        type="button"
+      >
+        {{ 'shop.all_categories' | translate }}
+      </button>
+      @for (cat of categories(); track cat.id) {
+        <button
+          class="cat-pill"
+          [class.cat-pill--active]="activeCategory() === cat.id"
+          (click)="activeCategory.set(cat.id)"
+          type="button"
+        >
+          {{ cat.name }}
+        </button>
+      }
+    </div>
+  }
+
+  <!-- ── DataView ─────────────────────────────────────────── -->
+  <m-dataview
+    [items]="filteredProducts()"
+    [loading]="loading()"
+    [rows]="12"
+    [sortOptions]="sortOptions"
+    [header]="'shop.title' | translate"
+    [emptyMessage]="'shop.no_results' | translate"
+    emptyIcon="lucide:search-x"
+  >
+
+    <!-- ══════════════ GRID ITEM ══════════════ -->
+    <ng-template #gridItem let-product>
+      <div
+        class="product-card"
+        (mousemove)="applyTilt($event)"
+        (mouseleave)="clearTilt($event)"
+      >
+        <!-- Image zone -->
+        <div class="product-card__img">
+          <img
+            [src]="product.mainImageUrl || ''"
+            [alt]="product.name"
+            (error)="onImgError($event)"
+            loading="lazy"
+          />
+
+          <!-- Badges top-left (featured / digital) -->
+          <div class="product-card__badges">
+            @if (product.featured) {
+              <m-chip label="Destacado" severity="warn" size="sm" />
             }
+            @if (product.digital) {
+              <m-chip label="Digital" severity="info" size="sm" />
+            }
+          </div>
+
+          <!-- Stock badge top-right -->
+          @if (product.stock === 0) {
+            <div class="product-card__stock-badge">
+              <m-chip [label]="'shop.out_of_stock' | translate" severity="danger" size="sm" />
+            </div>
+          } @else if (product.stock > 0 && product.stock <= product.lowStockThreshold) {
+            <div class="product-card__stock-badge">
+              <m-chip [label]="'¡Solo ' + product.stock + ' ud!'" severity="warn" size="sm" />
+            </div>
+          }
+
+          <!-- Hover overlay: description + actions -->
+          <div class="product-card__overlay" aria-hidden="true">
+            <p class="product-card__desc">{{ product.description }}</p>
+            <div class="product-card__actions">
+              <m-button
+                icon="lucide:shopping-cart"
+                [label]="'shop.add_cart' | translate"
+                severity="primary"
+                size="small"
+                [disabled]="product.stock === 0"
+                (onClick)="addCart(product)"
+              />
+              <m-button
+                icon="lucide:eye"
+                [label]="'shop.view' | translate"
+                variant="outlined"
+                size="small"
+                [routerLink]="['/product', product.id]"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Info zone -->
+        <div class="product-card__info">
+          <div class="product-card__cats">
+            @for (cat of product.categories.slice(0, 2); track cat.id) {
+              <span class="product-card__cat">{{ cat.name }}</span>
+            }
+          </div>
+          <h3 class="product-card__name" [title]="product.name">{{ product.name }}</h3>
+          <div class="product-card__pricing">
+            @if (product.discountPrice !== null && product.discountPrice < product.price) {
+              <span class="product-card__price--original">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+              <span class="product-card__price--discount">{{ product.discountPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+            } @else {
+              <span class="product-card__price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+            }
+          </div>
+          @if (product.ratingCount > 0) {
+            <div class="product-card__rating">
+              <m-icon icon="lucide:star" size="12" class="text-yellow-400" />
+              <span class="product-card__rating-val">{{ product.rating | number:'1.1-1' }}</span>
+              <span class="product-card__rating-count">({{ product.ratingCount }})</span>
+            </div>
           }
         </div>
       </div>
-    </div>
-  </aside>
+    </ng-template>
 
-  <!-- Productos -->
-  <div class="flex flex-wrap justify-center sm:justify-start gap-10 flex-1">
-    @for(product of products$(); track product.id) {
-    <div class="catCard" [style]="{width: isMobile ? '300px' : '240px'}">
-      <a href="#">
-        <img [src]="product.urlImg" alt="{{product.name}}" class="w-full object-cover" />
-      </a>
-
-      <div class="lowerCatCard">
-        <h4 [style]="{color: isDarkMode ? 'lightgreen' : '#32CD32'}">
-          {{ product.category }}
-        </h4>
-        <h3 class="text-lg h-[60px] mb-1 text-white">{{ product.name }}</h3>
-        <p [style]="{ height: '140px', color: 'white'}">
-          {{ product.description }}
-        </p>
-        <p
-          [style]="{fontWeight: 'bold', fontSize: '20px', color: isDarkMode ? '#FFD700' : '#FFD700'}"
-        >
-          {{product.price}} <span class="text-yellow-200">€</span>
-        </p>
-        <div class="flex flex-row justify-start gap-2 mt-4">
-          <m-button
-            severity="success"
-            label="Añadir"
-            (onClick)="addCart(product.id)"
-            icon="lucide:shopping-cart"
-          />
-          <m-button
-            severity="info"
-            label="Ver"
-            variant="outlined"
-            icon="lucide:eye"
+    <!-- ══════════════ LIST ITEM ══════════════ -->
+    <ng-template #listItem let-product>
+      <div class="product-row">
+        <div class="product-row__img">
+          <img
+            [src]="product.mainImageUrl || ''"
+            [alt]="product.name"
+            (error)="onImgError($event)"
+            loading="lazy"
           />
         </div>
+
+        <div class="product-row__info">
+          <div class="product-row__cats">
+            @for (cat of product.categories.slice(0, 2); track cat.id) {
+              <span class="product-row__cat">{{ cat.name }}</span>
+            }
+          </div>
+          <h3 class="product-row__name">{{ product.name }}</h3>
+          <p class="product-row__desc">{{ product.description }}</p>
+          @if (product.ratingCount > 0) {
+            <div class="product-row__rating">
+              <m-icon icon="lucide:star" size="12" class="text-yellow-400" />
+              <span class="font-semibold text-sm">{{ product.rating | number:'1.1-1' }}</span>
+              <span class="opacity-50 text-sm">({{ product.ratingCount }})</span>
+            </div>
+          }
+        </div>
+
+        <div class="product-row__side">
+          @if (product.stock === 0) {
+            <m-chip [label]="'shop.out_of_stock' | translate" severity="danger" size="sm" />
+          } @else if (product.stock <= product.lowStockThreshold) {
+            <m-chip [label]="'¡Solo ' + product.stock + ' ud!'" severity="warn" size="sm" />
+          }
+          <div class="product-row__pricing">
+            @if (product.discountPrice !== null && product.discountPrice < product.price) {
+              <span class="product-row__price--original">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+              <span class="product-row__price--discount">{{ product.discountPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+            } @else {
+              <span class="product-row__price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+            }
+          </div>
+          <div class="product-row__actions">
+            <m-button
+              icon="lucide:shopping-cart"
+              severity="primary"
+              size="small"
+              [disabled]="product.stock === 0"
+              (onClick)="addCart(product)"
+            />
+            <m-button
+              icon="lucide:eye"
+              variant="outlined"
+              size="small"
+              [routerLink]="['/product', product.id]"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-    }
-  </div>
+    </ng-template>
+
+  </m-dataview>
 </div>

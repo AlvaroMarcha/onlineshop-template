@@ -1,1 +1,187 @@
-<app-product-component></app-product-component>
+<div class="product-page">
+
+  <!-- ── Breadcrumb ──────────────────────────────────────────────── -->
+  <nav class="breadcrumb">
+    <button class="breadcrumb__back" routerLink="/shop">
+      <m-icon icon="lucide:arrow-left" size="1rem" />
+      <span>{{ 'header.shop' | translate }}</span>
+    </button>
+    @if (product(); as p) {
+      <m-icon icon="lucide:chevron-right" size="0.85rem" class="breadcrumb__sep" />
+      @for (cat of p.categories; track cat.id; let last = $last) {
+        <span class="breadcrumb__cat">{{ cat.name }}</span>
+        @if (!last) {
+          <m-icon icon="lucide:chevron-right" size="0.75rem" class="breadcrumb__sep" />
+        }
+      }
+      <m-icon icon="lucide:chevron-right" size="0.85rem" class="breadcrumb__sep" />
+      <span class="breadcrumb__current">{{ p.name }}</span>
+    }
+  </nav>
+
+  <!-- ── Product loaded ─────────────────────────────────────────── -->
+  @if (product(); as p) {
+    <div class="product-studio">
+
+      <!-- ── Gallery ─────────────────────────────────────────────── -->
+      <div class="gallery">
+        <div class="gallery__stage">
+          @if (allImages().length > 0) {
+            <img
+              class="gallery__main-img"
+              [src]="allImages()[activeImageIdx()]"
+              [alt]="p.name"
+              (error)="onImgError($event)"
+            />
+          } @else {
+            <div class="gallery__placeholder">
+              <m-icon icon="lucide:image" size="5rem" />
+            </div>
+          }
+
+          @if (discountPct(); as pct) {
+            <div class="gallery__discount">-{{ pct }}%</div>
+          }
+          @if (p.featured) {
+            <div class="gallery__ribbon">
+              <m-icon icon="lucide:star" size="0.75rem" />
+              {{ 'product.featured' | translate }}
+            </div>
+          }
+          @if (p.digital) {
+            <div class="gallery__digital">
+              <m-icon icon="lucide:download" size="0.75rem" />
+              {{ 'product.digital' | translate }}
+            </div>
+          }
+        </div>
+
+        @if (allImages().length > 1) {
+          <div class="gallery__thumbs">
+            @for (img of allImages(); track $index) {
+              <button
+                class="gallery__thumb"
+                [class.is-active]="activeImageIdx() === $index"
+                (click)="setImage($index)"
+              >
+                <img [src]="img" [alt]="p.name" (error)="onImgError($event)" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- ── Info panel ───────────────────────────────────────────── -->
+      <div class="info-panel">
+
+        <div class="info-panel__cats">
+          @for (cat of p.categories; track cat.id) {
+            <m-chip [label]="cat.name" severity="help" size="sm" />
+          }
+        </div>
+
+        <h1 class="info-panel__name">{{ p.name }}</h1>
+
+        <div class="info-panel__rating">
+          <div class="stars">
+            @for (star of stars; track star) {
+              <span class="star" [class.star--on]="star <= p.rating">★</span>
+            }
+          </div>
+          <span class="rating-score">{{ p.rating | number:'1.1-1' }}</span>
+          <span class="rating-count">({{ p.ratingCount }} {{ 'product.reviews' | translate }})</span>
+        </div>
+
+        <m-divider />
+
+        <!-- Pricing -->
+        <div class="info-panel__pricing">
+          @if (p.discountPrice !== null && p.discountPrice < p.price) {
+            <div class="pricing__row">
+              <span class="pricing__discount">
+                {{ p.discountPrice | currency:'EUR':'symbol':'1.2-2' }}
+              </span>
+              <span class="pricing__original">
+                {{ p.price | currency:'EUR':'symbol':'1.2-2' }}
+              </span>
+            </div>
+            <div class="pricing__saving">
+              {{ 'product.saving' | translate }}
+              {{ (p.price - p.discountPrice) | currency:'EUR':'symbol':'1.2-2' }}
+            </div>
+          } @else {
+            <span class="pricing__main">{{ p.price | currency:'EUR':'symbol':'1.2-2' }}</span>
+          }
+          <div class="pricing__tax">
+            {{ 'product.tax_included' | translate }} ({{ p.taxRate }}%)
+          </div>
+        </div>
+
+        <!-- Stock -->
+        <div class="info-panel__stock">
+          @switch (stockStatus()) {
+            @case ('out') {
+              <m-chip [label]="'shop.out_of_stock' | translate" severity="danger" size="sm" />
+            }
+            @case ('low') {
+              <m-chip [label]="'shop.low_stock' | translate" severity="warn" size="sm" />
+              <span class="stock-units">{{ p.stock }} {{ 'product.units' | translate }}</span>
+            }
+            @default {
+              <m-chip [label]="'shop.in_stock' | translate" severity="success" size="sm" />
+              <span class="stock-units">{{ p.stock }} {{ 'product.units' | translate }}</span>
+            }
+          }
+        </div>
+
+        <m-divider />
+
+        <p class="info-panel__desc">{{ p.description }}</p>
+
+        <!-- Quantity + CTA -->
+        @if (stockStatus() !== 'out') {
+          <div class="info-panel__buy">
+            <div class="qty-control">
+              <span class="qty-label">{{ 'product.quantity' | translate }}</span>
+              <div class="qty-stepper">
+                <button class="qty-btn" (click)="decQty()" [disabled]="quantity() <= 1">
+                  <m-icon icon="lucide:minus" size="0.9rem" />
+                </button>
+                <span class="qty-val">{{ quantity() }}</span>
+                <button class="qty-btn" (click)="incQty()" [disabled]="quantity() >= (product()?.stock ?? 1)">
+                  <m-icon icon="lucide:plus" size="0.9rem" />
+                </button>
+              </div>
+            </div>
+
+            <div class="ctas">
+              <m-button
+                severity="primary"
+                variant="filled"
+                size="large"
+                icon="lucide:shopping-cart"
+                [label]="'shop.add_cart' | translate"
+                (mClick)="addToCartFn()"
+              />
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+  } @else {
+
+    <!-- ── Loading skeleton ─────────────────────────────────────── -->
+    <div class="product-skeleton">
+      <div class="sk-img"></div>
+      <div class="sk-body">
+        <div class="sk-line sk-line--lg"></div>
+        <div class="sk-line"></div>
+        <div class="sk-line sk-line--sm"></div>
+        <div class="sk-line sk-line--sm"></div>
+        <div class="sk-line"></div>
+      </div>
+    </div>
+  }
+
+</div>
