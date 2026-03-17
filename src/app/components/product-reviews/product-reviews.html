@@ -1,6 +1,5 @@
 <div class="reviews-section">
 
-  <h3 class="reviews-section__title">Reseñas</h3>
 
   <!-- ── Lista de reseñas ──────────────────────────────────────────── -->
   @if (_isEmpty()) {
@@ -10,12 +9,11 @@
     </div>
   } @else {
     <div class="reviews-list">
-      @for (review of _reviews(); track $index; let idx = $index) {
+      @for (review of _reviews(); track review.id; let idx = $index) {
         <div class="review-item">
-          <!-- Avatar -->
+          <!-- Avatar (iniciales del nombre) -->
           <m-avatar
-            [image]="review.avatar"
-            [label]="review.user"
+            [label]="displayName(review)"
             size="xlarge"
             class="review-item__avatar"
           />
@@ -23,14 +21,27 @@
           <!-- Contenido -->
           <div class="review-item__body">
             <div class="review-item__header">
-              <span class="review-item__user">{{ review.user }}</span>
+              <span class="review-item__user">{{ displayName(review) }}</span>
               @if (isOwn(review)) {
-                <span class="review-item__badge">Tú</span>
+                <m-chip [label]="'product.review_you' | translate" severity="info" size="sm" />
               }
-              <span class="review-item__date">{{ review.date }}</span>
             </div>
             <m-rating [value]="review.rating" [readonly]="true" size="sm" />
-            <p class="review-item__text">{{ review.review }}</p>
+            @if (review.title) {
+              <strong class="review-item__title">{{ review.title }}</strong>
+            }
+            <p class="review-item__text">{{ review.comment }}</p>
+            <!-- Likes / Dislikes -->
+            <div class="review-item__reactions">
+              <span class="review-item__reaction">
+                <m-icon icon="lucide:thumbs-up" size="0.85rem" />
+                {{ review.likes }}
+              </span>
+              <span class="review-item__reaction">
+                <m-icon icon="lucide:thumbs-down" size="0.85rem" />
+                {{ review.dislikes }}
+              </span>
+            </div>
           </div>
 
           <!-- Acciones propias -->
@@ -47,7 +58,7 @@
                 size="small"
                 variant="outlined"
                 severity="danger"
-                (onClick)="deleteReview(idx)"
+                (onClick)="requestDelete(idx)"
               />
             </div>
           }
@@ -77,6 +88,7 @@
   dialogHeader="Nueva reseña"
   placeholder="Escribe tu reseña aquí..."
   [withRating]="true"
+  [textOptional]="true"
   [minLength]="10"
   [maxLength]="500"
   [(open)]="_addDialogOpen"
@@ -90,9 +102,35 @@
     dialogHeader="Editar reseña"
     placeholder="Escribe tu reseña aquí..."
     [withRating]="true"
+    [textOptional]="true"
     [minLength]="10"
     [maxLength]="500"
+    [initialText]="_editDraft()!.text"
+    [initialRating]="_editDraft()!.rating"
     [(open)]="_editDialogOpen"
     (submitted)="onEditSubmit($event)"
   />
 }
+
+<!-- ── Dialog confirmación eliminar reseña ────────────────────────────── -->
+<m-dialog
+  [(visible)]="_deleteConfirmOpen"
+  [header]="'common.confirm_delete_title' | translate"
+  size="sm"
+>
+  <p class="confirm-delete__message">{{ 'common.confirm_delete_warning' | translate }}</p>
+  <div class="confirm-delete__actions">
+    <m-button
+      [label]="'common.btn_cancel' | translate"
+      variant="outlined"
+      size="small"
+      (onClick)="cancelDelete()"
+    />
+    <m-button
+      [label]="'common.btn_delete' | translate"
+      severity="danger"
+      size="small"
+      (onClick)="confirmDelete()"
+    />
+  </div>
+</m-dialog>

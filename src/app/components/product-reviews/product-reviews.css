@@ -81,10 +81,11 @@
   border: 1px solid var(--m-primary-alpha, rgba(139, 92, 246, 0.3));
 }
 
-.review-item__date {
-  font-size: 0.8rem;
-  color: var(--m-text-muted, #9ca3af);
-  margin-left: auto;
+.review-item__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--m-text-primary, inherit);
+  margin-top: 0.15rem;
 }
 
 .review-item__text {
@@ -92,6 +93,20 @@
   line-height: 1.6;
   color: var(--m-text-secondary, inherit);
   margin-top: 0.25rem;
+}
+
+.review-item__reactions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.35rem;
+}
+
+.review-item__reaction {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--m-text-muted, #9ca3af);
 }
 
 /* ── Acciones propias ─────────────────────────────────────────────── */
@@ -116,4 +131,18 @@
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+}
+
+/* ── Confirmación borrado ─────────────────────────────────────────── */
+
+.confirm-delete__message {
+  font-size: 0.95rem;
+  color: var(--m-text-secondary, inherit);
+  margin-bottom: 1.5rem;
+}
+
+.confirm-delete__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
 }

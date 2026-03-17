@@ -368,58 +368,100 @@ export const authGuard: CanActivateFn = () => {
 
 ## Diálogos de confirmación para eliminaciones
 
-**🔴 REGLA OBLIGATORIA**: Toda acción de eliminación (delete) DEBE mostrar un diálogo de confirmación antes de proceder.
+**🔴 REGLA OBLIGATORIA**: Toda acción de eliminación (delete) DEBE mostrar un diálogo de confirmación antes de proceder. **NUNCA** eliminar directamente al hacer clic en el botón de borrar.
 
-### Pattern recomendado
+### Pattern obligatorio con `m-dialog`
 
 ```typescript
 // En el componente
-async confirmDelete(item: any) {
-  const confirmed = await this.showDeleteConfirmDialog(item.name);
-  if (confirmed) {
-    this.handleDelete(item.id);
-  }
+readonly _deleteConfirmIdx  = signal<number>(-1);
+readonly _deleteConfirmOpen = signal<boolean>(false);
+
+requestDelete(idx: number): void {
+  this._deleteConfirmIdx.set(idx);
+  this._deleteConfirmOpen.set(true);
 }
 
-private async showDeleteConfirmDialog(itemName: string): Promise<boolean> {
-  return new Promise((resolve) => {
-    // Usar m-dialog o similar para mostrar confirmación
-    // Ejemplo con window.confirm (reemplazar con m-dialog):
-    const result = window.confirm(
-      `¿Estás seguro de que deseas eliminar "${itemName}"? Esta acción no se puede deshacer.`
-    );
-    resolve(result);
-  });
+confirmDelete(): void {
+  const idx = this._deleteConfirmIdx();
+  if (idx >= 0) this.doDelete(idx);
+  this._deleteConfirmOpen.set(false);
+  this._deleteConfirmIdx.set(-1);
 }
 
-private handleDelete(id: number) {
-  // Despachar acción o llamar servicio
-  this.store.dispatch(deleteItem({ id }));
+cancelDelete(): void {
+  this._deleteConfirmOpen.set(false);
+  this._deleteConfirmIdx.set(-1);
+}
+
+private doDelete(idx: number): void {
+  // lógica real de borrado
 }
 ```
 
-### Características del diálogo
+```html
+<!-- Botón de borrar: llama requestDelete, NUNCA directamente la acción -->
+<m-button
+  icon="lucide:trash-2"
+  size="small"
+  variant="outlined"
+  severity="danger"
+  (onClick)="requestDelete(idx)"
+/>
 
-- **Título claro**: "Confirmar eliminación"
-- **Mensaje explícito**: incluir el nombre del elemento a eliminar
-- **Advertencia**: mencionar que la acción es irreversible
-- **Botones**:
-  - Cancelar (secundario, color neutral)
-  - Eliminar (primario, color danger/rojo)
-- **Textos i18n**: añadir claves para título, mensaje, botones
+<!-- Dialog de confirmación al final del template -->
+<m-dialog
+  [(visible)]="_deleteConfirmOpen"
+  [header]="'common.confirm_delete_title' | translate"
+  size="sm"
+>
+  <p class="confirm-delete__message">{{ 'common.confirm_delete_warning' | translate }}</p>
+  <div class="confirm-delete__actions">
+    <m-button
+      [label]="'common.btn_cancel' | translate"
+      variant="outlined"
+      size="small"
+      (onClick)="cancelDelete()"
+    />
+    <m-button
+      [label]="'common.btn_delete' | translate"
+      severity="danger"
+      size="small"
+      (onClick)="confirmDelete()"
+    />
+  </div>
+</m-dialog>
+```
+
+```css
+/* Estilos del dialog de confirmación */
+.confirm-delete__message {
+  font-size: 0.95rem;
+  color: var(--m-text-secondary, inherit);
+  margin-bottom: 1.5rem;
+}
+
+.confirm-delete__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+```
+
+### Claves i18n requeridas (ya en `src/assets/i18n/es.json` y `en.json`)
 
 ```json
-// src/assets/i18n/es.json
 {
-  "common.confirm_delete_title": "Confirmar eliminación",
-  "common.confirm_delete_message": "¿Estás seguro de que deseas eliminar \"{name}\"?",
-  "common.confirm_delete_warning": "Esta acción no se puede deshacer.",
-  "common.btn_cancel": "Cancelar",
-  "common.btn_delete": "Eliminar"
+  "common": {
+    "confirm_delete_title": "Confirmar eliminación",
+    "confirm_delete_warning": "Esta acción no se puede deshacer.",
+    "btn_cancel": "Cancelar",
+    "btn_delete": "Eliminar"
+  }
 }
 ```
 
-**❌ NUNCA**: eliminar directamente sin confirmación, excepto acciones triviales como limpiar un filtro temporal.
+**❌ NUNCA**: usar `window.confirm()`, eliminar directamente sin confirmación, `window.alert()`.
 
 ---
 

@@ -31,7 +31,21 @@ export class ProductView implements OnInit {
 
   private allProducts$!: Signal<Product[]>;
   private _authUser!: Signal<User | null>;
-  currentUsername = computed<string>(() => this._authUser?.()?.username ?? '');
+  currentUser = computed<User | null>(() => this._authUser?.() ?? null);
+
+  /** Override local del rating cuando el usuario interactúa con reseñas. */
+  _localStats = signal<{ rating: number; count: number } | null>(null);
+
+  displayRating = computed(() =>
+    this._localStats()?.rating ?? this.product()?.rating ?? 0
+  );
+  displayRatingCount = computed(() =>
+    this._localStats()?.count ?? this.product()?.ratingCount ?? 0
+  );
+
+  onRatingChange(stats: { rating: number; count: number }): void {
+    this._localStats.set(stats);
+  }
 
   product = computed<Product | undefined>(() =>
     this.allProducts$().find(p => p.id === this.productId())

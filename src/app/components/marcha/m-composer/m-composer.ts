@@ -41,6 +41,12 @@ export class MComposer {
   readonly minLength     = input<number>(1);
   /** Longitud máxima del texto (0 = sin límite). */
   readonly maxLength     = input<number>(0);
+  /** Texto inicial para prellenar el textarea (modo edición). */
+  readonly initialText   = input<string>('');
+  /** Rating inicial para prellenar las estrellas (modo edición). */
+  readonly initialRating = input<number>(0);
+  /** Cuando es true, el texto es opcional y basta con el rating para enviar. */
+  readonly textOptional  = input<boolean>(false);
   /** Etiqueta del botón de envío. */
   readonly submitLabel   = input<string>('Enviar');
   /** Muestra el botón de cancelar. */
@@ -68,12 +74,19 @@ export class MComposer {
 
   readonly _charCount = computed(() => this._text().length);
 
+  ngOnInit(): void {
+    if (this.initialText())   this._text.set(this.initialText());
+    if (this.initialRating()) this._rating.set(this.initialRating());
+  }
+
   readonly _canSubmit = computed(() => {
     if (this.disabled() || this.loading()) return false;
     const trimmed = this._text().trim();
-    if (trimmed.length < this.minLength()) return false;
     if (this.maxLength() > 0 && trimmed.length > this.maxLength()) return false;
     if (this.withRating() && this._rating() === 0) return false;
+    // Si el texto es opcional y hay rating, no se exige longitud mínima
+    if (this.textOptional() && this.withRating() && this._rating() > 0) return true;
+    if (trimmed.length < this.minLength()) return false;
     return true;
   });
 

@@ -293,12 +293,15 @@
   },
   "product": {
     "reviews": "valoraciones",
+    "reviews_title": "Reseñas",
+    "review_you": "Tú",
     "tax_included": "IVA incluido",
     "saving": "Ahorras",
     "units": "uds. disponibles",
     "quantity": "Cantidad",
     "featured": "Destacado",
-    "digital": "Producto digital"
+    "digital": "Producto digital",
+    "you": "Tú"
   },
   "validation": {
     "required": "Los campos son obligatorios",
@@ -389,5 +392,11 @@
     "confirm_new_password": "Confirmar nueva contraseña",
     "confirm_new_password_placeholder": "Confirma tu nueva contraseña",
     "password_changed_success": "Contraseña cambiada correctamente"
+  },
+  "common": {
+    "confirm_delete_title": "Confirmar eliminación",
+    "confirm_delete_warning": "Esta acción no se puede deshacer.",
+    "btn_cancel": "Cancelar",
+    "btn_delete": "Eliminar"
   }
 }
