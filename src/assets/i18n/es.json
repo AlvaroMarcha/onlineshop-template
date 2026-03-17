@@ -549,6 +549,29 @@
       "delete_btn": "Eliminar",
       "delete_val_title": "Eliminar valor",
       "delete_val_msg": "¿Estás seguro de que deseas eliminar "
+    },
+    "orders": {
+      "title": "Pedidos",
+      "items": "pedidos",
+      "search_placeholder": "Buscar por nº de pedido...",
+      "filter_status": "Filtrar por estado",
+      "empty": "No se encontraron pedidos",
+      "col_order": "Pedido",
+      "col_customer": "Cliente",
+      "col_date": "Fecha",
+      "col_total": "Total",
+      "col_items": "Artículos",
+      "col_status": "Estado",
+      "col_method": "Método",
+      "action_view": "Ver",
+      "status_created": "Creado",
+      "status_paid": "Pagado",
+      "status_processing": "En proceso",
+      "status_shipped": "Enviado",
+      "status_delivered": "Entregado",
+      "status_cancelled": "Cancelado",
+      "status_returned": "Devuelto",
+      "filter_all": "Todos"
     }
   }
 }
