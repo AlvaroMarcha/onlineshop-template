@@ -1,0 +1,40 @@
+<div class="admin-layout">
+
+  <!-- Sidebar wrapper -->
+  <div
+    class="admin-sidebar-wrap"
+    [class.is-collapsed]="sidebarCollapsed()"
+    [class.is-mobile-open]="mobileSidebarOpen()"
+  >
+    <app-admin-sidebar [collapsed]="sidebarCollapsed()" />
+  </div>
+
+  <!-- Mobile overlay -->
+  @if (mobileSidebarOpen()) {
+    <div
+      class="admin-overlay"
+      (click)="onOverlayClick()"
+      role="button"
+      tabindex="-1"
+      aria-label="Cerrar menú"
+    ></div>
+  }
+
+  <!-- Main content area -->
+  <div
+    class="admin-content"
+    [class.sidebar-collapsed]="sidebarCollapsed()"
+  >
+    <div class="admin-header-wrap">
+      <app-admin-header
+        [collapsed]="sidebarCollapsed()"
+        (toggleSidebar)="onToggleSidebar()"
+      />
+    </div>
+
+    <main class="admin-main">
+      <router-outlet />
+    </main>
+  </div>
+
+</div>

@@ -417,5 +417,25 @@
     "marketing_title": "Cookies de marketing",
     "marketing_desc": "Se usan para mostrar anuncios personalizados.",
     "always_on": "Siempre activas"
+  },
+  "admin": {
+    "layout": {
+      "title": "Panel Admin"
+    },
+    "header": {
+      "panel": "Panel de administración",
+      "toggle_sidebar": "Alternar menú",
+      "logout": "Cerrar sesión"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "products": "Productos",
+      "categories": "Categorías",
+      "attributes": "Atributos",
+      "orders": "Pedidos",
+      "users": "Usuarios",
+      "invoices": "Facturas",
+      "inventory": "Inventario"
+    }
   }
 }

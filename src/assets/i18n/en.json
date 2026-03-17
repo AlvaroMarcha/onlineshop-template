@@ -368,5 +368,25 @@
     "marketing_title": "Marketing cookies",
     "marketing_desc": "Used to show personalized advertisements.",
     "always_on": "Always active"
+  },
+  "admin": {
+    "layout": {
+      "title": "Admin Panel"
+    },
+    "header": {
+      "panel": "Administration Panel",
+      "toggle_sidebar": "Toggle menu",
+      "logout": "Logout"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "categories": "Categories",
+      "attributes": "Attributes",
+      "orders": "Orders",
+      "users": "Users",
+      "invoices": "Invoices",
+      "inventory": "Inventory"
+    }
   }
 }

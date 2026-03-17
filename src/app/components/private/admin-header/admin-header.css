@@ -1,0 +1,94 @@
+:host {
+  display: block;
+}
+
+/* ===== BASE ===== */
+.admin-header {
+  background: var(--m-surface-2);
+  border-bottom: 1px solid var(--m-border-color);
+  height: 64px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== TOGGLE BUTTON ===== */
+.header-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--m-radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--m-text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.header-toggle:hover {
+  background: var(--m-surface-hover);
+  color: var(--m-text);
+}
+
+/* ===== TITLE ===== */
+.header-title {
+  flex: 1;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--m-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== RIGHT ACTIONS ===== */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.header-username {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--m-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .header-username {
+    display: none;
+  }
+}
+
+/* ===== LOGOUT BUTTON ===== */
+.header-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--m-radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--m-text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.header-logout:hover {
+  background: var(--m-danger-glow);
+  color: var(--m-danger);
+}
