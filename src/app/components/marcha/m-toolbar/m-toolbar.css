@@ -1,0 +1,216 @@
+:host { display: block; }
+
+/* =============================================
+   m-toolbar — Toolbar flotante / anclada
+   ============================================= */
+
+.m-toolbar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem;
+  background: var(--m-surface-2);
+  border: 1px solid var(--m-border-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== ORIENTACIONES ===== */
+
+.m-toolbar--horizontal {
+  flex-direction: row;
+}
+
+.m-toolbar--vertical {
+  flex-direction: column;
+}
+
+/* ===== VARIANTE FLOATING ===== */
+
+.m-toolbar--floating {
+  position: fixed;
+  z-index: 1000;
+  border-radius: 9999px; /* píldora */
+}
+
+.m-toolbar--floating.m-toolbar--bottom {
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.m-toolbar--floating.m-toolbar--top {
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.m-toolbar--floating.m-toolbar--left {
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.m-toolbar--floating.m-toolbar--right {
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ===== VARIANTE DOCKED ===== */
+
+.m-toolbar--docked {
+  position: relative;
+  border-radius: var(--m-radius-lg);
+}
+
+.m-toolbar--docked.m-toolbar--horizontal {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.m-toolbar--docked.m-toolbar--vertical {
+  display: inline-flex;
+  height: 100%;
+  align-items: flex-start;
+}
+
+/* ===== ITEMS WRAPPER ===== */
+
+.m-toolbar__items {
+  display: inherit;
+  flex-direction: inherit;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* ===== ITEM INDIVIDUAL ===== */
+
+.m-toolbar__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4375rem;
+  padding: 0.5rem;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--m-text-muted);
+  font-family: var(--m-font);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  transition: background 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.m-toolbar__item:hover:not(.is-disabled) {
+  background: var(--m-surface-hover);
+  color: var(--m-text);
+}
+
+.m-toolbar__item:focus-visible {
+  outline: 2px solid var(--m-primary);
+  outline-offset: 2px;
+}
+
+.m-toolbar__item.is-active {
+  color: var(--m-primary);
+  background: var(--m-surface-hover);
+}
+
+.m-toolbar__item.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icono dentro del item */
+.m-toolbar__item-icon {
+  flex-shrink: 0;
+}
+
+/* Label — aparece con animación al expandirse */
+.m-toolbar__item-label {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: m-toolbar-label-in 0.18s ease forwards;
+}
+
+@keyframes m-toolbar-label-in {
+  from {
+    opacity: 0;
+    max-width: 0;
+  }
+  to {
+    opacity: 1;
+    max-width: 120px;
+  }
+}
+
+/* Padding extra en item cuando tiene label */
+.m-toolbar--expanded .m-toolbar__item:has(.m-toolbar__item-label) {
+  padding-inline: 0.75rem;
+}
+
+/* ===== OVERLAY BADGE — ajuste dentro del item ===== */
+
+.m-toolbar__item .m-overlay-badge-wrapper {
+  display: inline-flex;
+}
+
+/* ===== DIVIDER ===== */
+
+.m-toolbar__divider {
+  background: var(--m-border-color);
+  flex-shrink: 0;
+  border-radius: 9999px;
+}
+
+.m-toolbar--horizontal .m-toolbar__divider {
+  width: 1px;
+  height: 1.25rem;
+  margin: 0 0.125rem;
+}
+
+.m-toolbar--vertical .m-toolbar__divider {
+  height: 1px;
+  width: 1.25rem;
+  margin: 0.125rem 0;
+}
+
+/* ===== TOGGLE (collapsible) ===== */
+
+.m-toolbar__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--m-text-muted);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.m-toolbar__toggle:hover {
+  background: var(--m-surface-hover);
+  color: var(--m-text);
+}
+
+.m-toolbar__toggle:focus-visible {
+  outline: 2px solid var(--m-primary);
+  outline-offset: 2px;
+}

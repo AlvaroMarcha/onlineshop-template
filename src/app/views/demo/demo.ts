@@ -20,9 +20,10 @@ import {
   MRating,
   MComposer, MComposerSubmit,
   MPanel,
+  MToolbar,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
-  MSortableItem, MMenubarItem, MDataviewSortOption,
+  MSortableItem, MMenubarItem, MDataviewSortOption, MToolbarItem,
 } from '../../components/marcha';
 
 @Component({
@@ -48,14 +49,36 @@ import {
     MRating,
     MComposer,
     MPanel,
+    MToolbar,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
 })
 export class Demo {
-  private readonly notify = inject(MNotificationService);
+  readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Toolbar
+  readonly toolbarDockedCollapsed = signal(true);
+
+  readonly toolbarItems: MToolbarItem[] = [
+    { id: 'home',    icon: 'lucide:home',        label: 'Inicio',     active: true },
+    { id: 'catalog', icon: 'lucide:shopping-bag', label: 'Catálogo' },
+    { id: 'cart',    icon: 'lucide:shopping-cart', label: 'Carrito',   badge: '3' },
+    { id: 'divider1', divider: true },
+    { id: 'search',  icon: 'lucide:search',       label: 'Buscar' },
+    { id: 'profile', icon: 'lucide:user',         label: 'Perfil' },
+  ];
+
+  readonly toolbarVerticalItems: MToolbarItem[] = [
+    { id: 'dashboard', icon: 'lucide:layout-dashboard', label: 'Dashboard' },
+    { id: 'orders',    icon: 'lucide:package',           label: 'Pedidos',   badge: '5' },
+    { id: 'products',  icon: 'lucide:box',               label: 'Productos', active: true },
+    { id: 'divider1',  divider: true },
+    { id: 'settings',  icon: 'lucide:settings',          label: 'Ajustes' },
+    { id: 'help',      icon: 'lucide:help-circle',       label: 'Ayuda',     disabled: true },
+  ];
 
   // Toggle Button
   readonly toggleBtnPrimary   = new FormControl(false);

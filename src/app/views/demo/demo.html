@@ -61,7 +61,7 @@
           <m-badge value="m-panel" severity="success" />
           <m-badge value="m-tabs" severity="success" />
           <m-badge value="m-accordion" severity="success" />
-          <m-badge value="m-toolbar" severity="secondary" />
+          <m-badge value="m-toolbar" severity="success" />
         </div>
       </m-card>
       <m-card header="Datos y listas" variant="flat" padding="sm">
@@ -426,6 +426,56 @@
         todos los datos antes de confirmar.
       </m-panel>
     </div>
+  </section>
+
+  <m-divider label="m-toolbar" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toolbar &middot; Docked horizontal (expandible)</h2>
+    <p class="demo-subtitle" style="margin-bottom:1rem">
+      Colapsado muestra solo iconos con tooltip. Expandido muestra iconos + labels.
+    </p>
+    <m-toolbar
+      position="bottom"
+      variant="docked"
+      [items]="toolbarItems"
+      [collapsible]="true"
+      [(collapsed)]="toolbarDockedCollapsed"
+      (itemClick)="notify.success('Toolbar', $event.label ?? $event.id)"
+    />
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toolbar &middot; Docked vertical (sidebar)</h2>
+    <div style="display:flex; gap:1rem; align-items:flex-start; height:220px">
+      <m-toolbar
+        position="left"
+        variant="docked"
+        [items]="toolbarVerticalItems"
+        [collapsible]="true"
+        (itemClick)="notify.info('Sidebar', $event.label ?? $event.id)"
+        style="height:100%"
+      />
+      <div style="flex:1; display:flex; align-items:center; justify-content:center;
+                  border:1px dashed var(--m-border-color); border-radius:var(--m-radius-lg);
+                  color:var(--m-text-muted); font-size:0.875rem; height:100%">
+        Contenido de la p&aacute;gina
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-toolbar &middot; ng-content (slot custom)</h2>
+    <m-toolbar
+      position="top"
+      variant="docked"
+      [items]="toolbarItems"
+      [collapsed]="false"
+      (itemClick)="notify.success('Toolbar', $event.label ?? $event.id)"
+    >
+      <div class="m-toolbar__divider" style="width:1px;height:1.25rem;background:var(--m-border-color);margin:0 0.25rem"></div>
+      <m-button label="Acción custom" severity="primary" icon="lucide:plus" />
+    </m-toolbar>
   </section>
 
   <m-divider label="Chips y Tooltips" />

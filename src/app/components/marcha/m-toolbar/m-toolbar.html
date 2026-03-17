@@ -1,0 +1,56 @@
+<div [class]="_cssClass()" role="toolbar" [attr.aria-label]="'Toolbar'">
+
+  <div class="m-toolbar__items">
+    @for (item of items(); track item.id) {
+      @if (item.divider) {
+        <div class="m-toolbar__divider" role="separator"></div>
+      } @else {
+        <button
+          type="button"
+          class="m-toolbar__item"
+          [class.is-active]="item.active"
+          [class.is-disabled]="item.disabled"
+          [attr.title]="collapsed() ? (item.label || null) : null"
+          [attr.aria-label]="item.label || null"
+          [attr.aria-pressed]="item.active ?? null"
+          [disabled]="item.disabled || null"
+          (click)="onItemClick(item)"
+          mRipple
+        >
+          @if (item.badge) {
+            <m-overlay-badge [value]="item.badge">
+              @if (item.icon) {
+                <m-icon [icon]="item.icon" class="m-toolbar__item-icon" size="18" />
+              }
+            </m-overlay-badge>
+          } @else {
+            @if (item.icon) {
+              <m-icon [icon]="item.icon" class="m-toolbar__item-icon" size="18" />
+            }
+          }
+          @if (item.label && !collapsed()) {
+            <span class="m-toolbar__item-label">{{ item.label }}</span>
+          }
+        </button>
+      }
+    }
+  </div>
+
+  <!-- Slot para contenido custom (botones, separadores, etc.) -->
+  <ng-content />
+
+  @if (collapsible()) {
+    <div class="m-toolbar__divider" role="separator"></div>
+    <button
+      type="button"
+      class="m-toolbar__toggle"
+      [attr.aria-label]="collapsed() ? 'Expandir toolbar' : 'Contraer toolbar'"
+      [attr.title]="collapsed() ? 'Expandir' : 'Contraer'"
+      (click)="toggle()"
+      mRipple
+    >
+      <m-icon [icon]="_toggleIcon()" size="16" />
+    </button>
+  }
+
+</div>

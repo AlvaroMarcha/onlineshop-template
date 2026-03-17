@@ -102,6 +102,9 @@ export type { MDataviewLayout, MDataviewSortOption } from './m-dataview/m-datavi
 export { MPanel } from './m-panel/m-panel';
 export type { MPanelSeverity } from './m-panel/m-panel';
 
+export { MToolbar } from './m-toolbar/m-toolbar';
+export type { MToolbarPosition, MToolbarVariant, MToolbarItem } from './m-toolbar/m-toolbar';
+
 // Uploads
 export { MFileUpload } from './m-file-upload/m-file-upload';
 export type { MFileUploadValidationError } from './m-file-upload/m-file-upload';
