@@ -425,6 +425,33 @@
       "delete_confirm_msg": "Are you sure you want to delete ",
       "delete_confirm_btn": "Delete",
       "cancel": "Cancel"
+    },
+    "product_form": {
+      "create_title": "New product",
+      "edit_title": "Edit product",
+      "loading": "Loading product...",
+      "section_basic": "Basic information",
+      "section_pricing": "Pricing & taxes",
+      "section_stock": "Stock & logistics",
+      "section_seo": "SEO",
+      "section_options": "Options",
+      "name": "Name",
+      "sku": "SKU",
+      "slug": "Slug (URL)",
+      "description": "Description",
+      "price": "Price",
+      "discount_price": "Discount price",
+      "tax_rate": "Tax rate",
+      "stock": "Stock",
+      "low_stock_threshold": "Low stock threshold",
+      "weight": "Weight",
+      "meta_title": "Meta title",
+      "meta_description": "Meta description",
+      "is_digital": "Digital product",
+      "is_featured": "Featured product",
+      "save": "Save changes",
+      "create": "Create product",
+      "cancel": "Cancel"
     }
   }
 }
