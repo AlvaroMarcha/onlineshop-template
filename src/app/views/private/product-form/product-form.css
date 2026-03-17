@@ -1,0 +1,126 @@
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  max-width: 1100px;
+}
+
+/* ── Cabecera ──────────────────────────────────────────────── */
+.product-form__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.product-form__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.5rem;
+  color: var(--m-text-secondary, #94a3b8);
+  cursor: pointer;
+  padding: 0.4rem;
+  transition: background 0.15s, color 0.15s;
+}
+.product-form__back:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--m-text-primary, #f1f5f9);
+}
+
+.product-form__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--m-text-primary, #f1f5f9);
+  margin: 0;
+}
+
+/* ── Loading ───────────────────────────────────────────────── */
+.product-form__loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--m-text-secondary, #94a3b8);
+  font-size: 0.9rem;
+}
+
+/* ── Grid principal ────────────────────────────────────────── */
+.product-form__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.product-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .product-form__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-form__main,
+.product-form__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Secciones ─────────────────────────────────────────────── */
+.product-form__section {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-form__section-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--m-text-secondary, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* ── Filas y campos ────────────────────────────────────────── */
+.product-form__row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.product-form__field {
+  flex: 1 1 160px;
+  min-width: 140px;
+}
+
+.product-form__field--wide {
+  flex: 2 1 260px;
+}
+
+.product-form__field--full {
+  flex: 1 1 100%;
+}
+
+/* ── Toggles ───────────────────────────────────────────────── */
+.product-form__toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ── Acciones ──────────────────────────────────────────────── */
+.product-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}

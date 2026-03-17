@@ -474,6 +474,33 @@
       "delete_confirm_msg": "¿Estás seguro de que deseas eliminar ",
       "delete_confirm_btn": "Eliminar",
       "cancel": "Cancelar"
+    },
+    "product_form": {
+      "create_title": "Nuevo producto",
+      "edit_title": "Editar producto",
+      "loading": "Cargando producto...",
+      "section_basic": "Información básica",
+      "section_pricing": "Precios e impuestos",
+      "section_stock": "Stock y logística",
+      "section_seo": "SEO",
+      "section_options": "Opciones",
+      "name": "Nombre",
+      "sku": "SKU",
+      "slug": "Slug (URL)",
+      "description": "Descripción",
+      "price": "Precio",
+      "discount_price": "Precio con descuento",
+      "tax_rate": "IVA",
+      "stock": "Stock",
+      "low_stock_threshold": "Umbral bajo stock",
+      "weight": "Peso",
+      "meta_title": "Meta título",
+      "meta_description": "Meta descripción",
+      "is_digital": "Producto digital",
+      "is_featured": "Producto destacado",
+      "save": "Guardar cambios",
+      "create": "Crear producto",
+      "cancel": "Cancelar"
     }
   }
 }
