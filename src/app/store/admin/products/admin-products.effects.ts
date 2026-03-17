@@ -57,4 +57,52 @@ export class AdminProductEffects {
       catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
     ))
   ));
+
+  createAttrib$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminAttribCreate),
+    switchMap(({ name }) => this.svc.createAttrib(name).pipe(
+      map(attrib => A.adminAttribCreateSuccess({ attrib })),
+      catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
+    ))
+  ));
+
+  updateAttrib$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminAttribUpdate),
+    switchMap(({ id, name }) => this.svc.updateAttrib(id, name).pipe(
+      map(attrib => A.adminAttribUpdateSuccess({ attrib })),
+      catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
+    ))
+  ));
+
+  deleteAttrib$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminAttribDelete),
+    switchMap(({ id }) => this.svc.deleteAttrib(id).pipe(
+      map(() => A.adminAttribDeleteSuccess({ id })),
+      catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
+    ))
+  ));
+
+  createAttribValue$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminAttribValueCreate),
+    switchMap(({ attribId, value }) => this.svc.createAttribValue(attribId, value).pipe(
+      map(attribValue => A.adminAttribValueCreateSuccess({ attribId, attribValue })),
+      catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
+    ))
+  ));
+
+  updateAttribValue$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminAttribValueUpdate),
+    switchMap(({ attribId, valueId, value }) => this.svc.updateAttribValue(valueId, value).pipe(
+      map(attribValue => A.adminAttribValueUpdateSuccess({ attribId, attribValue })),
+      catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
+    ))
+  ));
+
+  deleteAttribValue$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminAttribValueDelete),
+    switchMap(({ attribId, valueId }) => this.svc.deleteAttribValue(valueId).pipe(
+      map(() => A.adminAttribValueDeleteSuccess({ attribId, valueId })),
+      catchError(err => of(A.adminProductsFailure({ error: err?.error?.message ?? err.message })))
+    ))
+  ));
 }
