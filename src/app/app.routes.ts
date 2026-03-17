@@ -14,11 +14,12 @@ import { NotFound } from './views/not-found/not-found';
 import { Cookies } from './views/cookies/cookies';
 import { GalleryView } from './views/gallery/galleryView';
 import { authGuard } from './guards/auth-guard';
+import { adminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
   // Design system demo (dev only)
   { path: 'demo', loadComponent: async () => (await import('./views/demo/demo')).Demo },
-  //Public
+  // Public
   { path: '', component: InitPage },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
@@ -32,21 +33,97 @@ export const routes: Routes = [
   { path: 'product/:id', component: ProductView },
   { path: 'gallery', component: GalleryView },
   { path: 'cookies', component: Cookies },
-  // Private (BackOffice) — lazy loaded
+  // Private (BackOffice) — AdminLayout shell con children lazy-loaded
   {
-    path: 'admin/dashboard',
-    loadComponent: async () => {
-      const m = await import('./views/private/dashboard/dashboard');
-      return m.Dashboard;
-    },
-    canActivate: [authGuard],
+    path: 'admin',
+    loadComponent: async () =>
+      (await import('./components/private/admin-layout/admin-layout')).AdminLayout,
+    canActivate: [adminGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadComponent: async () =>
+          (await import('./views/private/dashboard/dashboard')).Dashboard,
+      },
+      // FASE 3 — Catálogo
+      {
+        path: 'products',
+        loadComponent: async () =>
+          (await import('./views/private/products/products')).ProductsAdmin,
+      },
+      {
+        path: 'products/new',
+        loadComponent: async () =>
+          (await import('./views/private/product-form/product-form')).ProductForm,
+      },
+      {
+        path: 'products/:id',
+        loadComponent: async () =>
+          (await import('./views/private/product-form/product-form')).ProductForm,
+      },
+      // FASE 4 — Categorías y Atributos
+      {
+        path: 'categories',
+        loadComponent: async () =>
+          (await import('./views/private/categories/categories')).CategoriesAdmin,
+      },
+      {
+        path: 'attributes',
+        loadComponent: async () =>
+          (await import('./views/private/attributes/attributes')).AttributesAdmin,
+      },
+      // FASE 5 — Pedidos
+      {
+        path: 'orders',
+        loadComponent: async () =>
+          (await import('./views/private/orders/orders')).OrdersAdmin,
+      },
+      {
+        path: 'orders/:id',
+        loadComponent: async () =>
+          (await import('./views/private/order-detail/order-detail')).OrderDetail,
+      },
+      // FASE 6 — Usuarios
+      {
+        path: 'users',
+        loadComponent: async () =>
+          (await import('./views/private/users/users')).UsersAdmin,
+      },
+      {
+        path: 'users/:id',
+        loadComponent: async () =>
+          (await import('./views/private/user-detail/user-detail')).UserDetail,
+      },
+      // FASE 7 — Facturas
+      {
+        path: 'invoices',
+        loadComponent: async () =>
+          (await import('./views/private/invoices/invoices')).InvoicesAdmin,
+      },
+      {
+        path: 'invoices/:number',
+        loadComponent: async () =>
+          (await import('./views/private/invoice-detail/invoice-detail')).InvoiceDetail,
+      },
+      // FASE 8 — Inventario
+      {
+        path: 'inventory',
+        loadComponent: async () =>
+          (await import('./views/private/inventory/inventory')).InventoryAdmin,
+      },
+      {
+        path: 'inventory/:productId',
+        loadComponent: async () =>
+          (await import('./views/private/inventory-product/inventory-product')).InventoryProduct,
+      },
+    ],
   },
+  // Private (user profile)
   {
     path: 'profile',
-    loadComponent: async () => {
-      const m = await import('./views/client-profile/client-profile');
-      return m.ClientProfile;
-    },
+    loadComponent: async () =>
+      (await import('./views/client-profile/client-profile')).ClientProfile,
     canActivate: [authGuard],
   },
   { path: '**', component: NotFound },

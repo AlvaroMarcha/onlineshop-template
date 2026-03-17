@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-orders-admin',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
-  templateUrl: './orders.html',
+  template: '<p>OrdersAdmin — en construcción</p>',
 })
-export class Orders {}
+export class OrdersAdmin {}
+

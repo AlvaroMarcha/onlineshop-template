@@ -1,11 +1,11 @@
 ﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-products-admin',
+  selector: 'app-categories-admin',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
-  template: '<p>ProductsAdmin — en construcción</p>',
+  template: '<p>CategoriesAdmin — en construcción</p>',
 })
-export class ProductsAdmin {}
+export class CategoriesAdmin {}
 
