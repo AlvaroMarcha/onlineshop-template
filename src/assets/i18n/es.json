@@ -525,6 +525,30 @@
       "delete_btn": "Eliminar",
       "delete_sub_title": "Eliminar subcategoría",
       "delete_sub_msg": "¿Estás seguro de que deseas eliminar "
+    },
+    "attributes": {
+      "title": "Atributos",
+      "items": "atributos",
+      "new": "Nuevo atributo",
+      "search_placeholder": "Buscar por nombre...",
+      "empty": "No se encontraron atributos",
+      "values_of": "Valores de",
+      "values_empty": "Sin valores",
+      "new_value": "Nuevo valor",
+      "dialog_create_title": "Nuevo atributo",
+      "dialog_edit_title": "Editar atributo",
+      "valdialog_create_title": "Nuevo valor",
+      "valdialog_edit_title": "Editar valor",
+      "field_name": "Nombre del atributo",
+      "field_value": "Valor",
+      "create_btn": "Crear",
+      "save_btn": "Guardar cambios",
+      "cancel": "Cancelar",
+      "delete_title": "Eliminar atributo",
+      "delete_msg": "¿Estás seguro de que deseas eliminar ",
+      "delete_btn": "Eliminar",
+      "delete_val_title": "Eliminar valor",
+      "delete_val_msg": "¿Estás seguro de que deseas eliminar "
     }
   }
 }

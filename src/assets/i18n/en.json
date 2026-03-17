@@ -476,6 +476,30 @@
       "delete_btn": "Delete",
       "delete_sub_title": "Delete subcategory",
       "delete_sub_msg": "Are you sure you want to delete "
+    },
+    "attributes": {
+      "title": "Attributes",
+      "items": "attributes",
+      "new": "New attribute",
+      "search_placeholder": "Search by name...",
+      "empty": "No attributes found",
+      "values_of": "Values of",
+      "values_empty": "No values",
+      "new_value": "New value",
+      "dialog_create_title": "New attribute",
+      "dialog_edit_title": "Edit attribute",
+      "valdialog_create_title": "New value",
+      "valdialog_edit_title": "Edit value",
+      "field_name": "Attribute name",
+      "field_value": "Value",
+      "create_btn": "Create",
+      "save_btn": "Save changes",
+      "cancel": "Cancel",
+      "delete_title": "Delete attribute",
+      "delete_msg": "Are you sure you want to delete ",
+      "delete_btn": "Delete",
+      "delete_val_title": "Delete value",
+      "delete_val_msg": "Are you sure you want to delete "
     }
   }
 }
