@@ -387,6 +387,31 @@
       "users": "Users",
       "invoices": "Invoices",
       "inventory": "Inventory"
+    },
+    "dashboard": {
+      "financial": "Financial metrics",
+      "revenue": "Revenue (month)",
+      "conversion": "Conversion rate",
+      "avg_order": "Average order value",
+      "order_stats": "Order status",
+      "user_stats": "Users",
+      "low_stock": "Low stock",
+      "pending_orders": "Pending orders",
+      "no_low_stock": "No low-stock products",
+      "no_pending": "No pending orders",
+      "order_status": {
+        "total": "Total",
+        "paid": "Paid",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "cancelled": "Cancelled"
+      },
+      "users": {
+        "total": "Total",
+        "new": "New this month",
+        "active": "Active",
+        "banned": "Banned"
+      }
     }
   }
 }

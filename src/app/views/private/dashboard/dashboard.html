@@ -1,1 +1,263 @@
-<p>Dashboard works</p>
+<div class="dashboard-page">
+
+  <!-- ══ SUPER_ADMIN — KPIs financieros ═══════════════════════ -->
+  @if (isSuperAdmin()) {
+    <section class="dash-section">
+      <h2 class="dash-section-title">{{ 'admin.dashboard.financial' | translate }}</h2>
+      <div class="kpi-grid">
+        <m-card styleClass="kpi-card">
+          <div class="kpi-icon kpi-icon--revenue">
+            <m-icon name="trending_up" />
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">{{ 'admin.dashboard.revenue' | translate }}</span>
+            <span class="kpi-value">{{ (revenue()?.totalRevenue ?? 0) | currency:'EUR':'symbol':'1.2-2' }}</span>
+            <span class="kpi-sub">{{ revenue()?.totalOrders ?? 0 }} pedidos</span>
+          </div>
+        </m-card>
+        <m-card styleClass="kpi-card">
+          <div class="kpi-icon kpi-icon--conversion">
+            <m-icon name="swap_horiz" />
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">{{ 'admin.dashboard.conversion' | translate }}</span>
+            <span class="kpi-value">{{ (conversionRate()?.conversionRate ?? 0).toFixed(1) }}%</span>
+            <span class="kpi-sub">{{ conversionRate()?.usersWithOrders ?? 0 }} / {{ conversionRate()?.totalUsers ?? 0 }} usuarios</span>
+          </div>
+        </m-card>
+        <m-card styleClass="kpi-card">
+          <div class="kpi-icon kpi-icon--avg">
+            <m-icon name="receipt_long" />
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-label">{{ 'admin.dashboard.avg_order' | translate }}</span>
+            <span class="kpi-value">{{ (avgOrderValue()?.averageOrderValue ?? 0) | currency:'EUR':'symbol':'1.2-2' }}</span>
+            <span class="kpi-sub">{{ avgOrderValue()?.totalOrders ?? 0 }} pedidos</span>
+          </div>
+        </m-card>
+      </div>
+    </section>
+  }
+
+  <!-- ══ ADMIN + SUPER_ADMIN — Resumen de pedidos y usuarios ═══ -->
+  @if (isAdmin()) {
+    <section class="dash-section">
+      <div class="two-col-grid">
+        <!-- Resumen de pedidos -->
+        <m-card header="{{ 'admin.dashboard.order_stats' | translate }}">
+          @if (orderStats(); as stats) {
+            <div class="stats-list">
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.order_status.total' | translate }}</span>
+                <m-chip [label]="stats.total.toString()" severity="secondary" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.order_status.paid' | translate }}</span>
+                <m-chip [label]="stats.paid.toString()" severity="success" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.order_status.processing' | translate }}</span>
+                <m-chip [label]="stats.processing.toString()" severity="primary" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.order_status.shipped' | translate }}</span>
+                <m-chip [label]="stats.shipped.toString()" severity="info" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.order_status.cancelled' | translate }}</span>
+                <m-chip [label]="stats.cancelled.toString()" severity="danger" size="sm" />
+              </div>
+            </div>
+          }
+        </m-card>
+
+        <!-- Resumen de usuarios -->
+        <m-card header="{{ 'admin.dashboard.user_stats' | translate }}">
+          @if (userStats(); as stats) {
+            <div class="stats-list">
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.users.total' | translate }}</span>
+                <m-chip [label]="stats.totalUsers.toString()" severity="secondary" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.users.new' | translate }}</span>
+                <m-chip [label]="stats.newUsers.toString()" severity="success" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.users.active' | translate }}</span>
+                <m-chip [label]="stats.activeUsers.toString()" severity="primary" size="sm" />
+              </div>
+              <div class="stats-row">
+                <span>{{ 'admin.dashboard.users.banned' | translate }}</span>
+                <m-chip [label]="stats.bannedUsers.toString()" severity="danger" size="sm" />
+              </div>
+            </div>
+          }
+        </m-card>
+      </div>
+    </section>
+
+    <!-- Bajo stock -->
+    <section class="dash-section">
+      <m-card header="{{ 'admin.dashboard.low_stock' | translate }}">
+        <m-table
+          [columns]="lowStockCols"
+          [data]="lowStockProducts()"
+          [loading]="loading()"
+          variant="compact"
+          emptyMessage="{{ 'admin.dashboard.no_low_stock' | translate }}"
+        />
+      </m-card>
+    </section>
+
+    <!-- Pedidos pendientes -->
+    <section class="dash-section">
+      <m-card header="{{ 'admin.dashboard.pending_orders' | translate }}">
+        <m-table
+          [columns]="pendingOrdersCols"
+          [data]="pendingOrders()"
+          [loading]="loading()"
+          variant="compact"
+          emptyMessage="{{ 'admin.dashboard.no_pending' | translate }}"
+        />
+      </m-card>
+    </section>
+  }
+
+  <!-- ══ ORDERS role ══════════════════════════════════════════ -->
+  @if (isOrders()) {
+    <section class="dash-section">
+      @if (todaySummary(); as s) {
+        <div class="kpi-grid">
+          <m-card styleClass="kpi-card">
+            <div class="kpi-icon kpi-icon--revenue"><m-icon name="today" /></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Pedidos hoy</span>
+              <span class="kpi-value">{{ s.totalOrders }}</span>
+              <span class="kpi-sub">{{ s.completedOrders }} completados</span>
+            </div>
+          </m-card>
+          <m-card styleClass="kpi-card">
+            <div class="kpi-icon kpi-icon--avg"><m-icon name="payments" /></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Ingresos hoy</span>
+              <span class="kpi-value">{{ s.totalRevenue | currency:'EUR':'symbol':'1.2-2' }}</span>
+              <span class="kpi-sub">{{ s.pendingOrders }} pendientes</span>
+            </div>
+          </m-card>
+        </div>
+      }
+    </section>
+
+    <section class="dash-section">
+      <m-card header="Cola de pedidos">
+        <m-table
+          [columns]="orderQueueCols"
+          [data]="orderQueue()"
+          [loading]="loading()"
+          variant="compact"
+        />
+      </m-card>
+    </section>
+  }
+
+  <!-- ══ STORE role ═══════════════════════════════════════════ -->
+  @if (isStore()) {
+    <section class="dash-section">
+      @if (productSummary(); as s) {
+        <div class="kpi-grid">
+          <m-card styleClass="kpi-card">
+            <div class="kpi-icon kpi-icon--revenue"><m-icon name="inventory_2" /></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Productos activos</span>
+              <span class="kpi-value">{{ s.activeProducts }}</span>
+              <span class="kpi-sub">{{ s.totalProducts }} en total</span>
+            </div>
+          </m-card>
+          <m-card styleClass="kpi-card">
+            <div class="kpi-icon kpi-icon--danger"><m-icon name="warning" /></div>
+            <div class="kpi-body">
+              <span class="kpi-label">Sin stock</span>
+              <span class="kpi-value">{{ s.outOfStockProducts }}</span>
+              <span class="kpi-sub">{{ s.inactiveProducts }} inactivos</span>
+            </div>
+          </m-card>
+        </div>
+      }
+
+      <div class="two-col-grid" style="margin-top: 1.5rem;">
+        <m-card header="Más vistos">
+          <ul class="product-list">
+            @for (p of mostViewed(); track p.productId) {
+              <li class="product-list-item">
+                @if (p.imageUrl) {
+                  <img [src]="p.imageUrl" [alt]="p.name" class="product-thumb" />
+                }
+                <div class="product-info">
+                  <span class="product-name">{{ p.name }}</span>
+                  <span class="product-meta">{{ p.views }} visitas · Stock: {{ p.stock }}</span>
+                </div>
+              </li>
+            }
+          </ul>
+        </m-card>
+      </div>
+    </section>
+  }
+
+  <!-- ══ CUSTOMERS_INVOICES role ══════════════════════════════ -->
+  @if (isCustomers()) {
+    <section class="dash-section">
+      <m-card header="Top compradores">
+        <m-table
+          [columns]="topBuyersCols"
+          [data]="topBuyers()"
+          [loading]="loading()"
+          variant="compact"
+        />
+      </m-card>
+    </section>
+
+    <section class="dash-section">
+      <m-card header="Nuevos clientes (este mes)">
+        <ul class="customer-list">
+          @for (c of newCustomers(); track c.userId) {
+            <li class="customer-item">
+              <div class="customer-info">
+                <span class="customer-name">{{ c.name }} {{ c.surname }}</span>
+                <span class="customer-email">{{ c.email }}</span>
+              </div>
+              <div class="customer-badges">
+                <m-chip
+                  [label]="c.isVerified ? 'Verificado' : 'No verificado'"
+                  [severity]="c.isVerified ? 'success' : 'warn'"
+                  size="sm"
+                />
+                @if (c.hasOrders) {
+                  <m-chip [label]="c.orderCount + ' pedidos'" severity="info" size="sm" />
+                }
+              </div>
+            </li>
+          }
+        </ul>
+      </m-card>
+    </section>
+  }
+
+  <!-- ══ SUPPORT role ═════════════════════════════════════════ -->
+  @if (isSupport()) {
+    <section class="dash-section">
+      <m-card header="Pedidos con incidencias">
+        <m-table
+          [columns]="issuesCols"
+          [data]="ordersWithIssues()"
+          [loading]="loading()"
+          variant="compact"
+          emptyMessage="Sin incidencias activas"
+        />
+      </m-card>
+    </section>
+  }
+
+</div>
+
