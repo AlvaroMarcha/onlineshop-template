@@ -461,6 +461,19 @@
         "active": "Activos",
         "banned": "Baneados"
       }
+    },
+    "products": {
+      "title": "Productos",
+      "items": "productos",
+      "new": "Nuevo producto",
+      "search_placeholder": "Buscar por nombre o SKU...",
+      "filter_status": "Estado",
+      "filter_featured": "Destacado",
+      "empty": "No se encontraron productos",
+      "delete_confirm_title": "Eliminar producto",
+      "delete_confirm_msg": "¿Estás seguro de que deseas eliminar ",
+      "delete_confirm_btn": "Eliminar",
+      "cancel": "Cancelar"
     }
   }
 }

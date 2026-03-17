@@ -1,1 +1,118 @@
-<p>products works!</p>
+<section class="products-admin">
+  <!-- Cabecera -->
+  <div class="products-admin__header">
+    <div class="products-admin__title-block">
+      <h1 class="products-admin__title">{{ 'admin.products.title' | translate }}</h1>
+      <span class="products-admin__count">{{ total() }} {{ 'admin.products.items' | translate }}</span>
+    </div>
+    <m-button
+      icon="add"
+      iconPos="left"
+      variant="filled"
+      severity="primary"
+      (click)="navigateToCreate()"
+    >
+      {{ 'admin.products.new' | translate }}
+    </m-button>
+  </div>
+
+  <!-- Filtros -->
+  <m-card variant="solid" class="products-admin__filters">
+    <div class="products-admin__filter-row" [formGroup]="filters">
+      <m-input
+        formControlName="q"
+        [placeholder]="'admin.products.search_placeholder' | translate"
+        icon="search"
+        iconPos="left"
+        size="small"
+        class="products-admin__search"
+      />
+      <m-select
+        formControlName="activeFilter"
+        [options]="activeOptions"
+        [placeholder]="'admin.products.filter_status' | translate"
+        class="products-admin__select"
+      />
+      <m-select
+        formControlName="featuredFilter"
+        [options]="featuredOptions"
+        [placeholder]="'admin.products.filter_featured' | translate"
+        class="products-admin__select"
+      />
+    </div>
+  </m-card>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="products-admin__error">
+      <m-icon name="error_outline" />
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  <!-- Tabla -->
+  <m-card variant="solid" class="products-admin__table-card">
+    <m-table
+      [columns]="columns"
+      [data]="products()"
+      [actions]="actions"
+      [loading]="loading()"
+      [emptyMessage]="'admin.products.empty' | translate"
+      trackByField="id"
+      variant="default"
+      (actionClick)="onAction($event)"
+    />
+  </m-card>
+
+  <!-- Paginación -->
+  @if (totalPages() > 1) {
+    <div class="products-admin__pagination">
+      <m-button
+        variant="outlined"
+        severity="secondary"
+        icon="chevron_left"
+        [disabled]="pageIndex() === 0"
+        (click)="prevPage()"
+      ></m-button>
+
+      @for (n of pageNums(); track n) {
+        <m-button
+          [variant]="pageIndex() === n - 1 ? 'filled' : 'text'"
+          [severity]="pageIndex() === n - 1 ? 'primary' : 'secondary'"
+          (click)="goToPage(n - 1)"
+        >{{ n }}</m-button>
+      }
+
+      <m-button
+        variant="outlined"
+        severity="secondary"
+        icon="chevron_right"
+        [disabled]="pageIndex() >= totalPages() - 1"
+        (click)="nextPage()"
+      ></m-button>
+    </div>
+  }
+</section>
+
+<!-- Diálogo de confirmación de borrado -->
+<m-dialog
+  [(visible)]="deleteDialogVisible"
+  [header]="'admin.products.delete_confirm_title' | translate"
+  size="sm"
+>
+  <p class="products-admin__dialog-body">
+    {{ 'admin.products.delete_confirm_msg' | translate }}
+    @if (deleteTarget()) {
+      <strong>{{ deleteTarget()!.name }}</strong>
+    }
+  </p>
+  <div class="products-admin__dialog-actions">
+    <m-button variant="text" severity="secondary" (click)="cancelDelete()">
+      {{ 'admin.products.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="danger" (click)="confirmDelete()">
+      {{ 'admin.products.delete_confirm_btn' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
+
