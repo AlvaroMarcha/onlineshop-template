@@ -1,1 +1,81 @@
-<p>orders works!</p>
+<section class="orders-admin">
+  <!-- Cabecera -->
+  <div class="orders-admin__header">
+    <div class="orders-admin__title-block">
+      <h1 class="orders-admin__title">{{ 'admin.orders.title' | translate }}</h1>
+      <span class="orders-admin__count">{{ total() }} {{ 'admin.orders.items' | translate }}</span>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <m-card variant="solid" class="orders-admin__filters">
+    <div class="orders-admin__filter-row">
+      <m-input
+        [(ngModel)]="searchIdTerm"
+        [placeholder]="'admin.orders.search_placeholder' | translate"
+        icon="search"
+        iconPos="left"
+        size="small"
+        class="orders-admin__search"
+      />
+      <m-select
+        [(ngModel)]="statusFilter"
+        [options]="statusOptions"
+        [placeholder]="'admin.orders.filter_status' | translate"
+        class="orders-admin__select"
+      />
+    </div>
+  </m-card>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="orders-admin__error">
+      <m-icon name="error_outline" />
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  <!-- Tabla -->
+  <m-card variant="solid" class="orders-admin__table-card">
+    <m-table
+      [columns]="columns"
+      [data]="orders()"
+      [actions]="actions"
+      [loading]="loading()"
+      [emptyMessage]="'admin.orders.empty' | translate"
+      trackByField="id"
+      variant="default"
+      (actionClick)="onAction($event)"
+    />
+  </m-card>
+
+  <!-- Paginación -->
+  @if (totalPages() > 1) {
+    <div class="orders-admin__pagination">
+      <m-button
+        variant="outlined"
+        severity="secondary"
+        icon="chevron_left"
+        [disabled]="pageIndex() === 0"
+        (click)="prevPage()"
+      ></m-button>
+
+      @for (n of pageNums(); track n) {
+        <m-button
+          [variant]="pageIndex() === n - 1 ? 'filled' : 'text'"
+          [severity]="pageIndex() === n - 1 ? 'primary' : 'secondary'"
+          (click)="goToPage(n - 1)"
+        >{{ n }}</m-button>
+      }
+
+      <m-button
+        variant="outlined"
+        severity="secondary"
+        icon="chevron_right"
+        [disabled]="pageIndex() >= totalPages() - 1"
+        (click)="nextPage()"
+      ></m-button>
+    </div>
+  }
+</section>
+

@@ -500,6 +500,29 @@
       "delete_btn": "Delete",
       "delete_val_title": "Delete value",
       "delete_val_msg": "Are you sure you want to delete "
+    },
+    "orders": {
+      "title": "Orders",
+      "items": "orders",
+      "search_placeholder": "Search by order number...",
+      "filter_status": "Filter by status",
+      "empty": "No orders found",
+      "col_order": "Order",
+      "col_customer": "Customer",
+      "col_date": "Date",
+      "col_total": "Total",
+      "col_items": "Items",
+      "col_status": "Status",
+      "col_method": "Method",
+      "action_view": "View",
+      "status_created": "Created",
+      "status_paid": "Paid",
+      "status_processing": "Processing",
+      "status_shipped": "Shipped",
+      "status_delivered": "Delivered",
+      "status_cancelled": "Cancelled",
+      "status_returned": "Returned",
+      "filter_all": "All"
     }
   }
 }
