@@ -1,0 +1,33 @@
+<nav class="admin-sidebar" [class.is-collapsed]="collapsed()">
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-icon">
+      <m-icon icon="lucide:store" size="20" />
+    </div>
+    <span class="sidebar-brand-text">
+      {{ 'admin.layout.title' | translate }}
+    </span>
+  </div>
+
+  <!-- Nav items -->
+  <ul class="sidebar-nav" role="navigation">
+    @for (item of visibleItems(); track item.route) {
+      <li>
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="is-active"
+          class="sidebar-nav-item"
+          [title]="collapsed() ? (item.labelKey | translate) : ''"
+          [attr.aria-label]="item.labelKey | translate"
+        >
+          <m-icon [icon]="item.icon" size="18" />
+          <span class="sidebar-nav-label">
+            {{ item.labelKey | translate }}
+          </span>
+        </a>
+      </li>
+    }
+  </ul>
+
+</nav>

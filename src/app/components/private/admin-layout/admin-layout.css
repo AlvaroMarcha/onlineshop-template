@@ -1,0 +1,86 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* ===== LAYOUT SHELL ===== */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--m-surface);
+}
+
+/* ===== SIDEBAR WRAPPER ===== */
+.admin-sidebar-wrap {
+  width: 260px;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
+  transition: width 0.25s ease;
+}
+
+.admin-sidebar-wrap.is-collapsed {
+  width: 72px;
+}
+
+/* ===== MAIN CONTENT ===== */
+.admin-content {
+  flex: 1;
+  margin-left: 260px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 0;
+  transition: margin-left 0.25s ease;
+}
+
+.admin-content.sidebar-collapsed {
+  margin-left: 72px;
+}
+
+/* ===== MAIN AREA ===== */
+.admin-main {
+  flex: 1;
+  padding: 1.5rem;
+  overflow: auto;
+}
+
+/* ===== MOBILE OVERLAY ===== */
+.admin-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  cursor: pointer;
+  border: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .admin-sidebar-wrap {
+    transform: translateX(-100%);
+    width: 260px;
+    transition: transform 0.25s ease, width 0.25s ease;
+  }
+
+  .admin-sidebar-wrap.is-mobile-open {
+    transform: translateX(0);
+  }
+
+  .admin-content,
+  .admin-content.sidebar-collapsed {
+    margin-left: 0;
+  }
+
+  .admin-overlay {
+    display: block;
+  }
+
+  .admin-main {
+    padding: 1rem;
+  }
+}
