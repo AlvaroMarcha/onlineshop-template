@@ -1,5 +1,14 @@
 <!-- Modern Marcha UI Header -->
-<div class="fixed top-0 left-0 right-0 z-[1000] header-wrapper">
+<!-- Pull tab — visible cuando el header está colapsado en modo admin -->
+@if (adminMode && !navVisible) {
+  <button class="nav-pull-tab" type="button" (click)="navVisible = true">
+    <m-icon icon="lucide:chevron-down" [size]="13" />
+    <span>Menú</span>
+  </button>
+}
+
+<div class="fixed top-0 left-0 right-0 z-[1000] header-wrapper"
+     [class.is-collapsed]="adminMode && !navVisible">
   <m-menubar
     [items]="menubarItems"
     logo="logos/principal.jpg"
@@ -52,6 +61,16 @@
             <div class="absolute right-0 top-12 min-w-[200px] user-menu-dropdown">
               <m-card variant="solid" padding="sm">
                 <div class="flex flex-col gap-2">
+                  @if (isAdminUser()) {
+                    <m-button
+                      label="Panel Admin"
+                      icon="lucide:layout-dashboard"
+                      variant="text"
+                      severity="primary"
+                      [full]="true"
+                      (onClick)="onAdminClick()"
+                    />
+                  }
                   <m-button
                     label="Perfil"
                     icon="lucide:user-circle"
@@ -79,6 +98,17 @@
           variant="outlined"
           size="small"
           (onClick)="onLoginClick()"
+        />
+      }
+
+      <!-- Minimizar nav — solo en modo admin y cuando visible -->
+      @if (adminMode && navVisible) {
+        <m-button
+          icon="lucide:chevron-up"
+          variant="text"
+          [rounded]="true"
+          size="small"
+          (onClick)="navVisible = false"
         />
       }
 

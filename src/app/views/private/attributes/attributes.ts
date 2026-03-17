@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  MCard, MButton, MTable, MIcon, MDialog, MInput,
+  MCard, MButton, MTable, MIcon, MDialog, MInput, MChip,
 } from '../../../components/marcha';
 import type { MTableColumn, MTableAction, MChipSeverity } from '../../../components/marcha';
 import {
@@ -32,7 +32,7 @@ import { ProductAttrib, ProductAttribValue } from '../../../type/admin-types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TranslateModule, ReactiveFormsModule, FormsModule,
-    MCard, MButton, MTable, MIcon, MDialog, MInput,
+    MCard, MButton, MTable, MIcon, MDialog, MInput, MChip,
   ],
   templateUrl: './attributes.html',
   styleUrl:    './attributes.css',

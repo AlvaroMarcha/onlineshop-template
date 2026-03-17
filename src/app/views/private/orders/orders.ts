@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  MCard, MButton, MTable, MIcon, MSelect, MInput,
+  MCard, MButton, MTable, MIcon, MSelect, MInput, MChip,
 } from '../../../components/marcha';
 import type { MTableColumn, MTableAction, MChipSeverity, MSelectOption } from '../../../components/marcha';
 import {
@@ -27,7 +27,7 @@ import { OrderAdmin, OrderSearchParams, OrderStatus } from '../../../type/admin-
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TranslateModule, FormsModule,
-    MCard, MButton, MTable, MIcon, MSelect, MInput,
+    MCard, MButton, MTable, MIcon, MSelect, MInput, MChip,
   ],
   templateUrl: './orders.html',
   styleUrl:    './orders.css',

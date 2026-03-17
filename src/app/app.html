@@ -1,12 +1,6 @@
 <m-toast />
-@if ( isAdmin() && router.url.includes('/admin')) {
-<!-- Layout de Admin -->
-<app-header-back></app-header-back>
+<app-header [adminMode]="isAdminUrl() ?? false"></app-header>
 <router-outlet></router-outlet>
-<app-footer-back></app-footer-back>
-} @else {
-<!-- Layout Público -->
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+@if (!isAdminUrl()) {
+  <app-footer></app-footer>
 }

@@ -1,14 +1,18 @@
-import { Component, computed, effect } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, computed, effect, Signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
-import { HeaderBack } from './components/private/header-back/header-back';
-import { FooterBack } from './components/private/footer-back/footer-back';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MToast } from './components/marcha';
 import { Store } from '@ngrx/store';
 import { selectToken, selectUser } from './store/auth/auth.selectors';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, startWith } from 'rxjs';
+
+const ADMIN_ROLES = [
+  'ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_STORE',
+  'ROLE_ORDERS', 'ROLE_CUSTOMERS_INVOICES', 'ROLE_SUPPORT',
+];
 
 @Component({
   selector: 'app-root',
@@ -16,8 +20,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [
     Header,
     Footer,
-    HeaderBack,
-    FooterBack,
     RouterOutlet,
     TranslateModule,
     MToast,
@@ -29,22 +31,30 @@ export class App {
   protected title = 'todo';
   token$;
   user$;
+  readonly isAdminUrl: Signal<boolean | undefined>;
 
-  //Computed
-  isAdmin = computed(() => {
-    return this.user$()?.roleName === 'ADMIN';
-  });
+  readonly isAdmin = computed(() =>
+    ADMIN_ROLES.includes(this.user$()?.roleName ?? ''),
+  );
 
   constructor(
     private translate: TranslateService,
     public router: Router,
-    private store: Store
+    private store: Store,
   ) {
     this.token$ = toSignal(this.store.select(selectToken));
     this.user$ = toSignal(this.store.select(selectUser));
 
+    this.isAdminUrl = toSignal(
+      this.router.events.pipe(
+        filter(e => e instanceof NavigationEnd),
+        map(() => this.router.url.startsWith('/admin')),
+        startWith(this.router.url.startsWith('/admin')),
+      ),
+    );
+
     effect(() => {
-      if (this.isAdmin()) {
+      if (this.isAdmin() && !this.router.url.startsWith('/admin')) {
         this.router.navigateByUrl('/admin/dashboard');
       }
     });

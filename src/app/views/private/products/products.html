@@ -3,11 +3,11 @@
   <div class="products-admin__header">
     <div class="products-admin__title-block">
       <h1 class="products-admin__title">{{ 'admin.products.title' | translate }}</h1>
-      <span class="products-admin__count">{{ total() }} {{ 'admin.products.items' | translate }}</span>
     </div>
     <m-button
       icon="add"
       iconPos="left"
+      size="small"
       variant="filled"
       severity="primary"
       (click)="navigateToCreate()"
@@ -51,6 +51,9 @@
   }
 
   <!-- Tabla -->
+  <div class="products-admin__meta">
+    <m-chip severity="info" size="sm" [label]="total() + ' ' + ('admin.products.items' | translate)" />
+  </div>
   <m-card variant="solid" class="products-admin__table-card">
     <m-table
       [columns]="columns"
