@@ -1,0 +1,209 @@
+<section class="order-detail">
+  <!-- Cabecera -->
+  <div class="order-detail__header">
+    <m-button
+      variant="text"
+      severity="secondary"
+      icon="arrow_back"
+      iconPos="left"
+      (click)="goBack()"
+    >
+      {{ 'admin.order_detail.back' | translate }}
+    </m-button>
+
+    @if (order()) {
+      <div class="order-detail__title-block">
+        <h1 class="order-detail__title">{{ 'admin.order_detail.title' | translate }} #{{ order()!.id }}</h1>
+        <span
+          class="order-detail__status-chip"
+          [attr.data-severity]="statusSeverity(order()!.status)"
+        >
+          {{ statusLabel(order()!.status) }}
+        </span>
+      </div>
+
+      @if (canAdvance() || canCancel() || canReturn()) {
+        <m-button
+          variant="filled"
+          severity="primary"
+          icon="arrow_forward"
+          iconPos="right"
+          [disabled]="saving()"
+          (click)="openNextStatusDialog()"
+        >
+          {{ 'admin.order_detail.advance_status' | translate }}
+        </m-button>
+      }
+    }
+  </div>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="order-detail__error">
+      <m-icon name="error_outline" />
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="order-detail__loading">
+      <m-icon name="progress_activity" />
+      <span>{{ 'admin.order_detail.loading' | translate }}</span>
+    </div>
+  }
+
+  @if (order()) {
+    <!-- Resumen del pedido -->
+    <div class="order-detail__grid">
+      <!-- Info principal -->
+      <m-card variant="solid" class="order-detail__info-card">
+        <h2 class="order-detail__section-title">{{ 'admin.order_detail.info_title' | translate }}</h2>
+        <dl class="order-detail__info-list">
+          <dt>{{ 'admin.order_detail.field_order_id' | translate }}</dt>
+          <dd>#{{ order()!.id }}</dd>
+          <dt>{{ 'admin.order_detail.field_customer' | translate }}</dt>
+          <dd>{{ 'admin.order_detail.user_prefix' | translate }} #{{ order()!.userId }}</dd>
+          <dt>{{ 'admin.order_detail.field_date' | translate }}</dt>
+          <dd>{{ order()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</dd>
+          <dt>{{ 'admin.order_detail.field_method' | translate }}</dt>
+          <dd>{{ order()!.paymentMethod }}</dd>
+          @if (order()!.couponCode) {
+            <dt>{{ 'admin.order_detail.field_coupon' | translate }}</dt>
+            <dd>{{ order()!.couponCode }}</dd>
+          }
+          <dt>{{ 'admin.order_detail.field_discount' | translate }}</dt>
+          <dd>{{ order()!.discountAmount | number:'1.2-2' }} €</dd>
+          <dt>{{ 'admin.order_detail.field_total' | translate }}</dt>
+          <dd class="order-detail__total">{{ order()!.totalAmount | number:'1.2-2' }} €</dd>
+        </dl>
+      </m-card>
+
+      <!-- Dirección -->
+      <m-card variant="solid" class="order-detail__info-card">
+        <h2 class="order-detail__section-title">{{ 'admin.order_detail.address_title' | translate }}</h2>
+        <dl class="order-detail__info-list">
+          <dt>{{ 'admin.order_detail.field_address' | translate }}</dt>
+          <dd>{{ order()!.address.addressLine1 }}</dd>
+          @if (order()!.address.addressLine2) {
+            <dt>&nbsp;</dt>
+            <dd>{{ order()!.address.addressLine2 }}</dd>
+          }
+          <dt>{{ 'admin.order_detail.field_city' | translate }}</dt>
+          <dd>{{ order()!.address.city }}, {{ order()!.address.postalCode }}</dd>
+          <dt>{{ 'admin.order_detail.field_country' | translate }}</dt>
+          <dd>{{ order()!.address.country }}</dd>
+        </dl>
+      </m-card>
+    </div>
+
+    <!-- Artículos del pedido -->
+    <m-card variant="solid" class="order-detail__table-card">
+      <h2 class="order-detail__section-title order-detail__section-title--padded">
+        {{ 'admin.order_detail.items_title' | translate }} ({{ items().length }})
+      </h2>
+      <m-table
+        [columns]="itemsColumns"
+        [data]="items()"
+        [emptyMessage]="'admin.order_detail.items_empty' | translate"
+        trackByField="id"
+        variant="default"
+      />
+    </m-card>
+
+    <!-- Pagos -->
+    <m-card variant="solid" class="order-detail__table-card">
+      <h2 class="order-detail__section-title order-detail__section-title--padded">
+        {{ 'admin.order_detail.payments_title' | translate }} ({{ payments().length }})
+      </h2>
+      <m-table
+        [columns]="paymentsColumns"
+        [data]="payments()"
+        [actions]="paymentsActions"
+        [loading]="saving()"
+        [emptyMessage]="'admin.order_detail.payments_empty' | translate"
+        trackByField="id"
+        variant="default"
+        (actionClick)="onPaymentAction($event)"
+      />
+    </m-card>
+  }
+</section>
+
+<!-- Diálogo: avanzar estado del pedido -->
+<m-dialog
+  [(visible)]="nextStatusDialogVisible"
+  [header]="'admin.order_detail.next_status_title' | translate"
+  [closeable]="true"
+>
+  <div class="order-detail__dialog-body">
+    <p>{{ 'admin.order_detail.next_status_msg' | translate }}</p>
+
+    @if (canCancel()) {
+      <label class="order-detail__checkbox-label">
+        <input type="checkbox" [checked]="nextStatusCancelled()"
+          (change)="nextStatusCancelled.set($any($event.target).checked)" />
+        {{ 'admin.order_detail.cancel_order' | translate }}
+      </label>
+    }
+
+    @if (canReturn()) {
+      <label class="order-detail__checkbox-label">
+        <input type="checkbox" [checked]="nextStatusReturned()"
+          (change)="nextStatusReturned.set($any($event.target).checked)" />
+        {{ 'admin.order_detail.return_order' | translate }}
+      </label>
+    }
+  </div>
+
+  <div class="order-detail__dialog-footer">
+    <m-button variant="outlined" severity="secondary" (click)="nextStatusDialogVisible.set(false)">
+      {{ 'admin.order_detail.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="primary" [disabled]="saving()" (click)="confirmNextStatus()">
+      {{ 'admin.order_detail.confirm' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
+
+<!-- Diálogo: cancelar pago -->
+<m-dialog
+  [(visible)]="cancelPaymentDialogVisible"
+  [header]="'admin.order_detail.cancel_payment_title' | translate"
+  [closeable]="true"
+>
+  <p class="order-detail__dialog-body">
+    {{ 'admin.order_detail.cancel_payment_msg' | translate }}
+    #{{ cancelPaymentTarget()?.id }}?
+  </p>
+  <div class="order-detail__dialog-footer">
+    <m-button variant="outlined" severity="secondary" (click)="cancelPaymentDialogVisible.set(false)">
+      {{ 'admin.order_detail.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="danger" [disabled]="saving()" (click)="confirmCancelPayment()">
+      {{ 'admin.order_detail.confirm_cancel_payment' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
+
+<!-- Diálogo: reembolsar pago -->
+<m-dialog
+  [(visible)]="refundPaymentDialogVisible"
+  [header]="'admin.order_detail.refund_payment_title' | translate"
+  [closeable]="true"
+>
+  <p class="order-detail__dialog-body">
+    {{ 'admin.order_detail.refund_payment_msg' | translate }}
+    #{{ refundPaymentTarget()?.id }}
+    ({{ refundPaymentTarget()?.amount | number:'1.2-2' }} €)?
+  </p>
+  <div class="order-detail__dialog-footer">
+    <m-button variant="outlined" severity="secondary" (click)="refundPaymentDialogVisible.set(false)">
+      {{ 'admin.order_detail.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="warn" [disabled]="saving()" (click)="confirmRefundPayment()">
+      {{ 'admin.order_detail.confirm_refund' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
+
