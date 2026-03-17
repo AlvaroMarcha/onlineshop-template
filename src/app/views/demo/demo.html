@@ -58,7 +58,7 @@
       <m-card header="Layout" variant="flat" padding="sm">
         <div class="demo-row">
           <m-badge value="m-fieldset" severity="secondary" />
-          <m-badge value="m-panel" severity="secondary" />
+          <m-badge value="m-panel" severity="success" />
           <m-badge value="m-tabs" severity="success" />
           <m-badge value="m-accordion" severity="success" />
           <m-badge value="m-toolbar" severity="secondary" />
@@ -369,6 +369,63 @@
   <section class="demo-section">
     <h2 class="demo-section-title">m-accordion &middot; Multiple paneles abiertos</h2>
     <m-accordion [items]="accordionMultiple" [multiple]="true" />
+  </section>
+
+  <m-divider label="m-panel" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-panel &middot; Severidades</h2>
+    <div style="display:flex; flex-direction:column; gap:1rem">
+      <m-panel header="Panel por defecto" icon="lucide:layout-panel-top">
+        Contenido informativo sin severidad concreta.
+      </m-panel>
+      <m-panel header="Informaci&oacute;n" severity="info" badge="Nuevo">
+        Este panel destaca informaci&oacute;n relevante con acento azul.
+      </m-panel>
+      <m-panel header="&Eacute;xito" severity="success">
+        La operaci&oacute;n se ha completado correctamente.
+      </m-panel>
+      <m-panel header="Advertencia" severity="warn">
+        Revisa los datos antes de continuar.
+      </m-panel>
+      <m-panel header="Error" severity="danger">
+        Se ha producido un error. Contacta con soporte.
+      </m-panel>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-panel &middot; Filled + Badge</h2>
+    <div style="display:flex; flex-direction:column; gap:1rem">
+      <m-panel header="Pedido en tr&aacute;nsito" severity="info" [filled]="true" badge="3 art&iacute;culos">
+        Tu pedido #12345 est&aacute; en camino y llegar&aacute; en 24-48h.
+      </m-panel>
+      <m-panel header="Pago completado" severity="success" [filled]="true" badge="Verificado">
+        El pago de 149,99&euro; ha sido procesado correctamente.
+      </m-panel>
+      <m-panel header="Stock bajo" severity="warn" [filled]="true" badge="2 restantes">
+        Este producto tiene pocas unidades disponibles.
+      </m-panel>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-panel &middot; Colapsable</h2>
+    <div style="display:flex; flex-direction:column; gap:1rem">
+      <m-panel header="Detalles del pedido" severity="info" [collapsible]="true">
+        <p>N&uacute;mero de pedido: #98765</p>
+        <p>Fecha: 17 de marzo de 2026</p>
+        <p>Estado: En preparaci&oacute;n</p>
+      </m-panel>
+      <m-panel header="Pol&iacute;tica de devoluci&oacute;n" [collapsible]="true" [collapsed]="true">
+        Tienes 30 d&iacute;as para devolver cualquier producto en perfecto estado.
+        Inicia el proceso desde tu perfil de cliente.
+      </m-panel>
+      <m-panel header="Aviso importante" severity="warn" [filled]="true" [collapsible]="true" badge="Leer">
+        Esta acci&oacute;n es irreversible. Aseg&uacute;rate de haber revisado
+        todos los datos antes de confirmar.
+      </m-panel>
+    </div>
   </section>
 
   <m-divider label="Chips y Tooltips" />
