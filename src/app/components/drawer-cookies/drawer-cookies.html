@@ -1,72 +1,95 @@
-<!-- <div class="card flex justify-center">
-  <m-button
-    (onClick)="showDialog()"
-    label="Mostrar aviso de cookies"
-    icon="lucide:settings"
-  />
-</div> -->
+@if (_bannerVisible()) {
+  <div class="cookies-banner" role="dialog" [attr.aria-label]="'cookies.banner_title' | translate">
+    <div class="cookies-banner__inner">
+      <div class="cookies-banner__info">
+        <m-icon icon="lucide:cookie" size="20" class="cookies-banner__icon" />
+        <div class="cookies-banner__text">
+          <p class="cookies-banner__title">{{ 'cookies.banner_title' | translate }}</p>
+          <p class="cookies-banner__desc">
+            {{ 'cookies.banner_desc' | translate }}
+            <button class="cookies-banner__link" (click)="router.navigate(['/cookies'])">
+              {{ 'cookies.policy_link' | translate }}
+            </button>
+          </p>
+        </div>
+      </div>
+      <div class="cookies-banner__actions">
+        <m-button
+          [label]="'cookies.btn_reject' | translate"
+          variant="text"
+          (onClick)="rejectAll()"
+        />
+        <m-button
+          [label]="'cookies.btn_customize' | translate"
+          (onClick)="openSettings()"
+        />
+        <m-button
+          [label]="'cookies.btn_accept' | translate"
+          severity="primary"
+          (onClick)="acceptAll()"
+        />
+      </div>
+    </div>
+  </div>
+}
 
 <m-dialog
-  header="Preferencias de cookies"
-  [(visible)]="visible"
-  [closeable]="false"
-  size="lg"
+  [header]="'cookies.settings_title' | translate"
+  [(visible)]="_settingsOpen"
+  size="md"
 >
-  <div class="mb-4">
-    <p class="text-lg font-semibold mb-2">🍪 Usamos cookies</p>
-    <p class="text-sm text-color-secondary">
-      Este sitio web utiliza cookies propias y de terceros para garantizar el
-      correcto funcionamiento de la página, personalizar tu experiencia,
-      analizar el tráfico y ofrecer contenidos adaptados a tus intereses.
-    </p>
-  </div>
-  <div class="mb-4">
-    <m-button
-      (onClick)="router.navigate(['/cookies'])"
-      label="Ir a nuestra política de cookies"
-      [link]="true"
-    />
-  </div>
-
-  <m-divider />
-
-  <!-- Sección de configuración -->
-  <div class="flex flex-col gap-3 mt-3">
-    <div>
-      <strong>✅ Cookies necesarias (siempre activas)</strong>
-      <p class="text-sm text-color-secondary">
-        Estas cookies son esenciales y no se pueden desactivar.
-      </p>
+  <div class="cookies-settings">
+    <!-- Necesarias (siempre activas) -->
+    <div class="cookies-settings__category">
+      <div class="cookies-settings__category-header">
+        <div class="cookies-settings__category-info">
+          <span class="cookies-settings__category-title">{{ 'cookies.necessary_title' | translate }}</span>
+          <span class="cookies-settings__category-desc">{{ 'cookies.necessary_desc' | translate }}</span>
+        </div>
+        <m-chip [label]="'cookies.always_on' | translate" severity="success" size="sm" />
+      </div>
     </div>
 
-    <m-checkbox
-      [(ngModel)]="preferences.pref"
-      label="Cookies de preferencias"
-    />
-    <small class="text-color-secondary">
-      Recuerdan tus preferencias como idioma o región.
-    </small>
+    <!-- Preferencias -->
+    <div class="cookies-settings__category">
+      <div class="cookies-settings__category-header">
+        <div class="cookies-settings__category-info">
+          <span class="cookies-settings__category-title">{{ 'cookies.pref_title' | translate }}</span>
+          <span class="cookies-settings__category-desc">{{ 'cookies.pref_desc' | translate }}</span>
+        </div>
+        <m-toggle-switch [(ngModel)]="preferences.pref" />
+      </div>
+    </div>
 
-    <m-checkbox
-      [(ngModel)]="preferences.stats"
-      label="Cookies de estadísticas"
-    />
-    <small class="text-color-secondary">
-      Ayudan a mejorar el sitio mediante datos anónimos.
-    </small>
+    <!-- Estadísticas -->
+    <div class="cookies-settings__category">
+      <div class="cookies-settings__category-header">
+        <div class="cookies-settings__category-info">
+          <span class="cookies-settings__category-title">{{ 'cookies.stats_title' | translate }}</span>
+          <span class="cookies-settings__category-desc">{{ 'cookies.stats_desc' | translate }}</span>
+        </div>
+        <m-toggle-switch [(ngModel)]="preferences.stats" />
+      </div>
+    </div>
 
-    <m-checkbox
-      [(ngModel)]="preferences.marketing"
-      label="Cookies de marketing"
-    />
-    <small class="text-color-secondary">
-      Usadas para mostrar anuncios personalizados.
-    </small>
+    <!-- Marketing -->
+    <div class="cookies-settings__category">
+      <div class="cookies-settings__category-header">
+        <div class="cookies-settings__category-info">
+          <span class="cookies-settings__category-title">{{ 'cookies.marketing_title' | translate }}</span>
+          <span class="cookies-settings__category-desc">{{ 'cookies.marketing_desc' | translate }}</span>
+        </div>
+        <m-toggle-switch [(ngModel)]="preferences.marketing" />
+      </div>
+    </div>
   </div>
 
-  <div class="flex justify-end gap-2 mt-4">
-    <m-button label="Rechazar todas" (onClick)="rejectAll()" />
-    <m-button label="Aceptar todas" (onClick)="acceptAll()" severity="primary" />
-    <m-button label="Guardar preferencias" (onClick)="savePreferences()" severity="success" />
+  <div class="cookies-settings__footer">
+    <m-button
+      [label]="'cookies.btn_save' | translate"
+      severity="primary"
+      (onClick)="savePreferences()"
+    />
   </div>
 </m-dialog>
+

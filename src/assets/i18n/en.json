@@ -349,5 +349,24 @@
     "confirm_delete_warning": "This action cannot be undone.",
     "btn_cancel": "Cancel",
     "btn_delete": "Delete"
+  },
+  "cookies": {
+    "banner_title": "We use cookies",
+    "banner_desc": "This site uses cookies to enhance your experience.",
+    "policy_link": "Cookie policy",
+    "btn_reject": "Reject all",
+    "btn_customize": "Customize",
+    "btn_accept": "Accept all",
+    "btn_save": "Save preferences",
+    "settings_title": "Cookie preferences",
+    "necessary_title": "Necessary cookies",
+    "necessary_desc": "Essential for the site to work properly. Cannot be disabled.",
+    "pref_title": "Preference cookies",
+    "pref_desc": "Remember your settings like language or region.",
+    "stats_title": "Analytics cookies",
+    "stats_desc": "Help improve the site through anonymous data.",
+    "marketing_title": "Marketing cookies",
+    "marketing_desc": "Used to show personalized advertisements.",
+    "always_on": "Always active"
   }
 }

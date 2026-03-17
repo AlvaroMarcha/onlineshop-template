@@ -398,5 +398,24 @@
     "confirm_delete_warning": "Esta acción no se puede deshacer.",
     "btn_cancel": "Cancelar",
     "btn_delete": "Eliminar"
+  },
+  "cookies": {
+    "banner_title": "Usamos cookies",
+    "banner_desc": "Este sitio usa cookies para mejorar tu experiencia.",
+    "policy_link": "Política de cookies",
+    "btn_reject": "Rechazar todo",
+    "btn_customize": "Personalizar",
+    "btn_accept": "Aceptar todo",
+    "btn_save": "Guardar preferencias",
+    "settings_title": "Preferencias de cookies",
+    "necessary_title": "Cookies necesarias",
+    "necessary_desc": "Esenciales para el funcionamiento del sitio. No se pueden desactivar.",
+    "pref_title": "Cookies de preferencias",
+    "pref_desc": "Recuerdan tus ajustes como idioma o región.",
+    "stats_title": "Cookies de estadísticas",
+    "stats_desc": "Ayudan a mejorar el sitio mediante datos anónimos.",
+    "marketing_title": "Cookies de marketing",
+    "marketing_desc": "Se usan para mostrar anuncios personalizados.",
+    "always_on": "Siempre activas"
   }
 }

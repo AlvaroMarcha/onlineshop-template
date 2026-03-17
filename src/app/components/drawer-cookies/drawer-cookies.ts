@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { MDialog } from '../marcha/m-dialog/m-dialog';
-import { MDivider } from '../marcha/m-divider/m-divider';
-import { MCheckbox } from '../marcha/m-checkbox/m-checkbox';
 import { MButton } from '../marcha/m-button/m-button';
+import { MIcon } from '../marcha/m-icon/m-icon';
+import { MChip } from '../marcha/m-chip/m-chip';
+import { MToggleSwitch } from '../marcha/m-toggle-switch/m-toggle-switch';
 
 const COOKIE_VERSION = '1.0';
+
 @Component({
   selector: 'app-drawer-cookies',
-  imports: [FormsModule, MDialog, MDivider, MCheckbox, MButton],
+  standalone: true,
+  imports: [FormsModule, TranslateModule, MDialog, MButton, MIcon, MChip, MToggleSwitch],
   templateUrl: './drawer-cookies.html',
+  styleUrl: './drawer-cookies.css',
 })
 export class DrawerCookies {
   constructor(public router: Router) {
@@ -19,13 +24,12 @@ export class DrawerCookies {
 
     if (saved && savedVersion === COOKIE_VERSION) {
       this.preferences = JSON.parse(saved);
-      this.visible = false;
-    } else {
-      this.visible = true;
+      this._bannerVisible.set(false);
     }
   }
 
-  visible: boolean = true;
+  readonly _bannerVisible = signal(true);
+  readonly _settingsOpen  = signal(false);
 
   preferences = {
     pref: true,
@@ -33,52 +37,37 @@ export class DrawerCookies {
     marketing: false,
   };
 
-  showDialog() {
-    this.visible = true;
+  openSettings(): void {
+    this._settingsOpen.set(true);
   }
 
-  acceptAll() {
-    this.preferences = {
-      pref: true,
-      stats: true,
-      marketing: true,
-    };
-    this.savePreferences();
+  acceptAll(): void {
+    this.preferences = { pref: true, stats: true, marketing: true };
+    this._save();
   }
 
-  rejectAll() {
-    this.preferences = {
-      pref: false,
-      stats: false,
-      marketing: false,
-    };
-    this.savePreferences();
+  rejectAll(): void {
+    this.preferences = { pref: false, stats: false, marketing: false };
+    this._save();
   }
 
-  savePreferences() {
-    this.visible = false;
+  savePreferences(): void {
+    this._settingsOpen.set(false);
+    this._save();
+  }
 
-    //Save cookies
-    localStorage.setItem(
-      'cookie-preferences',
-      JSON.stringify(this.preferences)
-    );
+  /** Llamado desde fuera (ej: footer) para volver a mostrar el banner */
+  showBanner(): void {
+    this._bannerVisible.set(true);
+  }
 
+  private _save(): void {
+    this._bannerVisible.set(false);
+    localStorage.setItem('cookie-preferences', JSON.stringify(this.preferences));
     localStorage.setItem('cookie-version', COOKIE_VERSION);
-
-    //Save during 1 year
     document.cookie = `cookiePrefs=${encodeURIComponent(
       JSON.stringify(this.preferences)
     )}; path=/; max-age=31536000`;
-
-    // TODO REVISAR!!
-    // Upload script for google analytics
-    if (this.preferences.stats) {
-      // this.loadAnalytics();
-    }
-    //Upload script for marketing
-    if (this.preferences.marketing) {
-      // this.loadMarketing();
-    }
   }
 }
+
