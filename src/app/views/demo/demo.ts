@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import {
   MButton, MCard, MIcon, MDivider,
   MAvatar, MBadge, MOverlayBadge,
@@ -31,7 +31,7 @@ import {
   selector: 'app-demo',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
+    ReactiveFormsModule, FormsModule,
     MButton, MCard, MIcon, MDivider,
     MAvatar, MBadge, MOverlayBadge,
     MInput, MPassword, MTextarea,

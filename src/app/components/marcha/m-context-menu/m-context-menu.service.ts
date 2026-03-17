@@ -220,8 +220,6 @@ export class MContextMenuService {
    * pero aquí necesitamos DOM puro sin Angular components.
    */
   private _iconSvg(icon: string): string {
-    // Iconify con data attribute — el script de iconify (si está cargado) lo renderiza.
-    // Fallback: cuadrado vacío. El tamaño lo controla CSS.
-    return `<span class="m-ctx__icon iconify" data-icon="${icon}" aria-hidden="true"></span>`;
+    return `<iconify-icon icon="${icon}" width="1em" height="1em" aria-hidden="true" style="display:inline-flex;align-items:center"></iconify-icon>`;
   }
 }

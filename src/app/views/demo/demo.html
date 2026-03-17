@@ -435,7 +435,7 @@
     <div class="demo-row">
       <m-context-menu [items]="ctxListItems" variant="list" trigger="click"
         (itemClick)="notify.info('Context Menu', $event.label ?? $event.id)">
-        <m-button label="Abrir men&uacute;" icon="lucide:menu" variant="outline" />
+        <m-button label="Abrir men&uacute;" icon="lucide:menu" variant="outlined" />
       </m-context-menu>
     </div>
   </section>
@@ -452,7 +452,7 @@
           <span style="flex:1; font-size:0.875rem">Producto #{{i}}</span>
           <m-context-menu [items]="ctxMiniItems" variant="mini" trigger="click"
             (itemClick)="notify.info('Mini', $event.label ?? $event.id)">
-            <m-button icon="lucide:more-horizontal" variant="ghost" [attr.aria-label]="'Acciones'" />
+            <m-button icon="lucide:more-horizontal" variant="text" [attr.aria-label]="'Acciones'" />
           </m-context-menu>
         </m-card>
       }
@@ -464,7 +464,7 @@
     <div class="demo-row">
       <m-context-menu [items]="ctxGridItems" variant="grid" trigger="click"
         (itemClick)="notify.info('Grid', $event.label ?? $event.id)">
-        <m-button label="M&aacute;s opciones" icon="lucide:grid-2x2" variant="outline" />
+        <m-button label="M&aacute;s opciones" icon="lucide:grid-2x2" variant="outlined" />
       </m-context-menu>
     </div>
   </section>
