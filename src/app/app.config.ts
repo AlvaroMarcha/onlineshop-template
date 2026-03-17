@@ -28,6 +28,8 @@ import { AuthEffects } from './store/auth/auth.effects';
 import { ProductEffects } from './store/products/products.effects';
 import { productReducer } from './store/products/products.reducer';
 import { productCartReducer } from './store/cart/cart.reducer';
+import { dashboardReducer } from './store/admin/dashboard/dashboard.reducer';
+import { DashboardEffects } from './store/admin/dashboard/dashboard.effects';
 
 export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -40,8 +42,9 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
       products: productReducer,
       cart: productCartReducer,
+      dashboard: dashboardReducer,
     }),
-    provideEffects([AuthEffects, ProductEffects]),
+    provideEffects([AuthEffects, ProductEffects, DashboardEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: isDevMode() }),
 
     // Angular core
