@@ -36,6 +36,8 @@ import { adminCatalogReducer } from './store/admin/catalog/admin-catalog.reducer
 import { AdminCatalogEffects } from './store/admin/catalog/admin-catalog.effects';
 import { adminOrderReducer }   from './store/admin/orders/admin-order.reducer';
 import { AdminOrderEffects }   from './store/admin/orders/admin-order.effects';
+import { adminUsersReducer }   from './store/admin/users/admin-users.reducer';
+import { AdminUsersEffects }   from './store/admin/users/admin-users.effects';
 
 export function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -51,9 +53,10 @@ export const appConfig: ApplicationConfig = {
       dashboard: dashboardReducer,
       adminProducts: adminProductsReducer,
       catalog: adminCatalogReducer,
-      orders:  adminOrderReducer,
+      orders:     adminOrderReducer,
+      adminUsers: adminUsersReducer,
     }),
-    provideEffects([AuthEffects, ProductEffects, DashboardEffects, AdminProductEffects, AdminCatalogEffects, AdminOrderEffects]),
+    provideEffects([AuthEffects, ProductEffects, DashboardEffects, AdminProductEffects, AdminCatalogEffects, AdminOrderEffects, AdminUsersEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: isDevMode() }),
 
     // Angular core
