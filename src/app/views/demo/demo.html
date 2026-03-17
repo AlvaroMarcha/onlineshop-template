@@ -50,7 +50,7 @@
       <m-card header="Navegacion" variant="flat" padding="sm">
         <div class="demo-row">
           <m-badge value="m-menubar" severity="success" />
-          <m-badge value="m-context-menu" severity="secondary" />
+          <m-badge value="m-context-menu" severity="success" />
           <m-badge value="m-toggle-button" severity="success" />
           <m-badge value="m-panel-menu" severity="secondary" />
         </div>
@@ -425,6 +425,78 @@
         Esta acci&oacute;n es irreversible. Aseg&uacute;rate de haber revisado
         todos los datos antes de confirmar.
       </m-panel>
+    </div>
+  </section>
+
+  <m-divider label="m-context-menu" />
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-context-menu &middot; Variante list (click)</h2>
+    <div class="demo-row">
+      <m-context-menu [items]="ctxListItems" variant="list" trigger="click"
+        (itemClick)="notify.info('Context Menu', $event.label ?? $event.id)">
+        <m-button label="Abrir men&uacute;" icon="lucide:menu" variant="outline" />
+      </m-context-menu>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-context-menu &middot; Variante mini (click)</h2>
+    <p class="demo-subtitle" style="margin-bottom:1rem">
+      Solo iconos con tooltip nativo. Ideal para acciones inline en tablas y cards.
+    </p>
+    <div class="demo-row" style="gap:2rem; flex-wrap:wrap; align-items:center">
+      @for (i of [1,2,3]; track i) {
+        <m-card style="padding:1rem; display:flex; align-items:center; gap:1rem">
+          <m-avatar label="Producto {{i}}" shape="square" />
+          <span style="flex:1; font-size:0.875rem">Producto #{{i}}</span>
+          <m-context-menu [items]="ctxMiniItems" variant="mini" trigger="click"
+            (itemClick)="notify.info('Mini', $event.label ?? $event.id)">
+            <m-button icon="lucide:more-horizontal" variant="ghost" [attr.aria-label]="'Acciones'" />
+          </m-context-menu>
+        </m-card>
+      }
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-context-menu &middot; Variante grid (click)</h2>
+    <div class="demo-row">
+      <m-context-menu [items]="ctxGridItems" variant="grid" trigger="click"
+        (itemClick)="notify.info('Grid', $event.label ?? $event.id)">
+        <m-button label="M&aacute;s opciones" icon="lucide:grid-2x2" variant="outline" />
+      </m-context-menu>
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2 class="demo-section-title">m-context-menu &middot; Modo admin (directiva)</h2>
+    <p class="demo-subtitle" style="margin-bottom:1rem">
+      La directiva <code>[mContextMenu]</code> funciona sobre cualquier elemento existente.
+      Activa el modo admin y haz clic derecho sobre las cards.
+    </p>
+    <div class="demo-row" style="margin-bottom:1rem; align-items:center; gap:0.75rem">
+      <m-toggle-switch [ngModel]="ctxAdminMode()" (ngModelChange)="ctxAdminMode.set($event)" />
+      <span style="font-size:0.875rem; color:var(--m-text-muted)">
+        Modo admin: {{ ctxAdminMode() ? 'ACTIVO — clic derecho sobre las cards' : 'inactivo' }}
+      </span>
+    </div>
+    <div class="demo-row" style="flex-wrap:wrap">
+      @for (i of [1,2,3,4]; track i) {
+        <m-card
+          header="Producto #{{i}}"
+          variant="flat"
+          style="cursor: context-menu; user-select:none"
+          [mContextMenu]="ctxListItems"
+          [mContextMenuEnabled]="ctxAdminMode()"
+          mContextMenuTrigger="contextmenu"
+          (mContextMenuSelect)="notify.success('Admin', $event.label ?? $event.id)"
+        >
+          <p style="font-size:0.8125rem;color:var(--m-text-muted)">
+            Producto de ejemplo #{{i}}
+          </p>
+        </m-card>
+      }
     </div>
   </section>
 

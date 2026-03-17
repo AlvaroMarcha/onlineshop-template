@@ -21,9 +21,10 @@ import {
   MComposer, MComposerSubmit,
   MPanel,
   MToolbar,
+  MContextMenu, MContextMenuDirective,
   MNotificationService,
   MDrawerPosition, MTabItem, MAccordionItem, MDateRange, MTableColumn, MTableRow, MTableAction,
-  MSortableItem, MMenubarItem, MDataviewSortOption, MToolbarItem,
+  MSortableItem, MMenubarItem, MDataviewSortOption, MToolbarItem, MContextMenuItem,
 } from '../../components/marcha';
 
 @Component({
@@ -50,6 +51,7 @@ import {
     MComposer,
     MPanel,
     MToolbar,
+    MContextMenu, MContextMenuDirective,
   ],
   templateUrl: './demo.html',
   styleUrl: './demo.css',
@@ -58,6 +60,34 @@ export class Demo {
   readonly notify = inject(MNotificationService);
 
   loading = false;
+
+  // Context Menu
+  readonly ctxAdminMode = signal(false);
+
+  readonly ctxListItems: MContextMenuItem[] = [
+    { id: 'edit',    label: 'Editar',      icon: 'lucide:pencil',        shortcut: 'E' },
+    { id: 'view',    label: 'Ver detalle', icon: 'lucide:eye' },
+    { id: 'dup',     label: 'Duplicar',   icon: 'lucide:copy',          shortcut: 'D' },
+    { id: 'divider', divider: true },
+    { id: 'delete',  label: 'Eliminar',   icon: 'lucide:trash-2',       severity: 'danger', shortcut: '⌦' },
+  ];
+
+  readonly ctxMiniItems: MContextMenuItem[] = [
+    { id: 'edit',    icon: 'lucide:pencil',   label: 'Editar' },
+    { id: 'view',    icon: 'lucide:eye',      label: 'Ver' },
+    { id: 'share',   icon: 'lucide:share-2',  label: 'Compartir' },
+    { id: 'sep',     divider: true },
+    { id: 'delete',  icon: 'lucide:trash-2',  label: 'Eliminar', severity: 'danger' },
+  ];
+
+  readonly ctxGridItems: MContextMenuItem[] = [
+    { id: 'edit',    icon: 'lucide:pencil',        label: 'Editar' },
+    { id: 'view',    icon: 'lucide:eye',           label: 'Ver' },
+    { id: 'dup',     icon: 'lucide:copy',          label: 'Duplicar' },
+    { id: 'share',   icon: 'lucide:share-2',       label: 'Compartir' },
+    { id: 'fav',     icon: 'lucide:star',          label: 'Favorito' },
+    { id: 'delete',  icon: 'lucide:trash-2',       label: 'Eliminar', severity: 'danger' },
+  ];
 
   // Toolbar
   readonly toolbarDockedCollapsed = signal(true);

@@ -116,3 +116,9 @@ export type { MRatingSize } from './m-rating/m-rating';
 // Composer
 export { MComposer } from './m-composer/m-composer';
 export type { MComposerMode, MComposerSubmit } from './m-composer/m-composer';
+
+// Menú contextual
+export { MContextMenu } from './m-context-menu/m-context-menu';
+export { MContextMenuDirective } from './m-context-menu/m-context-menu.directive';
+export { MContextMenuService } from './m-context-menu/m-context-menu.service';
+export type { MContextMenuItem, MContextMenuVariant, MContextMenuTrigger, MContextMenuPlacement, MContextMenuSeverity } from './m-context-menu/m-context-menu';
