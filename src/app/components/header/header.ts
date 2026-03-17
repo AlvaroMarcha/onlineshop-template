@@ -129,15 +129,7 @@ export class Header implements OnInit {
     // Marcha UI menubar items
     this.menubarItems = [
       { label: t['header.home'], icon: 'lucide:home' },
-      {
-        label: t['header.shop'],
-        icon: 'lucide:shopping-bag',
-        items: [
-          { label: t['header.cat1'], icon: 'lucide:tag' },
-          { label: t['header.cat2'], icon: 'lucide:tag' },
-          { label: t['header.cat3'], icon: 'lucide:tag' },
-        ],
-      },
+      { label: t['header.shop'], icon: 'lucide:shopping-bag' },
       { label: 'Galería', icon: 'lucide:images' },
       { label: t['header.contact'], icon: 'lucide:mail' },
       { label: t['header.about'], icon: 'lucide:info' },

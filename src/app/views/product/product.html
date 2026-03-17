@@ -84,12 +84,12 @@
 
         <div class="info-panel__rating">
           <m-rating
-            [value]="p.rating"
+            [value]="displayRating()"
             [readonly]="true"
             size="sm"
           />
-          <span class="rating-score">{{ p.rating | number:'1.1-1' }}</span>
-          <span class="rating-count">({{ p.ratingCount }} {{ 'product.reviews' | translate }})</span>
+          <span class="rating-score">{{ displayRating() | number:'1.1-1' }}</span>
+          <span class="rating-count">({{ displayRatingCount() }} {{ 'product.reviews' | translate }})</span>
         </div>
 
         <m-divider />
@@ -170,10 +170,18 @@
     </div>
 
     <!-- ── Reviews ──────────────────────────────────────────────────── -->
-    <app-product-reviews
-      [reviews]="p.reviews ?? []"
-      [currentUser]="currentUsername()"
-    />
+    <section class="product-reviews-section">
+      <div class="product-reviews-section__header">
+        <m-icon icon="lucide:message-square" size="1.1rem" />
+        <h2 class="product-reviews-section__title">{{ 'product.reviews_title' | translate }}</h2>
+      </div>
+      <m-divider />
+      <app-product-reviews
+        [reviews]="p.reviews ?? []"
+        [currentUser]="currentUser()"
+        (ratingChange)="onRatingChange($event)"
+      />
+    </section>
 
   } @else {
 

@@ -29,12 +29,22 @@ export interface SizesItems {
   code: string;
 }
 
+export interface ProductReviewUser {
+  userId: number;
+  name: string;
+  surname: string;
+}
+
 export interface ProductReviewsItem {
-  user: string;
-  avatar: string;
-  date: Date | string;
-  review: string;
+  id: number;
+  productId: number;
+  user: ProductReviewUser;
   rating: number;
+  title: string;
+  comment: string;
+  likes: number;
+  dislikes: number;
+  active: boolean;
 }
 
 export interface ImgItem {

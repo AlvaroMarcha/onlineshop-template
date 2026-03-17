@@ -417,3 +417,22 @@
   .pricing__main,
   .pricing__discount { font-size: 1.6rem; }
 }
+/* ─── Reviews section ────────────────────────────────────────────── */
+.product-reviews-section {
+  margin-top: 3rem;
+}
+
+.product-reviews-section__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  color: var(--m-text-primary);
+}
+
+.product-reviews-section__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--m-text-primary);
+}

@@ -303,7 +303,7 @@
     <m-dialog [(visible)]="showDialog" header="Confirmar accion">
       <p>Â¿Estas seguro de que deseas continuar? Esta accion no se puede deshacer.</p>
       <div style="display: flex; gap: .75rem; margin-top: 1.5rem; justify-content: flex-end">
-        <m-button label="Cancelar" severity="secondary" variant="outlined" (onClick)="showDialog.set(false)" />
+        <m-button label="Cancelar" severity="danger" variant="outlined" (onClick)="showDialog.set(false)" />
         <m-button label="Confirmar" severity="danger" (onClick)="showDialog.set(false)" />
       </div>
     </m-dialog>

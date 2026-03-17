@@ -330,16 +330,24 @@
     "new_password_placeholder": "Enter your new password",
     "confirm_new_password": "Confirm new password",
     "confirm_new_password_placeholder": "Confirm your new password",
-    "password_changed_success": "Password changed successfully",
-    "photo_hint": "Tap or drag a photo"
+    "password_changed_success": "Password changed successfully"
   },
   "product": {
     "reviews": "reviews",
+    "reviews_title": "Reviews",
+    "review_you": "You",
     "tax_included": "VAT included",
     "saving": "You save",
     "units": "units available",
     "quantity": "Quantity",
     "featured": "Featured",
-    "digital": "Digital product"
+    "digital": "Digital product",
+    "you": "You"
+  },
+  "common": {
+    "confirm_delete_title": "Confirm deletion",
+    "confirm_delete_warning": "This action cannot be undone.",
+    "btn_cancel": "Cancel",
+    "btn_delete": "Delete"
   }
 }

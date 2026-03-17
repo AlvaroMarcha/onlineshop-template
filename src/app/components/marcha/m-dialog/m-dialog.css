@@ -63,10 +63,18 @@
   border-radius: var(--m-radius-sm);
   color: var(--m-danger);
   transition: background .15s, color .15s;
+  /* Necesario para que el ripple quede confinado dentro del botón */
+  position: relative;
+  overflow: hidden;
 }
 .m-dialog-close:hover {
   background: rgba(239, 68, 68, 0.12);
   color: var(--m-danger);
+}
+/* Asegurar que el icono quede por encima del ripple */
+.m-dialog-close m-icon {
+  position: relative;
+  z-index: 1;
 }
 
 .m-dialog-content {
