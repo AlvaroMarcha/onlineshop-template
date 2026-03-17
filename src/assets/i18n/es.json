@@ -501,6 +501,30 @@
       "save": "Guardar cambios",
       "create": "Crear producto",
       "cancel": "Cancelar"
+    },
+    "categories": {
+      "title": "Categorías",
+      "items": "categorías",
+      "new": "Nueva categoría",
+      "search_placeholder": "Buscar por nombre o slug...",
+      "empty": "No se encontraron categorías",
+      "subcategories_of": "Subcategorías de",
+      "subcategories_empty": "Sin subcategorías",
+      "new_subcategory": "Nueva subcategoría",
+      "dialog_create_title": "Nueva categoría",
+      "dialog_edit_title": "Editar categoría",
+      "subdialog_create_title": "Nueva subcategoría",
+      "subdialog_edit_title": "Editar subcategoría",
+      "field_name": "Nombre",
+      "field_slug": "Slug (URL)",
+      "create_btn": "Crear",
+      "save_btn": "Guardar cambios",
+      "cancel": "Cancelar",
+      "delete_title": "Eliminar categoría",
+      "delete_msg": "¿Estás seguro de que deseas eliminar ",
+      "delete_btn": "Eliminar",
+      "delete_sub_title": "Eliminar subcategoría",
+      "delete_sub_msg": "¿Estás seguro de que deseas eliminar "
     }
   }
 }

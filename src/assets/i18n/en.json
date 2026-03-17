@@ -452,6 +452,30 @@
       "save": "Save changes",
       "create": "Create product",
       "cancel": "Cancel"
+    },
+    "categories": {
+      "title": "Categories",
+      "items": "categories",
+      "new": "New category",
+      "search_placeholder": "Search by name or slug...",
+      "empty": "No categories found",
+      "subcategories_of": "Subcategories of",
+      "subcategories_empty": "No subcategories",
+      "new_subcategory": "New subcategory",
+      "dialog_create_title": "New category",
+      "dialog_edit_title": "Edit category",
+      "subdialog_create_title": "New subcategory",
+      "subdialog_edit_title": "Edit subcategory",
+      "field_name": "Name",
+      "field_slug": "Slug (URL)",
+      "create_btn": "Create",
+      "save_btn": "Save changes",
+      "cancel": "Cancel",
+      "delete_title": "Delete category",
+      "delete_msg": "Are you sure you want to delete ",
+      "delete_btn": "Delete",
+      "delete_sub_title": "Delete subcategory",
+      "delete_sub_msg": "Are you sure you want to delete "
     }
   }
 }

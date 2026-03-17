@@ -1,0 +1,205 @@
+<section class="categories-admin">
+
+  <!-- Cabecera -->
+  <div class="categories-admin__header">
+    <div class="categories-admin__title-block">
+      <h1 class="categories-admin__title">{{ 'admin.categories.title' | translate }}</h1>
+      <span class="categories-admin__count">{{ categories().length }} {{ 'admin.categories.items' | translate }}</span>
+    </div>
+    <m-button
+      icon="add"
+      iconPos="left"
+      variant="filled"
+      severity="primary"
+      (click)="openCategoryCreateDialog()"
+    >
+      {{ 'admin.categories.new' | translate }}
+    </m-button>
+  </div>
+
+  <!-- Filtro rápido -->
+  <m-card variant="solid" class="categories-admin__filters">
+    <m-input
+      [placeholder]="'admin.categories.search_placeholder' | translate"
+      icon="search"
+      iconPos="left"
+      size="small"
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      class="categories-admin__search"
+    />
+  </m-card>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="categories-admin__error">
+      <m-icon name="error_outline" />
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  <!-- Tabla de categorías -->
+  <m-card variant="solid" class="categories-admin__table-card">
+    <m-table
+      [columns]="categoryColumns"
+      [data]="categories()"
+      [actions]="categoryActions"
+      [loading]="loading()"
+      [emptyMessage]="'admin.categories.empty' | translate"
+      trackByField="id"
+      variant="default"
+      (actionClick)="onCategoryAction($event)"
+    />
+  </m-card>
+
+  <!-- Panel de subcategorías -->
+  @if (selectedCategory()) {
+    <m-card variant="solid" class="categories-admin__subcategories">
+      <div class="categories-admin__sub-header">
+        <div class="categories-admin__sub-title-block">
+          <m-icon name="category" class="categories-admin__sub-icon" />
+          <h2 class="categories-admin__sub-title">
+            {{ 'admin.categories.subcategories_of' | translate }} <strong>{{ selectedCategory()!.name }}</strong>
+          </h2>
+        </div>
+        <div class="categories-admin__sub-actions">
+          <m-button
+            icon="add"
+            iconPos="left"
+            variant="filled"
+            severity="primary"
+            (click)="openSubcategoryCreateDialog()"
+          >
+            {{ 'admin.categories.new_subcategory' | translate }}
+          </m-button>
+          <m-button
+            icon="close"
+            variant="text"
+            severity="secondary"
+            (click)="selectedCategory.set(null)"
+          ></m-button>
+        </div>
+      </div>
+
+      <m-table
+        [columns]="subcategoryColumns"
+        [data]="subcategoryRows()"
+        [actions]="subcategoryActions"
+        [loading]="saving()"
+        [emptyMessage]="'admin.categories.subcategories_empty' | translate"
+        trackByField="id"
+        variant="default"
+        (actionClick)="onSubcategoryAction($event)"
+      />
+    </m-card>
+  }
+
+</section>
+
+<!-- ── Diálogo crear/editar categoría ─────────────────────────── -->
+<m-dialog
+  [(visible)]="categoryDialogVisible"
+  [header]="(categoryDialogMode() === 'create'
+    ? 'admin.categories.dialog_create_title'
+    : 'admin.categories.dialog_edit_title') | translate"
+  size="sm"
+>
+  <form [formGroup]="categoryForm" class="categories-admin__form" (ngSubmit)="submitCategory()">
+    <m-input
+      formControlName="name"
+      [placeholder]="'admin.categories.field_name' | translate"
+      icon="label"
+      size="small"
+    />
+    <m-input
+      formControlName="slug"
+      [placeholder]="'admin.categories.field_slug' | translate"
+      icon="link"
+      size="small"
+    />
+    <div class="categories-admin__dialog-actions">
+      <m-button type="button" variant="text" severity="secondary" (click)="categoryDialogVisible.set(false)">
+        {{ 'admin.categories.cancel' | translate }}
+      </m-button>
+      <m-button type="submit" variant="filled" severity="primary" [disabled]="categoryForm.invalid || saving()">
+        {{ (categoryDialogMode() === 'create' ? 'admin.categories.create_btn' : 'admin.categories.save_btn') | translate }}
+      </m-button>
+    </div>
+  </form>
+</m-dialog>
+
+<!-- ── Diálogo eliminar categoría ─────────────────────────────── -->
+<m-dialog
+  [(visible)]="deleteCategoryDialogVisible"
+  [header]="'admin.categories.delete_title' | translate"
+  size="sm"
+>
+  <p class="categories-admin__dialog-body">
+    {{ 'admin.categories.delete_msg' | translate }}
+    @if (deleteCategoryTarget()) {
+      <strong>{{ deleteCategoryTarget()!.name }}</strong>
+    }
+  </p>
+  <div class="categories-admin__dialog-actions">
+    <m-button variant="text" severity="secondary" (click)="deleteCategoryDialogVisible.set(false)">
+      {{ 'admin.categories.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="danger" (click)="confirmDeleteCategory()">
+      {{ 'admin.categories.delete_btn' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
+
+<!-- ── Diálogo crear/editar subcategoría ──────────────────────── -->
+<m-dialog
+  [(visible)]="subcategoryDialogVisible"
+  [header]="(subcategoryDialogMode() === 'create'
+    ? 'admin.categories.subdialog_create_title'
+    : 'admin.categories.subdialog_edit_title') | translate"
+  size="sm"
+>
+  <form [formGroup]="subcategoryForm" class="categories-admin__form" (ngSubmit)="submitSubcategory()">
+    <m-input
+      formControlName="name"
+      [placeholder]="'admin.categories.field_name' | translate"
+      icon="label"
+      size="small"
+    />
+    <m-input
+      formControlName="slug"
+      [placeholder]="'admin.categories.field_slug' | translate"
+      icon="link"
+      size="small"
+    />
+    <div class="categories-admin__dialog-actions">
+      <m-button type="button" variant="text" severity="secondary" (click)="subcategoryDialogVisible.set(false)">
+        {{ 'admin.categories.cancel' | translate }}
+      </m-button>
+      <m-button type="submit" variant="filled" severity="primary" [disabled]="subcategoryForm.invalid || saving()">
+        {{ (subcategoryDialogMode() === 'create' ? 'admin.categories.create_btn' : 'admin.categories.save_btn') | translate }}
+      </m-button>
+    </div>
+  </form>
+</m-dialog>
+
+<!-- ── Diálogo eliminar subcategoría ──────────────────────────── -->
+<m-dialog
+  [(visible)]="deleteSubcategoryDialogVisible"
+  [header]="'admin.categories.delete_sub_title' | translate"
+  size="sm"
+>
+  <p class="categories-admin__dialog-body">
+    {{ 'admin.categories.delete_sub_msg' | translate }}
+    @if (deleteSubcategoryTarget()) {
+      <strong>{{ deleteSubcategoryTarget()!.name }}</strong>
+    }
+  </p>
+  <div class="categories-admin__dialog-actions">
+    <m-button variant="text" severity="secondary" (click)="deleteSubcategoryDialogVisible.set(false)">
+      {{ 'admin.categories.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="danger" (click)="confirmDeleteSubcategory()">
+      {{ 'admin.categories.delete_btn' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
