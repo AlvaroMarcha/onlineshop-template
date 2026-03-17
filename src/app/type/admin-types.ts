@@ -506,6 +506,12 @@ export interface BannedUserResponse {
 // (GET/POST /orders/admin/all | /orders/*)
 // -----------------------------------------------
 
+/** Parámetros de búsqueda paginada de pedidos (admin) */
+export interface OrderSearchParams {
+  page: number;
+  size: number;
+}
+
 export interface OrderItemAdmin {
   id: number;
   productId: number;
