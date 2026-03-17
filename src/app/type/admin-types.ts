@@ -327,3 +327,291 @@ export interface OrderWithIssue {
   hasRefundedPayments: boolean;
   userId: number;
 }
+
+// -----------------------------------------------
+// Productos admin
+// (GET/POST/PUT/DELETE /products/*)
+// -----------------------------------------------
+
+/** Valor de un atributo (ej. "Rojo", "XL") */
+export interface ProductAttribValue {
+  id: number;
+  value: string;
+  active: boolean;
+}
+
+/** Atributo de producto (ej. "Color", "Talla") */
+export interface ProductAttrib {
+  id: number;
+  name: string;
+  active: boolean;
+  values: ProductAttribValue[];
+}
+
+/** Imagen de producto */
+export interface ProductImageAdmin {
+  id: number;
+  url: string;
+  altText: string | null;
+  isMain: boolean;
+  sortOrder: number;
+}
+
+/** Variante de producto */
+export interface ProductVariant {
+  id: number;
+  sku: string;
+  price: number | null;
+  stock: number;
+  active: boolean;
+  attributes: { attribId: number; valueId: number }[];
+}
+
+/**
+ * DTO completo de producto para el backoffice.
+ * Backend: ProductResponseDTO
+ */
+export interface ProductAdmin {
+  id: number;
+  name: string;
+  sku: string;
+  description: string;
+  price: number;
+  discountPrice: number | null;
+  taxRate: number;
+  weight: number | null;
+  isDigital: boolean;
+  isFeatured: boolean;
+  slug: string;
+  metaTitle: string | null;
+  metaDescription: string | null;
+  rating: number;
+  ratingCount: number;
+  soldCount: number;
+  stock: number;
+  lowStockThreshold: number;
+  isActive: boolean;
+  mainImageUrl: string | null;
+  images: ProductImageAdmin[];
+  categories: { id: number; name: string; slug: string }[];
+  attribs: ProductAttrib[];
+  variants: ProductVariant[];
+}
+
+/** Request para crear producto. Backend: ProductRequestDTO */
+export interface ProductCreateRequest {
+  name: string;
+  sku: string;
+  description: string;
+  price: number;
+  discountPrice: number | null;
+  taxRate: number;
+  weight: number | null;
+  isDigital: boolean;
+  isFeatured: boolean;
+  slug: string;
+  metaTitle: string | null;
+  metaDescription: string | null;
+  lowStockThreshold: number;
+  stock: number;
+  categoryIds: number[];
+}
+
+/** Request para actualizar producto (todos los campos opcionales) */
+export type ProductUpdateRequest = Partial<ProductCreateRequest>;
+
+/** Parámetros de búsqueda paginada de productos (admin) */
+export interface ProductSearchParams {
+  q?: string;
+  categoryId?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  featured?: boolean;
+  newest?: boolean;
+  includeInactive?: boolean;
+  page?: number;
+  size?: number;
+}
+
+// -----------------------------------------------
+// Categorías admin
+// (GET/POST/PUT/DELETE /categories/*)
+// -----------------------------------------------
+
+export interface SubcategoryAdmin {
+  id: number;
+  name: string;
+  slug: string;
+  active: boolean;
+}
+
+export interface CategoryAdmin {
+  id: number;
+  name: string;
+  slug: string;
+  active: boolean;
+  subcategories: SubcategoryAdmin[];
+}
+
+export interface CategoryCreateRequest {
+  name: string;
+  slug: string;
+}
+
+export interface SubcategoryCreateRequest {
+  name: string;
+  slug: string;
+  categoryId: number;
+}
+
+// -----------------------------------------------
+// Usuarios admin
+// (GET/PUT /users/*)
+// -----------------------------------------------
+
+/**
+ * DTO completo de usuario para el backoffice.
+ * Backend: AdminUserResponseDTO
+ */
+export interface UserAdmin {
+  id: number;
+  name: string;
+  surname: string;
+  username: string;
+  email: string;
+  phone: string;
+  roleName: string;
+  roleId: number;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string | null;
+  lastLogin: string | null;
+  isActive: boolean;
+  isVerified: boolean;
+  isBanned: boolean;
+  locked: boolean;
+  isDeleted: boolean;
+  sessionCount: number;
+}
+
+export interface BannedUserResponse {
+  userId: number;
+  banned: boolean;
+  bannedAt: string | null;
+  bannedReason: string | null;
+}
+
+// -----------------------------------------------
+// Pedidos admin
+// (GET/POST /orders/admin/all | /orders/*)
+// -----------------------------------------------
+
+export interface OrderItemAdmin {
+  id: number;
+  productId: number;
+  name: string;
+  sku: string;
+  price: number;
+  discountPrice: number | null;
+  quantity: number;
+  taxRate: number;
+  weight: number | null;
+  isDigital: boolean;
+  isFeatured: boolean;
+}
+
+export interface PaymentAdmin {
+  id: number;
+  orderId: number;
+  status: PaymentStatus;
+  amount: number;
+  provider: string;
+  transactionId: string | null;
+  createdAt: string;
+}
+
+export interface OrderAddressAdmin {
+  addressLine1: string;
+  addressLine2: string | null;
+  country: string;
+  city: string;
+  postalCode: string;
+}
+
+export interface OrderAdmin {
+  id: number;
+  userId: number;
+  status: OrderStatus;
+  totalAmount: number;
+  discountAmount: number;
+  couponCode: string | null;
+  paymentMethod: string;
+  createdAt: string;
+  payments: PaymentAdmin[];
+  address: OrderAddressAdmin;
+  orderItems: OrderItemAdmin[];
+}
+
+// -----------------------------------------------
+// Facturas admin
+// (GET /invoices/*)
+// -----------------------------------------------
+
+export interface InvoiceAdmin {
+  id: number;
+  invoiceNumber: string;
+  orderId: number;
+  userId: number;
+  totalAmount: number;
+  taxAmount: number;
+  createdAt: string;
+  userName: string;
+  userEmail: string;
+}
+
+// -----------------------------------------------
+// Inventario admin
+// (GET/PUT /inventory/products/{id} | /inventory/movements)
+// -----------------------------------------------
+
+export interface InventoryAdmin {
+  id: number;
+  productId: number;
+  productName: string;
+  productSku: string;
+  quantity: number;
+  reservedQuantity: number;
+  minStock: number;
+  maxStock: number;
+  incomingStock: number;
+  damagedStock: number;
+  lastRestockDate: string | null;
+  updatedAt: string;
+}
+
+export interface InventoryMovement {
+  id: number;
+  productId: number;
+  productName: string;
+  productSku: string;
+  quantity: number;
+  previousQuantity: number;
+  newQuantity: number;
+  movementType: MovementType;
+  notes: string | null;
+  createdBy: string;
+  createdAt: string;
+}
+
+export interface InventoryUpdateRequest {
+  minStock: number;
+  maxStock: number;
+  incomingStock: number;
+  damagedStock: number;
+}
+
+export interface InventoryMovementRequest {
+  quantity: number;
+  movementType: MovementType;
+  notes: string | null;
+}
