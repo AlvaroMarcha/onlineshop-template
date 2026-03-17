@@ -160,6 +160,7 @@ export class Header implements OnInit {
     if (element !== null) {
       element.classList.toggle('my-app-dark');
       this.isDarkMode = element.classList.contains('my-app-dark');
+      try { localStorage.setItem('dark-mode', String(this.isDarkMode)); } catch (e) {}
     }
   }
 

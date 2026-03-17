@@ -98,6 +98,10 @@ export type { MSortableItem } from './m-sortable/m-sortable';
 export { MDataview } from './m-dataview/m-dataview';
 export type { MDataviewLayout, MDataviewSortOption } from './m-dataview/m-dataview';
 
+// Contenedores de información
+export { MPanel } from './m-panel/m-panel';
+export type { MPanelSeverity } from './m-panel/m-panel';
+
 // Uploads
 export { MFileUpload } from './m-file-upload/m-file-upload';
 export type { MFileUploadValidationError } from './m-file-upload/m-file-upload';

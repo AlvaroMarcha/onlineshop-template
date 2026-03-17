@@ -1,0 +1,38 @@
+<section [class]="_cssClass()">
+  @if (header() || collapsible()) {
+    <div
+      class="m-panel__header"
+      [class.m-panel__header--clickable]="collapsible()"
+      (click)="toggle()"
+      [attr.role]="collapsible() ? 'button' : null"
+      [attr.aria-expanded]="collapsible() ? !collapsed() : null"
+      [attr.tabindex]="collapsible() ? 0 : null"
+      (keydown.enter)="toggle()"
+      (keydown.space)="toggle()"
+      mRipple
+    >
+      <div class="m-panel__header-left">
+        @if (_iconMap()) {
+          <m-icon [icon]="_iconMap()" size="18" class="m-panel__icon" />
+        }
+        @if (header()) {
+          <span class="m-panel__title">{{ header() }}</span>
+        }
+        @if (badge()) {
+          <m-chip [label]="badge()" [severity]="_chipSeverityMap()" size="sm" />
+        }
+      </div>
+      @if (collapsible()) {
+        <m-icon
+          icon="lucide:chevron-down"
+          size="16"
+          class="m-panel__chevron"
+        />
+      }
+    </div>
+  }
+
+  <div class="m-panel__body">
+    <ng-content />
+  </div>
+</section>

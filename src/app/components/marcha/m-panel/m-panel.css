@@ -1,0 +1,126 @@
+:host { display: block; }
+
+/* =============================================
+   m-panel — Panel de información estructurado
+   ============================================= */
+
+.m-panel {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--m-radius-lg);
+  border: 1px solid var(--m-border-color);
+  background: var(--m-surface-2);
+  box-shadow: var(--m-shadow);
+  overflow: hidden;
+  /* Acento lateral de severidad */
+  border-left-width: 4px;
+}
+
+/* ===== HEADER ===== */
+.m-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--m-border-color);
+  user-select: none;
+}
+
+.m-panel__header--clickable {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.m-panel__header--clickable:hover {
+  background: var(--m-surface-hover);
+}
+.m-panel__header--clickable:focus-visible {
+  outline: 2px solid var(--m-primary);
+  outline-offset: -2px;
+}
+
+.m-panel__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.m-panel__icon {
+  flex-shrink: 0;
+}
+
+.m-panel__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--m-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.m-panel__chevron {
+  color: var(--m-text-muted);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.m-panel--collapsed .m-panel__chevron {
+  transform: rotate(-90deg);
+}
+
+/* ===== BODY ===== */
+.m-panel__body {
+  padding: 1.25rem;
+  color: var(--m-text);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* Colapsar cuerpo */
+.m-panel--collapsible .m-panel__body {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.25s ease;
+  opacity: 1;
+}
+
+.m-panel--collapsed .m-panel__body {
+  max-height: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+}
+
+/* ===== SEVERIDADES — acento lateral + icono ===== */
+.m-panel--default { border-left-color: var(--m-border-color); }
+.m-panel--default .m-panel__icon { color: var(--m-text-muted); }
+
+.m-panel--info    { border-left-color: var(--m-info); }
+.m-panel--info    .m-panel__icon { color: var(--m-info); }
+
+.m-panel--success { border-left-color: var(--m-success); }
+.m-panel--success .m-panel__icon { color: var(--m-success); }
+
+.m-panel--warn    { border-left-color: var(--m-warn); }
+.m-panel--warn    .m-panel__icon { color: var(--m-warn); }
+
+.m-panel--danger  { border-left-color: var(--m-danger); }
+.m-panel--danger  .m-panel__icon { color: var(--m-danger); }
+
+/* ===== FILLED — fondo con tinte sutil ===== */
+.m-panel--default.m-panel--filled { background: var(--m-surface-3); }
+.m-panel--info.m-panel--filled    { background: rgba(6, 182, 212,  0.05); }
+.m-panel--success.m-panel--filled { background: rgba(34, 197, 94,  0.05); }
+.m-panel--warn.m-panel--filled    { background: rgba(245, 158, 11, 0.05); }
+.m-panel--danger.m-panel--filled  { background: rgba(239, 68, 68,  0.05); }
+
+/* En filled, el header no tiene borde inferior visible, usa el tinte */
+.m-panel--filled .m-panel__header {
+  border-bottom-color: transparent;
+}
+.m-panel--info.m-panel--filled    .m-panel__header { border-bottom-color: var(--m-info-border); }
+.m-panel--success.m-panel--filled .m-panel__header { border-bottom-color: var(--m-success-border); }
+.m-panel--warn.m-panel--filled    .m-panel__header { border-bottom-color: var(--m-warn-border); }
+.m-panel--danger.m-panel--filled  .m-panel__header { border-bottom-color: var(--m-danger-border); }
