@@ -412,6 +412,19 @@
         "active": "Active",
         "banned": "Banned"
       }
+    },
+    "products": {
+      "title": "Products",
+      "items": "products",
+      "new": "New product",
+      "search_placeholder": "Search by name or SKU...",
+      "filter_status": "Status",
+      "filter_featured": "Featured",
+      "empty": "No products found",
+      "delete_confirm_title": "Delete product",
+      "delete_confirm_msg": "Are you sure you want to delete ",
+      "delete_confirm_btn": "Delete",
+      "cancel": "Cancel"
     }
   }
 }
