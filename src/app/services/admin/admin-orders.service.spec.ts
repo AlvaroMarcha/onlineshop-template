@@ -81,9 +81,9 @@ describe('AdminOrdersService', () => {
     req.flush(mockPage);
   });
 
-  it('getOrderById() should GET /orders/{id}', () => {
+  it('getOrderById() should GET /orders/admin/{id}', () => {
     service.getOrderById(1).subscribe(order => expect(order).toEqual(mockOrder));
-    const req = httpMock.expectOne(`${api}/1`);
+    const req = httpMock.expectOne(`${api}/admin/1`);
     expect(req.request.method).toBe('GET');
     req.flush(mockOrder);
   });
