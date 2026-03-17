@@ -29,7 +29,7 @@ export class AdminOrdersService {
   }
 
   getOrderById(id: number): Observable<OrderAdmin> {
-    return this.http.get<OrderAdmin>(`${this.api}/${id}`);
+    return this.http.get<OrderAdmin>(`${this.api}/admin/${id}`);
   }
 
   nextOrderStatus(
