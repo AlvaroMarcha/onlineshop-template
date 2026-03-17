@@ -55,6 +55,55 @@ export const adminProductsReducer = createReducer(
     ...state, attribs,
   })),
 
+  // attrib CRUD
+  on(A.adminAttribCreate,
+     A.adminAttribUpdate,
+     A.adminAttribDelete,
+     A.adminAttribValueCreate,
+     A.adminAttribValueUpdate,
+     A.adminAttribValueDelete,
+     (state) => ({ ...state, saving: true, error: null })
+  ),
+
+  on(A.adminAttribCreateSuccess, (state, { attrib }) => ({
+    ...state, saving: false, attribs: [...state.attribs, attrib],
+  })),
+
+  on(A.adminAttribUpdateSuccess, (state, { attrib }) => ({
+    ...state, saving: false,
+    attribs: state.attribs.map(a => a.id === attrib.id ? attrib : a),
+  })),
+
+  on(A.adminAttribDeleteSuccess, (state, { id }) => ({
+    ...state, saving: false,
+    attribs: state.attribs.filter(a => a.id !== id),
+  })),
+
+  on(A.adminAttribValueCreateSuccess, (state, { attribId, attribValue }) => ({
+    ...state, saving: false,
+    attribs: state.attribs.map(a =>
+      a.id === attribId ? { ...a, values: [...a.values, attribValue] } : a
+    ),
+  })),
+
+  on(A.adminAttribValueUpdateSuccess, (state, { attribId, attribValue }) => ({
+    ...state, saving: false,
+    attribs: state.attribs.map(a =>
+      a.id === attribId
+        ? { ...a, values: a.values.map(v => v.id === attribValue.id ? attribValue : v) }
+        : a
+    ),
+  })),
+
+  on(A.adminAttribValueDeleteSuccess, (state, { attribId, valueId }) => ({
+    ...state, saving: false,
+    attribs: state.attribs.map(a =>
+      a.id === attribId
+        ? { ...a, values: a.values.filter(v => v.id !== valueId) }
+        : a
+    ),
+  })),
+
   // error
   on(A.adminProductsFailure, (state, { error }) => ({
     ...state, loading: false, saving: false, error,
