@@ -1,0 +1,119 @@
+.attributes-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+.attributes-admin__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.attributes-admin__title-block {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.attributes-admin__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--m-text-primary, #f1f5f9);
+  margin: 0;
+}
+
+.attributes-admin__count {
+  font-size: 0.875rem;
+  color: var(--m-text-secondary, #94a3b8);
+}
+
+.attributes-admin__filters {
+  padding: 1rem;
+}
+
+.attributes-admin__search {
+  width: 100%;
+  max-width: 400px;
+}
+
+.attributes-admin__table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.attributes-admin__error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 0.5rem;
+  color: #f87171;
+  font-size: 0.9rem;
+}
+
+/* Values panel */
+.attributes-admin__values {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.attributes-admin__val-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.attributes-admin__val-title-block {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attributes-admin__val-icon {
+  color: var(--m-primary, #6366f1);
+  font-size: 1.25rem;
+}
+
+.attributes-admin__val-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--m-text-primary, #f1f5f9);
+  margin: 0;
+}
+
+.attributes-admin__val-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Dialog */
+.attributes-admin__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.attributes-admin__dialog-body {
+  color: var(--m-text-primary, #f1f5f9);
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+.attributes-admin__dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}

@@ -1,0 +1,193 @@
+<section class="attributes-admin">
+
+  <!-- Cabecera -->
+  <div class="attributes-admin__header">
+    <div class="attributes-admin__title-block">
+      <h1 class="attributes-admin__title">{{ 'admin.attributes.title' | translate }}</h1>
+      <span class="attributes-admin__count">{{ attribs().length }} {{ 'admin.attributes.items' | translate }}</span>
+    </div>
+    <m-button
+      icon="add"
+      iconPos="left"
+      variant="filled"
+      severity="primary"
+      (click)="openAttribCreateDialog()"
+    >
+      {{ 'admin.attributes.new' | translate }}
+    </m-button>
+  </div>
+
+  <!-- Filtro rápido -->
+  <m-card variant="solid" class="attributes-admin__filters">
+    <m-input
+      [placeholder]="'admin.attributes.search_placeholder' | translate"
+      icon="search"
+      iconPos="left"
+      size="small"
+      [ngModel]="searchTerm()"
+      (ngModelChange)="searchTerm.set($event)"
+      class="attributes-admin__search"
+    />
+  </m-card>
+
+  <!-- Error -->
+  @if (error()) {
+    <div class="attributes-admin__error">
+      <m-icon name="error_outline" />
+      <span>{{ error() }}</span>
+    </div>
+  }
+
+  <!-- Tabla de atributos -->
+  <m-card variant="solid" class="attributes-admin__table-card">
+    <m-table
+      [columns]="attribColumns"
+      [data]="attribs()"
+      [actions]="attribActions"
+      [loading]="loading()"
+      [emptyMessage]="'admin.attributes.empty' | translate"
+      trackByField="id"
+      variant="default"
+      (actionClick)="onAttribAction($event)"
+    />
+  </m-card>
+
+  <!-- Panel de valores -->
+  @if (selectedAttrib()) {
+    <m-card variant="solid" class="attributes-admin__values">
+      <div class="attributes-admin__val-header">
+        <div class="attributes-admin__val-title-block">
+          <m-icon name="list" class="attributes-admin__val-icon" />
+          <h2 class="attributes-admin__val-title">
+            {{ 'admin.attributes.values_of' | translate }} <strong>{{ selectedAttrib()!.name }}</strong>
+          </h2>
+        </div>
+        <div class="attributes-admin__val-actions">
+          <m-button
+            icon="add"
+            iconPos="left"
+            variant="filled"
+            severity="primary"
+            (click)="openValueCreateDialog()"
+          >
+            {{ 'admin.attributes.new_value' | translate }}
+          </m-button>
+          <m-button
+            icon="close"
+            variant="text"
+            severity="secondary"
+            (click)="selectedAttrib.set(null)"
+          ></m-button>
+        </div>
+      </div>
+
+      <m-table
+        [columns]="valueColumns"
+        [data]="valueRows()"
+        [actions]="valueActions"
+        [loading]="saving()"
+        [emptyMessage]="'admin.attributes.values_empty' | translate"
+        trackByField="id"
+        variant="default"
+        (actionClick)="onValueAction($event)"
+      />
+    </m-card>
+  }
+
+</section>
+
+<!-- ── Diálogo crear/editar atributo ──────────────────────────── -->
+<m-dialog
+  [(visible)]="attribDialogVisible"
+  [header]="(attribDialogMode() === 'create'
+    ? 'admin.attributes.dialog_create_title'
+    : 'admin.attributes.dialog_edit_title') | translate"
+  size="sm"
+>
+  <form [formGroup]="attribForm" class="attributes-admin__form" (ngSubmit)="submitAttrib()">
+    <m-input
+      formControlName="name"
+      [placeholder]="'admin.attributes.field_name' | translate"
+      icon="label"
+      size="small"
+    />
+    <div class="attributes-admin__dialog-actions">
+      <m-button type="button" variant="text" severity="secondary" (click)="attribDialogVisible.set(false)">
+        {{ 'admin.attributes.cancel' | translate }}
+      </m-button>
+      <m-button type="submit" variant="filled" severity="primary" [disabled]="attribForm.invalid || saving()">
+        {{ (attribDialogMode() === 'create' ? 'admin.attributes.create_btn' : 'admin.attributes.save_btn') | translate }}
+      </m-button>
+    </div>
+  </form>
+</m-dialog>
+
+<!-- ── Diálogo eliminar atributo ──────────────────────────────── -->
+<m-dialog
+  [(visible)]="deleteAttribDialogVisible"
+  [header]="'admin.attributes.delete_title' | translate"
+  size="sm"
+>
+  <p class="attributes-admin__dialog-body">
+    {{ 'admin.attributes.delete_msg' | translate }}
+    @if (deleteAttribTarget()) {
+      <strong>{{ deleteAttribTarget()!.name }}</strong>
+    }
+  </p>
+  <div class="attributes-admin__dialog-actions">
+    <m-button variant="text" severity="secondary" (click)="deleteAttribDialogVisible.set(false)">
+      {{ 'admin.attributes.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="danger" (click)="confirmDeleteAttrib()">
+      {{ 'admin.attributes.delete_btn' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
+
+<!-- ── Diálogo crear/editar valor ─────────────────────────────── -->
+<m-dialog
+  [(visible)]="valueDialogVisible"
+  [header]="(valueDialogMode() === 'create'
+    ? 'admin.attributes.valdialog_create_title'
+    : 'admin.attributes.valdialog_edit_title') | translate"
+  size="sm"
+>
+  <form [formGroup]="valueForm" class="attributes-admin__form" (ngSubmit)="submitValue()">
+    <m-input
+      formControlName="value"
+      [placeholder]="'admin.attributes.field_value' | translate"
+      icon="label"
+      size="small"
+    />
+    <div class="attributes-admin__dialog-actions">
+      <m-button type="button" variant="text" severity="secondary" (click)="valueDialogVisible.set(false)">
+        {{ 'admin.attributes.cancel' | translate }}
+      </m-button>
+      <m-button type="submit" variant="filled" severity="primary" [disabled]="valueForm.invalid || saving()">
+        {{ (valueDialogMode() === 'create' ? 'admin.attributes.create_btn' : 'admin.attributes.save_btn') | translate }}
+      </m-button>
+    </div>
+  </form>
+</m-dialog>
+
+<!-- ── Diálogo eliminar valor ─────────────────────────────────── -->
+<m-dialog
+  [(visible)]="deleteValueDialogVisible"
+  [header]="'admin.attributes.delete_val_title' | translate"
+  size="sm"
+>
+  <p class="attributes-admin__dialog-body">
+    {{ 'admin.attributes.delete_val_msg' | translate }}
+    @if (deleteValueTarget()) {
+      <strong>{{ deleteValueTarget()!.value }}</strong>
+    }
+  </p>
+  <div class="attributes-admin__dialog-actions">
+    <m-button variant="text" severity="secondary" (click)="deleteValueDialogVisible.set(false)">
+      {{ 'admin.attributes.cancel' | translate }}
+    </m-button>
+    <m-button variant="filled" severity="danger" (click)="confirmDeleteValue()">
+      {{ 'admin.attributes.delete_btn' | translate }}
+    </m-button>
+  </div>
+</m-dialog>
