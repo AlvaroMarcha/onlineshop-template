@@ -17,7 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class MTextarea implements ControlValueAccessor {
   @Input() label = '';
-  @Input() placeholder = '';
+  @Input() placeholder = ' ';
   @Input() hint = '';
   @Input() rows = 4;
   @Input() invalid = false;

@@ -8,7 +8,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import {
-  MCard, MButton, MTable, MIcon, MDialog, MInput, MSelect,
+  MCard, MButton, MTable, MIcon, MDialog, MInput, MSelect, MChip,
 } from '../../../components/marcha';
 import type { MTableColumn, MTableAction, MChipSeverity, MSelectOption } from '../../../components/marcha';
 import {
@@ -30,7 +30,7 @@ import { ProductAdmin, ProductSearchParams } from '../../../type/admin-types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     TranslateModule, ReactiveFormsModule,
-    MCard, MButton, MTable, MIcon, MDialog, MInput, MSelect,
+    MCard, MButton, MTable, MIcon, MDialog, MInput, MSelect, MChip,
   ],
   templateUrl: './products.html',
   styleUrl:    './products.css',

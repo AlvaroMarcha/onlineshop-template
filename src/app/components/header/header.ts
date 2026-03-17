@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, signal, ElementRef, ViewChild } from '@angular/core';
+import { Component, computed, HostListener, Input, OnInit, signal, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
@@ -14,6 +14,7 @@ import {
 } from '../../store/cart/cart.selector';
 import { MMenubar, MMenubarItem, MMenubarSubItem } from '../marcha/m-menubar/m-menubar';
 import { MButton } from '../marcha/m-button/m-button';
+import { MIcon } from '../marcha/m-icon/m-icon';
 import { MOverlayBadge } from '../marcha/m-overlay-badge/m-overlay-badge';
 import { MDialog } from '../marcha/m-dialog/m-dialog';
 import { MCard } from '../marcha/m-card/m-card';
@@ -30,6 +31,7 @@ import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
     FormsModule,
     MMenubar,
     MButton,
+    MIcon,
     MOverlayBadge,
     MDialog,
     MCard,
@@ -43,6 +45,22 @@ import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
 })
 export class Header implements OnInit {
   user$;
+
+  /** Cuando es true el header se colapsa (solo en modo admin) */
+  @Input() set adminMode(value: boolean) {
+    this._adminMode = value;
+    if (value) { this.navVisible = false; }
+    else        { this.navVisible = true;  }
+  }
+  get adminMode(): boolean { return this._adminMode; }
+  private _adminMode = false;
+  navVisible = true;
+
+  readonly isAdminUser = computed(() => {
+    const role = this.user$()?.roleName ?? '';
+    return ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_STORE',
+            'ROLE_ORDERS', 'ROLE_CUSTOMERS_INVOICES', 'ROLE_SUPPORT'].includes(role);
+  });
 
   // Marcha UI menu items
   menubarItems: MMenubarItem[] = [];
@@ -207,6 +225,11 @@ export class Header implements OnInit {
   onProfileClick() {
     this.showUserMenu = false;
     this.router.navigate(['/profile']);
+  }
+
+  onAdminClick() {
+    this.showUserMenu = false;
+    this.router.navigate(['/admin/dashboard']);
   }
 
   onLogoutClick() {

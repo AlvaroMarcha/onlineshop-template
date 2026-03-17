@@ -4,7 +4,6 @@
   <div class="attributes-admin__header">
     <div class="attributes-admin__title-block">
       <h1 class="attributes-admin__title">{{ 'admin.attributes.title' | translate }}</h1>
-      <span class="attributes-admin__count">{{ attribs().length }} {{ 'admin.attributes.items' | translate }}</span>
     </div>
     <m-button
       icon="add"
@@ -39,6 +38,9 @@
   }
 
   <!-- Tabla de atributos -->
+  <div class="attributes-admin__meta">
+    <m-chip severity="info" size="sm" [label]="attribs().length + ' ' + ('admin.attributes.items' | translate)" />
+  </div>
   <m-card variant="solid" class="attributes-admin__table-card">
     <m-table
       [columns]="attribColumns"

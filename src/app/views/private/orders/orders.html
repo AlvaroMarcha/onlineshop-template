@@ -3,7 +3,6 @@
   <div class="orders-admin__header">
     <div class="orders-admin__title-block">
       <h1 class="orders-admin__title">{{ 'admin.orders.title' | translate }}</h1>
-      <span class="orders-admin__count">{{ total() }} {{ 'admin.orders.items' | translate }}</span>
     </div>
   </div>
 
@@ -36,6 +35,9 @@
   }
 
   <!-- Tabla -->
+  <div class="orders-admin__meta">
+    <m-chip severity="info" size="sm" [label]="total() + ' ' + ('admin.orders.items' | translate)" />
+  </div>
   <m-card variant="solid" class="orders-admin__table-card">
     <m-table
       [columns]="columns"

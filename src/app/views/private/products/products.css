@@ -26,11 +26,6 @@
   margin: 0;
 }
 
-.products-admin__count {
-  font-size: 0.875rem;
-  color: var(--m-text-secondary, #94a3b8);
-}
-
 .products-admin__filters {
   padding: 1rem;
 }
@@ -49,6 +44,11 @@
 
 .products-admin__select {
   flex: 0 0 180px;
+}
+
+.products-admin__meta {
+  display: flex;
+  align-items: center;
 }
 
 .products-admin__table-card {

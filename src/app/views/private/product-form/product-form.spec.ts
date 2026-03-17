@@ -157,6 +157,7 @@ describe('ProductForm', () => {
 
     it('dispatches adminProductUpdate on valid submit in edit mode', () => {
       const spy = spyOn(store, 'dispatch');
+      component.startEditing(); // Habilitar edición (patrón view-first)
       component.form.patchValue({
         name: 'Updated', sku: 'UPD-001', price: 99, taxRate: 21, stock: 10,
         lowStockThreshold: 3, slug: '', description: '', isDigital: false, isFeatured: false,

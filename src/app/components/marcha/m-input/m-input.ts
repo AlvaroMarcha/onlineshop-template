@@ -23,7 +23,7 @@ export type MInputSize = 'small' | 'medium' | 'large';
 })
 export class MInput implements ControlValueAccessor {
   @Input() label = '';
-  @Input() placeholder = '';
+  @Input() placeholder = ' ';
   @Input() hint = '';
   @Input() icon = '';
   @Input() iconPos: 'left' | 'right' = 'left';

@@ -26,11 +26,6 @@
   margin: 0;
 }
 
-.attributes-admin__count {
-  font-size: 0.875rem;
-  color: var(--m-text-secondary, #94a3b8);
-}
-
 .attributes-admin__filters {
   padding: 1rem;
 }
@@ -38,6 +33,11 @@
 .attributes-admin__search {
   width: 100%;
   max-width: 400px;
+}
+
+.attributes-admin__meta {
+  display: flex;
+  align-items: center;
 }
 
 .attributes-admin__table-card {

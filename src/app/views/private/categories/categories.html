@@ -4,7 +4,6 @@
   <div class="categories-admin__header">
     <div class="categories-admin__title-block">
       <h1 class="categories-admin__title">{{ 'admin.categories.title' | translate }}</h1>
-      <span class="categories-admin__count">{{ categories().length }} {{ 'admin.categories.items' | translate }}</span>
     </div>
     <m-button
       icon="add"
@@ -39,6 +38,9 @@
   }
 
   <!-- Tabla de categorías -->
+  <div class="categories-admin__meta">
+    <m-chip severity="info" size="sm" [label]="categories().length + ' ' + ('admin.categories.items' | translate)" />
+  </div>
   <m-card variant="solid" class="categories-admin__table-card">
     <m-table
       [columns]="categoryColumns"

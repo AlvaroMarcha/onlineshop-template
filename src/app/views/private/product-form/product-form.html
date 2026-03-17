@@ -1,213 +1,478 @@
-<section class="product-form">
-  <!-- Cabecera -->
-  <div class="product-form__header">
-    <button class="product-form__back" type="button" (click)="cancel()">
-      <m-icon name="arrow_back" />
-    </button>
-    <h1 class="product-form__title">
-      @if (isEdit()) {
-        {{ 'admin.product_form.edit_title' | translate }}
-      } @else {
-        {{ 'admin.product_form.create_title' | translate }}
-      }
-    </h1>
+<!-- Header: Breadcrumb sin toolbar -->
+<header class="product-form__header">
+  <nav class="breadcrumb">
+    <m-button
+      [label]="'admin.product_form.back' | translate"
+      icon="lucide:arrow-left"
+      variant="text"
+      size="small"
+      (click)="goBack()"
+    ></m-button>
+    <span class="breadcrumb__separator">/</span>
+    <span class="breadcrumb__text">{{ 'admin.product_form.products' | translate }}</span>
+    <span class="breadcrumb__separator">/</span>
+    <span class="breadcrumb__text">{{ editing() ? ('admin.product_form.editing' | translate) : ('admin.product_form.create' | translate) }}</span>
+  </nav>
+</header>
+
+<!-- Error banner -->
+@if (error()) {
+  <m-message severity="error">
+    {{ error() }}
+  </m-message>
+}
+
+<!-- Main container: 2 columns (main + sidebar) -->
+<div class="product-form__body">
+  <!-- Main content: Tabs -->
+  <div class="product-form__main">
+    <m-card>
+      <m-tabs [tabs]="tabItems()" [(active)]="activeTab" variant="line">
+        <!-- TAB 0: Básico -->
+        @if (activeTab() === 0) {
+          <m-tab-panel [index]="0">
+          <div class="tab-content">
+            <div class="form-grid">
+              <!-- Name -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.name' | translate">
+                  <m-input
+                    [formControl]="form.controls.name"
+                    placeholder=" "
+                  />
+                </m-float-label>
+                @if (form.controls.name.invalid && form.controls.name.touched) {
+                  <small class="error-message">{{ 'admin.product_form.name_required' | translate }}</small>
+                }
+              </div>
+
+              <!-- SKU -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.sku' | translate">
+                  <m-input
+                    [formControl]="form.controls.sku"
+                    placeholder=" "
+                  />
+                </m-float-label>
+                @if (form.controls.sku.invalid && form.controls.sku.touched) {
+                  <small class="error-message">{{ 'admin.product_form.sku_required' | translate }}</small>
+                }
+              </div>
+
+              <!-- Slug (readonly visual) -->
+              <div class="form-field form-field--full">
+                <m-float-label [label]="'admin.product_form.slug' | translate">
+                  <m-input
+                    [formControl]="form.controls.slug"
+                    placeholder=" "
+                  />
+                </m-float-label>
+                <small class="field-hint">{{ 'admin.product_form.slug_readonly' | translate }}</small>
+              </div>
+
+              <!-- Description -->
+              <div class="form-field form-field--full">
+                <m-float-label [label]="'admin.product_form.description' | translate">
+                  <m-textarea
+                    [formControl]="form.controls.description"
+                    placeholder=" "
+                    [rows]="4"
+                  />
+                </m-float-label>
+              </div>
+            </div>
+          </div>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 1: Precios -->
+        @if (activeTab() === 1) {
+          <m-tab-panel [index]="1">
+          <div class="tab-content">
+            <div class="form-grid">
+              <!-- Price -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.price' | translate">
+                  <m-number-input
+                    [formControl]="form.controls.price"
+                    placeholder=" "
+                    [min]="0"
+                    [step]="0.01"
+                  />
+                </m-float-label>
+                @if (form.controls.price.invalid && form.controls.price.touched) {
+                  <small class="error-message">{{ 'admin.product_form.price_required' | translate }}</small>
+                }
+              </div>
+
+              <!-- Discount Price -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.discount_price' | translate">
+                  <m-number-input
+                    [formControl]="form.controls.discountPrice"
+                    placeholder=" "
+                    [min]="0"
+                    [step]="0.01"
+                  />
+                </m-float-label>
+                @if (form.controls.discountPrice.invalid && form.controls.discountPrice.touched) {
+                  <small class="error-message">{{ 'admin.product_form.discount_price_invalid' | translate }}</small>
+                }
+              </div>
+
+              <!-- Tax Rate -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.tax_rate' | translate">
+                  <m-number-input
+                    [formControl]="form.controls.taxRate"
+                    placeholder=" "
+                    [min]="0"
+                    [max]="100"
+                    [step]="0.01"
+                  />
+                </m-float-label>
+              </div>
+            </div>
+          </div>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 2: Stock -->
+        @if (activeTab() === 2) {
+          <m-tab-panel [index]="2">
+          <div class="tab-content">
+            <div class="form-grid">
+              <!-- Stock -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.stock' | translate">
+                  <m-number-input
+                    [formControl]="form.controls.stock"
+                    placeholder=" "
+                    [min]="0"
+                    [step]="1"
+                  />
+                </m-float-label>
+                @if (form.controls.stock.invalid && form.controls.stock.touched) {
+                  <small class="error-message">{{ 'admin.product_form.stock_required' | translate }}</small>
+                }
+              </div>
+
+              <!-- Low Stock Threshold -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.low_stock_threshold' | translate">
+                  <m-number-input
+                    [formControl]="form.controls.lowStockThreshold"
+                    placeholder=" "
+                    [min]="0"
+                    [step]="1"
+                  />
+                </m-float-label>
+              </div>
+
+              <!-- Weight -->
+              <div class="form-field">
+                <m-float-label [label]="'admin.product_form.weight_kg' | translate">
+                  <m-number-input
+                    [formControl]="form.controls.weight"
+                    placeholder=" "
+                    [min]="0"
+                    [step]="0.01"
+                  />
+                </m-float-label>
+              </div>
+            </div>
+          </div>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 3: SEO -->
+        @if (activeTab() === 3) {
+          <m-tab-panel [index]="3">
+          <div class="tab-content">
+            <div class="form-grid">
+              <!-- Meta Title -->
+              <div class="form-field form-field--full">
+                <m-float-label [label]="'admin.product_form.meta_title' | translate">
+                  <m-input
+                    [formControl]="form.controls.metaTitle"
+                    placeholder=" "
+                  />
+                </m-float-label>
+              </div>
+
+              <!-- Meta Description -->
+              <div class="form-field form-field--full">
+                <m-float-label [label]="'admin.product_form.meta_description' | translate">
+                  <m-textarea
+                    [formControl]="form.controls.metaDescription"
+                    placeholder=" "
+                    [rows]="3"
+                  />
+                </m-float-label>
+              </div>
+            </div>
+          </div>
+          </m-tab-panel>
+        }
+
+        <!-- TAB 4: Medios -->
+        @if (activeTab() === 4) {
+          <m-tab-panel [index]="4">
+          <div class="tab-content">
+            <!-- Upload section -->
+            <div class="gallery-upload">
+              <m-button
+                [label]="'admin.product_form.upload_images' | translate"
+                icon="lucide:upload"
+                variant="outlined"
+                size="small"
+                (click)="!editing() || uploadingImages() ? null : fileInput.click()"
+                [disabled]="!editing() || uploadingImages()"
+              ></m-button>
+              <input
+                #fileInput
+                type="file"
+                accept="image/jpeg,image/png"
+                multiple
+                style="display: none;"
+                (change)="onFileSelect($event)"
+              />
+              <small class="field-hint">{{ 'max_5_images_hint' | translate }}</small>
+            </div>
+
+            <!-- Image gallery -->
+            @if (images().length > 0) {
+              <div class="gallery-grid">
+                @for (img of images(); track img.id) {
+                  <div class="gallery-item" [class.is-main]="img.isMain">
+                    <img [src]="img.url" [alt]="img.altText || ''" />
+                    @if (img.isMain) {
+                      <div class="main-badge">
+                        <m-chip
+                          [label]="'admin.product_form.main_image_badge' | translate"
+                          severity="primary"
+                          size="sm"
+                        />
+                      </div>
+                    }
+                    <div class="gallery-item__overlay">
+                      @if (!img.isMain) {
+                        <m-button
+                          [label]="'admin.product_form.set_main_image' | translate"
+                          icon="lucide:star"
+                          variant="filled"
+                          severity="primary"
+                          size="small"
+                          (click)="setMainImage(img.id)"
+                          [disabled]="!editing()"
+                        ></m-button>
+                      }
+                      <m-button
+                        icon="lucide:trash-2"
+                        variant="filled"
+                        severity="danger"
+                        size="small"
+                        (click)="deleteImage(img.id)"
+                        [disabled]="!editing()"
+                      ></m-button>
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="empty-state">
+                <m-icon name="lucide:image-off" size="48" />
+                <p>{{ 'admin.product_form.no_images' | translate }}</p>
+              </div>
+            }
+          </div>
+          </m-tab-panel>
+        }
+      </m-tabs>
+    </m-card>
   </div>
 
-  <!-- Error global -->
-  @if (error()) {
-    <m-message severity="error">{{ error() }}</m-message>
-  }
-
-  <!-- Loader de carga (edición) -->
-  @if (loading() && isEdit()) {
-    <div class="product-form__loading">
-      <m-icon name="hourglass_empty" />
-      <span>{{ 'admin.product_form.loading' | translate }}</span>
-    </div>
-  }
-
-  <form [formGroup]="form" (ngSubmit)="submit()" class="product-form__body" novalidate>
-    <div class="product-form__grid">
-
-      <!-- ── Columna principal ───────────────────────────── -->
-      <div class="product-form__main">
-
-        <!-- Información básica -->
-        <m-card variant="solid" class="product-form__section">
-          <h2 class="product-form__section-title">{{ 'admin.product_form.section_basic' | translate }}</h2>
-
-          <div class="product-form__row">
-            <m-float-label class="product-form__field product-form__field--wide">
-              <m-input
-                formControlName="name"
-                [invalid]="isInvalid('name')"
-                size="small"
+  <!-- Sidebar: Categories, Options, Info -->
+  <aside class="product-form__sidebar">
+    <!-- Categories Card -->
+    <m-card>
+      <h3 class="sidebar-title">{{ 'admin.product_form.categories_section' | translate }}</h3>
+      <m-divider />
+      
+      <div class="sidebar-content">
+        @if (selectedCategories().length > 0) {
+          <div class="category-chips">
+            @for (category of selectedCategories(); track category.id) {
+              <m-chip
+                [label]="category.name"
+                severity="secondary"
+                size="sm"
+                [removable]="editing()"
+                (removed)="removeCategory(category.id)"
               />
-              <label>{{ 'admin.product_form.name' | translate }} *</label>
-            </m-float-label>
-
-            <m-float-label class="product-form__field">
-              <m-input
-                formControlName="sku"
-                [invalid]="isInvalid('sku')"
-                size="small"
-              />
-              <label>{{ 'admin.product_form.sku' | translate }} *</label>
-            </m-float-label>
+            }
           </div>
-
-          <m-float-label class="product-form__field product-form__field--full">
-            <m-input
-              formControlName="slug"
-              size="small"
-              icon="link"
-              iconPos="left"
-            />
-            <label>{{ 'admin.product_form.slug' | translate }}</label>
-          </m-float-label>
-
-          <m-float-label class="product-form__field product-form__field--full">
-            <m-textarea
-              formControlName="description"
-              [rows]="4"
-            />
-            <label>{{ 'admin.product_form.description' | translate }}</label>
-          </m-float-label>
-        </m-card>
-
-        <!-- Precios -->
-        <m-card variant="solid" class="product-form__section">
-          <h2 class="product-form__section-title">{{ 'admin.product_form.section_pricing' | translate }}</h2>
-
-          <div class="product-form__row">
-            <m-float-label class="product-form__field">
-              <m-number-input
-                formControlName="price"
-                [min]="0"
-                [step]="0.01"
-                [invalid]="isInvalid('price')"
-              />
-              <label>{{ 'admin.product_form.price' | translate }} (€) *</label>
-            </m-float-label>
-
-            <m-float-label class="product-form__field">
-              <m-number-input
-                formControlName="discountPrice"
-                [min]="0"
-                [step]="0.01"
-              />
-              <label>{{ 'admin.product_form.discount_price' | translate }} (€)</label>
-            </m-float-label>
-
-            <m-float-label class="product-form__field">
-              <m-number-input
-                formControlName="taxRate"
-                [min]="0"
-                [max]="100"
-                [step]="1"
-                [invalid]="isInvalid('taxRate')"
-              />
-              <label>{{ 'admin.product_form.tax_rate' | translate }} (%) *</label>
-            </m-float-label>
-          </div>
-        </m-card>
-
-        <!-- Stock -->
-        <m-card variant="solid" class="product-form__section">
-          <h2 class="product-form__section-title">{{ 'admin.product_form.section_stock' | translate }}</h2>
-
-          <div class="product-form__row">
-            <m-float-label class="product-form__field">
-              <m-number-input
-                formControlName="stock"
-                [min]="0"
-                [step]="1"
-                [invalid]="isInvalid('stock')"
-              />
-              <label>{{ 'admin.product_form.stock' | translate }} *</label>
-            </m-float-label>
-
-            <m-float-label class="product-form__field">
-              <m-number-input
-                formControlName="lowStockThreshold"
-                [min]="0"
-                [step]="1"
-              />
-              <label>{{ 'admin.product_form.low_stock_threshold' | translate }}</label>
-            </m-float-label>
-
-            <m-float-label class="product-form__field">
-              <m-number-input
-                formControlName="weight"
-                [min]="0"
-                [step]="0.1"
-              />
-              <label>{{ 'admin.product_form.weight' | translate }} (kg)</label>
-            </m-float-label>
-          </div>
-        </m-card>
-
-        <!-- SEO -->
-        <m-card variant="solid" class="product-form__section">
-          <h2 class="product-form__section-title">{{ 'admin.product_form.section_seo' | translate }}</h2>
-
-          <m-float-label class="product-form__field product-form__field--full">
-            <m-input formControlName="metaTitle" size="small" />
-            <label>{{ 'admin.product_form.meta_title' | translate }}</label>
-          </m-float-label>
-
-          <m-float-label class="product-form__field product-form__field--full">
-            <m-textarea formControlName="metaDescription" [rows]="3" />
-            <label>{{ 'admin.product_form.meta_description' | translate }}</label>
-          </m-float-label>
-        </m-card>
-      </div>
-
-      <!-- ── Columna lateral ────────────────────────────── -->
-      <div class="product-form__sidebar">
-
-        <!-- Opciones -->
-        <m-card variant="solid" class="product-form__section">
-          <h2 class="product-form__section-title">{{ 'admin.product_form.section_options' | translate }}</h2>
-
-          <div class="product-form__toggles">
-            <m-checkbox formControlName="isDigital">
-              {{ 'admin.product_form.is_digital' | translate }}
-            </m-checkbox>
-            <m-checkbox formControlName="isFeatured">
-              {{ 'admin.product_form.is_featured' | translate }}
-            </m-checkbox>
-          </div>
-        </m-card>
-
-      </div>
-    </div>
-
-    <!-- Acciones -->
-    <div class="product-form__actions">
-      <m-button
-        type="button"
-        variant="outlined"
-        severity="secondary"
-        (click)="cancel()"
-      >
-        {{ 'admin.product_form.cancel' | translate }}
-      </m-button>
-      <m-button
-        type="submit"
-        variant="filled"
-        severity="primary"
-        [disabled]="saving()"
-      >
-        @if (saving()) {
-          <m-icon name="hourglass_empty" />
-        }
-        @if (isEdit()) {
-          {{ 'admin.product_form.save' | translate }}
         } @else {
-          {{ 'admin.product_form.create' | translate }}
+          <p class="empty-hint">{{ 'admin.product_form.no_categories' | translate }}</p>
         }
-      </m-button>
-    </div>
-  </form>
-</section>
+
+        <m-button
+          [label]="'admin.product_form.add_category' | translate"
+          icon="lucide:plus"
+          variant="outlined"
+          size="small"
+          (click)="editing() && showCategoryDialog.set(true)"
+          [disabled]="!editing()"
+          class="add-category-btn"
+        ></m-button>
+      </div>
+    </m-card>
+
+    <!-- Options Card -->
+    <m-card>
+      <h3 class="sidebar-title">{{ 'admin.product_form.options_section' | translate }}</h3>
+      <m-divider />
+      
+      <div class="sidebar-content">
+        <div class="toggle-row">
+          <div class="toggle-row__label">
+            <m-icon name="lucide:file-digital" size="20" />
+            <span>{{ 'admin.product_form.digital_product' | translate }}</span>
+          </div>
+          <m-toggle-switch [formControl]="form.controls.isDigital" size="sm" />
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-row__label">
+            <m-icon name="lucide:star" size="20" />
+            <span>{{ 'admin.product_form.featured_product' | translate }}</span>
+          </div>
+          <m-toggle-switch [formControl]="form.controls.isFeatured" size="sm" />
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-row__label">
+            <m-icon name="lucide:check-circle" size="20" />
+            <span>{{ 'admin.product_form.active_product' | translate }}</span>
+          </div>
+          <m-toggle-switch [formControl]="form.controls.isActive" size="sm" />
+        </div>
+      </div>
+    </m-card>
+
+    <!-- Info Card -->
+    @if (isEdit()) {
+      <m-card>
+        <h3 class="sidebar-title">{{ 'admin.product_form.info_section' | translate }}</h3>
+        <m-divider />
+        
+        <div class="sidebar-content">
+          <div class="info-row">
+            <span class="info-label">{{ 'admin.product_form.created_at' | translate }}</span>
+            <span class="info-value">{{ createdAt | date:'short' }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">{{ 'admin.product_form.updated_at' | translate }}</span>
+            <span class="info-value">{{ updatedAt | date:'short' }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">{{ 'admin.product_form.created_by' | translate }}</span>
+            <span class="info-value">{{ createdBy }}</span>
+          </div>
+        </div>
+      </m-card>
+    }
+  </aside>
+</div>
+
+<!-- Bottom actions -->
+<div class="product-form__actions">
+  @if (!editing()) {
+    <m-button
+      [label]="'admin.product_form.edit' | translate"
+      icon="lucide:edit"
+      variant="filled"
+      severity="primary"
+      (click)="startEditing()"
+    ></m-button>
+  } @else {
+    <m-button
+      [label]="'admin.product_form.cancel' | translate"
+      icon="lucide:x"
+      variant="outlined"
+      severity="secondary"
+      (click)="cancel()"
+    ></m-button>
+    <m-button
+      [label]="'admin.product_form.save' | translate"
+      icon="lucide:save"
+      variant="filled"
+      severity="primary"
+      (click)="submit()"
+      [disabled]="form.invalid || saving()"
+      [loading]="saving()"
+    ></m-button>
+  }
+</div>
+
+<!-- Cancel confirmation dialog -->
+<m-dialog
+  [(visible)]="showCancelDialog"
+  [header]="'admin.product_form.cancel_confirm_title' | translate"
+  [closeable]="true"
+  size="sm"
+>
+  <p>{{ 'admin.product_form.cancel_confirm_message' | translate }}</p>
+  
+  <div class="dialog-actions">
+    <m-button
+      [label]="'admin.product_form.cancel_action' | translate"
+      variant="outlined"
+      (click)="showCancelDialog.set(false)"
+    ></m-button>
+    <m-button
+      [label]="'admin.product_form.confirm' | translate"
+      variant="filled"
+      severity="danger"
+      (click)="confirmCancel()"
+    ></m-button>
+  </div>
+</m-dialog>
+
+<!-- Delete image confirmation dialog -->
+<m-dialog
+  [(visible)]="showDeleteImageDialog"
+  [header]="'admin.product_form.delete_image_confirm_title' | translate"
+  [closeable]="true"
+  size="sm"
+>
+  <p>{{ 'admin.product_form.delete_image_confirm_message' | translate }}</p>
+  
+  <div class="dialog-actions">
+    <m-button
+      [label]="'admin.product_form.cancel_action' | translate"
+      variant="outlined"
+      (click)="showDeleteImageDialog.set(false)"
+    ></m-button>
+    <m-button
+      [label]="'admin.product_form.confirm' | translate"
+      variant="filled"
+      severity="danger"
+      (click)="confirmDeleteImage()"
+    ></m-button>
+  </div>
+</m-dialog>
+
+<!-- Category selection dialog (placeholder - need to implement category selector) -->
+<m-dialog
+  [(visible)]="showCategoryDialog"
+  [header]="'admin.product_form.add_category' | translate"
+  [closeable]="true"
+  size="md"
+>
+  <p>{{ 'admin.product_form.category_selector_placeholder' | translate }}</p>
+  <!-- TODO: Implement category tree selector with m-select or custom component -->
+</m-dialog>
+
