@@ -55,6 +55,7 @@
   @if (totalPages() > 1) {
     <div class="orders-admin__pagination">
       <m-button
+        size="small"
         variant="outlined"
         severity="secondary"
         icon="chevron_left"
@@ -64,6 +65,7 @@
 
       @for (n of pageNums(); track n) {
         <m-button
+          size="small"
           [variant]="pageIndex() === n - 1 ? 'filled' : 'text'"
           [severity]="pageIndex() === n - 1 ? 'primary' : 'secondary'"
           (click)="goToPage(n - 1)"
@@ -71,6 +73,7 @@
       }
 
       <m-button
+        size="small"
         variant="outlined"
         severity="secondary"
         icon="chevron_right"

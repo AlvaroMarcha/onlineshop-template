@@ -8,12 +8,12 @@
     <m-button
       icon="add"
       iconPos="left"
+      size="small"
       variant="filled"
       severity="primary"
+      [label]="'admin.categories.new' | translate"
       (click)="openCategoryCreateDialog()"
-    >
-      {{ 'admin.categories.new' | translate }}
-    </m-button>
+    />
   </div>
 
   <!-- Filtro rápido -->
@@ -68,6 +68,7 @@
           <m-button
             icon="add"
             iconPos="left"
+            size="small"
             variant="filled"
             severity="primary"
             (click)="openSubcategoryCreateDialog()"
@@ -76,6 +77,7 @@
           </m-button>
           <m-button
             icon="close"
+            size="small"
             variant="text"
             severity="secondary"
             (click)="selectedCategory.set(null)"
@@ -120,10 +122,10 @@
       size="small"
     />
     <div class="categories-admin__dialog-actions">
-      <m-button type="button" variant="text" severity="secondary" (click)="categoryDialogVisible.set(false)">
+      <m-button size="small" type="button" variant="text" severity="secondary" (click)="categoryDialogVisible.set(false)">
         {{ 'admin.categories.cancel' | translate }}
       </m-button>
-      <m-button type="submit" variant="filled" severity="primary" [disabled]="categoryForm.invalid || saving()">
+      <m-button size="small" type="submit" variant="filled" severity="primary" [disabled]="categoryForm.invalid || saving()">
         {{ (categoryDialogMode() === 'create' ? 'admin.categories.create_btn' : 'admin.categories.save_btn') | translate }}
       </m-button>
     </div>
@@ -143,10 +145,10 @@
     }
   </p>
   <div class="categories-admin__dialog-actions">
-    <m-button variant="text" severity="secondary" (click)="deleteCategoryDialogVisible.set(false)">
+    <m-button size="small" variant="text" severity="secondary" (click)="deleteCategoryDialogVisible.set(false)">
       {{ 'admin.categories.cancel' | translate }}
     </m-button>
-    <m-button variant="filled" severity="danger" (click)="confirmDeleteCategory()">
+    <m-button size="small" variant="filled" severity="danger" (click)="confirmDeleteCategory()">
       {{ 'admin.categories.delete_btn' | translate }}
     </m-button>
   </div>
@@ -174,10 +176,10 @@
       size="small"
     />
     <div class="categories-admin__dialog-actions">
-      <m-button type="button" variant="text" severity="secondary" (click)="subcategoryDialogVisible.set(false)">
+      <m-button size="small" type="button" variant="text" severity="secondary" (click)="subcategoryDialogVisible.set(false)">
         {{ 'admin.categories.cancel' | translate }}
       </m-button>
-      <m-button type="submit" variant="filled" severity="primary" [disabled]="subcategoryForm.invalid || saving()">
+      <m-button size="small" type="submit" variant="filled" severity="primary" [disabled]="subcategoryForm.invalid || saving()">
         {{ (subcategoryDialogMode() === 'create' ? 'admin.categories.create_btn' : 'admin.categories.save_btn') | translate }}
       </m-button>
     </div>
@@ -197,10 +199,10 @@
     }
   </p>
   <div class="categories-admin__dialog-actions">
-    <m-button variant="text" severity="secondary" (click)="deleteSubcategoryDialogVisible.set(false)">
+    <m-button size="small" variant="text" severity="secondary" (click)="deleteSubcategoryDialogVisible.set(false)">
       {{ 'admin.categories.cancel' | translate }}
     </m-button>
-    <m-button variant="filled" severity="danger" (click)="confirmDeleteSubcategory()">
+    <m-button size="small" variant="filled" severity="danger" (click)="confirmDeleteSubcategory()">
       {{ 'admin.categories.delete_btn' | translate }}
     </m-button>
   </div>

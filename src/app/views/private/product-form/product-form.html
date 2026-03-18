@@ -393,6 +393,7 @@
     <m-button
       [label]="'admin.product_form.edit' | translate"
       icon="lucide:edit"
+      size="small"
       variant="filled"
       severity="primary"
       (click)="startEditing()"
@@ -401,6 +402,7 @@
     <m-button
       [label]="'admin.product_form.cancel' | translate"
       icon="lucide:x"
+      size="small"
       variant="outlined"
       severity="secondary"
       (click)="cancel()"
@@ -408,6 +410,7 @@
     <m-button
       [label]="'admin.product_form.save' | translate"
       icon="lucide:save"
+      size="small"
       variant="filled"
       severity="primary"
       (click)="submit()"
@@ -429,11 +432,13 @@
   <div class="dialog-actions">
     <m-button
       [label]="'admin.product_form.cancel_action' | translate"
+      size="small"
       variant="outlined"
       (click)="showCancelDialog.set(false)"
     ></m-button>
     <m-button
       [label]="'admin.product_form.confirm' | translate"
+      size="small"
       variant="filled"
       severity="danger"
       (click)="confirmCancel()"
@@ -453,11 +458,13 @@
   <div class="dialog-actions">
     <m-button
       [label]="'admin.product_form.cancel_action' | translate"
+      size="small"
       variant="outlined"
       (click)="showDeleteImageDialog.set(false)"
     ></m-button>
     <m-button
       [label]="'admin.product_form.confirm' | translate"
+      size="small"
       variant="filled"
       severity="danger"
       (click)="confirmDeleteImage()"

@@ -2,14 +2,14 @@
   <!-- Cabecera -->
   <div class="order-detail__header">
     <m-button
+      size="small"
       variant="text"
       severity="secondary"
       icon="arrow_back"
       iconPos="left"
+      [label]="'admin.order_detail.back' | translate"
       (click)="goBack()"
-    >
-      {{ 'admin.order_detail.back' | translate }}
-    </m-button>
+    />
 
     @if (order()) {
       <div class="order-detail__title-block">
@@ -24,15 +24,15 @@
 
       @if (canAdvance() || canCancel() || canReturn()) {
         <m-button
+          size="small"
           variant="filled"
           severity="primary"
           icon="arrow_forward"
           iconPos="right"
+          [label]="'admin.order_detail.advance_status' | translate"
           [disabled]="saving()"
           (click)="openNextStatusDialog()"
-        >
-          {{ 'admin.order_detail.advance_status' | translate }}
-        </m-button>
+        />
       }
     }
   </div>
@@ -157,10 +157,10 @@
   </div>
 
   <div class="order-detail__dialog-footer">
-    <m-button variant="outlined" severity="secondary" (click)="nextStatusDialogVisible.set(false)">
+    <m-button size="small" variant="outlined" severity="secondary" (click)="nextStatusDialogVisible.set(false)">
       {{ 'admin.order_detail.cancel' | translate }}
     </m-button>
-    <m-button variant="filled" severity="primary" [disabled]="saving()" (click)="confirmNextStatus()">
+    <m-button size="small" variant="filled" severity="primary" [disabled]="saving()" (click)="confirmNextStatus()">
       {{ 'admin.order_detail.confirm' | translate }}
     </m-button>
   </div>
@@ -177,10 +177,10 @@
     #{{ cancelPaymentTarget()?.id }}?
   </p>
   <div class="order-detail__dialog-footer">
-    <m-button variant="outlined" severity="secondary" (click)="cancelPaymentDialogVisible.set(false)">
+    <m-button size="small" variant="outlined" severity="secondary" (click)="cancelPaymentDialogVisible.set(false)">
       {{ 'admin.order_detail.cancel' | translate }}
     </m-button>
-    <m-button variant="filled" severity="danger" [disabled]="saving()" (click)="confirmCancelPayment()">
+    <m-button size="small" variant="filled" severity="danger" [disabled]="saving()" (click)="confirmCancelPayment()">
       {{ 'admin.order_detail.confirm_cancel_payment' | translate }}
     </m-button>
   </div>
@@ -198,10 +198,10 @@
     ({{ refundPaymentTarget()?.amount | number:'1.2-2' }} €)?
   </p>
   <div class="order-detail__dialog-footer">
-    <m-button variant="outlined" severity="secondary" (click)="refundPaymentDialogVisible.set(false)">
+    <m-button size="small" variant="outlined" severity="secondary" (click)="refundPaymentDialogVisible.set(false)">
       {{ 'admin.order_detail.cancel' | translate }}
     </m-button>
-    <m-button variant="filled" severity="warn" [disabled]="saving()" (click)="confirmRefundPayment()">
+    <m-button size="small" variant="filled" severity="warn" [disabled]="saving()" (click)="confirmRefundPayment()">
       {{ 'admin.order_detail.confirm_refund' | translate }}
     </m-button>
   </div>
