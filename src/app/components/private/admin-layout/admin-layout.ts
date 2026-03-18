@@ -4,13 +4,12 @@ import {
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AdminSidebar } from '../admin-sidebar/admin-sidebar';
-import { AdminHeader } from '../admin-header/admin-header';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, AdminSidebar, AdminHeader],
+  imports: [RouterOutlet, AdminSidebar],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',
 })

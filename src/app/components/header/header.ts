@@ -1,4 +1,4 @@
-import { Component, computed, HostListener, Input, OnInit, signal, ElementRef, ViewChild } from '@angular/core';
+import { Component, computed, HostListener, Input, OnInit, Output, EventEmitter, signal, ElementRef, ViewChild, AfterViewInit, Renderer2, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language-service';
@@ -43,18 +43,29 @@ import { DrawerCookies } from '../drawer-cookies/drawer-cookies';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header implements OnInit {
+export class Header implements OnInit, AfterViewInit {
   user$;
+  private renderer = inject(Renderer2);
+
+  @ViewChild('headerWrapper') headerWrapper?: ElementRef;
 
   /** Cuando es true el header se colapsa (solo en modo admin) */
   @Input() set adminMode(value: boolean) {
     this._adminMode = value;
-    if (value) { this.navVisible = false; }
-    else        { this.navVisible = true;  }
+    if (value) { 
+      this.navVisible = false;
+      this.emitNavState();
+    } else { 
+      this.navVisible = true;
+      this.emitNavState();
+    }
   }
   get adminMode(): boolean { return this._adminMode; }
   private _adminMode = false;
   navVisible = true;
+
+  /** Emite cuando cambia la visibilidad del nav en modo admin */
+  @Output() navVisibilityChange = new EventEmitter<boolean>();
 
   readonly isAdminUser = computed(() => {
     const role = this.user$()?.roleName ?? '';
@@ -125,6 +136,18 @@ export class Header implements OnInit {
     if (typeof document !== 'undefined') {
       this.isDarkMode = document.querySelector('html')?.classList.contains('my-app-dark') || false;
     }
+  }
+
+  ngAfterViewInit() {
+    // Calcular y guardar la altura del header cuando está visible
+    setTimeout(() => {
+      this.updateHeaderHeight();
+      
+      // Emitir estado inicial si estamos en modo admin
+      if (this.adminMode) {
+        this.navVisibilityChange.emit(this.navVisible);
+      }
+    }, 50);
   }
 
   async generateMenus() {
@@ -244,5 +267,38 @@ export class Header implements OnInit {
 
   onRegisterClick() {
     this.router.navigate(['/register']);
+  }
+
+  toggleNav() {
+    this.navVisible = !this.navVisible;
+    this.emitNavState();
+  }
+
+  private emitNavState() {
+    this.navVisibilityChange.emit(this.navVisible);
+    // No recalcular altura en cada toggle, se calcula una vez al inicio
+  }
+
+  private updateHeaderHeight() {
+    if (typeof document !== 'undefined' && this.headerWrapper) {
+      // Temporalmente asegurar que el header esté visible para medir
+      const wasCollapsed = this.headerWrapper.nativeElement.classList.contains('is-collapsed');
+      if (wasCollapsed) {
+        this.renderer.removeClass(this.headerWrapper.nativeElement, 'is-collapsed');
+      }
+      
+      // Esperar a que el DOM se actualice
+      requestAnimationFrame(() => {
+        if (!this.headerWrapper) return;
+        
+        const height = this.headerWrapper.nativeElement.offsetHeight;
+        this.renderer.setStyle(document.documentElement, '--header-height', `${height}px`);
+        
+        // Restaurar estado colapsado si era necesario
+        if (wasCollapsed && this.adminMode && !this.navVisible && this.headerWrapper) {
+          this.renderer.addClass(this.headerWrapper.nativeElement, 'is-collapsed');
+        }
+      });
+    }
   }
 }

@@ -5,7 +5,7 @@
 
 /* ===== LAYOUT SHELL ===== */
 .admin-layout {
-  display: flex;
+  display: block;
   min-height: 100vh;
   background: var(--m-surface);
 }
@@ -28,7 +28,6 @@
 
 /* ===== MAIN CONTENT ===== */
 .admin-content {
-  flex: 1;
   margin-left: 260px;
   display: flex;
   flex-direction: column;

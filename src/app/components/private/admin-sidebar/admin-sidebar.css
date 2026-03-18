@@ -96,9 +96,43 @@
   transition: opacity 0.2s ease, width 0.2s ease;
 }
 
+/* ===== TOGGLE BUTTON ===== */
+.sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  margin: 0.75rem;
+  border-radius: var(--m-radius-sm);
+  background: transparent;
+  border: 1px solid var(--m-border-color);
+  color: var(--m-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--m-surface-hover);
+  color: var(--m-text);
+  border-color: var(--m-border-color-hover, var(--m-border-color));
+}
+
+.sidebar-toggle-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.2s ease, width 0.2s ease;
+}
+
 /* ===== COLLAPSED ===== */
 .admin-sidebar.is-collapsed .sidebar-brand-text,
-.admin-sidebar.is-collapsed .sidebar-nav-label {
+.admin-sidebar.is-collapsed .sidebar-nav-label,
+.admin-sidebar.is-collapsed .sidebar-toggle-label {
   opacity: 0;
   width: 0;
   pointer-events: none;
@@ -111,4 +145,9 @@
 
 .admin-sidebar.is-collapsed .sidebar-brand {
   justify-content: center;
+}
+
+.admin-sidebar.is-collapsed .sidebar-toggle-btn {
+  justify-content: center;
+  padding: 0.75rem 0.625rem;
 }

@@ -1,4 +1,4 @@
-import { Component, computed, effect, Signal } from '@angular/core';
+import { Component, computed, effect, Signal, Renderer2, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
@@ -32,6 +32,7 @@ export class App {
   token$;
   user$;
   readonly isAdminUrl: Signal<boolean | undefined>;
+  private renderer = inject(Renderer2);
 
   readonly isAdmin = computed(() =>
     ADMIN_ROLES.includes(this.user$()?.roleName ?? ''),
@@ -63,5 +64,15 @@ export class App {
   ngOnInit() {
     this.translate.addLangs(['en', 'es']);
     this.translate.setDefaultLang('es');
+  }
+
+  onNavVisibilityChange(visible: boolean) {
+    if (typeof document !== 'undefined') {
+      if (visible) {
+        this.renderer.removeClass(document.body, 'admin-nav-hidden');
+      } else {
+        this.renderer.addClass(document.body, 'admin-nav-hidden');
+      }
+    }
   }
 }

@@ -2,30 +2,30 @@
   background: var(--m-surface-2);
   border-bottom: 1px solid var(--m-border-color);
   box-shadow: var(--m-shadow);
-  transition: transform 0.3s ease, visibility 0s, box-shadow 0.3s ease;
+  overflow: visible;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-wrapper.is-collapsed {
   transform: translateY(-100%);
-  visibility: hidden;
   box-shadow: none;
-  transition: transform 0.3s ease, visibility 0s 0.3s, box-shadow 0.3s ease;
 }
 
-/* Pull tab — flota desde el borde superior derecho cuando el header está colapsado */
+/* Pull tab — dentro del header-wrapper, sobresale por debajo */
 .nav-pull-tab {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  bottom: 0.1rem;
   right: 1.5rem;
-  z-index: 1001;
+  transform: translateY(100%);
+  z-index: -1;
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 4px 14px 9px;
-  background: rgba(15, 23, 42, 0.85);
+  background: var(--m-info-glow);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  border: 1px solid var(--m-info-border);
   border-top: none;
   border-radius: 0 0 14px 14px;
   cursor: pointer;
@@ -33,16 +33,19 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: rgba(99, 102, 241, 0.8);
-  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.18), inset 0 -1px 0 rgba(99, 102, 241, 0.1);
-  transition: all 0.2s ease;
+  color: var(--m-info);
+  box-shadow: 0 4px 24px var(--m-info-glow), inset 0 -1px 0 var(--m-info-border);
 }
 
 .nav-pull-tab:hover {
-  color: #a5b4fc;
-  border-color: rgba(99, 102, 241, 0.6);
-  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.35), inset 0 -1px 0 rgba(99, 102, 241, 0.2);
-  background: rgba(20, 20, 50, 0.92);
+  color: var(--m-info);
+  border-color: var(--m-info);
+  box-shadow: 0 6px 30px var(--m-info-glow), inset 0 -1px 0 var(--m-info-border);
+  background: rgba(6, 182, 212, 0.15);
+}
+
+.nav-pull-tab m-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .user-menu-dropdown {
