@@ -30,4 +30,15 @@
     }
   </ul>
 
+  <!-- Toggle button en la parte inferior -->
+  <button
+    class="sidebar-toggle-btn"
+    (click)="toggleSidebar.emit()"
+    type="button"
+    [attr.aria-label]="collapsed() ? 'Expandir sidebar' : 'Colapsar sidebar'"
+  >
+    <m-icon [icon]="collapsed() ? 'lucide:panel-left-open' : 'lucide:panel-left-close'" size="20" />
+    <span class="sidebar-toggle-label">{{ collapsed() ? 'Expandir' : 'Colapsar' }}</span>
+  </button>
+
 </nav>

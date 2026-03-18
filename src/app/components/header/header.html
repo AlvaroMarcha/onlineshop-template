@@ -1,14 +1,14 @@
 <!-- Modern Marcha UI Header -->
-<!-- Pull tab — visible cuando el header está colapsado en modo admin -->
-@if (adminMode && !navVisible) {
-  <button class="nav-pull-tab" type="button" (click)="navVisible = true">
-    <m-icon icon="lucide:chevron-down" [size]="13" />
-    <span>Menú</span>
-  </button>
-}
-
 <div class="fixed top-0 left-0 right-0 z-[1000] header-wrapper"
-     [class.is-collapsed]="adminMode && !navVisible">
+     [class.is-collapsed]="adminMode && !navVisible"
+     #headerWrapper>
+  <!-- Pull tab — siempre visible en modo admin, se mueve con el header -->
+  @if (adminMode) {
+    <button class="nav-pull-tab" type="button" (click)="toggleNav()">
+      <m-icon [icon]="navVisible ? 'lucide:chevron-up' : 'lucide:chevron-down'" [size]="13" />
+      <span>Menú</span>
+    </button>
+  }
   <m-menubar
     [items]="menubarItems"
     logo="logos/principal.jpg"
@@ -98,17 +98,6 @@
           variant="outlined"
           size="small"
           (onClick)="onLoginClick()"
-        />
-      }
-
-      <!-- Minimizar nav — solo en modo admin y cuando visible -->
-      @if (adminMode && navVisible) {
-        <m-button
-          icon="lucide:chevron-up"
-          variant="text"
-          [rounded]="true"
-          size="small"
-          (onClick)="navVisible = false"
         />
       }
 

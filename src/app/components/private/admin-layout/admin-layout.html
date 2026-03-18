@@ -6,7 +6,10 @@
     [class.is-collapsed]="sidebarCollapsed()"
     [class.is-mobile-open]="mobileSidebarOpen()"
   >
-    <app-admin-sidebar [collapsed]="sidebarCollapsed()" />
+    <app-admin-sidebar 
+      [collapsed]="sidebarCollapsed()" 
+      (toggleSidebar)="onToggleSidebar()"
+    />
   </div>
 
   <!-- Mobile overlay -->
@@ -25,13 +28,6 @@
     class="admin-content"
     [class.sidebar-collapsed]="sidebarCollapsed()"
   >
-    <div class="admin-header-wrap">
-      <app-admin-header
-        [collapsed]="sidebarCollapsed()"
-        (toggleSidebar)="onToggleSidebar()"
-      />
-    </div>
-
     <main class="admin-main">
       <router-outlet />
     </main>

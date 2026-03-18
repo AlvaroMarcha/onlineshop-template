@@ -1,5 +1,8 @@
 <m-toast />
-<app-header [adminMode]="isAdminUrl() ?? false"></app-header>
+<app-header 
+  [adminMode]="isAdminUrl() ?? false"
+  (navVisibilityChange)="onNavVisibilityChange($event)"
+></app-header>
 <router-outlet></router-outlet>
 @if (!isAdminUrl()) {
   <app-footer></app-footer>

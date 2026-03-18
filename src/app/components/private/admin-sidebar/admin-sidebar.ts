@@ -1,5 +1,5 @@
 import {
-  Component, input, computed,
+  Component, input, output, computed,
   ChangeDetectionStrategy, inject,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -77,6 +77,7 @@ const NAV_ITEMS: AdminNavItem[] = [
 })
 export class AdminSidebar {
   readonly collapsed = input(false);
+  readonly toggleSidebar = output<void>();
 
   private readonly store = inject(Store);
   readonly user = toSignal(this.store.select(selectUser));
