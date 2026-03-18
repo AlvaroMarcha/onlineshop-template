@@ -116,8 +116,8 @@ describe('ProductForm', () => {
     it('dispatches adminProductCreate on valid submit', () => {
       const spy = spyOn(store, 'dispatch');
       component.form.patchValue({
-        name: 'Nuevo Producto', sku: 'NEW-001', price: 10, taxRate: 21, stock: 5,
-        lowStockThreshold: 2, slug: '', description: '', isDigital: false, isFeatured: false,
+        name: 'Nuevo Producto', price: 10, taxRate: 21, stock: 5,
+        lowStockThreshold: 2, description: '', isDigital: false, isFeatured: false,
       });
       component.submit();
       expect(spy).toHaveBeenCalledWith(
@@ -127,7 +127,7 @@ describe('ProductForm', () => {
 
     it('does NOT dispatch on invalid submit', () => {
       const spy = spyOn(store, 'dispatch');
-      component.form.patchValue({ name: '', sku: '' });
+      component.form.patchValue({ name: '' });
       component.submit();
       expect(spy).not.toHaveBeenCalledWith(
         jasmine.objectContaining({ type: adminProductCreate.type })
@@ -159,8 +159,8 @@ describe('ProductForm', () => {
       const spy = spyOn(store, 'dispatch');
       component.startEditing(); // Habilitar edición (patrón view-first)
       component.form.patchValue({
-        name: 'Updated', sku: 'UPD-001', price: 99, taxRate: 21, stock: 10,
-        lowStockThreshold: 3, slug: '', description: '', isDigital: false, isFeatured: false,
+        name: 'Updated', price: 99, taxRate: 21, stock: 10,
+        lowStockThreshold: 3, description: '', isDigital: false, isFeatured: false,
       });
       component.submit();
       expect(spy).toHaveBeenCalledWith(

@@ -79,8 +79,6 @@ export class ProductForm implements OnInit, OnDestroy {
   // ── Formulario ────────────────────────────────────────────────
   readonly form = new FormGroup({
     name:               new FormControl('',          { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),
-    sku:                new FormControl({ value: '', disabled: true }, { nonNullable: true, validators: [Validators.required] }),
-    slug:               new FormControl({ value: '', disabled: true }, { nonNullable: true }),
     description:        new FormControl('',          { nonNullable: true }),
     price:              new FormControl<number>(0,   { nonNullable: true, validators: [Validators.required, Validators.min(0)] }),
     discountPrice:      new FormControl<number | null>(null, { validators: [Validators.min(0)] }),
@@ -121,8 +119,6 @@ export class ProductForm implements OnInit, OnDestroy {
         if (product && this.isEdit()) {
           this.form.patchValue({
             name:              product.name,
-            sku:               product.sku,
-            slug:              product.slug ?? '',
             description:       product.description ?? '',
             price:             product.price,
             discountPrice:     product.discountPrice,
@@ -168,8 +164,6 @@ export class ProductForm implements OnInit, OnDestroy {
     const raw = this.form.getRawValue();
     const payload: ProductCreateRequest = {
       name:              raw.name,
-      sku:               raw.sku,
-      slug:              raw.slug,
       description:       raw.description,
       price:             raw.price,
       discountPrice:     raw.discountPrice,
@@ -217,8 +211,6 @@ export class ProductForm implements OnInit, OnDestroy {
     if (product) {
       this.form.patchValue({
         name:              product.name,
-        sku:               product.sku,
-        slug:              product.slug ?? '',
         description:       product.description ?? '',
         price:             product.price,
         discountPrice:     product.discountPrice,
@@ -241,12 +233,7 @@ export class ProductForm implements OnInit, OnDestroy {
 
   startEditing(): void {
     this.editing.set(true);
-    // Habilitar todos excepto slug y sku (se generan automáticamente)
-    Object.keys(this.form.controls).forEach(key => {
-      if (key !== 'slug' && key !== 'sku') {
-        this.form.get(key)?.enable();
-      }
-    });
+    this.form.enable();
   }
 
   // ── Gallery ───────────────────────────────────────────────────

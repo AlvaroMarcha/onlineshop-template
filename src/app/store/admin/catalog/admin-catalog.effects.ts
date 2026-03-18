@@ -65,4 +65,26 @@ export class AdminCatalogEffects {
       catchError(err => of(A.adminCatalogFailure({ error: err?.error?.message ?? err.message })))
     ))
   ));
+
+  categoryToggle$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminCategoryToggle),
+    switchMap(({ id }) => this.svc.toggleCategory(id).pipe(
+      map(category => A.adminCategoryToggleSuccess({ category })),
+      catchError(err => of(
+        A.adminCatalogFailure({ error: err?.error?.message ?? err.message }),
+        A.adminCatalogLoad()  // revierte el update optimista
+      ))
+    ))
+  ));
+
+  subcategoryToggle$ = createEffect(() => this.actions$.pipe(
+    ofType(A.adminSubcategoryToggle),
+    switchMap(({ categoryId, id }) => this.svc.toggleSubcategory(id).pipe(
+      map(subcategory => A.adminSubcategoryToggleSuccess({ categoryId, subcategory })),
+      catchError(err => of(
+        A.adminCatalogFailure({ error: err?.error?.message ?? err.message }),
+        A.adminCatalogLoad()  // revierte el update optimista
+      ))
+    ))
+  ));
 }

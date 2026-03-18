@@ -15,6 +15,22 @@ export const adminCatalogReducer = createReducer(
      A.adminSubcategoryDelete,
      (state) => ({ ...state, saving: true, error: null })
   ),
+  // toggle: actualización optimista — invierte active de inmediato, el servidor confirma
+  on(A.adminCategoryToggle, (state, { id }) => ({
+    ...state, toggling: true, error: null,
+    categories: state.categories.map(c =>
+      c.id === id ? { ...c, active: !c.active } : c
+    ),
+  })),
+  on(A.adminSubcategoryToggle, (state, { categoryId, id }) => ({
+    ...state, toggling: true, error: null,
+    categories: state.categories.map(c =>
+      c.id === categoryId
+        ? { ...c, subcategories: c.subcategories.map(s => s.id === id ? { ...s, active: !s.active } : s) }
+        : c
+    ),
+  })),
+
 
   // load success
   on(A.adminCatalogLoadSuccess, (state, { categories }) => ({
@@ -68,8 +84,24 @@ export const adminCatalogReducer = createReducer(
     ),
   })),
 
+  // category toggle
+  on(A.adminCategoryToggleSuccess, (state, { category }) => ({
+    ...state, toggling: false,
+    categories: state.categories.map(c => c.id === category.id ? category : c),
+  })),
+
+  // subcategory toggle
+  on(A.adminSubcategoryToggleSuccess, (state, { categoryId, subcategory }) => ({
+    ...state, toggling: false,
+    categories: state.categories.map(c =>
+      c.id === categoryId
+        ? { ...c, subcategories: c.subcategories.map(s => s.id === subcategory.id ? subcategory : s) }
+        : c
+    ),
+  })),
+
   // error
   on(A.adminCatalogFailure, (state, { error }) => ({
-    ...state, loading: false, saving: false, error,
+    ...state, loading: false, saving: false, toggling: false, error,
   })),
 );

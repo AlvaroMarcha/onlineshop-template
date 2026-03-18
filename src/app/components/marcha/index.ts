@@ -77,7 +77,7 @@ export { MCalendar } from './m-calendar/m-calendar';
 export type { MCalendarMode, MDateRange } from './m-calendar/m-calendar';
 
 export { MTable } from './m-table/m-table';
-export type { MTableColumn, MTableVariant, MTableRow, MTableAction } from './m-table/m-table';
+export type { MTableColumn, MTableVariant, MTableRow, MTableAction, MTableToggleChange } from './m-table/m-table';
 
 export { MColorPicker } from './m-color-picker/m-color-picker';
 

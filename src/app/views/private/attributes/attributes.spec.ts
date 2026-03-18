@@ -38,7 +38,7 @@ const INITIAL_STATE = {
     searchParams: { page: 0, size: 20, includeInactive: true },
     loading: false, saving: false, error: null,
   },
-  catalog: { categories: [], loading: false, saving: false, error: null },
+  catalog: { categories: [], loading: false, saving: false, toggling: false, error: null },
 };
 
 const MOCK_VALUE: ProductAttribValue = { id: 100, value: 'Rojo', active: true };

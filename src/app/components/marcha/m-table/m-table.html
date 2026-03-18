@@ -160,6 +160,28 @@
                     @case ('avatar') {
                       <m-avatar [label]="cellValue(row, col.field)" size="small" />
                     }
+                    @case ('toggle') {
+                      <m-toggle-switch
+                        size="sm"
+                        [ngModel]="cellValue(row, col.field)"
+                        (ngModelChange)="onCellToggle(col, row, $event)"
+                      />
+                    }
+                    @case ('toggle-btn') {
+                      <button
+                        type="button"
+                        class="m-table-action-btn"
+                        [class]="'m-table-action-btn--' + (cellValue(row, col.field) ? (col.toggleButtonSeverity ?? 'success') : 'secondary')"
+                        (click)="onToggleBtnClick(col, row, $event)"
+                      >
+                        @if (col.toggleIcon) {
+                          <m-icon [icon]="col.toggleIcon" [size]="13" />
+                        }
+                        @if (col.toggleLabel) {
+                          <span class="m-table-action-label">{{ col.toggleLabel(cellValue(row, col.field)) }}</span>
+                        }
+                      </button>
+                    }
                     @default {
                       {{ formatCell(col, cellValue(row, col.field), row) }}
                     }

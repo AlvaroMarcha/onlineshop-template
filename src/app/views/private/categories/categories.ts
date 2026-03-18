@@ -8,20 +8,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   MCard, MButton, MTable, MIcon, MDialog, MInput, MChip,
 } from '../../../components/marcha';
-import type { MTableColumn, MTableAction, MChipSeverity } from '../../../components/marcha';
+import type { MTableColumn, MTableAction, MTableToggleChange } from '../../../components/marcha';
 import {
   adminCatalogLoad,
   adminCategoryCreate,
   adminCategoryUpdate,
   adminCategoryDelete,
+  adminCategoryToggle,
   adminSubcategoryCreate,
   adminSubcategoryUpdate,
   adminSubcategoryDelete,
+  adminSubcategoryToggle,
 } from '../../../store/admin/catalog/admin-catalog.actions';
 import {
   selectAdminCatalogCategories,
   selectAdminCatalogLoading,
   selectAdminCatalogSaving,
+  selectAdminCatalogToggling,
   selectAdminCatalogError,
 } from '../../../store/admin/catalog/admin-catalog.selectors';
 import { CategoryAdmin, SubcategoryAdmin } from '../../../type/admin-types';
@@ -44,6 +47,7 @@ export class CategoriesAdmin implements OnInit {
   readonly allCategories = toSignal(this.store.select(selectAdminCatalogCategories), { initialValue: [] });
   readonly loading       = toSignal(this.store.select(selectAdminCatalogLoading),    { initialValue: false });
   readonly saving        = toSignal(this.store.select(selectAdminCatalogSaving),     { initialValue: false });
+  readonly toggling      = toSignal(this.store.select(selectAdminCatalogToggling),   { initialValue: false });
   readonly error         = toSignal(this.store.select(selectAdminCatalogError));
 
   // ── Filtro local ─────────────────────────────────────────────
@@ -72,7 +76,6 @@ export class CategoriesAdmin implements OnInit {
 
   readonly categoryForm = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    slug: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   // ── Diálogo de borrado de categoría ──────────────────────────
@@ -86,7 +89,6 @@ export class CategoriesAdmin implements OnInit {
 
   readonly subcategoryForm = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    slug: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   // ── Diálogo de borrado de subcategoría ───────────────────────
@@ -98,9 +100,10 @@ export class CategoriesAdmin implements OnInit {
     { field: 'name', header: 'Nombre' },
     { field: 'slug', header: 'Slug' },
     {
-      field: 'active', header: 'Estado', type: 'badge', align: 'center',
-      badgeSeverity: (v) => (v ? 'success' : 'secondary') as MChipSeverity,
-      badgeLabel:    (v) => (v ? 'Activa' : 'Inactiva'),
+      field: 'active', header: 'Estado', type: 'toggle-btn', align: 'center', width: '120px',
+      toggleLabel: (v) => v ? 'Activa' : 'Inactiva',
+      toggleIcon: 'lucide:circle-dot',
+      toggleButtonSeverity: 'success',
     },
     {
       field: 'subcategories', header: 'Subcategorías', align: 'center',
@@ -109,9 +112,9 @@ export class CategoriesAdmin implements OnInit {
   ];
 
   readonly categoryActions: MTableAction[] = [
-    { label: 'Subcategorías', icon: 'category',  severity: 'info'    },
-    { label: 'Editar',        icon: 'edit',       severity: 'primary' },
-    { label: 'Eliminar',      icon: 'delete',     severity: 'danger'  },
+    { label: 'Subcategorías', icon: 'category', severity: 'info'    },
+    { label: 'Editar',        icon: 'edit',     severity: 'primary' },
+    { label: 'Eliminar',      icon: 'delete',   severity: 'danger'  },
   ];
 
   // ── Columnas tabla subcategorías ──────────────────────────────
@@ -119,9 +122,10 @@ export class CategoriesAdmin implements OnInit {
     { field: 'name', header: 'Nombre' },
     { field: 'slug', header: 'Slug' },
     {
-      field: 'active', header: 'Estado', type: 'badge', align: 'center',
-      badgeSeverity: (v) => (v ? 'success' : 'secondary') as MChipSeverity,
-      badgeLabel:    (v) => (v ? 'Activa' : 'Inactiva'),
+      field: 'active', header: 'Estado', type: 'toggle-btn', align: 'center', width: '120px',
+      toggleLabel: (v) => v ? 'Activa' : 'Inactiva',
+      toggleIcon: 'lucide:circle-dot',
+      toggleButtonSeverity: 'success',
     },
   ];
 
@@ -148,6 +152,11 @@ export class CategoriesAdmin implements OnInit {
     }
   }
 
+  onCategoryToggle(event: MTableToggleChange) {
+    const cat = event.row as unknown as CategoryAdmin;
+    this.store.dispatch(adminCategoryToggle({ id: cat.id }));
+  }
+
   openCategoryCreateDialog() {
     this.categoryDialogMode.set('create');
     this.categoryTarget.set(null);
@@ -158,18 +167,18 @@ export class CategoriesAdmin implements OnInit {
   openCategoryEditDialog(cat: CategoryAdmin) {
     this.categoryDialogMode.set('edit');
     this.categoryTarget.set(cat);
-    this.categoryForm.setValue({ name: cat.name, slug: cat.slug });
+    this.categoryForm.setValue({ name: cat.name });
     this.categoryDialogVisible.set(true);
   }
 
   submitCategory() {
     if (this.categoryForm.invalid) return;
-    const { name, slug } = this.categoryForm.getRawValue();
+    const { name } = this.categoryForm.getRawValue();
     const target = this.categoryTarget();
     if (this.categoryDialogMode() === 'create') {
-      this.store.dispatch(adminCategoryCreate({ payload: { name, slug } }));
+      this.store.dispatch(adminCategoryCreate({ payload: { name } }));
     } else if (target) {
-      this.store.dispatch(adminCategoryUpdate({ id: target.id, payload: { name, slug } }));
+      this.store.dispatch(adminCategoryUpdate({ id: target.id, payload: { name } }));
     }
     this.categoryDialogVisible.set(false);
   }
@@ -197,6 +206,12 @@ export class CategoriesAdmin implements OnInit {
     }
   }
 
+  onSubcategoryToggle(event: MTableToggleChange) {
+    const sub = event.row as unknown as SubcategoryAdmin;
+    const cat = this.selectedCategory();
+    if (cat) this.store.dispatch(adminSubcategoryToggle({ categoryId: cat.id, id: sub.id }));
+  }
+
   openSubcategoryCreateDialog() {
     this.subcategoryDialogMode.set('create');
     this.subcategoryTarget.set(null);
@@ -207,20 +222,20 @@ export class CategoriesAdmin implements OnInit {
   openSubcategoryEditDialog(sub: SubcategoryAdmin) {
     this.subcategoryDialogMode.set('edit');
     this.subcategoryTarget.set(sub);
-    this.subcategoryForm.setValue({ name: sub.name, slug: sub.slug });
+    this.subcategoryForm.setValue({ name: sub.name });
     this.subcategoryDialogVisible.set(true);
   }
 
   submitSubcategory() {
     if (this.subcategoryForm.invalid) return;
-    const { name, slug } = this.subcategoryForm.getRawValue();
+    const { name } = this.subcategoryForm.getRawValue();
     const cat = this.selectedCategory();
     if (!cat) return;
     const target = this.subcategoryTarget();
     if (this.subcategoryDialogMode() === 'create') {
-      this.store.dispatch(adminSubcategoryCreate({ payload: { name, slug, categoryId: cat.id } }));
+      this.store.dispatch(adminSubcategoryCreate({ payload: { name, categoryId: cat.id } }));
     } else if (target) {
-      this.store.dispatch(adminSubcategoryUpdate({ categoryId: cat.id, id: target.id, payload: { name, slug } }));
+      this.store.dispatch(adminSubcategoryUpdate({ categoryId: cat.id, id: target.id, payload: { name } }));
     }
     this.subcategoryDialogVisible.set(false);
   }

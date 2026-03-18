@@ -69,6 +69,25 @@ export const adminSubcategoryDeleteSuccess = createAction(
   props<{ categoryId: number; id: number }>()
 );
 
+// ── Toggle activo ──────────────────────────────────────────────
+export const adminCategoryToggle = createAction(
+  '[AdminCatalog] Category Toggle',
+  props<{ id: number }>()
+);
+export const adminCategoryToggleSuccess = createAction(
+  '[AdminCatalog] Category Toggle Success',
+  props<{ category: CategoryAdmin }>()
+);
+
+export const adminSubcategoryToggle = createAction(
+  '[AdminCatalog] Subcategory Toggle',
+  props<{ categoryId: number; id: number }>()
+);
+export const adminSubcategoryToggleSuccess = createAction(
+  '[AdminCatalog] Subcategory Toggle Success',
+  props<{ categoryId: number; subcategory: SubcategoryAdmin }>()
+);
+
 // ── Error genérico ─────────────────────────────────────────────
 export const adminCatalogFailure = createAction(
   '[AdminCatalog] Failure',

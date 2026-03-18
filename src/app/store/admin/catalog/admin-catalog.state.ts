@@ -4,12 +4,14 @@ export interface AdminCatalogState {
   categories: CategoryAdmin[];
   loading: boolean;
   saving: boolean;
+  toggling: boolean;
   error: string | null;
 }
 
 export const initialAdminCatalogState: AdminCatalogState = {
   categories: [],
-  loading: false,
-  saving:  false,
-  error:   null,
+  loading:  false,
+  saving:   false,
+  toggling: false,
+  error:    null,
 };

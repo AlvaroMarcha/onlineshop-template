@@ -18,6 +18,11 @@ export const selectAdminCatalogSaving = createSelector(
   (state) => state.saving
 );
 
+export const selectAdminCatalogToggling = createSelector(
+  selectAdminCatalog,
+  (state) => state.toggling
+);
+
 export const selectAdminCatalogError = createSelector(
   selectAdminCatalog,
   (state) => state.error
