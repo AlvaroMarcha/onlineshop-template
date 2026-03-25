@@ -36,9 +36,9 @@ describe('AdminCatalogService', () => {
 
   // ── Categorías ───────────────────────────────────────────────
 
-  it('getCategories() should GET /categories', () => {
+  it('getCategories() should GET /categories/admin', () => {
     service.getCategories().subscribe(cats => expect(cats).toEqual([mockCategory]));
-    const req = httpMock.expectOne(categoriesApi);
+    const req = httpMock.expectOne(`${categoriesApi}/admin`);
     expect(req.request.method).toBe('GET');
     req.flush([mockCategory]);
   });
@@ -51,7 +51,7 @@ describe('AdminCatalogService', () => {
   });
 
   it('createCategory() should POST /categories', () => {
-    const payload: CategoryCreateRequest = { name: 'Cat B', slug: 'cat-b' };
+    const payload: CategoryCreateRequest = { name: 'Cat B' };
     service.createCategory(payload).subscribe(cat => expect(cat).toEqual(mockCategory));
     const req = httpMock.expectOne(categoriesApi);
     expect(req.request.method).toBe('POST');
@@ -75,10 +75,17 @@ describe('AdminCatalogService', () => {
     req.flush(null);
   });
 
+  it('toggleCategory() should PATCH /categories/{id}/toggle', () => {
+    service.toggleCategory(1).subscribe(cat => expect(cat).toEqual(mockCategory));
+    const req = httpMock.expectOne(`${categoriesApi}/1/toggle`);
+    expect(req.request.method).toBe('PATCH');
+    req.flush(mockCategory);
+  });
+
   // ── Subcategorías ─────────────────────────────────────────────
 
   it('createSubcategory() should POST /categories/subcategories', () => {
-    const payload: SubcategoryCreateRequest = { name: 'Sub B', slug: 'sub-b', categoryId: 1 };
+    const payload: SubcategoryCreateRequest = { name: 'Sub B', categoryId: 1 };
     service.createSubcategory(payload).subscribe(sub => expect(sub).toEqual(mockSubcategory));
     const req = httpMock.expectOne(subcategoriesApi);
     expect(req.request.method).toBe('POST');
@@ -100,5 +107,12 @@ describe('AdminCatalogService', () => {
     const req = httpMock.expectOne(`${subcategoriesApi}/10`);
     expect(req.request.method).toBe('DELETE');
     req.flush(null);
+  });
+
+  it('toggleSubcategory() should PATCH /categories/subcategories/{id}/toggle', () => {
+    service.toggleSubcategory(10).subscribe(sub => expect(sub).toEqual(mockSubcategory));
+    const req = httpMock.expectOne(`${subcategoriesApi}/10/toggle`);
+    expect(req.request.method).toBe('PATCH');
+    req.flush(mockSubcategory);
   });
 });

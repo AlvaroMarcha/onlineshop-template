@@ -401,7 +401,6 @@ export interface ProductAdmin {
 /** Request para crear producto. Backend: ProductRequestDTO */
 export interface ProductCreateRequest {
   name: string;
-  sku: string;
   description: string;
   price: number;
   discountPrice: number | null;
@@ -409,7 +408,6 @@ export interface ProductCreateRequest {
   weight: number | null;
   isDigital: boolean;
   isFeatured: boolean;
-  slug: string;
   metaTitle: string | null;
   metaDescription: string | null;
   lowStockThreshold: number;
@@ -455,12 +453,10 @@ export interface CategoryAdmin {
 
 export interface CategoryCreateRequest {
   name: string;
-  slug: string;
 }
 
 export interface SubcategoryCreateRequest {
   name: string;
-  slug: string;
   categoryId: number;
 }
 

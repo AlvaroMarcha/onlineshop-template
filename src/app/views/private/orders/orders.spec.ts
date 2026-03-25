@@ -33,7 +33,7 @@ const INITIAL_STATE = {
     searchParams: { page: 0, size: 20, includeInactive: true },
     loading: false, saving: false, error: null,
   },
-  catalog: { categories: [], loading: false, saving: false, error: null },
+  catalog: { categories: [], loading: false, saving: false, toggling: false, error: null },
   orders: {
     orders: null, selected: null,
     searchParams: { page: 0, size: 20 },

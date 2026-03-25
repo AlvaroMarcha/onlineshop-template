@@ -100,9 +100,9 @@ describe('AdminProductService', () => {
   describe('createProduct()', () => {
     it('calls POST /products', () => {
       const payload: ProductCreateRequest = {
-        name: 'New', sku: 'SKU-002', description: 'Desc', price: 10,
+        name: 'New', description: 'Desc', price: 10,
         discountPrice: null, taxRate: 21, weight: null, isDigital: false,
-        isFeatured: false, slug: 'new', metaTitle: null, metaDescription: null,
+        isFeatured: false, metaTitle: null, metaDescription: null,
         lowStockThreshold: 2, stock: 5, categoryIds: []
       };
       service.createProduct(payload).subscribe(p => expect(p).toEqual(mockProduct));

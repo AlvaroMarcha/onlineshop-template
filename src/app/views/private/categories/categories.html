@@ -37,10 +37,12 @@
     </div>
   }
 
-  <!-- Tabla de categorías -->
+  <!-- Meta -->
   <div class="categories-admin__meta">
     <m-chip severity="info" size="sm" [label]="categories().length + ' ' + ('admin.categories.items' | translate)" />
   </div>
+
+  <!-- Contenedor principal: tabla + subcategorías -->
   <m-card variant="solid" class="categories-admin__table-card">
     <m-table
       [columns]="categoryColumns"
@@ -51,52 +53,58 @@
       trackByField="id"
       variant="default"
       (actionClick)="onCategoryAction($event)"
+      (toggleChange)="onCategoryToggle($event)"
     />
-  </m-card>
 
-  <!-- Panel de subcategorías -->
-  @if (selectedCategory()) {
-    <m-card variant="solid" class="categories-admin__subcategories">
-      <div class="categories-admin__sub-header">
-        <div class="categories-admin__sub-title-block">
-          <m-icon name="category" class="categories-admin__sub-icon" />
-          <h2 class="categories-admin__sub-title">
-            {{ 'admin.categories.subcategories_of' | translate }} <strong>{{ selectedCategory()!.name }}</strong>
-          </h2>
+    <!-- Subcategorías (dentro de la misma card) -->
+    @if (selectedCategory()) {
+      <div class="categories-admin__sub-section">
+
+        <!-- Header -->
+        <div class="categories-admin__sub-header">
+          <div class="categories-admin__sub-title-row">
+            <m-icon name="subdirectory_arrow_right" class="categories-admin__sub-icon" />
+            <h2 class="categories-admin__sub-title">
+              {{ 'admin.categories.subcategories_of' | translate }}
+              <strong>{{ selectedCategory()!.name }}</strong>
+            </h2>
+          </div>
+          <div class="categories-admin__sub-actions">
+            <m-button
+              icon="add"
+              iconPos="left"
+              size="small"
+              variant="filled"
+              severity="primary"
+              [label]="'admin.categories.new_subcategory' | translate"
+              (click)="openSubcategoryCreateDialog()"
+            />
+            <m-button
+              icon="lucide:x"
+              size="small"
+              variant="outlined"
+              severity="secondary"
+              (click)="selectedCategory.set(null)"
+            />
+          </div>
         </div>
-        <div class="categories-admin__sub-actions">
-          <m-button
-            icon="add"
-            iconPos="left"
-            size="small"
-            variant="filled"
-            severity="primary"
-            (click)="openSubcategoryCreateDialog()"
-          >
-            {{ 'admin.categories.new_subcategory' | translate }}
-          </m-button>
-          <m-button
-            icon="close"
-            size="small"
-            variant="text"
-            severity="secondary"
-            (click)="selectedCategory.set(null)"
-          ></m-button>
-        </div>
+
+        <!-- Tabla subcategorías -->
+        <m-table
+          [columns]="subcategoryColumns"
+          [data]="subcategoryRows()"
+          [actions]="subcategoryActions"
+          [loading]="loading()"
+          [emptyMessage]="'admin.categories.subcategories_empty' | translate"
+          trackByField="id"
+          variant="default"
+          (actionClick)="onSubcategoryAction($event)"
+          (toggleChange)="onSubcategoryToggle($event)"
+        />
+
       </div>
-
-      <m-table
-        [columns]="subcategoryColumns"
-        [data]="subcategoryRows()"
-        [actions]="subcategoryActions"
-        [loading]="saving()"
-        [emptyMessage]="'admin.categories.subcategories_empty' | translate"
-        trackByField="id"
-        variant="default"
-        (actionClick)="onSubcategoryAction($event)"
-      />
-    </m-card>
-  }
+    }
+  </m-card>
 
 </section>
 
@@ -113,12 +121,6 @@
       formControlName="name"
       [placeholder]="'admin.categories.field_name' | translate"
       icon="label"
-      size="small"
-    />
-    <m-input
-      formControlName="slug"
-      [placeholder]="'admin.categories.field_slug' | translate"
-      icon="link"
       size="small"
     />
     <div class="categories-admin__dialog-actions">
@@ -167,12 +169,6 @@
       formControlName="name"
       [placeholder]="'admin.categories.field_name' | translate"
       icon="label"
-      size="small"
-    />
-    <m-input
-      formControlName="slug"
-      [placeholder]="'admin.categories.field_slug' | translate"
-      icon="link"
       size="small"
     />
     <div class="categories-admin__dialog-actions">

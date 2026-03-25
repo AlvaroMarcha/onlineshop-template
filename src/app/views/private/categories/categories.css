@@ -40,11 +40,6 @@
   align-items: center;
 }
 
-.categories-admin__table-card {
-  padding: 0;
-  overflow: hidden;
-}
-
 .categories-admin__error {
   display: flex;
   align-items: center;
@@ -57,11 +52,33 @@
   font-size: 0.9rem;
 }
 
-/* Subcategories panel */
-.categories-admin__subcategories {
+/* ── Card contenedora (tabla + subcategorías) ─────────────────── */
+
+.categories-admin__table-card {
   padding: 0;
   overflow: hidden;
-  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+/* ── Sección subcategorías (dentro de la misma card) ──────── */
+
+.categories-admin__sub-section {
+  margin: 0.75rem 0.75rem 0.75rem 1.5rem;
+  border-left: 3px solid var(--m-primary, #6366f1);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: rgba(99, 102, 241, 0.04);
+  overflow: hidden;
+  animation: sub-expand 0.2s ease-out both;
+}
+
+@keyframes sub-expand {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .categories-admin__sub-header {
@@ -70,35 +87,48 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0.625rem 1rem;
+  background: rgba(99, 102, 241, 0.06);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.1);
 }
 
-.categories-admin__sub-title-block {
+.categories-admin__sub-title-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .categories-admin__sub-icon {
+  font-size: 1.125rem;
   color: var(--m-primary, #6366f1);
-  font-size: 1.25rem;
+  flex-shrink: 0;
 }
 
 .categories-admin__sub-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--m-text-primary, #f1f5f9);
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: var(--m-text-secondary, #94a3b8);
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.categories-admin__sub-title strong {
+  color: var(--m-text-primary, #f1f5f9);
+  font-weight: 700;
 }
 
 .categories-admin__sub-actions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
-/* Dialog */
+/* ── Diálogos ────────────────────────────────────────────────── */
+
 .categories-admin__form {
   display: flex;
   flex-direction: column;
@@ -117,3 +147,4 @@
   gap: 0.5rem;
   margin-top: 0.25rem;
 }
+

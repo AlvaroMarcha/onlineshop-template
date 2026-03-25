@@ -9,6 +9,7 @@ import {
   selectAdminCatalogCategories,
   selectAdminCatalogLoading,
   selectAdminCatalogSaving,
+  selectAdminCatalogToggling,
   selectAdminCatalogError,
 } from '../../../store/admin/catalog/admin-catalog.selectors';
 import {
@@ -16,9 +17,11 @@ import {
   adminCategoryCreate,
   adminCategoryUpdate,
   adminCategoryDelete,
+  adminCategoryToggle,
   adminSubcategoryCreate,
   adminSubcategoryUpdate,
   adminSubcategoryDelete,
+  adminSubcategoryToggle,
 } from '../../../store/admin/catalog/admin-catalog.actions';
 import { CategoryAdmin, SubcategoryAdmin } from '../../../type/admin-types';
 
@@ -36,9 +39,9 @@ const INITIAL_STATE = {
   adminProducts: {
     page: null, selected: null, attribs: [],
     searchParams: { page: 0, size: 20, includeInactive: true },
-    loading: false, saving: false, error: null,
+    loading: false, saving: false, toggling: false, error: null,
   },
-  catalog: { categories: [], loading: false, saving: false, error: null },
+  catalog: { categories: [], loading: false, saving: false, toggling: false, error: null },
 };
 
 const MOCK_SUB: SubcategoryAdmin = { id: 10, name: 'Sub A', slug: 'sub-a', active: true };
@@ -66,6 +69,7 @@ describe('CategoriesAdmin', () => {
     store.overrideSelector(selectAdminCatalogCategories, []);
     store.overrideSelector(selectAdminCatalogLoading,    false);
     store.overrideSelector(selectAdminCatalogSaving,     false);
+    store.overrideSelector(selectAdminCatalogToggling,   false);
     store.overrideSelector(selectAdminCatalogError,      null);
     store.refreshState();
 
@@ -133,7 +137,7 @@ describe('CategoriesAdmin', () => {
     it('submitCategory() dispatches adminCategoryCreate in create mode', () => {
       const spy = spyOn(store, 'dispatch');
       component.openCategoryCreateDialog();
-      component.categoryForm.setValue({ name: 'New Cat', slug: 'new-cat' });
+      component.categoryForm.setValue({ name: 'New Cat' });
       component.submitCategory();
       expect(spy).toHaveBeenCalledWith(
         jasmine.objectContaining({ type: adminCategoryCreate.type })
@@ -144,7 +148,7 @@ describe('CategoriesAdmin', () => {
     it('submitCategory() dispatches adminCategoryUpdate in edit mode', () => {
       const spy = spyOn(store, 'dispatch');
       component.openCategoryEditDialog(MOCK_CAT);
-      component.categoryForm.setValue({ name: 'Updated', slug: 'updated' });
+      component.categoryForm.setValue({ name: 'Updated' });
       component.submitCategory();
       expect(spy).toHaveBeenCalledWith(
         jasmine.objectContaining({ type: adminCategoryUpdate.type })
@@ -154,7 +158,7 @@ describe('CategoriesAdmin', () => {
     it('submitCategory() does not dispatch when form is invalid', () => {
       const spy = spyOn(store, 'dispatch');
       component.openCategoryCreateDialog();
-      component.categoryForm.setValue({ name: '', slug: '' });
+      component.categoryForm.setValue({ name: '' });
       component.submitCategory();
       expect(spy).not.toHaveBeenCalled();
     });
@@ -180,6 +184,19 @@ describe('CategoriesAdmin', () => {
     });
   });
 
+  describe('Category toggle', () => {
+    it('onCategoryToggle() dispatches adminCategoryToggle', () => {
+      const spy = spyOn(store, 'dispatch');
+      component.onCategoryToggle({
+        row: MOCK_CAT as unknown as Record<string, unknown>,
+        field: 'active', value: false,
+      });
+      expect(spy).toHaveBeenCalledWith(
+        jasmine.objectContaining({ type: adminCategoryToggle.type, id: MOCK_CAT.id })
+      );
+    });
+  });
+
   describe('Subcategory dialog', () => {
     beforeEach(() => {
       component.selectedCategory.set(MOCK_CAT);
@@ -194,7 +211,7 @@ describe('CategoriesAdmin', () => {
     it('submitSubcategory() dispatches adminSubcategoryCreate', () => {
       const spy = spyOn(store, 'dispatch');
       component.openSubcategoryCreateDialog();
-      component.subcategoryForm.setValue({ name: 'New Sub', slug: 'new-sub' });
+      component.subcategoryForm.setValue({ name: 'New Sub' });
       component.submitSubcategory();
       expect(spy).toHaveBeenCalledWith(
         jasmine.objectContaining({ type: adminSubcategoryCreate.type })
@@ -204,7 +221,7 @@ describe('CategoriesAdmin', () => {
     it('submitSubcategory() dispatches adminSubcategoryUpdate in edit mode', () => {
       const spy = spyOn(store, 'dispatch');
       component.openSubcategoryEditDialog(MOCK_SUB);
-      component.subcategoryForm.setValue({ name: 'Updated', slug: 'updated' });
+      component.subcategoryForm.setValue({ name: 'Updated' });
       component.submitSubcategory();
       expect(spy).toHaveBeenCalledWith(
         jasmine.objectContaining({ type: adminSubcategoryUpdate.type })
@@ -223,6 +240,30 @@ describe('CategoriesAdmin', () => {
         jasmine.objectContaining({ type: adminSubcategoryDelete.type })
       );
       expect(component.deleteSubcategoryDialogVisible()).toBeFalse();
+    });
+  });
+
+  describe('Subcategory toggle', () => {
+    it('onSubcategoryToggle() dispatches adminSubcategoryToggle', () => {
+      const spy = spyOn(store, 'dispatch');
+      component.selectedCategory.set(MOCK_CAT);
+      component.onSubcategoryToggle({
+        row: MOCK_SUB as unknown as Record<string, unknown>,
+        field: 'active', value: false,
+      });
+      expect(spy).toHaveBeenCalledWith(
+        jasmine.objectContaining({ type: adminSubcategoryToggle.type, id: MOCK_SUB.id, categoryId: MOCK_CAT.id })
+      );
+    });
+
+    it('onSubcategoryToggle() does nothing when no category selected', () => {
+      const spy = spyOn(store, 'dispatch');
+      component.selectedCategory.set(null);
+      component.onSubcategoryToggle({
+        row: MOCK_SUB as unknown as Record<string, unknown>,
+        field: 'active', value: false,
+      });
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 

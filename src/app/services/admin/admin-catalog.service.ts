@@ -19,7 +19,7 @@ export class AdminCatalogService {
   // ── Categorías ────────────────────────────────────────────────
 
   getCategories(): Observable<CategoryAdmin[]> {
-    return this.http.get<CategoryAdmin[]>(this.categoriesApi);
+    return this.http.get<CategoryAdmin[]>(`${this.categoriesApi}/admin`);
   }
 
   getCategoryById(id: number): Observable<CategoryAdmin> {
@@ -34,6 +34,10 @@ export class AdminCatalogService {
     return this.http.put<CategoryAdmin>(`${this.categoriesApi}/${id}`, payload);
   }
 
+  toggleCategory(id: number): Observable<CategoryAdmin> {
+    return this.http.patch<CategoryAdmin>(`${this.categoriesApi}/${id}/toggle`, {});
+  }
+
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${this.categoriesApi}/${id}`);
   }
@@ -46,6 +50,10 @@ export class AdminCatalogService {
 
   updateSubcategory(id: number, payload: Partial<SubcategoryCreateRequest>): Observable<SubcategoryAdmin> {
     return this.http.put<SubcategoryAdmin>(`${this.subcategoriesApi}/${id}`, payload);
+  }
+
+  toggleSubcategory(id: number): Observable<SubcategoryAdmin> {
+    return this.http.patch<SubcategoryAdmin>(`${this.subcategoriesApi}/${id}/toggle`, {});
   }
 
   deleteSubcategory(id: number): Observable<void> {

@@ -2,10 +2,13 @@ import {
   Component, input, output, signal, computed,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { MIcon }   from '../m-icon/m-icon';
-import { MChip }   from '../m-chip/m-chip';
-import { MAvatar } from '../m-avatar/m-avatar';
+import { FormsModule } from '@angular/forms';
+import { MIcon }         from '../m-icon/m-icon';
+import { MChip }         from '../m-chip/m-chip';
+import { MAvatar }       from '../m-avatar/m-avatar';
+import { MToggleSwitch } from '../m-toggle-switch/m-toggle-switch';
 import type { MChipSeverity } from '../m-chip/m-chip';
+import type { MToggleButtonSeverity } from '../m-toggle-button/m-toggle-button';
 
 export type MTableVariant = 'default' | 'striped' | 'compact';
 type SortDir = 'asc' | 'desc' | null;
@@ -24,12 +27,18 @@ export interface MTableAction {
   disabled?: (row: MTableRow) => boolean;
 }
 
+export interface MTableToggleChange {
+  row: MTableRow;
+  field: string;
+  value: boolean;
+}
+
 export interface MTableColumn {
   field: string;
   header: string;
   sortable?: boolean;
-  /** text (default) | number | date | badge (→ m-chip) | avatar (→ m-avatar) */
-  type?: 'text' | 'number' | 'date' | 'badge' | 'avatar';
+  /** text (default) | number | date | badge (→ m-chip) | avatar (→ m-avatar) | toggle (→ m-toggle-switch) | toggle-btn (botón estilo acción con severity) */
+  type?: 'text' | 'number' | 'date' | 'badge' | 'avatar' | 'toggle' | 'toggle-btn';
   width?: string;
   align?: 'left' | 'center' | 'right';
   /** Para type='badge': severity según el valor de la celda */
@@ -38,13 +47,19 @@ export interface MTableColumn {
   badgeLabel?: (value: MTableRow[string], row: MTableRow) => string;
   /** Formateo libre del texto de la celda */
   format?: (value: MTableRow[string], row: MTableRow) => string;
+  /** Para type='toggle-btn': label según el valor booleano */
+  toggleLabel?: (value: boolean) => string;
+  /** Para type='toggle-btn': icono del botón */
+  toggleIcon?: string;
+  /** Para type='toggle-btn': severity del botón (por defecto 'success') */
+  toggleButtonSeverity?: MToggleButtonSeverity;
 }
 
 @Component({
   selector: 'm-table',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MIcon, MChip, MAvatar],
+  imports: [MIcon, MChip, MAvatar, MToggleSwitch, FormsModule],
   templateUrl: './m-table.html',
   styleUrl: './m-table.css',
 })
@@ -63,6 +78,8 @@ export class MTable {
   readonly selectionChange = output<MTableRow[]>();
   readonly rowClick        = output<MTableRow>();
   readonly actionClick     = output<{ action: MTableAction; row: MTableRow }>();
+  /** Emitido cuando el usuario opera un toggle (type='toggle') en una celda */
+  readonly toggleChange    = output<{ row: MTableRow; field: string; value: boolean }>();
 
   // ---- Estado interno ----
   readonly currentPage   = signal(1);
@@ -233,4 +250,14 @@ export class MTable {
   }
 
   trackRow(row: MTableRow): unknown { return row[this.trackByField()]; }
+
+  // ---- Toggle cell ----
+  onCellToggle(col: MTableColumn, row: MTableRow, value: boolean): void {
+    this.toggleChange.emit({ row, field: col.field, value });
+  }
+
+  onToggleBtnClick(col: MTableColumn, row: MTableRow, event: Event): void {
+    event.stopPropagation();
+    this.toggleChange.emit({ row, field: col.field, value: !this.cellValue(row, col.field) });
+  }
 }

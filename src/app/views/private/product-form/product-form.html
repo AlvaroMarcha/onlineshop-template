@@ -46,30 +46,6 @@
                 }
               </div>
 
-              <!-- SKU -->
-              <div class="form-field">
-                <m-float-label [label]="'admin.product_form.sku' | translate">
-                  <m-input
-                    [formControl]="form.controls.sku"
-                    placeholder=" "
-                  />
-                </m-float-label>
-                @if (form.controls.sku.invalid && form.controls.sku.touched) {
-                  <small class="error-message">{{ 'admin.product_form.sku_required' | translate }}</small>
-                }
-              </div>
-
-              <!-- Slug (readonly visual) -->
-              <div class="form-field form-field--full">
-                <m-float-label [label]="'admin.product_form.slug' | translate">
-                  <m-input
-                    [formControl]="form.controls.slug"
-                    placeholder=" "
-                  />
-                </m-float-label>
-                <small class="field-hint">{{ 'admin.product_form.slug_readonly' | translate }}</small>
-              </div>
-
               <!-- Description -->
               <div class="form-field form-field--full">
                 <m-float-label [label]="'admin.product_form.description' | translate">
